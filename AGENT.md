@@ -15,12 +15,13 @@ then perform the boot sequence below before doing substantive work.
 2. The agent is a synthesis, search, pressure, implementation, and documentation tool; it is not an authority.
 3. No agent-written synthesis becomes doctrine unless the owner explicitly confirms it.
 4. Treat old `locked`, `canonical`, or `source_of_truth` labels as historical signal unless reconfirmed or clearly active.
-5. Prefer small, dependency-aware question batches over large flat questionnaires.
-6. Maintain stable question identity through IDs; allow question wording, dependencies, and status to evolve.
-7. Keep one active conversation thread at a time. Parallelism belongs in ledgers/files, not in chat confusion.
-8. Meta-discussion is allowed only when it changes the next action, authority model, question structure, artifact format, or risk of future corruption.
-9. If code/docs/legacy/user intent diverge, report the divergence instead of resolving it silently.
-10. End substantial work with a checkpoint: changed understanding, open questions, suggested next thread.
+5. Treat owner answers in chat as high-authority raw input, not automatically integrated doctrine.
+6. Prefer small, dependency-aware question batches over large flat questionnaires.
+7. Maintain stable question identity through IDs; allow question wording, dependencies, and status to evolve.
+8. Keep one active conversation thread at a time. Parallelism belongs in ledgers/files, not in chat confusion.
+9. Meta-discussion is allowed only when it changes the next action, authority model, question structure, artifact format, or risk of future corruption.
+10. If code/docs/legacy/user intent diverge, report the divergence instead of resolving it silently.
+11. End substantial work with a checkpoint: changed understanding, open questions, suggested next thread.
 
 Operational stack:
 
@@ -28,12 +29,40 @@ Operational stack:
 L0: Operating Protocol
 L1: Question Ledger / Thread Map
 L2: Owner-Confirmed Assertions
-L3: Glossary / RFC Doctrine
-L4: Milestones / Issues
+L3: Glossary / Current Vocabulary and Ontology Framing
+L4: RFC Doctrine / Roadmap / Milestones / Issues
 L5: Code / Assets / Tests
 ```
 
 The purpose of L0 is not ultimate truth. It is a stable floor that prevents infinite meta recursion.
+
+## Worker Thread Integration Protocol
+
+The owner may run multiple conceptual worker threads across serialized conversations. A single chat is not a private
+memory channel between agents, and an answer in one thread is not automatically promoted everywhere.
+
+When the owner answers questions:
+
+1. Record the answer as `answered-raw` or `owner-confirmed` only for the specific question/thread being handled.
+2. Do not immediately mutate project doctrine in prose.
+3. Identify where the answer should integrate:
+   - question ledger/thread map for dependency state
+   - glossary entry for vocabulary, ontology, and framing
+   - RFC/program doc for roadmap, sequencing, and phase commitments
+   - decision log only for explicit durable process/product decisions
+4. Assign an authority state before reuse:
+   - `owner-confirmed`: directly confirmed by the owner for the stated scope
+   - `answered-raw`: owner answer captured but not pressure-tested or integrated
+   - `derived-synthesis`: agent synthesis from multiple signals
+   - `legacy-signal`: old implementation/design signal
+   - `open-question`: unresolved or dependency-blocked
+   - `pre-USF-provisional`: usable for scaffolding, explicitly reopenable if USF or another root thread invalidates it
+   - `superseded`: replaced by newer owner direction or active docs
+   - `parked`: intentionally deferred because it does not change the next action
+5. Prefer writing a handoff packet or ledger update over asking more questions when integration state is unclear.
+
+Do not treat question answering as the goal. The goal is to keep owner intent, glossary framing, roadmap sequence, and
+implementation pressure aligned without accidental canonization.
 
 ## Boot Sequence
 
@@ -122,7 +151,8 @@ Process authority:
 
 High-value project signals:
 
-- `loo_cast_alpha/docs/glossary/` for current vocabulary and ontology pressure.
+- `loo_cast_alpha/docs/glossary/` as the primary docs authority surface for current vocabulary, ontology pressure, and
+  concept framing.
 - `loo_cast_alpha/docs/RFCS/` for active roadmap/program structure.
 - Legacy `core_engine`, `core_mod`, `core_mod_api`, `base_mod`, and `base_mod_api` for implementation pressure and prototype evidence.
 
@@ -131,6 +161,13 @@ Lower-authority but useful signals:
 - Legacy intention records and markdown summaries, especially when they preserve owner direction or known divergences.
 - Legacy `documents/temp_stuff/` for raw design pressure, not canon.
 - Current alpha Rust internals, which are mostly sandbox/WIP unless explicitly promoted.
+
+Glossary authority caveat:
+
+- A glossary page may be the best current framing surface without being final doctrine.
+- Empty or stale `source_of_truth` metadata means "read carefully", not "ignore".
+- If a glossary page, RFC, legacy record, and current owner answer disagree, preserve the disagreement and route it
+  through the question ledger instead of smoothing it into a false consensus.
 
 When signals conflict, use this report shape:
 
