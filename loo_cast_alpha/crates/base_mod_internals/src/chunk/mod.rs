@@ -99,10 +99,7 @@ impl ChunkAddress {
 
         let mut cells = [LocalCell3::ZERO; Self::SCALE_COUNT];
         cells[..path.len()].copy_from_slice(path);
-        Ok(Self {
-            len: path.len() as u8,
-            cells,
-        })
+        Ok(Self { len: path.len() as u8, cells })
     }
 
     pub fn scale(&self) -> i8 {

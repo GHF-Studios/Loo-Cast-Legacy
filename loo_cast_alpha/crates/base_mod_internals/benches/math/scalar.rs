@@ -1,11 +1,11 @@
 #![feature(test)]
 extern crate test;
 
-use test::{Bencher, black_box};
-use num_integer::Roots;
 use base_mod_internals::math::scalar::aliases::UsfOrNormalScalar;
 use base_mod_internals::math::scalar::shared::ScalarCoreOps;
 use base_mod_internals::math::scalar::usf::{UsfScalar, UsfScalarConstants};
+use num_integer::Roots;
+use test::{Bencher, black_box};
 
 fn my_function() {
     let mut x: i32 = 0;
@@ -29,9 +29,7 @@ fn my_simple_function() {
     black_box(black_box(4223372036854775807_i64).nth_root(3));
 }
 
-fn do_something() {
-
-}
+fn do_something() {}
 
 #[bench]
 fn math_scalar_bench(b: &mut Bencher) {
