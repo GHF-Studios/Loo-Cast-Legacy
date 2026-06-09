@@ -7,7 +7,10 @@ edition = "2024"
 base_mod_macros = { path = "../base_mod_macros" }
 base_mod_shared = { path = "../base_mod_shared" }
 bevy = { workspace = true }
+bigdecimal = "0.4.10"
 rand = "0.10.1"
+num-traits = "0.2.19"
+nalgebra = "0.35.0"
 num-integer = "0.1.46"
 
 [[bench]]
