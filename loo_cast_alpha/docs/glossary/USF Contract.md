@@ -6,14 +6,20 @@ aliases:
 source_of_truth: [ ]
 ---
 
-The USF Contract Family defines foundational simulation principles and contract-level structure in core_engine.
-It defines both capability typing and the scale system as core constituents.
+The USF Contract Family defines foundational simulation principles and contract-level structure inside the
+[[Spacetime Engine]].
+It defines the USF scale system and related simulation structures.
 In that system, [[Scale]] is the canonical semantic coordinate, [[Scale Definition]] declares what is meaningful at
 that coordinate, [[Scale Support]] declares capability support at that coordinate, and [[Scale Realizer]] defines
 per-slice semantic realization behavior.
 Scale declaration and compatibility rules are defined by the [[Scale Contract]].
-The default first-party runtime counterpart is [[USF Runtime]] in `core_mod`; alternative counterparts are valid when
-they satisfy this [[Contract Family]].
+The runtime counterpart is [[USF Runtime]].
+
+Current owner-answer-informed boundary:
+USF is not a Vapor-level product contract and should not be modeled as directly replaceable just because it has internal
+contract structure.
+It may interact with capability/runtime mechanisms, but it is not itself the same thing as the broader
+[[Capability Contract]].
 
 Implementation-facing notes: [USF Contract Runtime Boundary Notes](USF%20Contract%20Runtime%20Boundary%20Notes.md)
 

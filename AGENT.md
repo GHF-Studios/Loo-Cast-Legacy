@@ -183,13 +183,17 @@ Blocking question:
 
 Use this as initial orientation only; promote nothing from this section without owner confirmation.
 
-Loo Cast is the baseline playable/game-content expression of a larger compositional product space.
+Loo Cast is the baseline playable/game/content expression of a larger compositional product space.
 
-The Spacetime Engine is the engine/framework/runtime-host type of layer. In current crate terms, `core_engine` is the
-type of thing the Spacetime Engine is.
+The Vapor Ecosystem is the Steam-specific SDK/modding/distribution ecosystem layer. It is intended to integrate with
+Steam and Steam Workshop/identity/distribution specifically, not an arbitrary set of external platforms.
 
-USF is the foundational first-party simulation framework layer. In current crate/mod terms, `core_mod` is the type of
-thing USF is: the Source-SDK-like foundation content/capability/framework layer that Loo Cast depends on by default.
+The Spacetime Engine is the first-party engine/framework/runtime-host product. In current crate terms, `core_engine` is
+the type of thing the Spacetime Engine is.
+
+USF is not a product layer and not a directly replaceable Vapor-level capability/product. It is a pivotal module or
+framework part inside the Spacetime Engine. Loo Cast uses USF through the Spacetime Engine, but replacing USF directly is
+not the same kind of operation as replacing a game or choosing a different engine.
 
 `base_mod` is the type of thing Loo Cast is: the current first-party gameplay/content mod layer. It may later split into
 focused first-party mods, but that is future work.
@@ -201,10 +205,10 @@ The broader ecosystem should allow Source/Steam-style depth:
 - author content such as maps/models/sounds/scripts
 - compose and publish modpacks
 - mod the game/framework
-- fork or replace the engine/framework layer at broader ecosystem/distribution boundaries
+- build a different game or engine product within the Vapor ecosystem
 
-The modding ecosystem is partly a custom contract/tooling/runtime ecosystem and partly a wrapper/bridge over external
-distribution, identity, and workshop-like systems such as Steam.
+The modding ecosystem is partly a custom contract/tooling/runtime ecosystem and partly a Steam-specific wrapper/bridge
+over Steam distribution, identity, and workshop-like systems.
 
 Replacement and additivity must not be conflated. Likely direction: replacement happens by composition-time selection of
 slot/capability owners; the locked runtime graph remains deterministic/frozen/additive within that selected composition.
@@ -212,7 +216,9 @@ This is a pressure point, not final doctrine.
 
 ## USF Orientation Kernel
 
-USF is scale-first and chunk-hierarchical.
+USF is a scale-first and chunk-hierarchical Spacetime Engine module/framework part.
+It is not a standalone product pillar and should not be modeled as directly/exclusively replaceable at the Vapor product
+layer.
 
 Strong current signals:
 

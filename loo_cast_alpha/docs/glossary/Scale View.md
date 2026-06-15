@@ -11,4 +11,8 @@ It is a semantic/view-state concept rather than a specific rendering, camera, or
 Scale View constrains detail selection in [[Observer-Relative Simulation]] without redefining [[Scale Definition]] or
 [[Scale Slice]].
 
+Pre-alpha scope note:
+Assume one primary observer/player/chunk-loader-equivalent scale view for now.
+Multi-observer or multiplayer divergence between active scale views is out of scope until explicitly reopened.
+
 #glossary

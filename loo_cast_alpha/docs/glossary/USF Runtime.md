@@ -5,8 +5,9 @@ aliases: []
 source_of_truth: []
 ---
 
-The USF Runtime is the default first-party runtime implementation of the [[USF Contract]] family in `core_mod`.
-It realizes one active USF implementation and composes with the [[Capability Runtime]] and the [[Modding Runtime]].
+The USF Runtime is the Spacetime Engine runtime implementation of the [[USF Contract]] family.
+It realizes the active USF module/framework behavior inside the Spacetime Engine stack and interacts with the
+[[Capability Runtime]] and [[Modding Runtime]] where the engine architecture requires it.
 Its Rust-side staged lifecycle orchestration can be implemented through the [[Workflow Framework]].
 It invokes declaration-surface entrypoints with profile-tailored `ctx` capability-object subgraphs during activation,
 then executes the resulting runtime capability instances.
@@ -15,7 +16,7 @@ When invoking Rhai-declared callbacks, runtime uses resolved effective callback 
 policy resolution.
 These subgraphs come from hierarchical API graph composition (atomic + composite nodes) with include/exclude
 path declarations and runtime open/close behavior.
-It executes contract-defined behavior rather than defining the contract itself.
+It executes contract-defined USF behavior rather than defining the contract itself.
 Canonical capability lifecycle semantics, Rust/Rhai cyclic loop semantics, callback-path semantics, and multiplicity
 classes are defined in [[Capability]].
 

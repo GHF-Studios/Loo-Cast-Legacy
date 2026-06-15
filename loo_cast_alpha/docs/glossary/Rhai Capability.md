@@ -19,4 +19,11 @@ Callback invocation access resolves to effective callback `ctx` path masks throu
 than implicit inheritance from declaration-entry access, and remains bounded by the [[Capability Graph Scope Envelope]].
 Canonical loop/lifecycle/multiplicity semantics are defined in [[Capability]].
 
+Current owner-answer-informed clarification:
+Rhai is declaration-only in the sense that scripts define declarations, policies, parameters, and closures/callbacks
+rather than owning scheduler structure or heavy runtime kernels.
+This is intentionally not the same as saying scripts contain no behavior.
+Declared callbacks and local policy logic are expected to be normal capability material where the contract calls for it,
+while Rust remains responsible for lifecycle scheduling, heavy execution kernels, state authority, and safety boundaries.
+
 #glossary
