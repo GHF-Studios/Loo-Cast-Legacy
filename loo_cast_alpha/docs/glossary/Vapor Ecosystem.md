@@ -8,8 +8,8 @@ aliases:
 source_of_truth: []
 ---
 
-The Vapor Ecosystem is the tentative name for the Steam-specific ecosystem/SDK layer above concrete engines, games, and
-mods.
+The Vapor Ecosystem is the tentative name for the [[Steam]]-specific ecosystem/[[SDK]] layer above concrete engines,
+games, and mods.
 It is the layer through which engines, games, mods, modpacks, tooling, identity, distribution, and workshop-like
 integration are developed, maintained, composed, and distributed.
 
@@ -18,8 +18,8 @@ game instance built through that stack.
 Other engines, games, and mods are intended to be possible in the same broad ecosystem, including cases that replace the
 Spacetime Engine or do not expose the same modding surface.
 
-The Vapor Ecosystem is specifically designed around Steam as its external substrate for identity, distribution,
-authorization, and workshop-like capabilities.
+The Vapor Ecosystem is specifically designed around [[Steam]] as its external substrate for identity, distribution,
+authorization, and [[Steam Workshop]]-like capabilities.
 It is not currently intended as a generic wrapper over arbitrary storefronts or distribution platforms.
 
 Authority note:

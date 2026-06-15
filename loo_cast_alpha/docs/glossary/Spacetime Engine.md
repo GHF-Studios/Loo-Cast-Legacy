@@ -15,7 +15,7 @@ Other engines may exist inside Vapor-level conventions, even if they do not pres
 expose the same modding affordances.
 
 Current owner-answer-informed caveat:
-The [[USF]] is a pivotal internal module/framework part of the Spacetime Engine.
-It is not currently framed as a standalone product or a directly/exclusively replaceable Vapor-level capability.
+The [[USF]] is a pivotal public/API-facing module/framework part of the Spacetime Engine.
+It is not currently framed as a standalone product or a directly/exclusively replaceable Vapor-level [[Capability]].
 
 #glossary

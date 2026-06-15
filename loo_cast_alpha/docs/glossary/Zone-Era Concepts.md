@@ -10,7 +10,8 @@ aliases:
 source_of_truth: []
 ---
 
-Zone-Era Concepts are the older cluster of ideas around zones, DPTs, ZLMs, ZTMs, and metric-space classification.
+Zone-Era Concepts are the older cluster of ideas around zones, [[DPT]]s, [[ZLM]]s, [[ZTM]]s, and metric-space
+classification.
 They are superseded as primary ontology authority, but they remain signal-bearing.
 
 Current owner-answer-informed critique:

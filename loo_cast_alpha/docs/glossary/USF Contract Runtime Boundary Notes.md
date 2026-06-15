@@ -14,7 +14,7 @@ Related glossary terms:
 Boundary notes:
 
 1. `core_engine` is treated as composition/runtime host boundary.
-2. USF is treated as a pivotal Spacetime Engine module/framework part, not a standalone product layer.
+2. USF is treated as a pivotal public/API-facing Spacetime Engine module/framework part, not a standalone product layer.
 3. Capability + modding runtime composition is sibling-runtime coupling, not contract redefinition.
 4. USF is not currently modeled as a directly/exclusively replaceable Vapor-level component.
 5. Seam analysis is phase-tagged: declaration seams (script load/validate/lock path) and execution seams

@@ -5,7 +5,7 @@ aliases: []
 source_of_truth: []
 ---
 
-A Chunk is the first-level USF spatial partition at a canonical [[Scale]].
+A Chunk is the first-level [[USF]] spatial partition at a canonical [[Scale]].
 Chunks are scale-native and nested exactly by scale; each canonical scale uses chunks with `1000^3` scale-local units as
 the current hard USF law.
 

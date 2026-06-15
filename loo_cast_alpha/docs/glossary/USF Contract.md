@@ -6,8 +6,8 @@ aliases:
 source_of_truth: [ ]
 ---
 
-The USF Contract Family defines foundational simulation principles and contract-level structure inside the
-[[Spacetime Engine]].
+The USF Contract Family defines foundational simulation principles and public/API-facing contract-level structure inside
+the [[Spacetime Engine]].
 It defines the USF scale system and related simulation structures.
 In that system, [[Scale]] is the canonical semantic coordinate, [[Scale Definition]] declares what is meaningful at
 that coordinate, [[Scale Support]] declares capability support at that coordinate, and [[Scale Realizer]] defines

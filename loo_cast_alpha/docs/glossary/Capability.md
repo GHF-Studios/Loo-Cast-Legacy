@@ -7,8 +7,8 @@ source_of_truth: [ ]
 ---
 
 The Capability is the canonical post-lock artifact in the runtime capability stack.
-This note is the source of truth for capability lifecycle semantics, Rust/Rhai loop semantics, and capability
-multiplicity classes.
+This note tracks capability lifecycle semantics and Rust/Rhai loop semantics, but capability multiplicity classes are
+still under active boundary review.
 
 Current broader-ecosystem pressure:
 Capabilities are also emerging as the cross-layer contract substrate of the [[Vapor Ecosystem]], where engines, games,
@@ -45,13 +45,17 @@ gating.
 Dependency-layer and seam-layer separation rules are canonicalized in
 [Capability Dependency Layer Notes](Capability%20Dependency%20Layer%20Notes.md).
 
-Multiplicity classes currently include USF-associated examples, but those examples should not be read as making USF the
-owner of the whole capability concept:
+USF boundary caveat:
+Older drafts treated USF concepts such as [[Scale]], [[Scale Realizer]], [[Phenomenon]], and [[Metric]] as capability
+types with capability multiplicity classes.
+That framing is no longer safe to treat as doctrine.
+[[USF]] is a public/API-facing Spacetime Engine module/framework part, not the owner of the broader capability contract
+model.
 
-1. Slot-singleton capability types (`Scale`, `Scale Realizer`):
-   exactly one effective capability per occupied scale slot (71-slot stack model).
-2. Scale-collection capability types (`Phenomenon`, `Metric`):
-   keyed, scale-bound capabilities; many per scale are allowed, with at least one required per scale.
+Open pressure:
+The boundary between capability graph nodes, USF declarations, public API surfaces, and runtime authority needs a
+dedicated pass before USF types are classified as capabilities, non-capability declarations, API surfaces, or
+layer-dependent hybrids.
 
 See also:
 

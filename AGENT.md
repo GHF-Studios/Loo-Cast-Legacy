@@ -179,44 +179,34 @@ Current owner direction:
 Blocking question:
 ```
 
-## Project Orientation Kernel
+## Project Orientation Entrypoint
 
-Use this as initial orientation only; promote nothing from this section without owner confirmation.
+Keep this section brief. Product/project doctrine belongs in the glossary and public docs, not in this agent file.
 
-Loo Cast is the baseline playable/game/content expression of a larger compositional product space.
+Read these glossary pages first for high-level orientation:
 
-The Vapor Ecosystem is the Steam-specific SDK/modding/distribution ecosystem layer. It is intended to integrate with
-Steam and Steam Workshop/identity/distribution specifically, not an arbitrary set of external platforms.
+- `loo_cast_alpha/docs/glossary/Vapor Ecosystem.md`
+- `loo_cast_alpha/docs/glossary/Product Constellation.md`
+- `loo_cast_alpha/docs/glossary/Spacetime Engine.md`
+- `loo_cast_alpha/docs/glossary/USF.md`
+- `loo_cast_alpha/docs/glossary/Loo Cast.md`
+- `loo_cast_alpha/docs/glossary/Capability.md`
+- `loo_cast_alpha/docs/glossary/Modding Ecosystem.md`
 
-The Spacetime Engine is the first-party engine/framework/runtime-host product. In current crate terms, `core_engine` is
-the type of thing the Spacetime Engine is.
+Minimal current orientation:
 
-USF is not a product layer and not a directly replaceable Vapor-level capability/product. It is a pivotal module or
-framework part inside the Spacetime Engine. Loo Cast uses USF through the Spacetime Engine, but replacing USF directly is
-not the same kind of operation as replacing a game or choosing a different engine.
+- Vapor is the Steam-specific ecosystem/SDK/distribution layer.
+- Spacetime Engine is the first-party engine/framework product.
+- USF is a public/API-facing Spacetime Engine module/framework part, not a standalone product.
+- Loo Cast is the first-party game/content product built on Spacetime Engine.
+- Capability, slot, chunk, metric, and phenomenon semantics are still active crystallization surfaces.
 
-`base_mod` is the type of thing Loo Cast is: the current first-party gameplay/content mod layer. It may later split into
-focused first-party mods, but that is future work.
-
-The broader ecosystem should allow Source/Steam-style depth:
-
-- play the shipped game
-- configure/console/use creator-facing tools
-- author content such as maps/models/sounds/scripts
-- compose and publish modpacks
-- mod the game/framework
-- build a different game or engine product within the Vapor ecosystem
-
-The modding ecosystem is partly a custom contract/tooling/runtime ecosystem and partly a Steam-specific wrapper/bridge
-over Steam distribution, identity, and workshop-like systems.
-
-Replacement and additivity must not be conflated. Likely direction: replacement happens by composition-time selection of
-slot/capability owners; the locked runtime graph remains deterministic/frozen/additive within that selected composition.
-This is a pressure point, not final doctrine.
+If this section conflicts with glossary pages or current owner answers, treat this section as stale and route the
+conflict through the question/pressure process.
 
 ## USF Orientation Kernel
 
-USF is a scale-first and chunk-hierarchical Spacetime Engine module/framework part.
+USF is a scale-first and chunk-hierarchical public/API-facing Spacetime Engine module/framework part.
 It is not a standalone product pillar and should not be modeled as directly/exclusively replaceable at the Vapor product
 layer.
 
