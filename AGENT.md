@@ -76,8 +76,7 @@ When instructed to read `AGENT.md`:
    - `loo_cast_alpha/docs/ARCHITECTURE.md`
    - `loo_cast_alpha/docs/CONTRACTS.md`
    - `loo_cast_alpha/docs/RFCS/phase_2_to_11_execution_program.md`
-   - `loo_cast_alpha/docs/ai_conversation_logs/question_batch_001.txt`
-   - `loo_cast_alpha/docs/ai_conversation_logs/question_batch_002.txt`
+   - `loo_cast_alpha/docs/ai_conversation_logs/question_batch_*.txt`
    - relevant files under `loo_cast_alpha/docs/glossary/`
 5. For legacy signal, inspect `loo_cast_legacy` excluding only top-level `LEGACY` and `legacy`.
 6. Prioritize these legacy signals when relevant:

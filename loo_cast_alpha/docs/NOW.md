@@ -11,7 +11,8 @@ Current direction:
 - Treat docs as WIP crystallization surfaces, not trusted doctrine by default.
 - Treat the glossary as the primary active crystallization surface.
 - Treat RFCs as stale whenever they conflict with current glossary pressure or owner answers.
-- Use `docs/ai_conversation_logs/question_batch_001.txt` and `question_batch_002.txt` as raw owner-answer intake.
+- Use `docs/ai_conversation_logs/question_batch_*.txt` as raw owner-answer intake.
+- Active question thread: `question_batch_003.txt` focuses on capability/slot semantics.
 - Remove the old `WIP_QUESTION_LEDGER.txt`; question batches replace it.
 - Product stack skeleton: `Vapor Ecosystem -> Spacetime Engine -> Loo Cast`.
 - Vapor is Steam-exclusive and includes SDK/tooling plus runtime protocol/contracts/traits for engines, games, mods, and packages.
