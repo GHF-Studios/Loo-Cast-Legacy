@@ -1,3 +1,5 @@
+I got another big fat batch of juicy answers for you ready hehe. Here we go:
+
 Product / Vapor
 1. Is Vapor Ecosystem -> Spacetime Engine -> Loo Cast now the correct product-stack skeleton?
 A: Yes.
@@ -177,33 +179,60 @@ A: Basically, yeah. It's been a big inspiration for sure.
 A: By definition we need to be able to not only materialize details (aka traditional world gen), but also re-aggregate details, so yeah, we absolutely need each Phenomenon to not only implement world gen "locally" basically, but also a reverse world gen algorithm, yes.
 
 Rhai / Assets / Authoring
+NOTE: This is a particularly complex and pivotal and underexplored topic/set-of-topics. Point is: This is extremely underexplored, underdiscussed, and so on. Do not take this topic of Rhai/Assets/Authoring lightly or assume it's not underdiscussed and underexplored and underaddressed af!
 84. Does “all assets are Rhai scripts” still mean no traditional media assets at all?
+A: Oh boy, this is where it get's really interesting: Yes! The idea is that we basically do "physically" based rendering, audio, and like have any sort of peripheral output capabilities like rendering as a whole or audio as a whole, and those work off of the world state inside the Phenomena and Chunks, yk? Because, with any traditional texture at least, you quickly run into this problem: When we wanna zoom into a thing with that texture. how do we zoom in and have the visuals stay smooth and continuous, without just cheaply fading one texture to anothert? The problem also is that this heavy morpahbility of textures and 3d models and maybe by extension also sound, that stuff needs some sort of LOD approach, something like an .svg, but ofc much more complex. But yeah, to cut a long story short: At least textures and 3D Models and Sounds must be fully procedural, buuuut this is also a hugely underexplore topic.
 85. Are generated textures/audio/models caches, not authored assets?
+A: Diving into more details, I like it.... Yeah, basically, I did think that at the most we could expect to see textures/models/sounds as caches, cause ofc even if we never have a set of fixed known pre-packaged textures and sounds and all, we can still somewhat forsee that the GPU will still just want a final image or something like that, not some custom vodoo Physically-based representation or an SVG or whatever, yk? Althoooooough, we do have rasterized shaders, but also another type of shader? Ah but it all get's rasterized in the end anyway..... let's just say: It's a complex topic. Did that make some amount of sense to you?
 86. Should Rhai declarations be the canonical authored asset format?
+A: Yes. Rhai-Declaration == Asset, basically. A Rhai declaration *file* is ALWAYS an asset, and an asset is ALWAYS a rhai declaration.
 87. Are Rhai closures normal declaration content?
+A: Wdym? Like, closures are treated like data, just ofc not really the same, but like.... no, please enlighten me on what you mean, I cannot answer this question with good conscience, cause I don't really understand the question.
 88. Should Rhai callbacks be treated as policy/config behavior, not engine logic?
+A: Wat? Rhai Callbacks are polain simple data, easy as pie. Lil scripts basically. Ah but, ofc, we will somehow need something or some set of things which call these callbacks at the right time and place and with the right parameters and all, yeah, that's ofc a valid concern and stil-underexplored design-hole, assuming that's what your question was kinda oriented towards.
 89. Can Rhai consume hooks/events/messages?
+A: Yes and no. Rhai only declares stuff, and only on startup, ONCE! Still, rhai can do basically anything, including(and probably primarily) consuming hooks/events/messages if the  stuff itself and the larger orcheestration and all allow for that, but all that happens via callbacks. Callbacks are our escape hatch our of the fact that any rhai declaration are just that, declarations which are all made at startup immediately after the rust runtime spun up, yk?
 90. Can Rhai cancel/consume hooks/events/messages?
+A: Hm, I think the answer is the same, even if it's kinda defer-y: Only if the like thing itself and/or the like larger orchestration/framework/whatever all allow it and intend for it and all, yk? But no, neither consumption nor cancelling should be the default. The default should be unconsumable uncancellable hooks/events/messages.
 91. Can Rhai declare lifecycle participation without owning lifecycle scheduling?
+A: Yes. Via callbacks. That being said, I think this is a good time to mention that it's even more fucked up, cause I thought we'd like do it like this: rhai declarations are not strictly just object construction, but rather structured procedural object construction via builder patterns and that kinda jazz, yk? This way sorta "typed callbacks" or like "types of callbacks" should be relatively trivial to implement, yk? And from there it's just a matter or relaying to some sort of actual capability registry or sum, yeah, whatever, but I think you get what I was "hinting" at here.
 92. Should schedule structure be entirely Rust-owned?
+A: 100% yes, 10000%, absolutely, yes!
 93. Can Rust-owned schedules expose configurable extension points?
+A: What should that exactly entail? Cause I'm not sure what exactly you mean by "expose configurable extension points", specifically "extension points", yk?
 94. Is declaration-only still the best phrase, or should it be declaration-owned, host-scheduled?
+A: Maybe? Not sure yet tbh.
 
 Roadmap / Cleanup
 95. Should Phase 2 explicitly include “remove USF-as-product confusion”?
+A: Yes I suppose so? But that ofc implies that we want to heavily jam Phase 2 full of work to accomplish in little units, casuse this is not a huuuuuge thing to fix, even if it's impactful and pivotal, yk? Just saying, mind the implications of what you ask/say.
 96. Should Phase 2 rewrite draft_phase_buckets.md because core_mod replaceable is now wrong?
+A: Yes? But same concern as I just stated for question 95.
 97. Should Phase 2 rewrite phase_2_to_11_execution_program.md before any issue/milestone generation?
+A: I mean, idk, maybe let's just focus on phases 2 and 3 for now, yk? This file is more where we place our finalized revamped phase plan for phases 2 and 3, but idk about beyond that point, yk?
 98. Should WIP_QUESTION_LEDGER.txt be deleted, replaced, or converted?
-A: Nuke that thing. Take a look at `loo_cast_alpha/docs/ai_conversation_logs/question_batch_001.txt` and `loo_cast_alpha/docs/ai_conversation_logs/question_batch_002.txt`.
+A: Nuke that thing. Take a look at `loo_cast_alpha/docs/ai_conversation_logs/question_batch_001.txt` and `loo_cast_alpha/docs/ai_conversation_logs/question_batch_002.txt`. Those are the replacement.
 99. Should the glossary get authority state only where needed, rather than adding rigid frontmatter everywhere?
+A: Yeeeeeeees, I like the sound of that. I hataaate overly-eager and overly-early "rigid frontmatter" in that regard; so yes, just like """lock in""" stuff that is really like SET IN STONE and CONFIRMED BY ME, yk? And even then, EVERYTHING is subject to change and WIP in a broad sense, and nothing can override that fundamental instability we still have, okay?  That is just a fact for the whole pre-alpha stage.
 100. Should old source_of_truth: [] fields remain, or are they misleading?
+A: I suppose it's misleading in like 98% of cases, yk?
 101. Should we add a convention like Current owner-answer-informed pressure: instead of formal authority fields?
+A: What?
 102. Should AGENT.md instruct future agents to treat RFCs as stale if they conflict with the latest glossary?
+A: Absolutely, 100%, the RFCs are not really something I use, idk, the glossary in the form of linked markdown files (obsidian teached me hehe) works REALLY FUCKING WELL for me personally, yk? Idk, the RFCs, yeah, they are, as a rule, outdated/inaccurate, yeah.
 103. Should NOW.md be updated to stop saying core_mod is a first-party mod?
+A: NOW.md seems like a massively underappreciate file, and AGENT.md proooobably maybe also doesn't really instruct to use and update this file, right? Hm, idk. I mean NOW.md would be useful as a concept, if it were really short and concise, like a list of adhoc checkpoints/tasks, and if it were updated frequently and integrated tightly into the/a loop, yk?
 104. Should ARCHITECTURE.md be updated now, or wait until the glossary settles?
+A: Wait until the glossary settles.
 105. Should CONTRACTS.md mention Vapor/Steam, or is that too early?
+A: Absoooooolutely we should mention that stuff, but idk if it's too early tbf..... so yeah, idk lol.
 106. Should Phase 3 still be launcher -> modpack -> core_mod/USF placeholder -> base_mod loop, or now launcher -> Vapor package -> Spacetime Engine -> Loo Cast?
+A: I do like the "launcher -> Vapor package -> Spacetime Engine -> Loo Cast" framing, yeah. Let's go with that.
 107. Is the Phase 3 MVP primarily a product-stack proof, not a USF proof?
+A: Yeeeeeeeeeeeeeees, exactly.
 108. Should USF-specific implementation begin only after capability/slot/product-stack semantics are less confused?
+A: Yeeeeees, absolutely, 10000%.
 109. Is capability semantics still the highest-risk downstream poison point?
+A: Yeeeeeeeeees.
 110. What is the single worst remaining false assumption in the docs right now?
+A: That the docs are to be trusted in any capacity at any time beyond a simple hint of some glossary page being "authoritative" or "locked". But the core false assumption truly is that the docs are to be trusted and are not a constantly evolving and fluid medium for crystallizing my ideas and thoughts ino a coherent web of actual readable navigable explorable plaintext, yk?
