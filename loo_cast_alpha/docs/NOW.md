@@ -14,15 +14,17 @@ Current direction:
 - Use `docs/ai_conversation_logs/question_batch_*.txt` as the default Q&A timeline for now.
 - Question batches document both sides of the conversation: agent questions and owner answers/corrections.
 - New architecture threads should usually become focused question batches before glossary/RFC promotion.
-- Active question thread: `question_batch_003.txt` answered; first glossary integration pass complete.
+- Last answered question thread: `question_batch_003.txt`; first glossary integration pass complete.
+- Active question thread: `question_batch_004.txt` broad Phase 2 planning, Phase 3 product-stack, Phase 4 USF-boundary, authoring, runtime, and docs workflow pass.
 - Remove the old `WIP_QUESTION_LEDGER.txt`; question batches replace it.
 - Product stack skeleton: `Vapor Ecosystem -> Spacetime Engine -> Loo Cast`.
 - Vapor is Steam-exclusive and includes SDK/tooling plus runtime protocol/contracts/traits for engines, games, mods, and packages.
 - Spacetime Engine is the first-party engine/framework product.
 - USF is a public/API-facing Spacetime Engine subsystem/module, not a product pillar.
 - Loo Cast Game is currently represented by `base_mod`; Loo Cast Product/Project is the broader acquired bundle.
-- Phase 2 focuses on glossary/docs/contract crystallization enough to avoid poisoning implementation.
-- Phase 3 should prove `launcher -> Vapor package -> Spacetime Engine -> Loo Cast` as a product-stack MVP, not a USF MVP.
+- Phase 2 focuses on glossary/docs/contract/spec crystallization enough to avoid poisoning implementation; no new coding.
+- Phase 3 should prove `launcher -> Vapor package -> Spacetime Engine -> Loo Cast` as a non-playable hello-world-on-steroids product-stack MVP, not a USF MVP or playable prototype.
+- Phase 4 is the first planned full-stack test that includes USF.
 - Use lockstep game/contract versioning.
 - Treat publish as immutable tag + artifact + channel event.
 
@@ -47,4 +49,4 @@ Success for this phase:
 - Clean developer workflow with low cognitive load.
 - Clear current vocabulary around Vapor, Spacetime Engine, USF, Loo Cast, capabilities, metrics, phenomena, chunks, and Rhai assets.
 - Old USF-as-product and core_mod/base_mod mandatory-vs-replaceable confusion removed from active docs.
-- Phase 2/3 roadmap reframed around product-stack proof before USF-specific implementation.
+- Phase 2/3/4 roadmap reframed around planning first, product-stack proof second, and USF-inclusive full-stack proof third.
