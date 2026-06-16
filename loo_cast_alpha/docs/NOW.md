@@ -14,7 +14,7 @@ Current direction:
 - Use `docs/ai_conversation_logs/question_batch_*.txt` as the default Q&A timeline for now.
 - Question batches document both sides of the conversation: agent questions and owner answers/corrections.
 - New architecture threads should usually become focused question batches before glossary/RFC promotion.
-- Active question thread: `question_batch_003.txt` focuses on capability/slot semantics.
+- Active question thread: `question_batch_003.txt` answered; first glossary integration pass complete.
 - Remove the old `WIP_QUESTION_LEDGER.txt`; question batches replace it.
 - Product stack skeleton: `Vapor Ecosystem -> Spacetime Engine -> Loo Cast`.
 - Vapor is Steam-exclusive and includes SDK/tooling plus runtime protocol/contracts/traits for engines, games, mods, and packages.

@@ -35,4 +35,10 @@ Boundary note:
 USF concepts can be capabilities, but the [[USF]] is not the foundation of this contract family.
 The capability model belongs to Vapor; USF is a major first-party user of it.
 
+Metadata note:
+Every capability needs enough Vapor-readable metadata for discovery, validation, visibility/projection, dependency
+resolution, and diagnostics.
+This metadata may be generated from Rust macros, supplied explicitly, or derived from declarations, but it must be
+available to the capability runtime before lock.
+
 #glossary

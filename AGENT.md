@@ -272,18 +272,30 @@ Core concepts to preserve during analysis:
 
 - Runtime Lock: validated composition becomes immutable runtime structure.
 - Capability Declaration: pre-lock script-produced declaration payload.
-- Capability: Vapor-level runtime/contract graph primitive for authority/API exposure/composition/orchestration.
+- Capability: one Vapor-level concept spanning runtime graph node, contract surface, API surface, authority surface, and
+  composition unit.
 - Capability Resolution: dependency/provider resolution, materialization/merge, and projection/access are distinct layers.
+- Capability Graph: one global runtime graph in the running `core_engine` process; package/game/mod/script views are
+  projections.
+- Capability Identity: anonymous capabilities are disallowed; private/internal capabilities are allowed with
+  Rust-like visibility.
+- Slot: parent-owned child position accepting a capability type under cardinality/policy; filling happens at
+  composition time before runtime lock.
 - Projection API: scripts see contextual facades, not raw unrestricted engine state.
 - Execution-Reconciliation Dual Core: execution produces candidate outcomes; reconcile/commit/apply decides authoritative progression.
 - Workflow Framework: Rust-side staged orchestration across ECS, Render, Async, and iterative domains.
 - Script Safety: Rhai is declaration-owned and host-scheduled; Rust owns scheduling, heavy kernels, state authority, and safety boundaries.
+- Rhai Asset: one declaration file is one authored asset/capability node; assets and capabilities currently collapse
+  together in the authored/declaration model.
 
 Pressure point:
 
 - "Rhai is declarative" must not erase callback/closure behavior if callbacks are part of normal capability execution.
-- Capabilities relay requests and expose structured authority; they do not execute themselves.
+- Capabilities emit intents, relay requests, and expose structured authority; leaf capabilities may bind Rust
+  functions/types.
 - Canonical mutation authority belongs outside capability objects in reconcile/commit/apply execution paths.
+- `input`/`output` capability roles are likely misleading as full node roles; they may only describe dependency and
+  dependant directions.
 
 ## Failure Doctrine
 
@@ -299,46 +311,24 @@ Working interpretation:
 
 Do not over-polish user-facing recovery before there is substantial runtime behavior to protect.
 
-## Question Ledger Protocol
+## Question Batch Workflow
 
-Large question sets must become a dependency graph, not a flat questionnaire.
-
-Question record template:
+For current architecture crystallization, the normal loop is:
 
 ```text
-ID:
-Title:
-Status: unasked | active | answered-raw | needs-pressure | owner-confirmed | promoted | superseded | parked
-Type: root | derived | pressure | cleanup | implementation
-Layer:
-Prerequisites:
-Blocks:
-Question:
-Current pressure:
-Answer:
-Owner-confirmed assertions:
-Promotion targets:
+deep context acquisition -> focused question batch -> owner answers -> integration pass -> follow-up batch if needed
 ```
 
 Rules:
 
-1. IDs are stable.
-2. Wording may evolve.
-3. Ask only root or unblocked questions.
-4. Prefer 1-3 questions per turn.
-5. Do a pressure pass before promoting answers.
-6. Park meta questions that do not change action, artifact structure, authority, contradiction handling, or future corruption risk.
-
-Recommended root questions when restarting broad interrogation:
-
-```text
-Q-AUTH-001: How should historical `locked` labels be treated?
-Q-STACK-001: What is the product/framework/distribution stack?
-Q-COMP-001: Is replacement composition-time selection while runtime remains frozen/additive?
-Q-CHUNK-001: What kind of thing is a USF chunk?
-Q-SCALE-001: What replaces the shorthand `active+above` now that scoped-below detail exists?
-Q-ZONE-001: Was the zone mistake "zones as authority", not "classification regions exist"?
-```
+1. Use `loo_cast_alpha/docs/ai_conversation_logs/question_batch_NNN.txt` for substantial architecture threads.
+2. Big batches are acceptable when the topic is broad or deeply entangled.
+3. Keep the format simple: topic heading, numbered questions, `A:` answer slots.
+4. Do not rewrite answered questions unless the owner explicitly asks; stale wording should usually become a follow-up
+   note or next-batch question.
+5. The answered sheet is the shared Q&A record for that thread.
+6. After answers, run a pressure/integration pass before promoting material into glossary, RFCs, roadmap, or code.
+7. Glossary updates should usually happen before Phase/RFC/spec updates.
 
 ## Analysis Style
 

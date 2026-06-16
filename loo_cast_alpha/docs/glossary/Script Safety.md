@@ -23,6 +23,11 @@ Asset boundary:
 Generated textures, models, sounds, and other media payloads are runtime outputs, caches, or delivery artifacts rather
 than traditional authored source assets.
 
+Capability boundary:
+Rhai should not define fully independent capabilities without Rust host support except for trivial script-local
+computation.
+Low-level access and heavy execution must stay mediated by host capabilities.
+
 See also:
 
 - [[Global Capability API Graph]]

@@ -9,6 +9,8 @@ The Capability is the core [[Vapor Ecosystem]]-level runtime/contract graph prim
 authority surfaces, API exposure, composition structure, and orchestration seams across ecosystem, [[Engine]], [[Game]],
 mod, and sub-mod layers.
 Capabilities are defined by Vapor and used by Vapor itself, engines, games, mods, and sub-mods.
+A capability intentionally spans runtime graph node, contract surface, API surface, authority surface, and composition
+unit.
 
 Current broader-ecosystem pressure:
 Capabilities are the cross-layer contract substrate of the [[Vapor Ecosystem]], where engines, games, mods, modules,
@@ -18,6 +20,29 @@ artifacts; it is not by itself the same thing as the active capability graph of 
 The active capability graph models runtime authority, API exposure, and artifact/composition structure.
 In this sense, capabilities are ABI-like for Vapor: they are the common protocol surface used to discover, validate,
 mount, project, and orchestrate heterogeneous runtime pieces.
+Capabilities should carry Vapor-readable metadata in a shared format so the runtime can reason about what a node is,
+what it can do, what it depends on, and what may depend on it.
+
+Identity and visibility:
+
+- Capabilities should not be anonymous.
+- Private/internal capabilities are allowed, but they still need identity and metadata.
+- Visibility should roughly follow Rust-like visibility semantics where useful, including private, `pub(super)`,
+  `pub(crate)`, and public-style scopes.
+- Large/umbrella capabilities may contain private subgraphs, but leaf-like capabilities should usually not hide
+  subgraphs.
+
+Type relationship:
+A capability can itself be a type/category used by other capabilities, but a capability cannot be its own type.
+Self-typing, self-dependency, and dependency cycles are invalid bootstrap shapes.
+Non-circular type/dependency/dependent relationships are part of what forms the capability graph.
+
+Graph shape:
+The running `core_engine` process should have one global runtime capability graph.
+Package, engine, game, mod, script, and user-facing views are projections or metadata views over that graph, not
+separate authoritative runtime graphs.
+The raw capability metadata may be simpler than the runtime graph, for example a registry scanned before graph
+construction.
 
 `Capability Declaration` is the pre-lock artifact.
 At the definition lock transition, validated capability declarations are promoted into capabilities.
@@ -46,13 +71,33 @@ gating.
 Dependency-layer and seam-layer separation rules are canonicalized in
 [Capability Dependency Layer Notes](Capability%20Dependency%20Layer%20Notes.md).
 
+Rust/Rhai boundary:
+
+- A capability can exist entirely in Rust with no Rhai declaration surface.
+- [[Rhai Capability]] support is itself a capability.
+- A capability should not exist purely as a Rhai declaration with no Rust host support beyond trivial script-local
+  computation.
+- Rhai may do simple local work, but low-level data access, heavy kernels, and runtime orchestration should remain
+  Rust-backed.
+
 Execution boundary:
-Capabilities relay requests, expose structured authority, and describe what is possible.
-They do not run themselves.
+Capabilities emit intents, relay requests, expose structured authority, and describe what is possible.
 Canonical mutation authority belongs outside capability objects in the host-side execution/reconcile/commit/apply
 pipeline.
 This boundary is what allows Rhai callbacks to orchestrate through capabilities while Rust remains the normal
 executor/kernel.
+Leaf capabilities may directly bind Rust functions/types, including read-only or mutating operations, but canonical
+state progression still runs through host-side reconciliation.
+
+Composite capabilities:
+Composite capabilities are first-class capability nodes.
+They are not merely named views over primitive nodes.
+A composite capability may own policy that its children do not directly know about, and may be implemented through
+mechanisms rather than one native Rust function.
+
+Examples:
+Non-USF-specific capabilities may include logging/console output, configuration access, application startup, Rhai
+support, event/message/hook surfaces, ECS integration, or standard-library-like script APIs.
 
 USF boundary:
 [[USF]] is a user of the Vapor capability model, not the foundation of that model.
@@ -60,10 +105,10 @@ USF concepts such as [[Scale]], [[Scale Realizer]], [[Phenomenon]], and [[Metric
 capability shapes may be higher-order/layer-dependent rather than single flat nodes.
 
 Open pressure:
-The boundary between capability graph nodes, declarations, public API surfaces, runtime authority, and artifact/package
-structure still needs a dedicated pass.
-The exact relation between capability graph edges, slots, authority claims, registries, and integration apertures is
-still under active pressure.
+The exact edge taxonomy is still unresolved: dependency edges, slot edges, API exposure edges, and authority edges may
+be distinct edge kinds or shared edges with policy metadata.
+The exact relation between capability graph edges, slots, authority claims, registries, and integration apertures also
+remains under active pressure.
 
 See also:
 

@@ -4,14 +4,12 @@ status: WIP-draft
 aliases: []
 ---
 
-A Capability Role describes the fundamental archetypal contract shape of a capability under the [[Capability Contract]].
-This role is hard-coded as contract metadata and each capability has exactly one role.
-Current roles are `input` and `output`.
-Input capabilities gather or ingest data without directly mutating canonical game-world state, while output capabilities
-present or display state without directly mutating canonical game-world state.
+A Capability Role is an unresolved pressure term for describing how a capability participates in graph semantics.
+Older `input` and `output` wording is likely misleading if it implies there are only two node roles.
 
 Current pressure:
-`input` and `output` are not sufficient as a final authority model.
+`input` and `output` may be better understood as dependency/dependant directions or slot-facing roles rather than
+complete capability roles.
 Potential additional role surfaces include authority, reconciler, realizer, bridge, and mutator, but these are not
 settled.
 Canonical mutation authority is outside capability objects in reconcile/commit/apply, while capabilities relay requests

@@ -78,3 +78,5 @@ Practical interpretation for current glossary work:
 4. Promote only durable, reconciled outcomes from legacy/temp signals into glossary terms.
 5. Keep reflection macro surface as a high-signal peer signal (alongside other working frameworks such as workflow);
    runtime intent pipeline docs should compose with it, not overshadow it.
+6. Treat capabilities as intent emitters/request relays, not as the owner of canonical state progression.
+7. Keep reconcile/commit/apply outside the capability graph unless explicitly reopened.

@@ -3,7 +3,6 @@ canonical_name: Modding Contract
 status: WIP-draft
 aliases:
   - Modding Contract Surface
-source_of_truth: []
 ---
 
 The Modding Contract defines mod declaration, life-cycle, dependency, compatibility, replacement, composition, and
@@ -19,7 +18,18 @@ Across composition-time selection, slot ownership, capability-node policy, and e
 must allow non-additive shapes such as exclusive replacement, variadic extension, ordered registries, optional providers,
 and explicit integration apertures.
 
-Therefore, `mod conflict` should usually be treated as a symptom of an invalid capability/slot graph rather than the
-primary primitive.
+Current owner-answer-informed boundary:
+At the highest core-architecture level, modding an existing `core_engine`, `core_mod`, or `base_mod` should be
+additive-only by default.
+Third-party mods may expose their own internal mutation/replacement semantics, but those semantics still resolve at
+composition time under locked policy.
+
+Diagnostics:
+`mod conflict` remains a useful user-facing diagnosis, but it should usually be a report constructed from lower-level
+invalid capability/slot graph facts.
+Explicit mod-wide conflicts are author-friendly metadata layered over graph validation, not a replacement for graph
+validation.
+Developer diagnostics should expose graph/product details; player-facing diagnostics should explain the conflicting
+mods/packages and likely actions without requiring graph expertise.
 
 #glossary

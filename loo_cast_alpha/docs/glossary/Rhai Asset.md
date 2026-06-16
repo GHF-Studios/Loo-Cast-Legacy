@@ -8,6 +8,16 @@ aliases:
 A Rhai Asset is a canonical authored asset represented as a [[Rhai]] declaration file.
 Current owner-answer-informed doctrine is strong: a Rhai declaration file is always an asset, and an authored asset is
 always a Rhai declaration.
+Current capability semantics push this further: all assets are capabilities, and all capabilities are assets, at least
+for the authored/declaration model.
+
+File/node shape:
+
+- One Rhai declaration file should represent one authored asset/capability node.
+- The file is a different container artifact type, not proof that the node is graph-top-level.
+- That node may contain sub-declarations or intra-file structure.
+- Leaf files are preferred where practical.
+- Folder/module-style assets may use `mod.rs`-like aggregator files for folder capabilities/assets.
 
 Traditional media payloads such as textures, models, and sounds should not be treated as canonical authored assets in the
 normal model.

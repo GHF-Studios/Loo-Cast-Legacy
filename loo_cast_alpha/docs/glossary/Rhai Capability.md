@@ -8,6 +8,7 @@ The Rhai Capability is a declaration-level capability API object exposed to scri
 capability-object subgraphs.
 It is dynamic/object-based and identified in human-readable terms for script ergonomics and policy gating.
 It is a projected/contextual facade, not raw access to the unrestricted global host graph.
+[[Rhai]] support itself should be treated as a capability.
 
 Rhai capabilities are declaration-surface semantics.
 Runtime execution/orchestration semantics are carried by runtime-side Rust implementations under the
@@ -33,7 +34,21 @@ Rhai declarations may use structured procedural construction patterns such as bu
 This does not make Rhai the owner of runtime scheduling; it makes Rhai the authored declaration surface for constructing
 typed capability payloads, callback profiles, and asset definitions.
 
+Projection boundary:
+Declaration-entry `ctx` and callback `ctx` should be modeled as projections over the same global capability graph.
+The runtime likely needs a generalized way to create selective projections of specific subgraphs.
+
+Callback boundary:
+Callback profiles are likely typed attachment points.
+Whether a callback is considered part of its declaring capability or a linked callback capability remains unresolved.
+
+Path/visibility policy:
+Path-mask and allow/deny behavior should be driven by capability metadata.
+A capability should know whether the Rust code it contains can be public, is intended to be public, and at what
+visibility scope.
+
 Open pressure:
 The exact meaning of "Rhai closures as normal declaration content" still needs a dedicated pass.
+The exact relationship between callback profiles, slots, and capabilities also needs a dedicated pass.
 
 #glossary
