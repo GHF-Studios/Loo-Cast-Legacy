@@ -3,20 +3,21 @@ canonical_name: Capability
 status: WIP-draft
 aliases:
    - API
-source_of_truth: [ ]
 ---
 
-The Capability is the canonical post-lock artifact in the runtime capability stack.
-This note tracks capability lifecycle semantics and Rust/Rhai loop semantics, but capability multiplicity classes are
-still under active boundary review.
+The Capability is the core [[Vapor Ecosystem]]-level runtime/contract graph primitive for describing usable abilities,
+authority surfaces, API exposure, composition structure, and orchestration seams across ecosystem, [[Engine]], [[Game]],
+mod, and sub-mod layers.
+Capabilities are defined by Vapor and used by Vapor itself, engines, games, mods, and sub-mods.
 
 Current broader-ecosystem pressure:
-Capabilities are also emerging as the cross-layer contract substrate of the [[Vapor Ecosystem]], where engines, games,
-mods, modules, and smaller API surfaces are in-memory ability/authority structures rather than only artifact hierarchy
-nodes.
+Capabilities are the cross-layer contract substrate of the [[Vapor Ecosystem]], where engines, games, mods, modules,
+sub-mods, and smaller API surfaces are in-memory ability/authority structures rather than only artifact hierarchy nodes.
 The `modpack -> mod -> module -> member` structure describes authoring, packaging, launcher configuration, and
 artifacts; it is not by itself the same thing as the active capability graph of the running program.
-This broader framing is owner-answer-informed but not fully formalized here yet.
+The active capability graph models runtime authority, API exposure, and artifact/composition structure.
+In this sense, capabilities are ABI-like for Vapor: they are the common protocol surface used to discover, validate,
+mount, project, and orchestrate heterogeneous runtime pieces.
 
 `Capability Declaration` is the pre-lock artifact.
 At the definition lock transition, validated capability declarations are promoted into capabilities.
@@ -45,17 +46,24 @@ gating.
 Dependency-layer and seam-layer separation rules are canonicalized in
 [Capability Dependency Layer Notes](Capability%20Dependency%20Layer%20Notes.md).
 
-USF boundary caveat:
-Older drafts treated USF concepts such as [[Scale]], [[Scale Realizer]], [[Phenomenon]], and [[Metric]] as capability
-types with capability multiplicity classes.
-That framing is no longer safe to treat as doctrine.
-[[USF]] is a public/API-facing Spacetime Engine module/framework part, not the owner of the broader capability contract
-model.
+Execution boundary:
+Capabilities relay requests, expose structured authority, and describe what is possible.
+They do not run themselves.
+Canonical mutation authority belongs outside capability objects in the host-side execution/reconcile/commit/apply
+pipeline.
+This boundary is what allows Rhai callbacks to orchestrate through capabilities while Rust remains the normal
+executor/kernel.
+
+USF boundary:
+[[USF]] is a user of the Vapor capability model, not the foundation of that model.
+USF concepts such as [[Scale]], [[Scale Realizer]], [[Phenomenon]], and [[Metric]] are capabilities, but their concrete
+capability shapes may be higher-order/layer-dependent rather than single flat nodes.
 
 Open pressure:
-The boundary between capability graph nodes, USF declarations, public API surfaces, and runtime authority needs a
-dedicated pass before USF types are classified as capabilities, non-capability declarations, API surfaces, or
-layer-dependent hybrids.
+The boundary between capability graph nodes, declarations, public API surfaces, runtime authority, and artifact/package
+structure still needs a dedicated pass.
+The exact relation between capability graph edges, slots, authority claims, registries, and integration apertures is
+still under active pressure.
 
 See also:
 

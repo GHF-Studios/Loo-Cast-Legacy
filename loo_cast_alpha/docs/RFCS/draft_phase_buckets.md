@@ -150,16 +150,23 @@ the failure cleanly and stop launch flow. Launcher crash is only acceptable if l
 
 `R14` Core mod as first-party but not hardcoded
 
-User position:
-`core_mod` should provide fundamental capabilities but still remain a normal mod artifact (deselectable, not untouchable engine magic).
+Status:
+Superseded by 2026-06-16 owner answers in `question_batch_002.txt`.
 
-Integrated commentary:
-Agree. This enforces architectural honesty: first-party mods follow the same loading model as future third-party mods.
+Old user position:
+`core_mod` should provide fundamental capabilities but still remain a normal mod artifact (deselectable, not untouchable
+engine magic).
 
-Decision (2026-05-09):
-`core_mod` remains a normal mod artifact and may be deselected/replaced. If no effective core mod is present, framework
-bootstrap may run, but there is no meaningful user-visible runtime; process should effectively no-op/exit rather than
-pretend gameplay exists.
+Superseded decision (2026-05-09):
+This R14 entry previously treated `core_mod` as a normal mod artifact that could be deselected/replaced, with framework
+bootstrap no-op/exit behavior if no effective core mod was present.
+That premise is now wrong.
+
+Current correction:
+`core_mod` is hard-required for its corresponding `core_engine`.
+It is not freely deselectable, removable, or mix-and-match replaceable.
+`core_engine` plus matching `core_mod` define one Vapor-powered Engine fixture.
+The `base_mod` layer is the required singleton Game slot and is the replaceable Game-level concept.
 
 `R15` Per-scale singleton and non-empty set invariants
 
@@ -475,7 +482,7 @@ Items:
 - [ ] `R16` Rhai role as definition/description-first
 - [ ] `R09` Real mod identity + packaging semantics
 - [ ] `R13` Launcher startup + default modpack behavior
-- [ ] `R14` `core_mod` as replaceable first-party mod
+- [ ] `R14` superseded: `core_mod` as matching engine fixture, not replaceable first-party game mod
 - [ ] `R15` Per-scale singleton/non-empty fail-fast invariants
 - [ ] `R20` Deterministic load-time ownership authority
 - [ ] `R11` Legacy extraction policy

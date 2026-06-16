@@ -17,7 +17,8 @@ Boundary notes:
 2. USF is treated as a pivotal public/API-facing Spacetime Engine module/framework part, not a standalone product layer.
 3. Capability + modding runtime composition is sibling-runtime coupling, not contract redefinition.
 4. USF is not currently modeled as a directly/exclusively replaceable Vapor-level component.
-5. Seam analysis is phase-tagged: declaration seams (script load/validate/lock path) and execution seams
+5. Replacing USF means forking/modifying the Spacetime Engine enough that the result is effectively another Engine.
+6. Seam analysis is phase-tagged: declaration seams (script load/validate/lock path) and execution seams
    (post-lock runtime evolution path).
 
 This mirrors the ownership split direction from legacy notes:

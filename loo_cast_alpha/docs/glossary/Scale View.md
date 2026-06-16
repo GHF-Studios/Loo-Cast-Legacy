@@ -2,7 +2,6 @@
 canonical_name: Scale View
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 A Scale View is the observer-relative projection and traversal state over [[Scale]] coordinates.
@@ -14,5 +13,11 @@ Scale View constrains detail selection in [[Observer-Relative Simulation]] witho
 Pre-alpha scope note:
 Assume one primary observer/player/chunk-loader-equivalent scale view for now.
 Multi-observer or multiplayer divergence between active scale views is out of scope until explicitly reopened.
+
+Current owner-answer-informed boundary:
+The active scale should be treated as the first-class change-authority scale, not simply the only simulated scale.
+Higher scales remain simulated through slower/scaled-time semantics.
+Lower-scale detail may be sampled, scoped-simulated, or temporarily inspected without becoming broad lower-scale active
+simulation.
 
 #glossary

@@ -6,6 +6,16 @@ Purpose:
 - Define when a change is breaking.
 - Define required migration behavior.
 
+Current pre-alpha boundary caveat:
+
+- The active product stack is `Vapor Ecosystem -> Spacetime Engine -> Loo Cast`.
+- Vapor is Steam-exclusive and includes SDK/tooling plus runtime protocol/contracts/traits for engines, games, mods, and
+  packages.
+- USF is a public/API-facing Spacetime Engine subsystem, not a standalone product contract pillar.
+- `core_engine` plus its matching `core_mod` define one Engine fixture.
+- `base_mod` is the required singleton Game layer for Loo Cast and is the Game-level replaceable concept.
+- This file is a contract planning surface; the latest glossary and owner-confirmed answers outrank stale wording here.
+
 Glossary:
 
 - Published game version

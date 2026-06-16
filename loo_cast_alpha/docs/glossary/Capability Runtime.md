@@ -2,10 +2,11 @@
 canonical_name: Capability Runtime
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
-The Capability Runtime is the runtime orchestration layer for capabilities in the [[Spacetime Engine]].
+The Capability Runtime is the runtime orchestration layer for capabilities.
+In the first-party stack, the concrete runtime lives inside the [[Spacetime Engine]], but the concept is rooted in the
+[[Vapor Ecosystem]] capability model.
 It handles dynamic discovery, registration, coordination, and execution routing for capability implementations.
 Declaration scripts consume [[Rhai Capability]] objects through profile-tailored `ctx` capability-object subgraphs;
 runtime materialized capability instances execute closure logic against runtime capability implementations.
@@ -21,6 +22,10 @@ The runtime realizes contracts defined by the [[Capability Contract]] and coordi
 with [[Observer-Relative Simulation]].
 Canonical lifecycle, Rust/Rhai loop semantics, callback-path semantics, and multiplicity classes are defined in
 [[Capability]].
+
+Execution boundary:
+The runtime may execute through capabilities, but canonical state mutation is decided by host-side
+execution/reconcile/commit/apply paths rather than by capability objects executing themselves.
 
 Implementation-facing notes:
 

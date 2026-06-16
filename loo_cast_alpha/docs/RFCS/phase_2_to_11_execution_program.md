@@ -2,6 +2,12 @@
 
 Status: Active draft for roadmap consolidation toward `0.5.0` alpha.
 
+Authority caveat:
+This file is a roadmap crystallization surface, not current doctrine by itself.
+Historical `Locked` and `Provisional-Locked` labels in this file must be treated as historical unless reconfirmed by
+current owner direction or the latest glossary.
+If this file conflicts with the latest glossary or owner-answer logs, treat this file as stale.
+
 Purpose:
 
 - Hold one coherent execution program for Phases `2..11`.
@@ -16,7 +22,7 @@ Source inputs:
 
 ---
 
-## Program Constraints (Locked)
+## Program Constraints (Historical Lock Snapshot)
 
 1. Strict phase numbering is `2..11`.
 2. `Rxx` units are micro-RFC style decision/task units.
@@ -33,7 +39,7 @@ Source inputs:
 
 ---
 
-## V2 Lock Snapshot (Modding + Capability Contracts)
+## V2 Snapshot (Modding + Capability Contracts)
 
 ### Terminology (Provisional-Locked)
 
@@ -176,6 +182,8 @@ Validation posture:
 
 - `core_engine` exposes a root slot.
 - One `core_mod` occupies that root slot.
+- Current correction: `core_mod` is a hard-required fixture for its matching `core_engine`, not a freely deselectable or
+  mix-and-match replaceable gameplay mod.
 - A mod may expose additional slots and may require other slots to be filled.
 - Slot filling is recursive/nested through the mod capability graph.
 - Load is valid only if required singleton slots resolve to exactly one owner per scope key and graph invariants hold.
@@ -223,9 +231,9 @@ This keeps accountability clear while acknowledging non-linear dependency realit
 
 ## Draft Phase Intent Map (2..11)
 
-- Phase 2: planning lock for doctrine + mod/framework contracts.
-- Phase 3: implement modding framework baseline and prove minimal end-to-end loop.
-- Phase 4: plan USF semantics contracts.
+- Phase 2: crystallize glossary/docs/contracts enough to stop poisoning implementation.
+- Phase 3: prove `launcher -> Vapor package -> Spacetime Engine -> Loo Cast` as a product-stack MVP, not a USF MVP.
+- Phase 4: plan USF semantics contracts after capability/slot/product-stack semantics are less confused.
 - Phase 5: implement USF semantics contracts.
 - Phase 6: plan USF math contracts.
 - Phase 7: implement USF math contracts.
@@ -238,9 +246,10 @@ This keeps accountability clear while acknowledging non-linear dependency realit
 
 ## Open Decisions Queue (V2 Next Pass)
 
-1. Finalize pre-alpha manifest contract shape (from non-field-level draft above).
-2. `authority/*` refinement pass: finalize declaration shape without introducing pre-alpha tie-break mechanisms.
-3. Package/composite-package structure and loader discovery rules.
+1. Reconcile this file with glossary corrections from `question_batch_001.txt` and `question_batch_002.txt`.
+2. Finalize pre-alpha manifest/package contract shape around Vapor package -> Engine -> Game.
+3. Capability/slot semantics pass: decide how authority claims, exclusive slots, variadic slots, ordered registries,
+   optional providers, and integration apertures relate.
 4. Phase completion proof definitions for:
    - Phase 3 (modding baseline)
    - Phase 8 (capability planning baseline)

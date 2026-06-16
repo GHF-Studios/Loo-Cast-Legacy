@@ -2,7 +2,6 @@
 canonical_name: USF Runtime
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The USF Runtime is the Spacetime Engine runtime implementation of the [[USF Contract]] family.
@@ -19,6 +18,10 @@ path declarations and runtime open/close behavior.
 It executes contract-defined USF behavior rather than defining the contract itself.
 Canonical capability lifecycle semantics, Rust/Rhai cyclic loop semantics, callback-path semantics, and multiplicity
 classes are defined in [[Capability]].
+
+Boundary note:
+`USF Runtime` remains a valid term for the runtime side of the public/API-facing USF subsystem even though USF is not a
+standalone product.
 
 Implementation-facing notes:
 

@@ -2,7 +2,6 @@
 canonical_name: Asymmetric Failure Doctrine
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 Asymmetric Failure Doctrine means panic-fast is the default runtime integrity posture, while persistence-sensitive

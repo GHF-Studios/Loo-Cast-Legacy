@@ -3,7 +3,6 @@ canonical_name: USF Contract Family
 status: WIP-draft
 aliases:
   - USF Contract
-source_of_truth: [ ]
 ---
 
 The USF Contract Family defines foundational simulation principles and public/API-facing contract-level structure inside
@@ -20,6 +19,7 @@ USF is not a Vapor-level product contract and should not be modeled as directly 
 contract structure.
 It may interact with capability/runtime mechanisms, but it is not itself the same thing as the broader
 [[Capability Contract]].
+The USF Contract remains a valid term for the public/API-facing contract structure of this Spacetime subsystem.
 
 Implementation-facing notes: [USF Contract Runtime Boundary Notes](USF%20Contract%20Runtime%20Boundary%20Notes.md)
 

@@ -1,13 +1,25 @@
 # NOW
 
-Date: 2026-05-05
+Date: 2026-06-16
+
+Purpose: short current checkpoint, not doctrine.
 
 Current direction:
 
 - Keep one repo.
 - Keep xtask small and focused.
-- Treat `core_mod` and `base_mod` as first-party mods, not engine internals.
-- Build a composable mod ecosystem (mods can depend on mods).
+- Treat docs as WIP crystallization surfaces, not trusted doctrine by default.
+- Treat the glossary as the primary active crystallization surface.
+- Treat RFCs as stale whenever they conflict with current glossary pressure or owner answers.
+- Use `docs/ai_conversation_logs/question_batch_001.txt` and `question_batch_002.txt` as raw owner-answer intake.
+- Remove the old `WIP_QUESTION_LEDGER.txt`; question batches replace it.
+- Product stack skeleton: `Vapor Ecosystem -> Spacetime Engine -> Loo Cast`.
+- Vapor is Steam-exclusive and includes SDK/tooling plus runtime protocol/contracts/traits for engines, games, mods, and packages.
+- Spacetime Engine is the first-party engine/framework product.
+- USF is a public/API-facing Spacetime Engine subsystem/module, not a product pillar.
+- Loo Cast Game is currently represented by `base_mod`; Loo Cast Product/Project is the broader acquired bundle.
+- Phase 2 focuses on glossary/docs/contract crystallization enough to avoid poisoning implementation.
+- Phase 3 should prove `launcher -> Vapor package -> Spacetime Engine -> Loo Cast` as a product-stack MVP, not a USF MVP.
 - Use lockstep game/contract versioning.
 - Treat publish as immutable tag + artifact + channel event.
 
@@ -23,12 +35,13 @@ Current scope:
 - GitHub Actions mirrors `cargo xtask audit` as a low-maintenance remote validation rail.
 - No SDK/toolchain redistribution layer right now.
 - No dual-repo automation right now.
-- Compatibility policy is defined in `CONTRACTS.md`.
+- Compatibility policy is still defined in `CONTRACTS.md`, but the active conceptual surface is the glossary.
 - `CHANGELOG_DRAFT.md` and `MIGRATIONS_DRAFT.md` are active draft surfaces while structural churn is expected.
 - Stable-contract mode rule: breaking changes require a new published version + formal migration guide.
 
 Success for this phase:
 
 - Clean developer workflow with low cognitive load.
-- Clear boundary between engine internals and public mod API.
-- Mod composition proven with at least one integration-mod example.
+- Clear current vocabulary around Vapor, Spacetime Engine, USF, Loo Cast, capabilities, metrics, phenomena, chunks, and Rhai assets.
+- Old USF-as-product and core_mod-replaceability confusion removed from active docs.
+- Phase 2/3 roadmap reframed around product-stack proof before USF-specific implementation.

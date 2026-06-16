@@ -2,13 +2,17 @@
 canonical_name: Scale
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 Scale is the canonical semantic coordinate type defined by the [[USF Contract]].
 It identifies where simulation meaning is anchored, without by itself declaring support, runtime realization, or
 observer projection behavior.
 Scale composes with [[Scale Definition]], [[Scale Support]], [[Scale Realizer]], [[Scale Slice]], and [[Scale View]].
+
+Layering note:
+Scale may appear as a [[Capability]], a USF internal type, a content declaration concept, or a runtime view concept
+depending on which layer is being discussed.
+Do not force those appearances into one flat node shape before the capability model is pressure-tested.
 
 Implementation-facing notes:
 

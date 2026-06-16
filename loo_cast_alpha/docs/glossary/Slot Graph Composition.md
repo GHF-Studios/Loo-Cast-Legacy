@@ -2,17 +2,20 @@
 canonical_name: Slot Graph Composition
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Slot Graph Composition defines composition-time ownership and extension structure as declared slot filling from a
 root through nested capability/mod/framework graphs.
 Slots are an abstract helper concept and are not limited to whole mods.
 They may exist at engine, game, mod, capability-node, module, or smaller API-surface levels.
+At the current abstraction level, a slot can be treated roughly as a [[Capability]] graph edge with policy, while
+preserving room for richer policy shapes.
 
-In the first-party stack, the `core_engine`-type layer exposes required structure filled by a `core_mod`/[[USF]]-type
-layer, and the `base_mod`/[[Loo Cast]]-type layer fills gameplay/content structure.
+In the first-party stack, the `core_engine`-type layer exposes required structure filled by a matching `core_mod`-type
+fixture, and the `base_mod`/[[Loo Cast]]-type layer fills gameplay/content structure.
 Future gameplay/content extension slots are possible, but not required for the immediate baseline.
+`core_mod` is a hard-required engine-level fixture for its matching `core_engine`; `base_mod` is a required singleton
+game slot and is replaceable as a Game-level Vapor concept.
 
 Composition is valid only when required slots resolve and singleton-critical ownership resolves to exactly one owner per
 scope key under the [[Modding Contract]].

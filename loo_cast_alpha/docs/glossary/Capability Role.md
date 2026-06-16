@@ -2,7 +2,6 @@
 canonical_name: Capability Role
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 A Capability Role describes the fundamental archetypal contract shape of a capability under the [[Capability Contract]].
@@ -15,8 +14,10 @@ Current pressure:
 `input` and `output` are not sufficient as a final authority model.
 Potential additional role surfaces include authority, reconciler, realizer, bridge, and mutator, but these are not
 settled.
-Until mutation authority is explicitly modeled, role terminology should not pretend canonical state transitions are
-fully explained.
+Canonical mutation authority is outside capability objects in reconcile/commit/apply, while capabilities relay requests
+and expose structured authority/API surfaces.
+Until mutation routing is explicitly modeled, role terminology should not pretend canonical state transitions are fully
+explained.
 Runtime authority-split implications and possible role-surface expansion are tracked here:
 [Capability Role and State Authority Notes](Capability%20Role%20and%20State%20Authority%20Notes.md)
 

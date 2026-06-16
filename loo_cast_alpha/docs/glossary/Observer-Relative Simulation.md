@@ -2,7 +2,6 @@
 canonical_name: Observer-Relative Simulation
 status: draft
 aliases: []
-source_of_truth: []
 ---
 
 Observer-Relative Simulation defines view-conditioned detail resolution over the scale system.
@@ -15,11 +14,16 @@ Concrete runtime techniques (for example chunk loading around a camera/player lo
 [[Portal Traversal Semantics]]) may realize this behavior but are not the defining concept at this glossary layer.
 
 Current owner-answer-informed pressure:
-active+above is a hard USF direction, but "never simulate below active" is a default policy rather than an absolute ban
-on scoped, explicit detail sampling or localized inspection.
-Only the active scale should normally emit first-class change authority.
-Higher scales remain meaningful and can act as summarized/reactive authority over lower scales, while lower-scale
-significance may overflow upward through explicit reconciliation.
+`active+above` captures an important USF direction, but it is no longer precise enough by itself.
+The active scale is the first-class change-authority scale.
+Higher scales remain simulated through summarized/scaled-time semantics rather than merely paused context.
+Below-active detail is normally not broad active simulation, but it may exist through scoped sampling, scoped
+simulation, or temporary inspection.
+Lower-scale significance may overflow upward through explicit reconciliation, with an arithmetic-carry-like intuition.
+
+Open pressure:
+The short name for this policy is unresolved.
+`active+above+scoped_below` is a pressure phrase, not final terminology.
 
 Implementation-facing notes:
 

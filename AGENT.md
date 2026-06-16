@@ -76,6 +76,8 @@ When instructed to read `AGENT.md`:
    - `loo_cast_alpha/docs/ARCHITECTURE.md`
    - `loo_cast_alpha/docs/CONTRACTS.md`
    - `loo_cast_alpha/docs/RFCS/phase_2_to_11_execution_program.md`
+   - `loo_cast_alpha/docs/ai_conversation_logs/question_batch_001.txt`
+   - `loo_cast_alpha/docs/ai_conversation_logs/question_batch_002.txt`
    - relevant files under `loo_cast_alpha/docs/glossary/`
 5. For legacy signal, inspect `loo_cast_legacy` excluding only top-level `LEGACY` and `legacy`.
 6. Prioritize these legacy signals when relevant:
@@ -153,7 +155,10 @@ High-value project signals:
 
 - `loo_cast_alpha/docs/glossary/` as the primary docs authority surface for current vocabulary, ontology pressure, and
   concept framing.
-- `loo_cast_alpha/docs/RFCS/` for active roadmap/program structure.
+- `loo_cast_alpha/docs/NOW.md` as a short current checkpoint when it is actively maintained.
+- `loo_cast_alpha/docs/ai_conversation_logs/question_batch_*.txt` for raw owner-answer intake and pressure history.
+- `loo_cast_alpha/docs/RFCS/` for roadmap/program structure, but assume RFCs may be stale when they conflict with
+  current glossary or owner answers.
 - Legacy `core_engine`, `core_mod`, `core_mod_api`, `base_mod`, and `base_mod_api` for implementation pressure and prototype evidence.
 
 Lower-authority but useful signals:
@@ -166,8 +171,10 @@ Glossary authority caveat:
 
 - A glossary page may be the best current framing surface without being final doctrine.
 - Empty or stale `source_of_truth` metadata means "read carefully", not "ignore".
-- If a glossary page, RFC, legacy record, and current owner answer disagree, preserve the disagreement and route it
-  through the question ledger instead of smoothing it into a false consensus.
+- If a glossary page, RFC, legacy record, and current owner answer disagree, current owner answers and current glossary
+  pressure usually outrank RFC prose.
+- Preserve disagreements and route them through the question/pressure process instead of smoothing them into false
+  consensus.
 
 When signals conflict, use this report shape:
 
@@ -187,6 +194,8 @@ Read these glossary pages first for high-level orientation:
 
 - `loo_cast_alpha/docs/glossary/Vapor Ecosystem.md`
 - `loo_cast_alpha/docs/glossary/Product Constellation.md`
+- `loo_cast_alpha/docs/glossary/Engine.md`
+- `loo_cast_alpha/docs/glossary/Game.md`
 - `loo_cast_alpha/docs/glossary/Spacetime Engine.md`
 - `loo_cast_alpha/docs/glossary/USF.md`
 - `loo_cast_alpha/docs/glossary/Loo Cast.md`
@@ -195,20 +204,22 @@ Read these glossary pages first for high-level orientation:
 
 Minimal current orientation:
 
-- Vapor is the Steam-specific ecosystem/SDK/distribution layer.
+- Vapor is the Steam-exclusive ecosystem/SDK/distribution/protocol layer.
 - Spacetime Engine is the first-party engine/framework product.
-- USF is a public/API-facing Spacetime Engine module/framework part, not a standalone product.
+- USF is a public/API-facing Spacetime Engine subsystem/module, not a standalone product.
 - Loo Cast is the first-party game/content product built on Spacetime Engine.
-- Capability, slot, chunk, metric, and phenomenon semantics are still active crystallization surfaces.
+- Capability/slot semantics are the highest-risk downstream poison point.
+- Chunk, metric, phenomenon, Rhai asset, and scale-view semantics are still active crystallization surfaces.
 
 If this section conflicts with glossary pages or current owner answers, treat this section as stale and route the
 conflict through the question/pressure process.
 
 ## USF Orientation Kernel
 
-USF is a scale-first and chunk-hierarchical public/API-facing Spacetime Engine module/framework part.
+USF is a scale-first and chunk-hierarchical public/API-facing Spacetime Engine subsystem/module.
 It is not a standalone product pillar and should not be modeled as directly/exclusively replaceable at the Vapor product
-layer.
+layer. Replacing USF means forking/modifying the Spacetime Engine enough that the result is effectively another
+engine.
 
 Strong current signals:
 
@@ -216,18 +227,22 @@ Strong current signals:
 - one scale definition per canonical scale coordinate
 - one effective scale realizer per active scale slice
 - scale support must be explicit
-- active+above simulation policy is likely a hard USF invariant
+- active scale is the first-class change-authority scale
+- higher scales remain simulated through summary/scaled-time semantics, not merely paused
+- below-active detail may exist through scoped sampling, scoped simulation, or temporary inspection; this is not broad
+  lower-scale active simulation
 - lower-than-active detail is not fully simulated until traversed/manifested
 - chunks are core USF spatial structure, not generic engine chunks
-- chunks are large, currently understood around `1000^3` scale-local units
-- chunk internal optimization remains unresolved and may involve octrees, sparse fields, grids, BVHs, or realizer-specific structures
+- chunks are first-level partitions and use a fixed `1000^3` scale-local unit size at every scale
+- chunk internals may use octrees, sparse fields, grids, BVHs, cellular automata, or other adaptive structures, but
+  representation switching should be orchestrated deliberately
 
 Major open pressure:
 
-- whether chunks have only local operational authority or some scoped generation/update authority
 - what threshold turns chunk-local changes into entity-level canonical events/messages
-- whether old DPT/ZLM/Zone concepts are dead, renamed, or partially recoverable
-- how multi-observer scale views affect active-scale policy
+- how distributed metric-like state such as gravity interacts with chunk storage, phenomena, and commit/apply passes
+- how old DPT/ZLM/Zone concepts survive as intermediate classification tools without becoming world authority
+- whether `Scale Realizer` remains the right name now that phenomena own materialization/re-aggregation logic
 
 Do not flatten those open pressures into doctrine.
 
@@ -237,17 +252,18 @@ Core concepts to preserve during analysis:
 
 - Runtime Lock: validated composition becomes immutable runtime structure.
 - Capability Declaration: pre-lock script-produced declaration payload.
-- Capability: post-lock validated/materialized runtime artifact.
+- Capability: Vapor-level runtime/contract graph primitive for authority/API exposure/composition/orchestration.
 - Capability Resolution: dependency/provider resolution, materialization/merge, and projection/access are distinct layers.
 - Projection API: scripts see contextual facades, not raw unrestricted engine state.
 - Execution-Reconciliation Dual Core: execution produces candidate outcomes; reconcile/commit/apply decides authoritative progression.
 - Workflow Framework: Rust-side staged orchestration across ECS, Render, Async, and iterative domains.
-- Script Safety: Rhai is declaration-first and context-gated; Rust owns scheduling, heavy kernels, state authority, and safety boundaries.
+- Script Safety: Rhai is declaration-owned and host-scheduled; Rust owns scheduling, heavy kernels, state authority, and safety boundaries.
 
 Pressure point:
 
 - "Rhai is declarative" must not erase callback/closure behavior if callbacks are part of normal capability execution.
-- "input/output capabilities do not mutate canonical state" is insufficient until mutation authority is explicitly modeled.
+- Capabilities relay requests and expose structured authority; they do not execute themselves.
+- Canonical mutation authority belongs outside capability objects in reconcile/commit/apply execution paths.
 
 ## Failure Doctrine
 
@@ -300,7 +316,7 @@ Q-AUTH-001: How should historical `locked` labels be treated?
 Q-STACK-001: What is the product/framework/distribution stack?
 Q-COMP-001: Is replacement composition-time selection while runtime remains frozen/additive?
 Q-CHUNK-001: What kind of thing is a USF chunk?
-Q-SCALE-001: Is active+above a hard USF invariant?
+Q-SCALE-001: What replaces the shorthand `active+above` now that scoped-below detail exists?
 Q-ZONE-001: Was the zone mistake "zones as authority", not "classification regions exist"?
 ```
 
