@@ -115,25 +115,25 @@ A: Nah, I do think we wanna have Phase 3 be like a hello world, but with superfl
 
 Authority And Execution
 51. Is canonical mutation authority definitely outside capabilities, or can a capability own an authority token that the host executor honors?
-A:
+A: That's the whole idea behind capabilities in the first place lol. To be something that emits intents, and the host executor `reconcile/commit/apply`'s those intents, yk?
 52. Is "capabilities relay requests" correct, or do some capabilities directly perform pure/read-only computation?
-A:
+A: Yes, cause else, it's just a "direct"(as direct as rhai->rust can be) function call, yk? But like, ofc capabilities can do anything that rhai permits, and I do intend to provide a sort of standard library, one, and/or others for localized/contextual/scoped API, but yeah, I do want some sort of global api stuff to allow rhai to do some stuff ofc, implement some simple algorithms and shit. Yes, ofc I want to allow that. I just simply don't want rhai crunching the big numbers or orchestrating loops and shit, yk?
 53. Should the reconcile/commit/apply layer be a named capability, a runtime service, or outside the capability graph?
-A:
+A: Outside the capability graph, hinting at what a capability type might need to implement to be a fully functiong and informed working "Capability", yk?
 54. Is "authority capability" a bad term if capabilities do not mutate canonical state directly?
-A:
+A: Eh, I mean, yes, but also no, cause leaf capabilities should theoretically only ever be exactly that: A direct binding to rust function(s) and/or type(s), yk? And then all other "branch" capabilities just branch/compose, depending on whether you look top-down or bottom-up, but yk?
 55. Should authority be modeled as a role, a slot policy, a graph edge property, a runtime token, or a separate concept?
-A:
+A: I really don't know, cause for me, here, right now, authority is still a very vague term.
 56. Do input/output capability roles still help, or are they now actively misleading?
-A:
+A: I thiiiink they are misleading and make it seam like there are only two types of nodes/roles. What I think I was hinting at was that each node only has two slot "roles": "input" and "output", aka "dependencies" and "dependants", lol. Certainly *a* way to look at it, lol.
 57. Should roles like authority, reconciler, realizer, bridge, and mutator remain open pressure terms?
-A:
+A: Yeah, those are all very wibbly-wobbly still.
 58. Is a mutator capability possible if mutation is actually executed by host reconcile/commit/apply?
-A:
+A: That's what leaf capabilities ARE(or can be tbf, could also jus be a truly immutable/readonly sorta capability I suppose), yk?
 59. Are event/message/hook systems capabilities, slot policies, runtime services, or all depending on layer?
-A:
+A: Capabilities. The whole ECS-capability-integration is just capabilities. Core ethos: EVERYTHING IS CAPABILITIES! Yk? Not literally everything, but yk? But, to be honest, the most honest answer to this question is: All depending on layer.
 60. Should hook consumption/cancellation be modeled as authority granted by a capability path mask?
-A:
+A: Not really. More like, a hooks/events/messages/whatever should be a capability in itself, and that should be defined such that it simply allows cancellation via callback return value(s), yk? Easy as pie really.
 
 Rhai / Declaration / Projection
 61. Is one Rhai declaration file still exactly one Capability Declaration, now that Rhai declaration files are also Assets?
@@ -181,4 +181,4 @@ A:
 80. After this batch, should the next pass produce glossary changes first, or a Phase 3 vertical-slice spec first?
 A:
 
-PS: I LOVE this format with like a big fat question batch, and I want this incorporated into AGENT.md so we can properly standardize this format, cause this format of "AI does deep reivew/context-acquisition, then it poses a ton of questions, then I answer them, then give them to the AI, integrate it in cooperation with the AI, and then risne and repeat" REALLY resonates with me as a DEFAULT framework for how the AI should work, yk?
+PS: I LOVE this format with like a big fat question batch, and I want this incorporated into AGENT.md so we can properly standardize this format, cause this format of "AI does deep reivew/context-acquisition, then it poses a ton of questions, then I answer them, then give them to the AI, integrate it in cooperation with the AI, and then risne and repeat" REALLY resonates with me as a DEFAULT framework for how the AI should work, yk? Also....... the AGENT.md kiiinda needs a general trim, yk? It's a bit complex and misdirecting/misguided in some specific places, yk? Not everywhere, but still somewhere.
