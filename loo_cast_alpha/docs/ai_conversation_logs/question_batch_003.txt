@@ -137,48 +137,48 @@ A: Not really. More like, a hooks/events/messages/whatever should be a capabilit
 
 Rhai / Declaration / Projection
 61. Is one Rhai declaration file still exactly one Capability Declaration, now that Rhai declaration files are also Assets?
-A:
+A: Yeah, exactly. An asset is kinda also a capability, yeah. All Assets are Capabilities, and all Capabilities are Assets, yk?
 62. Can one Rhai Asset declare several capabilities, or should it declare one top-level asset/capability that may contain sub-declarations?
-A:
+A: One top-level asset/capability that may contain sub-declaration in the form of intra-file-structure is totally fine by me. As long as one file represents one node, even if not a leaf node,m although files being leaf nodes is highly encouraged, although I also expect mod.rs-like files for folder-modules or in our case folder-capabilities/folder-assets, but yeah. Did that brain vomit make sense to you?
 63. Is a Rhai callback part of the declaring capability, or a separate callback capability linked by policy?
-A:
+A: I am not quite sure what you mean and whether it (still) makes sense, yk?
 64. Should callback profiles be slot-like attachment points?
-A:
+A: Yeah, exactly, yeeees. *Typed* attachment points! Yes! And that also seems to hint a tiiiny bit at least at how slot "roles" might actually work and look like and all, yk?
 65. Should declaration-entry `ctx` and callback `ctx` be modeled as two projections of the same capability graph?
-A:
+A: Yeah, and actually, I suspect thgat we may want to have a generalized way to generate these selective projections of specific sets of subgraphs(everything apart from the root is a subgraph, just to be clear here), yk?
 66. Is path-mask allow/deny policy a capability feature, a script-profile feature, or a projection-runtime feature?
-A:
+A: Assuming I understand what you mean, especially regarding "path-mask": A capability feature, as in a capability knows whether the rust code it contains can even be public(aka is declared `pub(whatever)`) and is also intended to be public and to what degree and such and encodes all of that in the capability metadata, yk?
 67. Can Rhai declarations request capabilities that are not yet materialized, or only capabilities already exposed by the bootstrap graph?
-A:
+A: We want to kinda scan-construct the graph layer by layer, so we can guarantee that any needed dependencies are fully registered and initialized and ready to mingle, yk?
 68. Is fixed-point capability bootstrap required for Phase 3, or can Phase 3 use a simpler single-pass bootstrap?
-A:
+A: What?
 
 Conflict / Validation / Diagnostics
 69. Is "mod conflict" still a user-facing diagnosis even if the primitive is invalid capability/slot graph?
-A:
+A: it seems like the user-facing diagnosis needs to be a separate sorta report consturcted from the raw problem and what type of problem it is, cause yes, the user doesn't wanna knoiw about the capability graph and shit, they wanna know if for some reason sex_mod and better_trees_mod conflict, yk? Sorry for being so blunt, lol.
 70. Should explicit mod-wide conflicts exist only as author-friendly metadata layered over graph validation?
-A:
+A: Holy shit did you just predict my answer to question 69 lmao. Nice. So, it goes without saying: Yes!
 71. Should invalid graph errors report in graph terms, product terms, or both?
-A:
+A: Depends, does it happen in production in user-facing land, or in debug/dev mode? Yk? Devs want the details, the players want the general idea and what they can do about it without learning to program lol.
 72. What are the first hard-fail graph errors Phase 3 must detect?
-A:
+A: Not quite sure? Like, what do you mean? Like, I think that's obvious? Cycles, and that's basically it. We can also declare explicit `std::hint´-esque hints that nodes could conflict, so I guess we also want to check that no conflicts are present, and yeah, isn't that basically it? Like, yk? or were you getting at something larger than simple DAG invariants?
 73. Should missing required provider and duplicate singleton provider be the first two validation proofs?
-A:
+A: Aaaaah now I see what you mean..... hm, yeah I see, we wanna have these things like "singleton" or "ordered registry" or whatever the fuck be proper fully fleshed out built-in *types of types* of capabilities, yk? """Capability Type Templates""" if you will. So yeah, those things sound like things we'd wanna check but mind the organization (or lack thereof) cause yk? It's a small little topic in itself, these capability type templates and from what basic primitives they are consturcted (some of which are themselves incompatible and conflcit with each other), yk? It's funny how this sorta meta-layers mirrors the structure of the actual stuff so naturally.... hm... anyway.
 74. Is deterministic provider order required for every multi-provider slot before Phase 3 can count as real?
-A:
+A: Noooo ofc not. It should mirror the ability of native rust types somewhat: Be just an array, or a single thing, or a Vec, or a Vec with a minimum/maximum/whatever count of elements, or a tuple, or a struct with named fields, or an enum, yk? Like pattern matching and all kinda, I am kinda imitating rust in a lot of ways here, yk?
 75. Can user-selected load order exist, or should all ordering be graph/topology/policy-derived?
-A:
+A: Everything automatic. Either it works and is compatible, or it is not and the user can't do shit about it. The value lies in the effort to prevent conflicts in the first place and call them out early and make them explicit and clear and semantically anm expected mode and not like a monke wrench thrown into a running engine, yk?
 76. Should the launcher expose slot/provider selection directly, or hide it behind package/game/modpack choices for Phase 3?
-A:
+A: Well, as I said before, we want a kind of projected/abstracted/simplified sorta graph/thing we can use to assemble modpacks/experiences/whatever, and that stuff could for example not choose individual files or folders within a mod, you, as the user/modpack-author could only assemble and drag--and-drop basically existing packaged mods, yk? You cannot inspect mods and rearrange their guts, but ofc the mods can expose ways to support addons and mods for themselves and all, and that should be what the modpack-author interacts with, decidiong what mods work together and then figuring out how the mod author implemented moding, and yk? Like, does that make sense?
 
 Roadmap Pressure
 77. Is the Phase 3 MVP better described as "Vapor package launches an Engine fixture and Game slot"?
-A:
+A: Mooooooooore or less, yes, but please refer to my hello-world-on-steroids proposal, I think that pretty neatly answers this question.
 78. What is the smallest hello-world-on-steroids capability proof that would make the architecture feel real?
-A:
+A: Hard to say, but maybe we could try and generate a content fingerprint which somehow concatenates the entire user/modpackAuthor-facing capability graph paths into one big string/plaintext-file which describes the whole setup, and that should get then printed, by the launcher, or core_engine, idk tbh.
 79. Which false assumption would poison the most downstream work: slot ownership, capability identity, authority location, graph layering, or Rhai declaration cardinality?
-A:
+A: The biggest problem is I think that we focused a biiiiiiiiiit too hard on one topic and as a result I kind of ended up skipping a lot of questions or kinda half-assing an answer cause I didn't know what to say cuse previous answers had made those questions obsolete or useless or senseless or whatever, yk?
 80. After this batch, should the next pass produce glossary changes first, or a Phase 3 vertical-slice spec first?
-A:
+A: First the glossary changes, then the plan for phase 3, which, to be honest, might even require one OR MORE question batch iterations before we can truly lock in Phase 3, and don't forget Phase 2 lol, but ofc we're in the middle of Phase 2 right now tbf.
 
-PS: I LOVE this format with like a big fat question batch, and I want this incorporated into AGENT.md so we can properly standardize this format, cause this format of "AI does deep reivew/context-acquisition, then it poses a ton of questions, then I answer them, then give them to the AI, integrate it in cooperation with the AI, and then risne and repeat" REALLY resonates with me as a DEFAULT framework for how the AI should work, yk? Also....... the AGENT.md kiiinda needs a general trim, yk? It's a bit complex and misdirecting/misguided in some specific places, yk? Not everywhere, but still somewhere.
+PS: I LOVE this format with like a big fat question batch, and I want this incorporated into AGENT.md so we can properly standardize this format, cause this format of "AI does deep reivew/context-acquisition, then it poses a ton of questions, then I answer them, then give them to the AI, integrate it in cooperation with the AI, and then rinse and repeat" REALLY resonates with me as a DEFAULT framework for how the AI should work, yk? Also....... the AGENT.md kiiinda needs a general trim, yk? It's a bit complex and misdirecting/misguided in some specific places, yk? Not everywhere, but still somewhere.
