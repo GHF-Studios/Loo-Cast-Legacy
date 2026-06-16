@@ -93,25 +93,25 @@ A: Yes, exactly what I was kinda getting at in my answer to question 38, I think
 
 Engine / Game / Mod Fixed Points
 41. Is `core_engine + matching core_mod` best modeled as one Engine fixture with two artifact parts?
-A:
+A: Yes.
 42. Should `core_mod` be called a slot occupant at all if it is hard-required for its matching `core_engine`?
-A:
+A: Yes, barring that the whole slot/capability/node terminology is weird and undecided and unclear still.
 43. Is `base_mod` a slot occupant because Game is a replaceable Vapor-level concept?
-A:
+A: Yes!
 44. Is "Game slot" the right term for the required singleton `base_mod` position?
-A:
+A: More or less, preliminarily, yes.
 45. Can `core_engine`, `core_mod`, and `base_mod` all expose modding/extension slots without themselves becoming replaceable in the same way?
-A:
+A: Yes, but not "without themselves becoming replacable in the same way" cause... they kinda are replacable in the same way, it's just... yeah idk, you're kinda right I guess, but I hope you can see why this is a bit ambiguous (still?), yk?
 46. Should first-party `core_mod` extension slots be strongly discouraged but structurally possible?
-A:
+A: Well, definitely not strongly discouraged, just a last-resort in some sort of range/space/level that you can work in, yk what I mean?
 47. If a non-Spacetime Engine ignores most of the capability model, what minimum Vapor bootstrap capability must it still provide?
-A:
+A: That is hard to say right now, cause the whole runtime structure and how bevy/ecs is integrated and all of that stuff is still (somewhat intentionally) very fluid still, yk?
 48. Can a non-Spacetime Engine have no Game slot, or is Game a required Vapor concept for anything launched as a playable product?
-A:
+A: Game is indeed required, same as the basic modding scheme and all.... I think I got the answer to question 48 inside this answer actually: Capabilities ARE the coherent cross-product-stack structure that is shared across projects, yk? Kinda like how a rust crate ALWAYS uses some conventions and shit that are the same, but ofc that does not magically make bevy and tokio compatible and work together like one crate designed to make these two work together or sum, yk? Bevy is not a dependency or dependant of tokio, and neither is tokio of bevy, but still they follow some underling rules that allow some interoperability, yk? It's just that my stuff is more extensive and overarching that rust's """module/member tree"""(not really sure what I mean by that tbh, lol).
 49. Is a modpack a Vapor composition artifact that selects an Engine and Game, or only a Game-level composition artifact under an already-selected Engine?
-A:
+A: Nono it selects an engine, a game, and then mods for both the engine and the game, and ofc with dependency semantics to catch any conflicts or cycles or other weird shit early on, yk?
 50. Should Phase 3 prove Engine/Game fixture semantics before proving arbitrary third-party mod composition?
-A:
+A: Nah, I do think we wanna have Phase 3 be like a hello world, but with superfluous "enhancements" and "improvements" to test whether modding and all works properly, yk? Like I just want it to print text and like do that in a complex-enough way that we cna clearly see whether the full thing works as intended and is configurable and all, or not, yk? We don't wanna leave "arbitrary" third-party mod composition on the table and let it get stale, it has to be proven in Phse 3 as well; the full stack! Phase 4 then should focus on working on the USF actually, yk? And so on, whatever.
 
 Authority And Execution
 51. Is canonical mutation authority definitely outside capabilities, or can a capability own an authority token that the host executor honors?
