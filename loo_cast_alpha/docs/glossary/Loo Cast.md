@@ -17,7 +17,7 @@ access to Source SDK and Steam ecosystem surfaces.
 When precision matters, distinguish the Loo Cast Game from the broader Loo Cast Product/Project bundle.
 
 Current implementation framing:
-`base_mod` is the current `Loo Cast Game` layer.
+`base_mod` is the current `Loo Cast Game` [[Reserved Built-In Mod Role]] layer.
 It is a required singleton game slot in the first-party stack and is replaceable as a Game-level Vapor concept.
 Future `base_mod` extension slots are allowed, but not part of the immediate baseline.
 By acquiring Loo Cast, the owner should gain access to the Loo Cast Game, the [[Spacetime Engine]], and the

@@ -16,7 +16,8 @@ then perform the boot sequence below before doing substantive work.
 3. No agent-written synthesis becomes doctrine unless the owner explicitly confirms it.
 4. Treat old `locked`, `canonical`, or `source_of_truth` labels as historical signal unless reconfirmed or clearly active.
 5. Treat owner answers in chat as high-authority raw input, not automatically integrated doctrine.
-6. Prefer small, dependency-aware question batches over large flat questionnaires.
+6. Use `loo_cast_alpha/docs/ai_conversation_logs/question_batch_*.txt` as the default Q&A timeline for current
+   architecture crystallization unless the owner explicitly chooses a different format.
 7. Maintain stable question identity through IDs; allow question wording, dependencies, and status to evolve.
 8. Keep one active conversation thread at a time. Parallelism belongs in ledgers/files, not in chat confusion.
 9. Meta-discussion is allowed only when it changes the next action, authority model, question structure, artifact format, or risk of future corruption.
@@ -27,7 +28,7 @@ Operational stack:
 
 ```text
 L0: Operating Protocol
-L1: Question Ledger / Thread Map
+L1: Question Batch / Thread Map
 L2: Owner-Confirmed Assertions
 L3: Glossary / Current Vocabulary and Ontology Framing
 L4: RFC Doctrine / Roadmap / Milestones / Issues
@@ -35,6 +36,25 @@ L5: Code / Assets / Tests
 ```
 
 The purpose of L0 is not ultimate truth. It is a stable floor that prevents infinite meta recursion.
+
+## Question Batch Default
+
+For now, `loo_cast_alpha/docs/ai_conversation_logs/question_batch_*.txt` is the primary conversation artifact.
+These files document the working Q&A timeline:
+
+```text
+agent poses questions -> owner answers -> the completed sheet becomes the shared record for that thread
+```
+
+Treat this format as the default way to crystallize architecture.
+It is not just a background log.
+The batches show a large part of what the owner wants because they preserve both the agent's framing questions and the
+owner's corrections/answers in one place.
+
+When a new architecture uncertainty becomes large enough to need its own thread, create or propose a focused
+`question_batch_NNN.txt`.
+When answers arrive, treat the answered batch as high-authority raw input before promoting selected corrections into
+glossary, RFC, roadmap, or implementation tasks.
 
 ## Worker Thread Integration Protocol
 
@@ -46,7 +66,7 @@ When the owner answers questions:
 1. Record the answer as `answered-raw` or `owner-confirmed` only for the specific question/thread being handled.
 2. Do not immediately mutate project doctrine in prose.
 3. Identify where the answer should integrate:
-   - question ledger/thread map for dependency state
+   - active question batch/thread map for dependency state
    - glossary entry for vocabulary, ontology, and framing
    - RFC/program doc for roadmap, sequencing, and phase commitments
    - decision log only for explicit durable process/product decisions
@@ -59,7 +79,7 @@ When the owner answers questions:
    - `pre-USF-provisional`: usable for scaffolding, explicitly reopenable if USF or another root thread invalidates it
    - `superseded`: replaced by newer owner direction or active docs
    - `parked`: intentionally deferred because it does not change the next action
-5. Prefer writing a handoff packet or ledger update over asking more questions when integration state is unclear.
+5. Prefer writing a handoff packet or question-batch update over asking more questions when integration state is unclear.
 
 Do not treat question answering as the goal. The goal is to keep owner intent, glossary framing, roadmap sequence, and
 implementation pressure aligned without accidental canonization.
@@ -73,10 +93,10 @@ When instructed to read `AGENT.md`:
 3. If the mode is unclear, present 3-6 concise mode options and wait.
 4. For broad/root architecture work, read active alpha docs:
    - `loo_cast_alpha/docs/NOW.md`
+   - active `loo_cast_alpha/docs/ai_conversation_logs/question_batch_*.txt` files, especially the batch named by `NOW.md`
    - `loo_cast_alpha/docs/ARCHITECTURE.md`
    - `loo_cast_alpha/docs/CONTRACTS.md`
    - `loo_cast_alpha/docs/RFCS/phase_2_to_11_execution_program.md`
-   - `loo_cast_alpha/docs/ai_conversation_logs/question_batch_*.txt`
    - relevant files under `loo_cast_alpha/docs/glossary/`
 5. For legacy signal, inspect `loo_cast_legacy` excluding only top-level `LEGACY` and `legacy`.
 6. Prioritize these legacy signals when relevant:
@@ -155,7 +175,8 @@ High-value project signals:
 - `loo_cast_alpha/docs/glossary/` as the primary docs authority surface for current vocabulary, ontology pressure, and
   concept framing.
 - `loo_cast_alpha/docs/NOW.md` as a short current checkpoint when it is actively maintained.
-- `loo_cast_alpha/docs/ai_conversation_logs/question_batch_*.txt` for raw owner-answer intake and pressure history.
+- `loo_cast_alpha/docs/ai_conversation_logs/question_batch_*.txt` as the primary Q&A timeline and active
+  conversation/crystallization artifact for the current workflow.
 - `loo_cast_alpha/docs/RFCS/` for roadmap/program structure, but assume RFCs may be stale when they conflict with
   current glossary or owner answers.
 - Legacy `core_engine`, `core_mod`, `core_mod_api`, `base_mod`, and `base_mod_api` for implementation pressure and prototype evidence.

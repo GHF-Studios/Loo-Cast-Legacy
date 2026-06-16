@@ -5,13 +5,15 @@ aliases:
   - Vapor Game
 ---
 
-A Game is a [[Vapor Ecosystem]]-level product/composition concept.
+A Game is a [[Vapor Ecosystem]]-level product/composition concept and one mandatory pillar of a
+[[Vapor Product Instance Stack]].
 The [[Loo Cast]] Game is a first-party Game instance.
 
 Current framing:
 
-- A Game is represented by a required singleton `base_mod` layer in the first-party stack.
-- `base_mod` is replaceable as a Game-level Vapor concept.
+- A Game is represented by a mandatory singleton `base_mod` layer in the first-party stack.
+- `base_mod` is the [[Reserved Built-In Mod Role]] name for any Vapor Game.
+- `base_mod` is mandatory but replaceable as a Game-level Vapor concept.
 - `base_mod` is dynamically linked/loaded relative to the Engine fixture, even though a Game slot is required for a
   meaningful playable product.
 - A Game may later expose its own mod slots or extension apertures, but that is not part of the immediate baseline.

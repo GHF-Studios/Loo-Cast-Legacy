@@ -182,8 +182,10 @@ Validation posture:
 
 - `core_engine` exposes a root slot.
 - One `core_mod` occupies that root slot.
-- Current correction: `core_mod` is a hard-required fixture for its matching `core_engine`, not a freely deselectable or
-  mix-and-match replaceable gameplay mod.
+- Current correction: `core_mod` is mandatory, but it is replaceable through selection of another valid coupled
+  `core_engine`/`core_mod` pair.
+  It is not optional, freely removable, or independently mix-and-match replaceable as a gameplay mod.
+  `core_engine`, `core_mod`, and `base_mod` are reserved built-in mod roles in a Vapor product instance stack.
 - A mod may expose additional slots and may require other slots to be filled.
 - Slot filling is recursive/nested through the mod capability graph.
 - Load is valid only if required singleton slots resolve to exactly one owner per scope key and graph invariants hold.

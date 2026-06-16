@@ -20,9 +20,11 @@ USF is nevertheless public and API-facing; it is most of the practical Spacetime
 [[Loo Cast]].
 
 Current implementation framing:
-`core_engine` and `core_mod` together define the concrete Engine being used.
-`core_mod` is hard-required for its corresponding `core_engine` and should not be treated as freely removable or
-mix-and-match replaceable.
+`core_engine` and its matching `core_mod` are [[Reserved Built-In Mod Role]] names that together define the concrete
+Engine being used.
+`core_mod` is mandatory for a valid Vapor product instance, but it is replaceable by selecting a different valid
+`core_engine`/`core_mod` pair.
+It should not be treated as optional, freely removable, or mix-and-match replaceable independently of its engine pair.
 The `base_mod`/Game layer depends on the `core_mod` surface and on whatever it exposes or re-exports from
 `core_engine` and Vapor.
 

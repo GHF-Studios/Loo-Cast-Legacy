@@ -12,8 +12,11 @@ Current pre-alpha boundary caveat:
 - Vapor is Steam-exclusive and includes SDK/tooling plus runtime protocol/contracts/traits for engines, games, mods, and
   packages.
 - USF is a public/API-facing Spacetime Engine subsystem, not a standalone product contract pillar.
-- `core_engine` plus its matching `core_mod` define one Engine fixture.
-- `base_mod` is the required singleton Game layer for Loo Cast and is the Game-level replaceable concept.
+- `core_engine`, matching `core_mod`, and `base_mod` are reserved built-in mod roles and mandatory pillars of a Vapor
+  product instance stack.
+- `core_engine` plus matching `core_mod` define a coupled mandatory Engine pillar.
+- `core_mod` is mandatory but replaceable by selecting another valid coupled Engine pair.
+- `base_mod` is mandatory but replaceable as the Game layer for Loo Cast.
 - This file is a contract planning surface; the latest glossary and owner-confirmed answers outrank stale wording here.
 
 Glossary:

@@ -11,7 +11,9 @@ Current direction:
 - Treat docs as WIP crystallization surfaces, not trusted doctrine by default.
 - Treat the glossary as the primary active crystallization surface.
 - Treat RFCs as stale whenever they conflict with current glossary pressure or owner answers.
-- Use `docs/ai_conversation_logs/question_batch_*.txt` as raw owner-answer intake.
+- Use `docs/ai_conversation_logs/question_batch_*.txt` as the default Q&A timeline for now.
+- Question batches document both sides of the conversation: agent questions and owner answers/corrections.
+- New architecture threads should usually become focused question batches before glossary/RFC promotion.
 - Active question thread: `question_batch_003.txt` focuses on capability/slot semantics.
 - Remove the old `WIP_QUESTION_LEDGER.txt`; question batches replace it.
 - Product stack skeleton: `Vapor Ecosystem -> Spacetime Engine -> Loo Cast`.
@@ -44,5 +46,5 @@ Success for this phase:
 
 - Clean developer workflow with low cognitive load.
 - Clear current vocabulary around Vapor, Spacetime Engine, USF, Loo Cast, capabilities, metrics, phenomena, chunks, and Rhai assets.
-- Old USF-as-product and core_mod-replaceability confusion removed from active docs.
+- Old USF-as-product and core_mod/base_mod mandatory-vs-replaceable confusion removed from active docs.
 - Phase 2/3 roadmap reframed around product-stack proof before USF-specific implementation.

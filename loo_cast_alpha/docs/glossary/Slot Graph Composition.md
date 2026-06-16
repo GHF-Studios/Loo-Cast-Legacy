@@ -11,11 +11,13 @@ They may exist at engine, game, mod, capability-node, module, or smaller API-sur
 At the current abstraction level, a slot can be treated roughly as a [[Capability]] graph edge with policy, while
 preserving room for richer policy shapes.
 
-In the first-party stack, the `core_engine`-type layer exposes required structure filled by a matching `core_mod`-type
-fixture, and the `base_mod`/[[Loo Cast]]-type layer fills gameplay/content structure.
+In the first-party [[Vapor Product Instance Stack]], the `core_engine` and matching `core_mod` form a coupled mandatory
+Engine pillar, and the `base_mod`/[[Loo Cast]]-type layer fills the mandatory Game pillar.
+These are [[Reserved Built-In Mod Role]] names before they are ordinary extension slots.
 Future gameplay/content extension slots are possible, but not required for the immediate baseline.
-`core_mod` is a hard-required engine-level fixture for its matching `core_engine`; `base_mod` is a required singleton
-game slot and is replaceable as a Game-level Vapor concept.
+`core_mod` is mandatory but replaceable only as part of selecting another valid coupled Engine pair.
+`base_mod` is mandatory but replaceable as the Game-level Vapor concept.
+The correction is therefore mandatory matched occupancy, not global irreplaceability.
 
 Composition is valid only when required slots resolve and singleton-critical ownership resolves to exactly one owner per
 scope key under the [[Modding Contract]].

@@ -163,10 +163,13 @@ bootstrap no-op/exit behavior if no effective core mod was present.
 That premise is now wrong.
 
 Current correction:
-`core_mod` is hard-required for its corresponding `core_engine`.
-It is not freely deselectable, removable, or mix-and-match replaceable.
-`core_engine` plus matching `core_mod` define one Vapor-powered Engine fixture.
-The `base_mod` layer is the required singleton Game slot and is the replaceable Game-level concept.
+`core_mod` is mandatory for a valid Vapor product instance, but it is replaceable by selecting another valid coupled
+`core_engine`/`core_mod` pair.
+It is not optional, freely removable, or independently mix-and-match replaceable.
+`core_engine`, `core_mod`, and `base_mod` are non-negotiable core architecture pillars of a Vapor product instance
+stack.
+They are reserved built-in mod roles, not ordinary extension mod names.
+The `base_mod` layer is also mandatory, but replaceable as the Game-level concept.
 
 `R15` Per-scale singleton and non-empty set invariants
 
@@ -482,7 +485,7 @@ Items:
 - [ ] `R16` Rhai role as definition/description-first
 - [ ] `R09` Real mod identity + packaging semantics
 - [ ] `R13` Launcher startup + default modpack behavior
-- [ ] `R14` superseded: `core_mod` as matching engine fixture, not replaceable first-party game mod
+- [ ] `R14` superseded: `core_mod` as mandatory replaceable matched engine pillar, not optional gameplay mod
 - [ ] `R15` Per-scale singleton/non-empty fail-fast invariants
 - [ ] `R20` Deterministic load-time ownership authority
 - [ ] `R11` Legacy extraction policy

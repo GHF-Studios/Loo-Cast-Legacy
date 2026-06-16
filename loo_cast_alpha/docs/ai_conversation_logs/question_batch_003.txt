@@ -27,69 +27,69 @@ A: Printing to the console, or maybe a biiiiit more generalized like printing ou
 
 Capability Graph Shape
 11. Is there one global capability graph for a running process, or many related graphs projected from package, engine, game, mod, and runtime scopes?
-A:
+A: The projection part is not wrong, but yes its one big global graph in the running core_engine process.
 12. If there are many graphs, is "the capability graph" the resolved runtime graph after composition?
-A:
+A: Nah. Well, I see what you *may* be hinting at: The actual runtime capability graph, and the raw capability metdata, might not be the same graph. In fact the metadata may (likely) not even be a graph but probably more like a simple linear registry, yk? Idk, that is ofc a split I can imagine, b ut the actual capability runtime graph is one gigantic thing, which should ofc allow heavy multi-threaded access and all, cause like EVERYTHING should go through it, yk?
 13. Is the graph allowed to be cyclic after resolution, or are cycles always invalid?
-A:
+A: Oh noooo, graph cycles indicate a bootstrap paradox, which only the root node can resolve by being the root node, yk? And even then it's not reeeeeally a cycle but a 0-length path. Whatever, I hope that made sense.
 14. Are dependency edges, slot edges, API exposure edges, and authority edges all the same edge type with policy metadata, or distinct edge kinds?
-A:
+A: I honestly don't have a clue right now.
 15. Should graph nodes be allowed to contain private subgraphs that are invisible outside the node's exposed surface?
-A:
+A: Yeah, but ofc this should be kinda discouraged as a default/rule, cause this only feels justified for complex capabilities and umbrella-capabilities and stuff for organization and all yk, but like """leaf-y""" nodes shouldn't reeeeeally contain private subgraphs, which now that I think about it kiiiinda is what defines a leaf, lol. So I suppose the answer is: Yes.
 16. Can a node expose multiple capability surfaces at once, or should one node map to one exposed capability identity?
-A:
+A: One node an LINK a virtually unlimited amount of other nodes, buuuuuuth yes, one node should equal one capability, and larger sets of capabilities or single capabilities with high parametrization should be categorized together, yk? Like how I don't just write 50 functions and 25 types, but cretae a module and maybe submodules and then I put those functions and types in there, for example, yk? So, I suppose the idea is more that one node be of whatever TYPE it wants to be, thus effectively allowing us to just create custom types with custom dependencies/dependants configuration  (aka what dependencies and types of dependencies we have, and what dependants and types of dependents we can have), yk?
 17. Are composite capabilities first-class nodes, or just named views over several primitive nodes?
-A:
+A: first-class nodes. That's the idea also like: the capability graph is not only very distributed as a graph and like meant to be a highly multi-threadable data structure, but also it should allow for a fairly large heterogeneity, as in we do want to allow nodes to define different types of nodes or "capabilities" and then also have dependants slots (singleton, variadic, fixed >1 count, whatever) be able to actually use those as types of slots/capabilities/nodes (all three are different views of the same data really, yk?), but ofc a capability can only use types of dependants defined by it's dependencies, not by itself. Kinda like how in rust for kiiiiiiinda the same reason I think, you cannot have your proc macros in the same crate that you use em in, yk? Emphasis on "kinda", lol.
 18. Can a composite capability own policy that its child capabilities do not know about?
-A:
+A: I mean, yes? Like, a composite capability really is like ANY capability that does not directly map to a native rust function or whatever, yk? composite capabilities should be some mechanism or like set of mechanism or rather a trait contract maybe? Idk, but composite capabilities should be absolutely first-class capabilities able to do whatever the fuck they want, yk? But, ofc, we want *types* of "capabilities"/"nodes"/"slots" so we can enforce constraints, like yk, the slots are typed, yk? It's like..... the capability graph is a macro-generated-metadata-powered unified graph over a rust crate graph and a rust module/member graph/AST/kinda-something-like-that, one that we can reeeeeelatively easily then bind into rhai (or any other supported scripting language in the future) and use that to do stuff in a simpler more dispatch-y script-y fashion, yk?
 19. Should a module tree and a capability graph be literally the same graph, or just two projections of the same underlying composition data?
-A:
+A: I mean, we do wanna like decide what is public and private and all, but a ton of this seems extractable from code or supplyable into a macro without much annoying boilerplate or any hassle, yk? So I kinda think the answer is yes, but I think my caution is justified cause this is a complex question/issue.
 20. Is the artifact hierarchy (`package -> modpack -> mod -> module -> file/member`) ever allowed to define runtime authority directly?
-A:
+A: What do you mean exactly? Like, if I understand you right: Yes, ofc, it just cannot remove or alter this core structure and with core_engine and core_mod and base_mod and all, but ofc we can add onto that howeeever we want, yk? We just cannot remove or interfere (to some degree, inteferrence/side-effects cannot be 100% guaranteed or avoided ofc) with the core spine of a Vapor product stack, namely/mostly the three core reserved crates/crate-names, yk?
 
 Slots As Graph Edges
 21. Is "slot == capability graph edge with policy" good enough as the working definition?
-A:
+A: Meh. I think my previous answers make this question unneccessary.
 22. If not, what is the minimum missing part: ownership, cardinality, type constraint, lifecycle phase, compatibility policy, or authority transfer?
-A:
+A: Not quite sure what you mean here.
 23. Is a slot owned by the provider node, the consumer node, the parent composition root, or the Vapor runtime?
-A:
+A: A slot is ofc owned by a node, and represents a child node in a way, yk? And the node itself sits in some other node in some kind of slot of it, and that node is your parent then! Yk? So yeah there is a clear parent-child relationship here. Does that answer help?
 24. Is slot filling always composition-time, or can a slot be intentionally runtime-dynamic after the Runtime Lock?
-A:
+A: Well, that in itself is then more a capability that is just a registry for example, yk? Like, runtime-dynamism is achieved by the fact that capabilities can be comprised of any sort of rust-based kernel, and these rust kernels can ofc do virtually anything given the right context data/functions, yk? But the like slot mechanics as in capability graph nodes are slots and all, yeah that stuff absolutely 100% unequivocally happens at composition-time at super-early runtime, yk?
 25. Is a filled slot itself a capability, or just an edge between capabilities?
-A:
+A: Nono it IS a capability. A slot generally just accepts one concrete node/capability type and is just a sort of policy really like "and expect exactly one instance of it" or "expect one or more instances of it" or "expect zero or more instances of it" or "expect exactly seventeen instances of it" or like, yk? Just, one type per slot, and a node cannot have itself as a slot type, neither as a dependency nor as a dependant.
 26. Can slots nest recursively without any special-case limit?
-A:
+A: No. I mean yes, but not of the same type ofc. And also, not only not the same type, cycles in general are disallowed, but deep recursion is, well allowed, but ofc we shoiuldn't really go beyond like a dozen or a few dozen at the veeeeeeeery least, cause like that has to be enough recursion to map out any rust codebase in terms of a capability graph for suuuuure, right?
 27. Can a capability node define its own internal slot semantics that differ from Vapor defaults?
-A:
+A: I feel like due to my previous answers to previous questions this is now a non-sensical question. But I might also be misunderstanding the question to be completely honest with you.
 28. If a node defines internal slot semantics, must it still expose those semantics as Vapor-readable metadata?
-A:
+A: Yes, absolutely. If not, why even use the damn mechanism and not just have it be one or more util functions/types/whatever, yk?
 29. Are exclusive slot, variadic slot, ordered registry, optional provider, and integration aperture distinct slot policy classes?
-A:
+A: Well, yeah, but idk if all of them make sense and whether the list is complete and yk?
 30. Should those policy classes be formal names in the glossary now, or remain pressure vocabulary?
-A:
+A: Unsure.
 
 Slot Policy Semantics
 31. Does an exclusive slot mean exactly one provider must fill it, or at most one provider may fill it?
-A:
+A: The problem is that "exclusive" and "variadic" and "ordered registry" and so on are all mumbo-jumbo concepts that are not clear enough, yk? So I understand the confusion, but idk quite how to answer right now cause of all the stuff I already said, yk?
 32. Does an optional provider mean zero-or-one provider, or zero-or-more providers where absence is valid?
-A:
+A: Same as 31.
 33. Does a variadic slot imply unordered multi-provider composition unless paired with an ordering policy?
-A:
+A: Same as 31.
 34. Is an ordered registry just a variadic slot with deterministic order, or does registry imply lookup/query semantics beyond ordering?
-A:
+A: Same as 31.
 35. Is an integration aperture a deliberately exposed place where third-party content can attach without replacing the owning node?
-A:
+A: Same as 31.
 36. Does replacement mean selecting a different provider for an exclusive slot before lock, not mutating the chosen provider after lock?
-A:
+A: Replacement means that somewhere, something is there, whether it has to be or not, and we replace with with a different thing of the same type. Easy as pie, yk?
 37. Are additive modding and replacement both just slot policies under the same graph model?
-A:
+A: Basically?
 38. Can a slot policy allow destructive/full-mutate behavior inside a subgraph while the outer graph remains locked?
-A:
+A: Yes. The additive-only stuff is only for the core architecture doing mods, aka like modding of an existing core_engine, core_mod, and/or base_mod must be additive-only, but ofc those third-party mods cna then do whatever the fuck they want, yk? It's just that I, at this highest-of-all abstraction levels would not like to have this removability/mutability, yk?
 39. If yes, is that still "runtime locked" because the mutation is sanctioned by a locked policy?
-A:
+A: Oh yeaaaaaah absolutely, if mutation does happen, it still happens at composition time, exactly.
 40. Should runtime graph mutation be forbidden by default and allowed only through explicit dynamic-slot policies?
-A:
+A: Yes, exactly what I was kinda getting at in my answer to question 38, I think.
 
 Engine / Game / Mod Fixed Points
 41. Is `core_engine + matching core_mod` best modeled as one Engine fixture with two artifact parts?
