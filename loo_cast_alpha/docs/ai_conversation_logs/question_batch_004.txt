@@ -160,29 +160,29 @@ A: Well, NONE should be empty, but we wanna have placeholder-esque "proper" mods
 
 Capability Integration Without Capability Monoculture
 65. What is the minimum capability graph behavior Phase 3 must implement for the rest of the product stack proof to be meaningful?
-A:
+A: That is SUCH a broad question that it is hard to find an answer (right now?).
 66. Can Phase 3 use a small hand-built capability graph, or must it already use metadata/macros/manifest scanning?
-A:
+A: I want the real deal, a full working thing, not some half-way-there thing, no half-measures, no shortcuts. So, ofc as a result we also have to still discuss and explore and address a lot of stuff, yk? We are not even close to being done with Phase 2 is what I am saying! With a lot of exclamation marks!!!!!!!
 67. Should Phase 3 prove global runtime graph construction inside `core_engine`, or is a resolved composition report enough?
-A:
+A: I think my previous question answers that lol.
 68. Should Phase 3 detect cycles, missing required providers, duplicate singleton providers, and explicit conflicts?
-A:
+A: Yes, see my answer to question 66.
 69. Which one graph validation failure must be included first if only one can be implemented?
-A:
+A: Bad question, more than one can be implemented lol.
 70. Should Phase 3 include visibility/private-node semantics, or leave that for a later pass?
-A:
+A: Include that good shit.
 71. Should Phase 3 include path projections for user/modpack-author-facing output?
-A:
+A: Yes, that is called the basic modding UX of the Vapor Launcher lol. Ofc we want that for Phase 3.
 72. Should Phase 3 include typed callback attachment points, or avoid callbacks until Rhai behavior is more settled?
-A:
+A: Absolutely include that good shit.
 73. Should Phase 3 include reconcile/commit/apply intent handling, or is that too runtime-heavy for a product-stack proof?
-A:
+A: This has to be there, although tbf I expect it to be soooomewhat simple, cause a hello-world-on-steroids only has so much possibility for neediong a crazy reconcile/commit/apply pipeline, but stiiiiiill, ofc we want that, yk? Nothing get's omitted!
 74. Is it acceptable if Phase 3 capabilities are mostly "declarative identity/reporting nodes" rather than real gameplay/runtime authorities?
-A:
+A: No. No half-assed stuff, as I said in my answer to question 66.
 75. What capability-related omission would most likely poison Phase 4+ if Phase 3 faked it?
-A:
+A: Comprehensiveness or like feature-completeness, yk? And structural integrity and stability ofc, but primarily the comprehensiveness.
 76. Should "everything is capabilities" be treated as a design pressure in Phase 3, or should Phase 3 explicitly resist making every implementation detail a capability?
-A:
+A: It is most indeed a design pressure and kiiinda the central thing to prove that is most important, as in that it is the thing that will most be hyperscaled down the road when the USF is done and Phase 5 really kicks shit into hyperdrive, yk? So yeah, go full capability-era right now! Not tomorrow, today!
 
 Rhai Assets / Authoring / Generated Media
 77. Must Phase 3 include Rhai at all, or can it prove the product stack with Rust-only manifests first?
