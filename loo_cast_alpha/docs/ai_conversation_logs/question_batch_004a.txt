@@ -30,125 +30,125 @@ If a question is malformed, say so directly and explain the better framing.
 
 Phase Names / Phase Boundaries
 1. Should Phase 2 be renamed/framed as "Phase 2: Vapor + USF Planning and Spec Crystallization" rather than the older legacy/USF migration framing?
-A:
+A: Yes!
 2. Should Phase 3 be renamed/framed as "Phase 3: Vapor Launcher and Product-Stack Proof"?
-A:
+A: Yes!
 3. Should Phase 4 be renamed/framed as "Phase 4: Product-Stack + USF Prototype/MVP"?
-A:
+A: Yes!
 4. Should the stale Phase 3 issue/milestone drafts be treated as superseded because they still describe Phase 3 as a USF runtime spine?
-A:
+A: Yes.
 5. Should the stale Phase 4 issue/milestone drafts be treated as superseded because they do not yet say "Phase 3 + full working USF stack"?
-A:
+A: Yes.
 6. Should Phase 3 docs avoid saying "not USF" except in a short boundary note, while the roadmap owns the strong Phase 3/Phase 4 separation?
-A:
+A: Yes.
 7. Should Phase 2 output include both a Phase 3 execution spec and a Phase 4 execution spec before any Phase 3 coding begins?
-A:
+A: It will absolutely drive me fucking nuts and have me climbing the damn walls, but yes... yes very much so.
 8. Does Phase 2 need a clear "Phase 3 scope ceiling" document so "feature-complete Vapor" does not mean "all possible future Vapor forever"?
-A:
+A: Yes.
 
 Feature-Complete Vapor Boundary
 9. When you say Phase 3 should be "full" or "feature-complete", do you mean complete for the Phase 3 proof matrix, not final public Vapor completeness?
-A:
+A: Oh no I mean what I said. Full public vapor completeness. I said what I said.
 10. Is "no half-measures" best interpreted as "no fake seams for concepts Phase 3 claims to prove"?
-A:
+A: Baaaaaaasically?
 11. Are implementation shortcuts acceptable if they are hidden internals and do not fake a public/contract/modding seam?
-A:
+A: Well, only if they are so safe that you can't really call em a shortcut anymore but just simply a better algorithm or data structure or whatever, yk?
 12. Should Phase 3 be allowed to defer performance, polish, marketplace scale, and public-hardening as long as the core semantics are real?
-A:
+A: Yes.
 13. Should Phase 3 have a hard "no worldmodel concepts" rule: no chunks, metrics, phenomena, zones, scale math, save/load, rendering, or entities?
-A:
+A: Yes.
 14. Should Phase 3 still allow generic ECS/runtime internals if they are only used as implementation substrate and not exposed as worldmodel semantics?
-A:
+A: More like para-internal worldmodel implementation details, but yeah, seeing as Phase 3 is not only Vapor but also the Vapor-level Engine and Game concepts, I see no way around this including bevy and ecs and scheduling stuff and systems stuff and all that jazz, but no entities or the sort basically, maaaaybe resources I guess? Idk. But yk what I mean?
 15. Is Phase 3's core proof a launcher-driven composition/product-stack proof more than a game-runtime proof?
-A:
+A: Nah, it's as I just said kinda all these three layers at once, even if each layer is just a ghostly shell of what it will one day be, yk?
 16. Is Phase 3's runtime proof limited to logging/string/file-output capabilities and their orchestration?
-A:
+A: Yes, with an emphasis that this needs to *MANUALLY* ""comprehensiveness-test"" the whole stack at the runtime level, mostly in terms of capabilities and that jazz;
 17. What is the first thing you would cut from Phase 3 if scope starts exploding: Steam depth, launcher UX polish, fake Engine/Game examples, nested modpacks, Rhai callbacks, diagnostics breadth, or something else?
-A:
+A: Noooothing, or something else I guess, but all the listed stuff seems doable and also fairly irreplacable/critical, yk?
 
 Steam / Launcher Boundary
 18. Is real Steamworks/Steam Workshop integration a Phase 3 exit requirement, not just a later integration pressure?
-A:
+A: Yes.
 19. Does "real Steam integration" mean real authentication/identity, real Workshop download/install, real upload/publish, or all three?
-A:
+A: All three.
 20. Should Phase 3 still have a local/offline developer mode for iteration even if real Steam integration is required for phase completion?
-A:
+A: Yes ofc, the launcher shouldn't b annoying about when you need an internet connection, we wanna be reasonable about it, yk?
 21. Can local/offline mode ever count as Phase 3 acceptance, or only as developer convenience before real Steam validation?
-A:
+A: Only as developer convenience before real steam validation *OR* simply for working on stuff without uploading it, yk? Like, ofc the whole launcher/sdk thing needs kinda like a true authoring mode and a true user-facing composition mode more like, yk?
 22. Should launcher UX be self-documenting enough that separate player/modpack-author walkthrough docs are secondary?
-A:
+A: Yes.
 23. Should invalid modpack/config errors be launcher-native screens/widgets before the engine process starts?
-A:
+A: Yes.
 24. Should engine/runtime logs appear inside the launcher console after validation succeeds?
-A:
+A: Yes.
 25. Should Phase 3 explicitly model launcher lifecycle separately from engine startup lifecycle?
-A:
+A: Yes.
 26. Should the launcher be allowed to construct/mutate the composition graph before launch, then hand a locked/resolved graph or graph artifact to `core_engine`?
-A:
+A: Yes, basically.
 
 Modpack / Mod / Package Vocabulary
 27. Should the term `package` be retired from core planning unless it is qualified as Steam package, build artifact, source package, or runtime artifact?
-A:
+A: Yes. Like, the term is ofc useful and very generic, but we gotta put it on the shelf until we find a good reason to actually use it somewhere, most likely with a prefix and/or suffix for disambiguation, yk?
 28. Is `modpack` the primary user/modpack-author-facing composition object?
-A:
+A: Now that you say it, we need more like three primary user/modpack-author-facing composition objects: `enginepack`, `gamepack`, and `modpack` maybe? Does that help?
 29. Is a running Vapor instance always exactly one Engine fixture plus exactly one Game/base_mod plus selected engine/game/modpack contributions?
-A:
+A: Well, I think it's better to say: Yes, exactly one Engine fixture from THE selected enginepack plus exactly one Game/base_mod from THE selected gamepack, *plus* selected mods for the engine, the game, any any other mods from ANY selected modpacks, yk? And I suppose we then also need a name for one full configured "profile", but I don't wanna call it profile, I'd much rather keep that for lie launcher-global-configuration stuff to keep stuff unambiguous..... hm, what about `capabilitypack` or like maybe even `contentpack`?
 30. Should modpacks be typed by attachment target, such as Engine Modpack, Game Modpack, and Mod Modpack?
-A:
+A: OOOOOOOOOOH YOU PREDICTED IT, CRAZY WORK. YES!
 31. Are Engine Mods and Game Mods the first two required mod categories for Phase 3?
-A:
+A: Well, and Recursive/Nested/Theoretically-Infinitely-Extensible "Mod Mods".
 32. What should the generic "mod of a mod" category be called: SubMod, Addon, Extension Mod, Child Mod, or something else?
-A:
+A: I kiiiinda just wanna call it "Mod" and call the others "EngineMod" and "GameMod", yk? Naaaaah but I can do my future customers dirty like that. I think "ExtensionMod" sounds nice.
 33. Can a single mod attach to exactly one parent in the parent-child hierarchy, even if its capabilities interact with other graph areas through dependencies?
-A:
+A: What exactly do you mean? An extension mod simply attaches to exactly one parent, and then it can define capabilities which use stuff defined in the mod ancestry, starting, or ending I guess, at the parent of said extension mod, yk? But, ofc capabilities cannot use what the mod hasn't pulled in via inheritance basically, yk? Mods are inheritance-based, which for once I think here is actually a good model, yk?
 34. Should nested modpacks flatten into one resolved dependency/capability graph before Runtime Lock?
-A:
+A: Nah, modpacks are a good separation/organization boundary which we really do not want to lose in any capacity, yk?
 35. Should a modpack be allowed to depend on another modpack only when the target Engine/Game/fingerprint constraints are compatible?
-A:
+A: Yes, exactly. Also Semver compliant and all, yes.
 36. Does an Engine plus Engine Mods produce a distinct effective Engine identity/fingerprint for Game compatibility checks?
-A:
+A: Yeeeees, and Game mods do the same thing, yk? This way, the version is maybe not semver compatible, idk in what capacity semver supports these crazy shenanigans, but yeah, if I change/remove a game mod that other mods depend on, or an engine mod that other mods depeend on, or any mod that other mods depend on for that matter, then yeah, that should change the compatability, yk? Like, idk, I am not finding quite the right words here but I hope you understand what I am saying.
 37. Does a Game plus Game Mods produce a distinct effective Game identity/fingerprint for downstream modpack compatibility checks?
-A:
+A: Refer to answer 36? Like, the whole fingerprint idea is like.... the fingerprint shows us what's there, but it weill be highly squashed and hard to read (as least as unformatted plain-printed plaintext), but like, we don't have ONE big version per "contentpack", we have one version per enginepack, which a gamepack ofc needs to specify precisely and explicitly, and the gamepack then produces a sort of derived/wrapped/Extended fingerprint with more info, and then another mod can extend that yet again, so there isn't like one fingerprint, but a hierarchy of paths from which we can extract several start-to-end paths for different actual individual fingerprints more in the sense that you probably thought of, yk?
 38. Should a finished modpack fingerprint be the canonical summary of selected mods, nested modpacks, versions, target Engine/Game, and exposed user-facing capability paths?
-A:
+A: I think this question is not needed anymore cause I just explained how that actually works.
 
 Reserved Roles / Artifact Shape
 39. Should `core_engine`, `core_mod`, and `base_mod` be literal required Rust crate names, not just Vapor role labels?
-A:
+A: Yes. We want to like wrap the whole rust development/cargo toolchain/loop, yk? We wanna fully wrap that (by just launching it from an xtask or whatever) so we can easily enforce stuff such as certain crate names by simply having some auto-discovery, maybe even powered by metadata and macros so no full cargo-wrapping needed, but like yk, if auto-discovery simply sees no special thing where it expected a special thing, it will scream, easy as pie.
 40. Should a custom Engine artifact physically contain or colocate its `core_engine` executable and matching `core_mod` artifact?
-A:
+A: Yes.
 41. Should `core_mod` be treated as bundled with the Engine rather than dynamically selected like ordinary mods?
-A:
+A: Yes, exactly, one of two exception to the rule, the other being core_engine, which is still teeeechnically a mod but even weirder so... anyway.
 42. Should Phase 3 forbid independent `core_mod` replacement completely?
-A:
+A: Yes.
 43. Should `base_mod` be the literal Game crate/artifact, not "content underneath" a separate Game artifact?
-A:
+A: Yes.
 44. Should `base_mod` declare required Engine/core_mod identity and version constraints?
-A:
+A: Yes.
 45. Should every built-in extension point have at least two working proof mods in Phase 3, or is that too much even for hello-world-on-steroids?
-A:
+A: Nono that's good, at least two is good.
 46. Should Phase 3 include fake/non-first-party Engine and Game fixtures as real local proof artifacts, not only docs/examples?
-A:
+A: Yes, albeit not fake, just simple and yeah, kinda fake or bogus, cause it's just hello-world-on-steroids, but yeah.
 
 Capability Graph Staging
 47. Is the capability graph one semantic graph that changes representation/mode across launcher composition, validation, engine handoff, and locked runtime?
-A:
+A: Yes, plus that pipeline you mentioned is incomplete.
 48. Or should launcher composition graph and runtime capability graph be separate artifacts connected by a resolved handoff format?
-A:
+A: Maybe.
 49. Should graph construction be explicitly staged: discovered artifact graph -> user/modpack projection -> dependency/capability expansion -> validation -> Runtime Lock -> runtime graph?
-A:
+A: More like: discovered artifact graph -> user/modpack projection -> narrow/direct/naive dependecy/capability pre-validation from simple `conflicts` and `dependencies` and maybe other similar metadata, without doing deep checks on the full/true/dev-facing dependency/capability graph -> dependency/capability expansion -> validation(now with deep checks of the true full graph, not just user/modpackAuthor-facing shallow metadata-*projection* analysis, yk?),  -> Runtime Lock -> runtime graph
 50. Should Runtime Lock be the finish state of successful staged graph construction rather than a separate runtime event?
-A:
+A: Well, both kinda. I guess the event could be called the "Establishment" of the "Runtime Lock", yk? And then the Runtime Lock itslf is ust the actual finish state of successfull stages graph construction, which is also actually more like parsing+validation+expansion_parsing+more_validation all in one stage or sequence kinda, yk?
 51. Should post-lock mutation be forbidden by default but modeled through explicit dynamic capability/registry policies where needed?
-A:
+A: Yes, basically, that's the general idea, although surely the benefit of more experience in the future will show us more nuance here at some point, I can feel it.
 52. Should debug projection expose internal/private graph nodes while user/modpack-author projection hides them?
-A:
+A: Well, no. internal/private graph nodes are nodes of the full raw true graph, which are explicitly internal or only partially visible, yk? Like, not only does the user/modpack-author projection not touch these internal/private graph nodes, but the other full-raw-graph nodes absolutely also can NOT touch those internal/private graph nodes.
 53. Should visibility follow Rust-like path visibility all the way through graph projection and fingerprint output?
-A:
+A: Yes, and even into user/modpack-author -facing stuff, aka you CAN have internal mods, but I think this is not really needed except if you#re building a really huge proprietary mod of some sort, right?
 54. Should Phase 3 prove visibility by having at least one private/internal node that appears in dev diagnostics but not user-facing fingerprint output?
-A:
+A: ... uh, well yes, but surely that will just happen naturally a few times throughout our work here, yk? I think it's more unavoidable than something we need to explicitly remember to not forget, yk?
 55. Should graph validation errors be classified first by graph primitive, then projected into player/modpack-author/developer diagnostics?
-A:
+A: Basically? Yeah, sounds about right.
 
 Rhai / Rust Kernel Topology
 56. Should Phase 3 enforce one Rhai file = one authored leaf capability/asset node, not just one arbitrary node?
