@@ -286,21 +286,21 @@ A: Yes.
 123. Should Phase 3 use panic-fast internally for invariants but produce structured diagnostics for authoring/config errors?
 A: Yeeeeeeeeeeeeeeeees.
 124. What is the boundary between "invalid authoring/config" and "runtime invariant violation" for Phase 3?
-A: Uh, well, runtime invariants are enforced by capabilities, but invalid authoring/config stuff is just errors that can happen while we are sorta *composing capabilities* at this modpack/authoring/user kinda level, yk?
+A: Uh, well, runtime invariants are defined and enforced by capabilities, they are just the failure modes of all kinds of capabilities that are just fallible, yk? But invalid authoring/config stuff is just errors that can happen while we are sorta *composing capabilities* at this modpack/authoring/user/launcher kinda level, yk?
 
 Rendering / Logic / Output Boundaries
 125. Should Phase 3 avoid rendering entirely and use textual output as the only observable product behavior?
-A:
+A: Yes, for several reasons that I will not reiterate again.
 126. Should Phase 3 still document that later rendering/audio/model output eventually derives from world state/procedural declarations, not traditional assets?
-A:
+A: Well, the framing is weird: I totally agree, but Phase 2 does this lol, Phase 2 is the planning for Phases 3 and 4, and Phase 3 and 4 and just the execution of like Part 1/2 and 2/2 of the Phase 2, yk? So yes, but Phase 2 should say this in it's plan/roadmap/docs/whatever for Phase 4, yk?
 127. Should Phase 3 include a placeholder "rendering capability" only as a composite-output example, or would that reopen capability theory too much?
-A:
+A: re-open? Phase 3 is what establishes "capability theory" lol. But no, phase 3 definitely does not include a "rendering capability"(I appreciate the quotation marks here), that's Phase 4 stuff.
 128. Should the rendering/logic split be addressed before Phase 4 USF/gameplay work, or can it remain glossary pressure during Phase 3?
-A:
+A: Again, this is clearly Phase 4 work, not Phase 3 work.
 129. Is "text report as render target" a useful analogy for Phase 3, or a misleading shortcut?
-A:
+A: A misleading early abstraction rather.
 130. Should Phase 3 prove output composition without choosing any visual/audio architecture?
-A:
+A: No. I mean yes, eventually, but that's like Phase 3.5 Phase-Limbo kinda when I sometimes just go rogue between phases and decide to randomly improve or cleanup some stuff lol. But for now, Phase 3 itself I think should stick to the framing of "logging" as an incredibly basic capability, duh, and string manipulation and creation and all also as incredibly basic capability stuff, also duh.
 
 Docs / Glossary / Roadmap Workflow
 131. Should answered batch 004 integrate into glossary first, then a Phase 3 product-stack spec second?
