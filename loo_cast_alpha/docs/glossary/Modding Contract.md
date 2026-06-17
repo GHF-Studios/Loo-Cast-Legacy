@@ -30,6 +30,12 @@ invalid capability/slot graph facts.
 Explicit mod-wide conflicts are author-friendly metadata layered over graph validation, not a replacement for graph
 validation.
 Developer diagnostics should expose graph/product details; player-facing diagnostics should explain the conflicting
-mods/packages and likely actions without requiring graph expertise.
+mods, modpacks, enginepacks, gamepacks, or qualified package artifacts and likely actions without requiring graph
+expertise.
+
+Pack vocabulary:
+For current active planning, avoid unqualified `package`.
+Use [[Packagepack]], [[Enginepack]], [[Gamepack]], [[Modpack]], Steam package, build artifact, source package, or runtime
+artifact.
 
 #glossary

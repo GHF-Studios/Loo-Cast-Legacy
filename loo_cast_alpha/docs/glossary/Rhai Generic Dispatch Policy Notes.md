@@ -75,8 +75,9 @@ Declaration-first posture (primary model):
 12. Callback closures declared by those entrypoints execute with callback-scoped effective `ctx` masks resolved by
     allow/deny policy, not implicit inheritance from declaration-entrypoint `ctx`.
 13. A Rust materialization pass consumes those declarations and produces runtime capability machinery.
-14. Complex capability declarations can still live in one file: richer syntax/logic/fields/parameters (and optional
-    value-semantics helpers) are used to keep the one-file/one-capability-declaration rule intact.
+14. One Rhai file now leans toward one authored leaf capability/asset node. Richer syntax/logic/fields/parameters may
+    exist inside the file, but file-internal capability definitions are private/internal by default and should not
+    become public graph nodes casually.
 15. Capability semantics are intentionally split:
     declaration-level [[Rhai Capability]] API surfaces and runtime-side Rust implementation/execution surfaces under
     [[Capability Runtime]] in the [[Runtime Substrate]].
@@ -107,6 +108,10 @@ Open design space (rephrased around declaration/profile model):
 10. How declaration-seam events are shaped relative to execution-seam events without phase leakage.
 11. How much of the legacy inventory+macro reflection stack should remain canonical vs being replaced by a smaller
     profile-first registry surface.
+12. How Rhai-side capability usage differs from Rust-side capability kernel usage, including what crosses the bridge and
+    what stays in host-side kernels.
+13. How startup/logging/output callbacks should prove callback behavior in Phase 3 without prematurely locking hook
+    terminology.
 
 Raw-model alignment (math + scripting contract posture):
 

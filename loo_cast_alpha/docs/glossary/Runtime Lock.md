@@ -5,8 +5,8 @@ aliases: []
 source_of_truth: []
 ---
 
-The Runtime Lock is the boundary where validated composition becomes immutable runtime state in
-the [[Spacetime Engine]].
+The Runtime Lock is the boundary where validated composition becomes immutable runtime state.
+In the first-party stack, this boundary is established before `core_engine` enters locked runtime execution.
 By this boundary, ownership resolution inside the [[Capability Graph Scope Envelope]] must already be finalized.
 At this boundary, callback access policy inputs must already be resolved into effective callback `ctx` path masks for
 runtime invocation.
@@ -15,6 +15,14 @@ After lock, the active mod graph and resolved ownership mappings are fixed, and 
 allowed/possible.
 Deterministic behavior here is grounded in pre-runtime validation and fixed load ordering through
 the [[Modding Runtime]] and the [[Slot Graph Composition]].
+
+Current owner-answer-informed clarification:
+Runtime Lock is both a finish state and something whose establishment may be treated as a lifecycle event.
+The lock state is reached after staged graph construction succeeds: artifact discovery, user/modpack projection, shallow
+metadata pre-validation, dependency/capability expansion, deep validation, then lock.
+Post-lock graph mutation is forbidden by default.
+If runtime dynamism is required, it should be modeled through explicit dynamic capability/registry policies rather than
+arbitrary graph mutation.
 
 See also:
 

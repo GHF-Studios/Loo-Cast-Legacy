@@ -2,6 +2,10 @@
 
 Status: Working draft only. Nothing here is final, locked, or committed as roadmap truth.
 Consolidation note: this V1 infodump source is now consolidated under `phase_2_to_11_execution_program.md`.
+Current note (2026-06-17): Phase naming/scope in this file is stale wherever it conflicts with
+`question_batch_004a.txt`, `NOW.md`, or current glossary pages.
+Current framing is Phase 2: Vapor + USF Planning and Spec Crystallization; Phase 3: Vapor Launcher and Product-Stack
+Proof; Phase 4: Product-Stack + USF Prototype/MVP.
 
 Rules:
 

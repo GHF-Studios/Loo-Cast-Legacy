@@ -1,3 +1,8 @@
+Superseded planning note (2026-06-17):
+This milestone draft is stale as active Phase 2 scope.
+Use `question_batch_004a.txt` and the current glossary direction instead.
+New framing: `Phase 2: Vapor + USF Planning and Spec Crystallization`.
+
 Title =>
 
 Phase 2: Legacy Truth Map and USF/SDK Executable Plan

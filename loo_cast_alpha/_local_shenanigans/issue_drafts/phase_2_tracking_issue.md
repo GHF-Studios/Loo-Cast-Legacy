@@ -1,3 +1,10 @@
+Superseded planning note (2026-06-17):
+This draft is stale as an active Phase 2 scope source.
+Owner answers in `loo_cast_alpha/docs/ai_conversation_logs/question_batch_004a.txt` reframe Phase 2 as
+`Phase 2: Vapor + USF Planning and Spec Crystallization`.
+Do not use this draft as active issue text without rewriting it around question batches, glossary integration, and Phase
+3/Phase 4 execution specs.
+
 Title: Phase 2: Legacy Truth Map and USF/SDK Executable Plan
 Labels: type:phase-tracking, phase:2
 

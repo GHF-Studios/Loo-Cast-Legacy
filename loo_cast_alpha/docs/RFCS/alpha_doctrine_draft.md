@@ -3,6 +3,12 @@
 Status: Draft in active conversation loop. Sections are locked only when explicitly confirmed.
 Consolidation note: this V1 infodump source is now consolidated under `phase_2_to_11_execution_program.md`.
 
+Superseded caveat (2026-06-17):
+This draft is historical where it conflicts with `question_batch_004a.txt`, `NOW.md`, or the current glossary.
+In particular, USF is not a standalone product/package slot; it is a public/API-facing subsystem inside the
+[[Spacetime Engine]].
+Current Phase 3 planning centers the Vapor launcher/product-stack proof, not a USF runtime spine.
+
 ## 1) Ontology (Locked v1)
 
 - A `mod` is a package unit with dependencies and optional capability exports.

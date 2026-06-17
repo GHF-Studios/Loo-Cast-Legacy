@@ -8,6 +8,17 @@ Historical `Locked` and `Provisional-Locked` labels in this file must be treated
 current owner direction or the latest glossary.
 If this file conflicts with the latest glossary or owner-answer logs, treat this file as stale.
 
+Current owner-answer-informed phase framing (2026-06-17):
+
+- Phase 2: Vapor + USF Planning and Spec Crystallization.
+- Phase 3: Vapor Launcher and Product-Stack Proof.
+- Phase 4: Product-Stack + USF Prototype/MVP.
+
+This supersedes older Phase 3 wording that framed the phase as a USF runtime spine restoration.
+Phase 3 coding must prove Vapor launcher/product-stack/modpack/capability semantics with real Steam/Workshop
+integration, while excluding USF/worldmodel implementation.
+Phase 4 is the first USF-inclusive product-stack prototype/MVP phase.
+
 Purpose:
 
 - Hold one coherent execution program for Phases `2..11`.
@@ -42,6 +53,11 @@ Source inputs:
 ## V2 Snapshot (Modding + Capability Contracts)
 
 ### Terminology (Provisional-Locked)
+
+2026-06-17 note:
+This terminology snapshot is historical where it uses unqualified `package` or `composite package`.
+Current active vocabulary prefers [[Packagepack]], [[Enginepack]], [[Gamepack]], [[Modpack]], Steam package, build
+artifact, source package, or runtime artifact depending on the meaning.
 
 - `mod`:
   - exactly one Rust crate
@@ -233,9 +249,9 @@ This keeps accountability clear while acknowledging non-linear dependency realit
 
 ## Draft Phase Intent Map (2..11)
 
-- Phase 2: crystallize glossary/docs/contracts enough to stop poisoning implementation.
-- Phase 3: prove `launcher -> Vapor package -> Spacetime Engine -> Loo Cast` as a product-stack MVP, not a USF MVP.
-- Phase 4: plan USF semantics contracts after capability/slot/product-stack semantics are less confused.
+- Phase 2: Vapor + USF Planning and Spec Crystallization.
+- Phase 3: Vapor Launcher and Product-Stack Proof.
+- Phase 4: Product-Stack + USF Prototype/MVP.
 - Phase 5: implement USF semantics contracts.
 - Phase 6: plan USF math contracts.
 - Phase 7: implement USF math contracts.
@@ -248,14 +264,14 @@ This keeps accountability clear while acknowledging non-linear dependency realit
 
 ## Open Decisions Queue (V2 Next Pass)
 
-1. Reconcile this file with glossary corrections from `question_batch_001.txt` and `question_batch_002.txt`.
-2. Finalize pre-alpha manifest/package contract shape around Vapor package -> Engine -> Game.
-3. Capability/slot semantics pass: decide how authority claims, exclusive slots, variadic slots, ordered registries,
+1. Reconcile this file with glossary corrections from `question_batch_001.txt` through `question_batch_004a.txt`.
+2. Replace old unqualified package/manifest language with Packagepack/Enginepack/Gamepack/Modpack/Rhai declaration
+   vocabulary.
+3. Draft the Phase 3 scope ceiling and execution spec.
+4. Draft the Phase 4 USF-inclusive execution spec before Phase 3 coding begins.
+5. Capability/slot semantics pass: decide how authority claims, exclusive slots, variadic slots, ordered registries,
    optional providers, and integration apertures relate.
-4. Phase completion proof definitions for:
-   - Phase 3 (modding baseline)
-   - Phase 8 (capability planning baseline)
-   - Phase 9 (capability implementation baseline)
+6. Phase completion proof definitions for Phase 3 and Phase 4.
 
 ---
 

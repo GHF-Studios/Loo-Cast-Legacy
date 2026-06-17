@@ -19,6 +19,8 @@ Future gameplay/content extension slots are possible, but not required for the i
 `core_mod` is mandatory but replaceable only as part of selecting another valid coupled Engine pair.
 `base_mod` is mandatory but replaceable as the Game-level Vapor concept.
 The correction is therefore mandatory matched occupancy, not global irreplaceability.
+For Phase 3, the selected Engine pair is mediated by [[Enginepack]], the selected Game by [[Gamepack]], and additional
+contributions by compatible [[Modpack]]s, [[Engine Mod]]s, [[Game Mod]]s, and [[Extension Mod]]s.
 
 Slot mechanics:
 

@@ -1,0 +1,35 @@
+---
+canonical_name: Gamepack
+status: WIP-draft
+aliases:
+  - gamepack
+  - Game Pack
+---
+
+A Gamepack is the user/modpack-author-facing composition object that selects one [[Game]]/`base_mod` artifact and its
+Game-attached contributions inside the [[Vapor Ecosystem]].
+
+Current owner-answer-informed framing:
+
+- A running Vapor instance has exactly one selected [[Game]] from the selected Gamepack.
+- The selected Game is the literal `base_mod` crate/artifact for that stack.
+- `base_mod` must declare the required [[Engine]]/`core_mod` identity and version constraints.
+- Game-attached mods and nested Game-targeting modpacks extend the effective Game composition.
+- The effective Game composition produces identity/fingerprint information that downstream modpack and
+  [[Extension Mod]] compatibility checks must respect.
+
+Boundary:
+The Gamepack depends on the selected [[Enginepack]].
+The full launch composition containing the Gamepack is a [[Packagepack]].
+The Gamepack does not make the [[USF]] a product slot; USF remains a public/API-facing subsystem inside the
+[[Spacetime Engine]].
+
+See also:
+
+- [[Enginepack]]
+- [[Modpack]]
+- [[Packagepack]]
+- [[Reserved Built-In Mod Role]]
+- [[Vapor Product Instance Stack]]
+
+#glossary

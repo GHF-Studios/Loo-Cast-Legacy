@@ -41,6 +41,8 @@ The runtime likely needs a generalized way to create selective projections of sp
 Callback boundary:
 Callback profiles are likely typed attachment points.
 Whether a callback is considered part of its declaring capability or a linked callback capability remains unresolved.
+Phase 3 should include a minimal callback proof through startup/logging/output behavior, but the wording
+`typed hook/callback capability slot` is not yet stable enough to lock.
 
 Path/visibility policy:
 Path-mask and allow/deny behavior should be driven by capability metadata.
@@ -50,5 +52,6 @@ visibility scope.
 Open pressure:
 The exact meaning of "Rhai closures as normal declaration content" still needs a dedicated pass.
 The exact relationship between callback profiles, slots, and capabilities also needs a dedicated pass.
+The Rhai-side capability usage vs Rust-side capability kernel usage split also needs a dedicated pass.
 
 #glossary

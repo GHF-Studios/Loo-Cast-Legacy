@@ -1,3 +1,8 @@
+Superseded planning note (2026-06-17):
+This milestone draft is stale as active Phase 3 scope.
+Its USF runtime spine framing is superseded by `question_batch_004a.txt`.
+New framing: `Phase 3: Vapor Launcher and Product-Stack Proof`.
+
 Title =>
 
 Phase 3: Alpha Spine and Release Proof

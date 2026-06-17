@@ -13,11 +13,16 @@ for the authored/declaration model.
 
 File/node shape:
 
-- One Rhai declaration file should represent one authored asset/capability node.
+- One Rhai declaration file should represent one authored leaf asset/capability node.
 - The file is a different container artifact type, not proof that the node is graph-top-level.
-- That node may contain sub-declarations or intra-file structure.
-- Leaf files are preferred where practical.
-- Folder/module-style assets may use `mod.rs`-like aggregator files for folder capabilities/assets.
+- File-internal capability definitions should be private/internal-only by default.
+- Folder/module-style assets may use Rhai-level `mod.rs`-like aggregator files for grouping and metadata.
+- Ordinary asset/capability metadata should live on the Rhai file/folder declaration surface, not in sidecar `.meta`
+  files.
+
+Rust kernel topology pressure:
+Rust leaf capability kernels should also tend toward one file per leaf kernel.
+`Leaf`, `Atomic`, and `BareMetal` are currently near-synonyms in this topology pressure.
 
 Traditional media payloads such as textures, models, and sounds should not be treated as canonical authored assets in the
 normal model.
@@ -33,5 +38,7 @@ The rendering/audio/model generation stack is underexplored.
 Generated media may still need rasterized or otherwise concrete delivery artifacts for GPU/audio/runtime execution.
 The current direction implies procedural or physically/world-state-derived rendering, audio, and model generation, but
 the concrete architecture is not yet settled.
+The relationship between Rhai-side capability usage and Rust-side capability kernel usage needs a dedicated follow-up
+pass before it becomes doctrine.
 
 #glossary

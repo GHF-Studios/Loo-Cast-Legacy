@@ -29,6 +29,9 @@ Identity and visibility:
 - Private/internal capabilities are allowed, but they still need identity and metadata.
 - Visibility should roughly follow Rust-like visibility semantics where useful, including private, `pub(super)`,
   `pub(crate)`, and public-style scopes.
+- Internal/private nodes are real full-graph nodes, not merely nodes hidden from user-facing projection.
+- Visibility restrictions apply to all graph users: another full-graph node cannot touch an internal/private node unless
+  the visibility policy permits it.
 - Large/umbrella capabilities may contain private subgraphs, but leaf-like capabilities should usually not hide
   subgraphs.
 
@@ -39,10 +42,23 @@ Non-circular type/dependency/dependent relationships are part of what forms the 
 
 Graph shape:
 The running `core_engine` process should have one global runtime capability graph.
-Package, engine, game, mod, script, and user-facing views are projections or metadata views over that graph, not
-separate authoritative runtime graphs.
+Packagepack, enginepack, gamepack, modpack, engine, game, mod, script, and user-facing views are projections or metadata
+views over that graph, not separate authoritative runtime graphs.
 The raw capability metadata may be simpler than the runtime graph, for example a registry scanned before graph
 construction.
+Current pressure allows the launcher composition graph and runtime graph to become separate artifacts connected by a
+resolved handoff format, but the preferred semantic model is still one graph changing representation/mode across
+composition, validation, handoff, lock, and runtime.
+
+Staged construction:
+
+1. Discover the artifact graph.
+2. Build the user/modpack-author projection.
+3. Run shallow metadata pre-validation over direct dependency/conflict-style composition metadata.
+4. Expand the deeper dependency/capability graph.
+5. Run deep validation against the full graph.
+6. Establish the [[Runtime Lock]].
+7. Enter the locked runtime graph representation.
 
 `Capability Declaration` is the pre-lock artifact.
 At the definition lock transition, validated capability declarations are promoted into capabilities.
@@ -79,6 +95,8 @@ Rust/Rhai boundary:
   computation.
 - Rhai may do simple local work, but low-level data access, heavy kernels, and runtime orchestration should remain
   Rust-backed.
+- The distinction between Rhai-side capability usage and Rust-side capability kernel usage is important enough for a
+  dedicated follow-up pass.
 
 Execution boundary:
 Capabilities emit intents, relay requests, expose structured authority, and describe what is possible.

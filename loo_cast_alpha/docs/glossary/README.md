@@ -10,6 +10,16 @@ Use Obsidian tags to split the graph:
 
 Current implementation-facing notes:
 
+Current concept additions from the Phase 3/Vapor planning pass:
+
+- [Enginepack](Enginepack.md)
+- [Gamepack](Gamepack.md)
+- [Packagepack](Packagepack.md)
+- [Modpack](Modpack.md)
+- [Engine Mod](Engine%20Mod.md)
+- [Game Mod](Game%20Mod.md)
+- [Extension Mod](Extension%20Mod.md)
+
 - [Scale Contract Runtime Notes](Scale%20Contract%20Runtime%20Notes.md)
 - [USF Contract Runtime Boundary Notes](USF%20Contract%20Runtime%20Boundary%20Notes.md)
 - [USF Runtime Evolution Lifecycle Notes](USF%20Runtime%20Evolution%20Lifecycle%20Notes.md)

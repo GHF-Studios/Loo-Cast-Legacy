@@ -1,3 +1,8 @@
+Superseded planning note (2026-06-17):
+This milestone draft is stale as active Phase 4 scope.
+Use `question_batch_004a.txt` and the current glossary direction instead.
+New framing: `Phase 4: Product-Stack + USF Prototype/MVP`.
+
 Title =>
 
 Phase 4: Vertical-Slice Restoration
