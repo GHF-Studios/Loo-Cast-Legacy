@@ -216,29 +216,29 @@ A: Absolutely. I think, as I said before multiple times now I think, a good fram
 
 Phase 4 USF Boundary / Phase 3 Exclusion
 91. Should Phase 3 explicitly exclude USF implementation and treat USF only as part of the selected Spacetime Engine product identity?
-A:
+A: Not even that. It's not not there yet in Phase 3 in terms of code or like what's there and useable, yk?
 92. Should Phase 3 avoid naming USF in executable output unless the output is only disambiguating Spacetime Engine internals?
-A:
+A: Avoid it entirely. I think that should be clear by now.
 93. Should the Phase 3 spec explicitly say "USF-inclusive full-stack testing begins in Phase 4, not Phase 3"?
-A:
+A: No, why? That's more a general-roadmap responsibility, yk? Phase 3 does and says Phase 3 stuff, and only rarely when absolutely necessary (like right now actually, what a funny meta-coincidence) does it say what it does NOT entail, same as literally any Phase or any sort of (software?) planning ever really.
 94. Should Phase 4 be the first phase where the full product stack is tested with real USF involvement?
-A:
+A: Simpler: Phase 4 is Phase 3 + a full working USF stack, cause the USF itself is a whole ass techstack lmfao.
 95. Should Phase 4 prove USF as a Spacetime Engine subsystem rather than as a separate product slot?
-A:
+A: Yes, but tbf it's like the "core" subsystem, just not named that, but yk? It's not like it's just one facette of the Spacetime Engine, it kiiiinda IS the Spacetime Engine, moooooooooooore or less, yk?
 96. Which USF concepts must Phase 2 glossary/spec work clarify before Phase 3 coding, even though Phase 3 will not implement them?
-A:
+A: All of them lol. Hence my caution that Phase 2 itself is MASSIVE, same as Phase 3 and 4 to be honest, same as any phase, hence the term "phase" lol. But yk?
 97. Should concepts like 71 scales and `1000^3` chunks remain glossary/spec-only until Phase 4 starts using them?
-A:
+A: Yes exactly.
 98. Should Phase 3 avoid any generic "world chunk" abstraction because chunks are specifically USF first-level partitions?
-A:
+A: Yes exactly.
 99. Should Phase 3 avoid creating a generic "asset world object" model because phenomena later own significant world state?
-A:
+A: Yes exactly, only raw string shenanigans and console/file log output, yk? We can make an entire engine + game configured in a modpack to output logs into a file for example; good example for showing how crazy ergonomic this can be if done right.
 100. Should Phase 3 avoid fake Scale/Metric/Phenomenon declarations because they imply USF semantics too early?
-A:
+A: Yes exactly.
 101. Should Phase 3 keep all USF concepts as glossary/spec pressure and only build the Vapor product-stack proof?
-A:
+A: Yes exactly.
 102. What exactly should the first Phase 4 USF-inclusive full-stack test prove?
-A:
+A: Oh god, what an open-ended question.... hm, lemme think...... I think the best I can come up with is this: ALL USF types, functions, traits, code patterns or whatever, invariants, all the good shit, a full on comprehensive full-stack test, even if only with an extremely simple set of metrics, phenomena, scale contents, and whatever, as long as every feature is shown and used in a lest one or two examples, yk? The goal is not *stress*-testing but comprehensive-ness testing which is not something anyone but my human intuition and oversight can accomplish. Is that a satisfactory answer?
 
 Chunks / Metrics / Phenomena / Zones
 103. Are chunks completely out of Phase 3 implementation, but important enough for Phase 3 docs/specs to avoid contradicting them?
