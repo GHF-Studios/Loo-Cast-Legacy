@@ -304,49 +304,46 @@ A: No. I mean yes, eventually, but that's like Phase 3.5 Phase-Limbo kinda when 
 
 Docs / Glossary / Roadmap Workflow
 131. Should answered batch 004 integrate into glossary first, then a Phase 3 product-stack spec second?
-A:
+A: Yes, or at least that is our goal. I cannot guarantee that we will achieve by the end of this batch #004, yk? But this is certainly like *now*, yk?
 132. Should `phase_2_to_11_execution_program.md` be rewritten only after batch 004 answers, not before?
-A:
+A: Basically, yes, but ofc that execution program will probably also need a sort of cleanup pass cause I think it's a bit outdated right now, yk?
 133. Should Phase 2 be redefined as "question batches + glossary/RFC/spec integration until Phase 3 can be coded without poisoning later work"?
-A:
+A: Again: Yes, but that is not limited to Phase 3, Phase 4 is also included in this, even if Phase 3 has to be implemented before Phase 4, yk?
 134. Should `NOW.md` remain the short active checkpoint updated after every batch/integration pass?
-A:
+A: Yes.
 135. Should `AGENT.md` be trimmed before or after Phase 3 spec drafting?
-A:
+A: After Phase 3 & 4 drafting-
 136. Should RFCs remain stale/secondary until glossary and question batches stabilize?
-A:
+A: Yes, and it will probably stay that way for a very long time, just saying.
 137. Should glossary entries get first-occurrence links opportunistically during integration, or should there be a dedicated link pass?
-A:
+A: Just organically woven into your work, what you call "opportunistically during integration" I suppose, that is what I want. As in, don't make a pass to correct the mistakes, *simply don't make the mistakes in the first place*, lol.
 138. Should authority state remain informal/only-where-needed rather than frontmatter-enforced?
-A:
+A: What? I mean authority is mostly not to be taken more serious than what I, the owner/lead-dev, have to say about it, yk? Maybe it's that which you emant? Maybe not? I'm not quite sure.
 139. Should batch answers be integrated as owner-confirmed assertions only where they are clear sentence-level confirmations?
-A:
+A: Basically.
 140. Should ambiguous owner answers become pressure notes rather than glossary doctrine?
-A:
+A: Yes exactly.
 
 Phase 3 Acceptance
 141. What exact command should eventually prove Phase 3 locally?
-A:
+A: wdym "what command"? Like, what?
 142. Should acceptance require both a successful valid launch and a failed invalid launch?
-A:
+A: Many launches actually with a bunch of different configurations or "modpacks" basically, and yk? Also, we should distinguish mods properly into classes/categories, like "Engine Mod" and "Game Mod" really resonate with me, but then what are the other like logical missing remaining counterparts for all other types of mods there can be, like the general `mod of a mod` thing, or like yk?
 143. Should acceptance require a generated composition/fingerprint artifact checked into test snapshots?
-A:
+A: Well, the question is phrases weirdly, but yes, a finished "modpack" has to have a fingerprint that basically summarizes the contents/manifest of this "modpack", yk?
 144. Should acceptance require at least one modded and one unmodded output comparison?
-A:
+A: Yes exactly, but more as a local composable axis of the like test-design-space, not the one and only global axis of separtion between like modded and unmodded, cause ofc many things can be modded, and many stuff is either mandatory or optional or like, yk? All very complex and underexplored and underdiscussed and all that jazz.
 145. Should acceptance require no network/Steam dependency?
-A:
+A: I think I made it clear in my previous answers for this batch that this is a hard no! We WANT to include network/steam stuff in Phase 3 work! The launcher and Steam integration should fully work, ofc.
 146. Should acceptance require all Phase 3 behavior to run in CI?
-A:
+A: Nah, I will manually verify whether Phases 2, 3, and/or 4 have been completed in my opinion, yk? I dunno how CI helps here apart from basic gitflow like having phases and tagged commits and using PRs and a protected main branch to organize your work, but not to test this kinda stuff, yk? Or maybe we can, idk, but that seems elaborate and more like a long-term-maintenance update for when we are preparing to sorta set "Vapor" in stone and move on to Phase 4, which is still faaaaaar away, yk?
 147. Should acceptance include a small human-readable walkthrough for how a player/modpack author sees the same composition?
-A:
+A: Nah. The whole experience should be self-documenting and mostly (visually and UX/DX-wise) happen in the launcher, and the inspection of the output that the runtime generates if it's valid and actually runs to completion without errors, yk?
 148. Should acceptance include a small developer-facing graph dump?
-A:
+A: No, again, I will manually verify this by just looking at it and trying all the different available and/or valid combinations/permutations and all, yk?
 149. What Phase 3 result would be impressive-looking but architecturally fake?
-A:
+A: Idk lol.
 150. What Phase 3 result would be boring-looking but architecturally real?
-A:
+A: Nothing? A full on working launcher is amazing to look at and interact with and use and all, all by itself, yk?
 151. After this batch is answered, should the next batch focus on Phase 3 spec details, Phase 4 USF boundary cleanup, Rhai authoring, or docs/AGENT trim?
-A:
-
-
-PS: Let's, *ONCE THIS TIME ONLY*, skip ther integration step, and immediately move to another (maybe a bit smaller?) question batch 004a focused on follow up questions and clarifications and the sorts, cause I really hit you with a lot of uncertainty and deferral and the sort, okay?
+A: Let's, *ONCE THIS TIME ONLY*, skip the integration step, and immediately move to another (maybe a bit smaller?) question batch 004a focused on follow up questions and clarifications and the sorts, cause I really hit you with a lot of uncertainty and deferral and the sort, but also simply because we need to now dive deeper into details and get out shit straight instead of allowing massive uncontrolled feature creep to become a thing, okay?
