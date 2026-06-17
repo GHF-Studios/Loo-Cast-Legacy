@@ -1,6 +1,6 @@
 # NOW
 
-Date: 2026-06-16
+Date: 2026-06-17
 
 Purpose: short current checkpoint, not doctrine.
 
@@ -14,8 +14,9 @@ Current direction:
 - Use `docs/ai_conversation_logs/question_batch_*.txt` as the default Q&A timeline for now.
 - Question batches document both sides of the conversation: agent questions and owner answers/corrections.
 - New architecture threads should usually become focused question batches before glossary/RFC promotion.
-- Last answered question thread: `question_batch_003.txt`; first glossary integration pass complete.
-- Active question thread: `question_batch_004.txt` broad Phase 2 planning, Phase 3 product-stack, Phase 4 USF-boundary, authoring, runtime, and docs workflow pass.
+- Last integrated answered thread: `question_batch_003.txt`; first glossary integration pass complete.
+- Last answered raw thread: `question_batch_004.txt`; integration intentionally skipped once in favor of follow-up clarification.
+- Active question thread: `question_batch_004a.txt` surgical follow-up on Phase 3 scope control, Vapor launcher/modpack semantics, Steam boundary, Rhai/kernel topology, and acceptance matrix.
 - Remove the old `WIP_QUESTION_LEDGER.txt`; question batches replace it.
 - Product stack skeleton: `Vapor Ecosystem -> Spacetime Engine -> Loo Cast`.
 - Vapor is Steam-exclusive and includes SDK/tooling plus runtime protocol/contracts/traits for engines, games, mods, and packages.
@@ -23,8 +24,10 @@ Current direction:
 - USF is a public/API-facing Spacetime Engine subsystem/module, not a product pillar.
 - Loo Cast Game is currently represented by `base_mod`; Loo Cast Product/Project is the broader acquired bundle.
 - Phase 2 focuses on glossary/docs/contract/spec crystallization enough to avoid poisoning implementation; no new coding.
-- Phase 3 should prove `launcher -> Vapor package -> Spacetime Engine -> Loo Cast` as a non-playable hello-world-on-steroids product-stack MVP, not a USF MVP or playable prototype.
-- Phase 4 is the first planned full-stack test that includes USF.
+- Phase 3 should prove the Vapor launcher/product-stack/modpack/capability system through a non-USF hello-world-on-steroids proof.
+- Phase 3 includes real launcher, real Steam/Workshop integration, real Rhai/capability/modpack semantics, diagnostics, and multiple proof configurations.
+- Phase 3 excludes USF, worldmodel, rendering, save/load, chunks, metrics, phenomena, zones, and traditional gameplay/simulation.
+- Phase 4 is Phase 3 plus the first full working USF stack/prototype/MVP.
 - Use lockstep game/contract versioning.
 - Treat publish as immutable tag + artifact + channel event.
 
@@ -49,4 +52,4 @@ Success for this phase:
 - Clean developer workflow with low cognitive load.
 - Clear current vocabulary around Vapor, Spacetime Engine, USF, Loo Cast, capabilities, metrics, phenomena, chunks, and Rhai assets.
 - Old USF-as-product and core_mod/base_mod mandatory-vs-replaceable confusion removed from active docs.
-- Phase 2/3/4 roadmap reframed around planning first, product-stack proof second, and USF-inclusive full-stack proof third.
+- Phase 2/3/4 roadmap reframed around planning first, Vapor product-stack proof second, and product-stack-plus-USF proof third.
