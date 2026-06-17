@@ -242,51 +242,51 @@ A: Oh god, what an open-ended question.... hm, lemme think...... I think the bes
 
 Chunks / Metrics / Phenomena / Zones
 103. Are chunks completely out of Phase 3 implementation, but important enough for Phase 3 docs/specs to avoid contradicting them?
-A:
+A: Not really, I just want Phase 2 Planning to fully flesh out Phases 3 and 4 cause 4 depends on the structure and execution and all of 3, yk? You kinda understood what I mean already, your question was just framed badly I think.
 104. Should Phase 3 avoid any chunk placeholder that says chunks are save authority, generation authority, or runtime authority?
-A:
+A: Yes.
 105. Should metrics be documented as scale-bound public data/function surfaces before Phase 4 tries to represent them?
-A:
+A: Yes? This is so underexplored/underaddressed/underdiscussed/unclear that even the terminology is unclear and makes me slightly cringe and be confused, yk?
 106. Should Phase 3 defer metric implementation entirely to Phase 4 or later?
-A:
+A: Yes.
 107. Should phenomena be documented as primary world-state/detail carriers before Phase 4 introduces any USF entity/world-state model?
-A:
+A: Yes, but `before` doesn't really make sense here cause phenomena ARE (a part of) the USF "entity"/world-state model, and also same as 105: it's a very underexplored/underaddressed/underdiscussed/unclear topic, yk?
 108. Should Phase 3 avoid introducing an `Entity` API unless it is explicitly non-USF/demo-only?
-A:
+A: Entity is a raw implementation detail regarding ECS and all that we mooooostly don't even wanna think about. We wanna think in terms of Phenomena, but yeah, Phase 3 should avoid this stuff ofc. `USF == Worldmodel` should more or less should easily answer a lot of questions at once, including this one.
 109. Should zone-era concepts get a cleanup pass before Phase 4, or can they remain superseded-but-signal-bearing until Phase 4 planning starts?
-A:
+A: Yeeeeeees, they definitely need a cleanup pass for Phase 4.
 110. Does the "phenomenon is itself a classification region" idea need its own batch before any USF implementation begins?
-A:
+A: Maybe, but more generally the whole USF will just take a bunch of batches to get right, same as Phase 3 too to be honest with you, yk?
 111. Should DPT/ZLM/ZTM remain out of Phase 3 entirely?
-A:
+A: Yes.
 112. Should Phase 3 docs explicitly warn that "chunk", "metric", "phenomenon", and "zone" terms are not generic game-engine terms here?
-A:
+A: Nah, as I said before, some things, including this, are just unnecessary mentions of what Phase 3 is NOT, yk? Don't explicitly mention this in Phase 3 docs.
 113. What is the biggest wrong shortcut Phase 3 could take that would later damage the USF model?
-A:
+A: Talking about the USF model or any sort of actual gameplay-oriented or worldmodel kinda stuff in any capacity, yk?
 
 Runtime / Execution / Diagnostics
 114. Should Phase 3 startup pipeline be `discover -> parse -> validate -> resolve -> init -> report/run -> shutdown`?
-A:
+A: Yes exactly, but I wnana make it clear that the launcher has a whole like super/meta-lifecycle of it's own, and so this is really not the only pipeline, even if the other "stuff" is not relaly other "pipelines"....  idk, I hope that made sense to you, lol.
 115. Should Runtime Lock be represented as a real state transition in Phase 3?
-A:
+A: Yes! One of I suppose multiple transitions maybe? But like my point is, this is exactly what I meant by the capability graph being constructed in stages: The runtime lock is simply the like "finish" stage triggered when all topological dependency/capability layers have been exhausted and no failure-modes have occured, then yeah, the runtime lock engages, which yeeeeees is ofc just some boolean set to true or derived from several conditions, whatever, yes, but yk what I mean, right?
 116. Should anything be allowed to mutate the resolved graph after Runtime Lock in Phase 3?
-A:
+A: `NO!!!` as a default not a hard constraint, cause I can see the use for having dynamism for proper runtime registries or whatever orchestrated through the capability stuff, yeah I'd like that. But, as I said, as an explicit rare/non-default/moooooooostly-not-recommended exception.
 117. Should Phase 3 have separate dev-mode and player-mode diagnostics?
-A:
+A: Yes, but I think my previous answers for this batch make this question extremely unnecessary by now.
 118. Should player-mode diagnostics name packages/mods and suggested actions, while dev-mode diagnostics include graph paths?
-A:
+A: Baaaaaaaasically, although it's a bit of a simple framing for dev-mode, but yeah, basically, more or less.
 119. Should failed validation abort the game/core_engine process but leave launcher context alive?
-A:
+A: Yes, and similarly here the player doesn't need to know precise error codes and stack traces or whatever, they just wanna know what errored, and who's at fault or whether that's know, what can be done, if anything at all, that kinda stuff. Absolutely revolutionary error-UX for users and modpack authors alike, in this case they differ in that modpack authors can use logs and proper errors to better understand the less auto-classifiable errors, assuming they have SOME sort of coding experience/knowledge. Anyway, moving on to the next question, cause my brain is starting to smoke.
 120. Should Phase 3 include fail-fast tests for invalid configs?
-A:
+A: Yes, every failure mode that is clearly articulatable into a proper custom error enum type or at least a clear and unique panic/error message must be tested for, like all the time, as a rule. Like, idk, it feels like what you're asking (in general kinda, not directly) is "Can I add launcher-level tests please?" more or less, to which I see no reason not to say no to, yk? EVerything can use tests somewhere probably, yeah. This is basically tests for the ecosystem tooling/SDK/launcher/whatever(even website and such in the future with rust web frameworks and all hehe), and yeah I absolutely endorse testing at that level, cause it is still very much a rust-code sorta domain, yk?
 121. Should Phase 3 include save/load at all, or is save/load outside this MVP?
-A:
+A: Completely outside of Phase 3, this is one of the very few somewhat not entirely USF-bound but still Spacetime-Engine-specific concepts, so it clearly falls into Phase 4 which is kinda both the USF and the Spacetime Engine Phase (cause duh, USF is INSIDE the Spacetime Engine, not a separate thing in that sense).
 122. Should Phase 3 include auto-backup/fail-fast doctrine only in docs, not code?
-A:
+A: Yes.
 123. Should Phase 3 use panic-fast internally for invariants but produce structured diagnostics for authoring/config errors?
-A:
+A: Yeeeeeeeeeeeeeeeees.
 124. What is the boundary between "invalid authoring/config" and "runtime invariant violation" for Phase 3?
-A:
+A: Uh, well, runtime invariants are enforced by capabilities, but invalid authoring/config stuff is just errors that can happen while we are sorta *composing capabilities* at this modpack/authoring/user kinda level, yk?
 
 Rendering / Logic / Output Boundaries
 125. Should Phase 3 avoid rendering entirely and use textual output as the only observable product behavior?
@@ -349,4 +349,4 @@ A:
 A:
 
 
-PS: Let's, *ONCE THIS TIME ONLY*, skip ther integration step, and immediately move to another (maybe a bit smaller?) question batch 004a focused on follow up questions and clarifications and the sorts, cause I really hit you with a lot of "idk"'s and "defer"'s, yk?
+PS: Let's, *ONCE THIS TIME ONLY*, skip ther integration step, and immediately move to another (maybe a bit smaller?) question batch 004a focused on follow up questions and clarifications and the sorts, cause I really hit you with a lot of uncertainty and deferral and the sort, okay?
