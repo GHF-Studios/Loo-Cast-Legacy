@@ -186,33 +186,33 @@ A: It is most indeed a design pressure and kiiinda the central thing to prove th
 
 Rhai Assets / Authoring / Generated Media
 77. Must Phase 3 include Rhai at all, or can it prove the product stack with Rust-only manifests first?
-A:
+A: Heeeeeeeeeeeeell no, rhai is integral, a capability not being defined by rhai is an extreme edge case only reserved for like entrypoint(s) or whatever, yk? But so like in 99.99999% of cases lik the answer is: YES, Phase 3 must include rhai, it must be built around rhai(and a ton of other stuff as well ofc, rhai is not the sole protagonist here, yk?), basically.
 78. If Phase 3 includes Rhai, should it load exactly one tiny Rhai declaration asset from `base_mod`?
-A:
+A: Nah, we wanna have declarations declaring (and using, thus also testing the internal capability graph dependency/conflict semantics) all over the place, left right up down front back center all the way. That's like the whole idea, or part of it, as well, yk? Like YES, we wanna make sure our hello-world-on-steroids string/log -based prototype/test-thing actually like heavily utilizes the whole architecture we are mapping out here, and I suppose we could even stress-test this with rust benchmarks.... I am getting ahead of myself again, sorry! Moving on to the next question.
 79. Should a third-party-shaped mod include a tiny Rhai declaration asset to prove asset discovery and additive contribution?
-A:
+A: More than that lol. I think you can see that by now.
 80. Should Phase 3 enforce "one Rhai file represents one authored asset/capability node"?
-A:
+A: Yes. In fact I think I previously said that I would even go so far as to say that one Rhai file represents one authored LEAF asset which is also known as one LEAF capability node, yk? Does that make sense?
 81. Should Phase 3 avoid Rhai callbacks entirely, using declarations only?
-A:
+A: Nah, use them callbacks. How else are we gonna get stuff done, lol. I guessn we'll just use the startup schedule with a single like "hook" just to print the output, but hey, it's something, that tests something, so we're gonna keep it in for Phase 3 already.
 82. Should Phase 3 include a callback only if it proves typed attachment points without lifecycle ownership?
-A:
+A: What?
 83. Should Rhai declarations be allowed to contribute text to the hello-world output?
-A:
+A: Yes, in the form of different capabilities to modify strings or change the output otherwise idk, and one capability literally for defining the like "output" operation overall, or maybe even actual file ops and shit? Point is, capabilities are everything, they are literally like an exposure graph over a moddable rust codebase that adheres to some known architecture/structure/pattern, yk?
 84. Should Rhai declarations be allowed to request capabilities from a projected `ctx` in Phase 3?
-A:
+A: Well ofc, but remember that capabilities can also be used by rust kernels, so it is a different thing to use an existing capability inside another capability, or to use an existing capability's kernel in another capability's kernel, yk? Or like, in short: `Rhai-Side Capability vs. Rust-Side Capability kernel` is an EXTREMELY underexplored topic.
 85. Should generated textures/audio/models be completely out of Phase 3?
-A:
+A: Yes, that is Phase 4/5-ish stuff.
 86. Should Phase 3 nevertheless document that traditional media assets are not canonical authored assets?
-A:
+A: Yes. Also hence the basiclaly "string-based" simple hello-world-on-steroids idea, yk?
 87. Should the first Rhai asset be gameplay-ish, config-ish, output-ish, or purely diagnostic?
-A:
+A: I think that question is non-sensical given my previous answers for this batch.
 88. Should Rhai asset loading happen before graph validation, during graph construction, or after graph lock?
-A:
+A: Rhai asset loading IS graph validation/construction/lock, as a somewhat over-generalized statement tbf. Like, the bewst answer I can give is: During graph constuction, but that ignores that I kinda told you that we want to construct the capability graph in topological stages, yk?
 89. Should invalid Rhai declarations hard-fail launch in Phase 3?
-A:
+A: Yes. But ofc, as with anything else, the launcher should make this somewhat accessible to users/modpack-authors who have no idea about the internals shenanigans or coding.
 90. Should Phase 3 include authoring diagnostics distinct from player diagnostics?
-A:
+A: Absolutely. I think, as I said before multiple times now I think, a good framing/model is the "authoring diagnostics" to be sort of the truth, and for player diagnostics to be a summarized/simplified/derived sorta "projection" of that diagnostic truth-bedrock, yk?
 
 Phase 4 USF Boundary / Phase 3 Exclusion
 91. Should Phase 3 explicitly exclude USF implementation and treat USF only as part of the selected Spacetime Engine product identity?
@@ -347,3 +347,6 @@ A:
 A:
 151. After this batch is answered, should the next batch focus on Phase 3 spec details, Phase 4 USF boundary cleanup, Rhai authoring, or docs/AGENT trim?
 A:
+
+
+PS: Let's, *ONCE THIS TIME ONLY*, skip ther integration step, and immediately move to another (maybe a bit smaller?) question batch 004a focused on follow up questions and clarifications and the sorts, cause I really hit you with a lot of "idk"'s and "defer"'s, yk?
