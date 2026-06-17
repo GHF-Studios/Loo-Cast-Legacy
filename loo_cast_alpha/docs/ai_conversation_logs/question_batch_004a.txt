@@ -152,38 +152,38 @@ A: Basically? Yeah, sounds about right.
 
 Rhai / Rust Kernel Topology
 56. Should Phase 3 enforce one Rhai file = one authored leaf capability/asset node, not just one arbitrary node?
-A:
+A: Yes, sounds about right.
 57. Should folder-level Rhai aggregators exist for grouping, or should grouping be handled outside Rhai files?
-A:
+A: Nono this should be rhai-level so we can easily just pass metadata via the same annotations or whatever way rhai allows us to do metadata stuff or whatever, idk, but yk what I mean?
 58. Should Rust leaf capability kernels also tend toward one file per leaf kernel?
-A:
+A: Yes. "Leaf", "Atomic", "BareMetal", it kinda all means the same btw.
 59. Should file-internal capability definitions be private/internal-only by default?
-A:
+A: Yes, 100%.
 60. Should metadata for ordinary mods live on each capability/asset file/folder rather than in a separate manifest?
-A:
+A: Yes, no Unity-style .meta files alongside every file, hell nah I am never going back to separate metadata(/-manifest) files.
 61. Should explicit manifests exist only for modpacks/composition artifacts, at least for Phase 3?
-A:
+A: Nah, all is declared and defined via rhai, cause everything is an asset,a nd every asset is a capability, yk?
 62. Should Phase 3 include Rhai callbacks through one startup/logging/output hook as the smallest callback proof?
-A:
+A: Yes, surely somehow we can or will need to do that, yes.
 63. Should callback attachment points be described as typed hook/callback capability slots in Phase 3, or is that wording still too unstable?
-A:
+A: Well, the whole hook thing is reeeeeeeeeally underexplored tbh, yk? So, sorry but: No. Definitely needs further addressing and discussion and all, yeah.
 64. Is `Rhai-side capability usage vs Rust-side capability kernel usage` important enough to become its own follow-up batch?
-A:
+A: Oh yeah absolutely, lots about that stuff is unclear, and I would love to do another follow up batch now, but I feel like we'll have to kinda split it at least, cause after I have answered all of this, we definitely need to lock at least some things in we know for sure more or less, and then we can do another follow-up batch which will include this and many other topics/questions.
 
 Output / Diagnostics / Acceptance
 65. Should the Phase 3 proof output be one structured object with both technical-human-readable `Debug` formatting and machine-readable stable fields?
-A:
+A: It's not THE Phase 3 proof output, it's ONE possible output, like we wanna test a whole set of possible/valid permutations, yk? but yes, the output is a structured plaintext file with both technical-human-readable `Debug` formatting and machine-readable stable fields, yes.
 66. Should the proof output be written to a file, printed to logs, and surfaced in the launcher console?
-A:
+A: Hm, I guess just surfaced to the launcher console, which is btw basically equal to printing to logs, barring potential filtering and all, but yeah. And while we're at it, just also print the logs to a file, in this case that will just be the output string.
 67. Should successful runs produce a composition/fingerprint artifact, while invalid runs produce only launcher diagnostics?
-A:
+A: Yes exactly.
 68. Should Phase 3 acceptance be a matrix of multiple valid and invalid modpack configurations rather than one canonical command?
-A:
+A: Yes, basically.
 69. Should automated tests exist for every articulatable failure mode, while owner/manual verification remains the final phase gate?
-A:
+A: Baaaaasically? Just don't overdo it with the tests, I only really believe in unit tests for this stuff, and even then, rarely.
 70. Should CI be limited to basic build/test/audit until Phase 3 semantics stabilize, with full Steam/manual validation outside CI?
-A:
+A: Yes, it should all work via the launcher and launched executable+mods/content/whatever, yk? CI is just a developer convenience that is way out of scope here, lol.
 71. Should Phase 3 acceptance explicitly include at least one unmodded/default stack, one modded first-party stack, one fake Engine stack, one fake Game stack, one nested modpack stack, and one invalid/conflict stack?
-A:
+A: All those, and some clever permutations of those to get really broad coverage, but more or less: Yes.
 72. What is the smallest Phase 3 acceptance matrix that is still honest given "no half-measures"?
-A:
+A: uhhhhhhh, hard to tell tbh. Horrible question to end on lmao.  Idk.
