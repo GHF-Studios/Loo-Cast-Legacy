@@ -1,6 +1,6 @@
 # NOW
 
-Date: 2026-06-17
+Date: 2026-06-20
 
 Purpose: short current checkpoint, not doctrine.
 
@@ -16,7 +16,7 @@ Current direction:
 - New architecture threads should usually become focused question batches before glossary/RFC promotion.
 - Last integrated answered thread: `question_batch_004a.txt`; targeted glossary/roadmap checkpoint integration complete.
 - Last answered raw thread: `question_batch_004a.txt`.
-- Active question thread: none yet. Next likely follow-up: Rhai-side capability usage vs Rust-side capability kernel usage, hook/callback attachment semantics, and Phase 3 acceptance matrix minimization.
+- Active question thread: `question_batch_005.txt`, rebuilt as a focused Vapor SDK, Capability, Rhai, launcher, Steam distribution, modding, packagepack/modpack, diagnostics, and platform-authoring pass. Concrete engine/game internals, USF, worldmodel, rendering, and gameplay are out of scope for this batch.
 - Remove the old `WIP_QUESTION_LEDGER.txt`; question batches replace it.
 - Product stack skeleton: `Vapor Ecosystem -> Spacetime Engine -> Loo Cast`.
 - Vapor is Steam-exclusive and includes SDK/tooling plus runtime protocol/contracts/traits for engines, games, mods, packagepacks, modpacks, enginepacks, and gamepacks.

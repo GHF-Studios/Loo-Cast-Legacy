@@ -1,0 +1,638 @@
+Question Batch 005: Vapor SDK / Capability / Rhai / Steam Distribution Redesign Pass
+
+NOTE: This is a full replacement for the previous two versions of batch 005.
+The first version was too broad and dragged USF/worldmodel/experimental ontology into the active thread.
+The second version overcorrected by treating Capabilities and Rhai as merely platform-adjacent metadata concerns.
+This rebuilt version keeps concrete engine/game internals and USF out of scope, but treats Capabilities and Rhai as foundational Vapor substrate.
+
+Explicit out-of-scope for this batch:
+
+- Concrete first-party engine details.
+- Concrete first-party game details.
+- USF, worldmodel, chunks, metrics, phenomena, zones, scales, rendering, save/load, gameplay simulation, and Phase 4-specific architecture.
+- Any attempt to define how a particular engine or game implements its internal runtime beyond the minimum Vapor-facing contracts required for launch/composition/distribution.
+
+Explicitly in-scope for this batch:
+
+- Vapor as a Steam-exclusive SDK, launcher, distribution, identity, modding, composition, and validation ecosystem.
+- Capability semantics as a foundational engine/game-independent Vapor mechanism.
+- Rhai declarations as foundational engine/game-independent authored asset/capability metadata and authoring substrate.
+- Generic Engine and Game roles only as Vapor product-stack slots/fixtures.
+- Packagepack, Enginepack, Gamepack, Modpack, Engine Mod, Game Mod, Extension Mod, and related pack/artifact vocabulary.
+- Steam identity, ownership, Workshop upload/download/install, publishing, local/offline authoring, and diagnostics.
+- Phase 3 scope only insofar as it proves Vapor, Capability, Rhai, launcher, SDK, and Steam distribution seams.
+
+Research basis for this batch:
+
+- Answered batches 001 through 004a, filtered to Vapor/platform/distribution/Capability/Rhai concerns.
+- Current glossary pages for Vapor Ecosystem, Packagepack, Enginepack, Gamepack, Modpack, Modding Runtime, Capability, Capability Runtime, Capability Declaration, Rhai Asset, Rhai Capability, Steam, Steam Workshop, SDK, and diagnostics-related pages.
+- Current NOW.md phase framing and active question-batch workflow.
+- Official Steamworks documentation was checked only to avoid designing against fictional Steam concepts. Relevant pressure points include Steamworks SDK, User Authentication and Ownership, Steam Workshop, ISteamUGC, AppID ownership, session/auth tickets, Workshop subscription/download, and Workshop upload/update flows.
+
+Answer in order, in chunks, or in topic blobs.
+If a question is malformed, say so directly and explain the better framing.
+If a question is already settled enough, say settled and give the exact wording you want preserved.
+If a question depends on another answer, mark it dependency-blocked instead of forcing a fake answer.
+
+Scope / Phase Boundary
+1. Is this rebuilt batch 005 correctly scoped to Vapor, Capabilities, Rhai, SDK, launcher, modding, distribution, and Steam integration?
+A: Stupid question honestly, cause if the answer were no it could potentially inalidate every other question lol. But yeah, absolutely, this seems good, at least the premise. We'll see whether my answers still reflect by the time we get to the end.
+
+2. Should concrete first-party engine names be avoided except when explaining what is out of scope?
+A: Yes.
+
+3. Should concrete first-party game names be avoided except when explaining what is out of scope?
+A: Also yes.
+
+4. Should USF and worldmodel terminology be absent after this scope section unless explicitly used as an out-of-scope boundary?
+A: Also also yes.
+
+5. Should generic Engine and Game remain in scope because Vapor must compose and launch arbitrary engines and games?
+A: Yes.
+
+6. Should Phase 3 be framed primarily as a Vapor platform proof, with concrete engines/games only acting as fixtures?
+A: Yes, so basically we do name the Spacetime Engine and the Loo Cast Game by this point, but ofc only in a placeholder-kinda way, maybe just with extremely minimal logging-based code, so technically not a "placeholder" but more an MVP, but yeah.
+
+7. Should Phase 3 still require real executable launch, or is launcher/SDK/distribution validation enough?
+A: I just answered this in answer 6.
+
+8. Should Phase 3 avoid gameplay-like proof output and instead prove platform behavior through logs, fingerprints, diagnostics, and published/installable artifacts?
+A: Yes, but more like public/installable/*authorable*/*publishable* artifacts, yk?
+
+9. Should the Phase 3 scope ceiling be rewritten around public Vapor seams plus foundational Capability/Rhai semantics?
+A: Yes, basically, more or less.
+
+10. Should this batch deliberately avoid Phase 4 questions even if a Phase 3 decision will later constrain Phase 4?
+A: Yesn't. As a default, yes, but I can imagine scenarios where this might be such a big thing that we NEED to consider Phase 4's Scope, yk?
+
+Vapor Product Identity
+11. Is Vapor best described as a Steam-exclusive SDK plus launcher plus runtime composition protocol plus capability/Rhai authoring substrate?
+A: Yeah, I like the sound of that.
+
+12. Should Vapor be treated as a product layer even if access is granted through owning a concrete game product?
+A: Yeah. I know it's weird, but  I think for now it's a reasonably good solution.
+
+13. Should Vapor be documented independently enough that a third-party engine/game author can understand it without caring about first-party internals?
+A: Yes..... oh my fucking god, breakthrough: I can build my reputation in this day and age dominated by AI shenanigans, and make the Vapor ecosystem be a proper fucking rust crate, assuming I can also somehow like mod cargo somehow so I can do my custom shenanigans like custom build script for copying artifacts into the test dir or publishing/distributing them yk?  Like, make Vapor be an open-source (gated by me ofc) repo/project and make it free to use and all yk, and then on top of that can I built my proprietary first-party engine and gamewhich I plan to open-source some unknown amount of time after first public/commerical release, so I go from no rep to having some good rep, to having a good proprietary product stack, then earn money with that, then open source it, like to break it down very simply.  So to answer your question: Yes, with acceptance criteria and required robustness and public useability on steroids basically. Yeah whatever, I am starting to discuss project design for public consumption/contribution.... there is a time and a place for that, and it's neither here nor now.
+
+14. Should Vapor explicitly refuse to be storefront-agnostic for now?
+A: Yes. Fuck those other stores. I want Steam. Makes stuff simpler also cause there is no guarantee that other storefronts do this as well. I could ofc make the vapor stuff be available on every storefront *that supports the steam way of doings things with workshop and identity and all that stuff*, so I can kinda incentivize proper consumer-good competition to Steam, cause I do love Steam, but it having competition ain't gonna be bad I think. I know, huge answer again, but I wanted to include the full rationale behind this seemingly arbitrary decision to be exclusive to Steam.... truth is, I only really consider tTeam good, and I think Vapor as a sooooooort of sub-ecosystem .... wait, that means .... ah I see, my idea may be fucked. I thought like the Vapor Ecosystem could be a sort of cross-storefront interface that other storefronts can implement to have full parity with Steam, yk? But ofc, it seems like that oughta be it's own crate then, not really related to the Vapor Ecosystem and sitting kinda one layer higher yet, as a dependency of the Vapor Ecosystem..... and we shall call it: steam-like-platform-contracts. ..... And another product get's prepended to the product stack lol. Truly the damn sisyphus fucking stone pushing thing.... brooother am I gonna go on vacation once Phase 3 is done holy fucking shit man. Sorry, continuing... (PS: I wanna make it clear, that this is NOT to be implemented yet, we definitely wanna stay simple and steam-exclusive and directly use Steam, and refactor to this thing later in Like Phase 5 or 6 7 8 9 whatever, yk? Just NOT now!
+
+15. Should the docs say Steam is not merely one backend, but the exclusive external identity/distribution substrate?
+A: Yes, well no. Well yes, but the docs for like our plans of the future should ofc mention what I just so elaborately elaborated.
+
+16. Should Vapor define generic Engine and Game as platform roles, not implementation templates?
+A: Well they are implementation templates, but rather like "archetypes" or "identity", so yeah, it's more like a set of fixed allowed roles or types of objects basically, yeah (with players and authors and developers or whatever (naming NOT locked) being the subjects in this platform ofc).
+
+17. Should Vapor allow engines/games that expose no end-user modding surface beyond the minimum launch/composition contract?
+A: Yes, absolutely. Nobody forces you to use everything tokio offers once I pull in the tokio dependency, yk? Same mindset, or rather lack of a more stupid mindset lol. Vapor is a set of guardrails or like rules and such, yes, but it is *also primarily* like a crate you can depend on yk? Idk, I think you get it.
+
+18. Should Vapor allow engines/games that ignore most recommended capability ergonomics after bootstrap?
+A: Yes. Ofc we cannot enforce some things, yk? In every environment ever you can do stupid shit and absolutely abuse it to do stuff that was absolutely unequivocally NEVER intended to be done (like writing a high-peformance ray-tracing game engine in fortran), yk? I can not and do not even want to impose such restrictions. But, ofc, there is an intended model, and we wanna focus on that, not really on where you can break out, yk? So ofc I coulda just answered with  plain and simple "Yes.", but I think this question deserves the nuance I provided.
+
+19. Should that non-ergonomic path be documented as supported-but-discouraged, hacky-but-allowed, or unsupported?
+A: Just answered that in answer 18.
+
+20. Should Vapor be described as more than a modding ecosystem because it governs SDK tooling, launcher behavior, distribution, product composition, Capabilities, and Rhai declarations?
+A: Yes. It's a product with like multiple sub-products all depending on each other, lol. That was NOT locked terminology, I just made that up on the spot!
+
+21. Should the phrase Vapor Modding Ecosystem remain as an alias, or is it too narrow and should be deprecated?
+A: Indeed, please remove it.
+
+22. Should there be a top-level glossary page specifically for Vapor Platform rather than only Vapor Ecosystem?
+A: Well, for all the "sub-products" of it I suppose, eh?
+
+Capability Foundation
+23. Should Capability be treated as a foundational Vapor concept rather than an engine/game-specific concept?
+A: Yes. Everything is a capability, lol. Mods and Games and Engines are just capability artifacts or literal in-memory capabilities and such stuff, yk?
+
+24. Should every Vapor-visible composition seam be represented as a Capability or capability-adjacent declaration?
+A: Basically? Assuming I understand the question right? Lol.
+
+25. Should Capability remain intentionally broad across contract surface, API surface, runtime graph node, metadata node, authority surface, and orchestration seam?
+A: Yeah, it's the same with "Vapor" itself. It's like multiple things, but they still all heavily depend on each other to compose the larger full concept, even if that isn't one actual singular thing or entity or program you can interact with in any form, but if very much still makes sense to think about "Vapor" and also "Capability" as self-coherent singular concepts, and even more meta-mindfuck-y: All Capabilities follow the same philosophy, as in that every capability is just an abstraction level. Some of which can be used and felt and touched, others are just ephemeral and more for organization, yk? That's the philosophy.
+
+26. Should the docs explicitly say Capability is broad by design, not accidental overload?
+A: Yes.
+
+27. Should Vapor itself define what a Capability is before any engine or game defines its own capability types?
+A: Yes.
+
+28. Should engines/games/mods extend the Vapor capability graph rather than inventing separate composition systems?
+A: Yes.
+
+29. Should non-Vapor-internal capabilities still use Vapor-readable metadata when exposed to composition, diagnostics, or authoring?
+A: So you mean stuff that isn't like built in to the Vapor stuff as hardcoded capabilities, like everything except the root and a few "surrounding" high-level nodes, but yeah no  ofc like, even if a capability is hardcoded in rust into the Vapor base crate or whatever, we still obviously want to use the same metadata scheme and composition system and whatever, but ofc authoring and distribution and like yk some thing, those will ofc massively differ, cause for example: I don't want any old jack-jonathan-harold to push changes to Vapor itself or first-party products, yk?
+
+30. Should capabilities be stable path-addressable objects by default?
+A: Yes, *precisely*. The *by default* part is really important as well, good job.
+
+31. Should anonymous capabilities be forbidden, while private/internal capabilities are allowed?
+A: Yes, *precisely*.
+
+32. Should visibility follow Rust-like public/private/path-scoped semantics?
+A: Yes.
+
+33. Should public capability paths be part of fingerprints and compatibility checks?
+A: Yes.
+
+34. Should private capability paths be hidden from Player/Modpack Author projections but visible in Developer diagnostics when allowed?
+A: Yes, with ways to filter I hope, or like at the veery least so we can disable seeing the truly and fully not-public stuff, and maybe generally filter like by path or sum, yk what I mean? Ofc that complex stuff only for Developer diagnostics.
+
+35. Should Capability Type, Capability Profile, Capability Type Template, Capability Declaration, and Capability Instance be sharply separated before Phase 3 coding?
+A: Well, it's kinda all the same thing, but in some ways sometimes also not ofc, but idk, like these terms are overall not locked-in, yk? Let alone properly sharply separated, yk?
+
+36. Is Capability Instance a useful term, or does it imply too clean a type/instance split?
+A: Yeah no that's not good. An in-memory Capability Instance is what we wanna refer to as plain and simple a "Capability", yk? But yes I know wat u mean ofc. It starts with the hard-coded or more data-driven rhai-based impls/artifacts (which still require rust-based base capabilities to do anything ofc), then we got the in-memory fully validated ready-to-mingle in-memory capability graph, and yeah that's basically it' ain't it?
+
+37. Should Capability Declaration mean the authored declaration artifact, usually Rhai-backed?
+A: Yes, *precisely*.
+
+38. Should Capability Profile mean the projected API/ctx shape visible to a script, tool, or caller?
+A: Hm, idk, it truly does feel better to just name it all "Capability", but hm..... Yes, actually. Yes. My answer is Yes, but as one view onto one abstract "Capability", yk?
+
+39. Should Capability Type Template mean Rust-side host/template authority for a class of capabilities?
+A: Yes, but also like, each class of capabilities must depend on other capabilities, yk? So in other words: Each Capability Type Template either IS or DEFINES or somehow brings into existance a Capability and a Capability profile and a Capability Type and such, yk? Does that make sense?
+
+40. Should Capability Type be kept as an informal umbrella or deprecated as too ambiguous?
+A: Hm, idk. Capabilities really don't have that type aspect in hierarchical terms. Like, the hierarchy is fundamentally dynamic, but ofc each node can also create sub-nodes for itself, just not dynamically! Yk? The hierarchy is stored in a dynamic-friendly way, but we don't allow mutation of the static base/root graph that is created at startup by rust and rhai -based capabilities, yk?
+
+41. Should capabilities be allowed to describe platform things such as auth, publish, install, validate, fingerprint, and launch?
+A: Yes, absolutely! Exactly that! We can just create multiple graphs at different times. So the startup-created immutable static graph, and the dynamic evolution of additions removals and changes to that immutable static core, all one graph, but the second graph may be a rust-project or application for like managing all these mod and engine and game project and all... a sort of very sophisticated and (in the broadest fucking sense) domain-specific meta-framework, right?
+
+42. Should Steam integration surfaces themselves be capabilities?
+Hm.... I think I may have tended towards that in my previous answers, but idk, I don't like the general sound of that, yk? I mean yeah in a way, yes, ofc, but like, the deeper schism I am seeing I think that launch-time and runtime and comptime and whatever, all the "times", which order they are in or relate to each other, and how that relates to the general capability model, and how that ties back into the question of whether Steam integration surfaces should themselves be capabilities.
+
+43. Should launcher operations be capabilities, workflows, commands, or all three depending on layer?
+A: Idk, I think the launcher should not use workflows, but ofc OS-level shell-like commands, ofc(but via rust please, there are some nice command/shell crates), but capabilities ARE something the launcher should use as a substrate or like heavily depend on, same as the SDK tools, but like ofc this means we need some sort of initial bootstrap once this can actually like self-compile and with all the pre and post process stages and the larger sdk/launcher/whatever context(s) and all, yk? I do feel like there is some bootstrap paradox in there where we need to do something like the rust compiler had to do: Write the first version in Ocaml (I think), yk?
+
+44. Should SDK commands be backed by capabilities so UI and CLI share semantics?
+A: I suppose so.
+
+45. Should capability graph cycles hard-fail during validation?
+A: Yes, *precisely*.
+
+46. Should Runtime Lock apply to the resolved platform capability graph before executable launch?
+A: For the game/engine runtime, yes, but for the sdk tools and launcher runtimes we really wanna go all-out and only hardcode capabilities in rust, not supplemented by data-oriented rhai-based stuff. Yk?
+
+47. Should post-lock graph mutation be forbidden by default, with explicit dynamic registries as separate policy objects?
+A: Kinda explained post-lock graph mutation semantics in previous answer(s), and yes to explicit dynamic registries as separate policy objects. Explicitiness is king, rust rules!
+
+48. Should Phase 3 prove Capability graph staging before any engine/game fixture is allowed to run?
+A: Yes, by having a "placeholder"-esque prototype sorta hello-world-on-steroids engine and game combo I guess, yk?
+
+49. Should Phase 3 prove capability visibility projections for Player, Modpack Author, and Developer modes?
+A: Yes.
+
+50. What is the smallest non-engine/game-specific capability example that Phase 3 must prove?
+A: Idkkkkkk, such a broad question, yk?
+
+Rhai Foundation
+51. Should Rhai be treated as foundational Vapor authoring substrate rather than engine/game-specific scripting?
+A: Yes, *precisely*.
+
+52. Should Rhai declarations be the canonical authored source format for Vapor assets, capability declarations, metadata, and composition definitions?
+A: Well, one of em. Rust-defined hard-coded or semi-hard-coded(aka type-system-bound or whatever) and RHai-defined more-dynamic or like data-oriented stuff, both are primary. I mean yeah Rust must be kinda the conceptual entrypoint, but in real terms: Not really. Both are so similar, simply BECAUSE the capability graph represents it's nodes dynamically heterogeneous way, not in a typed/statically heterogeneous way, yk?
+
+53. Should one Rhai file equal one authored leaf asset/capability declaration by default?
+A: Yes, *precisely*.
+
+54. Should folder-level Rhai aggregators express grouping, metadata, pack composition, and module-like structure?
+A: Yes, exactly, that kinda stuff, but I wanna be careful with the implicit framing of this (supposedly) being a sorta "full" or "final" list, yk?
+
+55. Should ordinary mods avoid separate TOML/JSON/RON manifests because metadata lives in Rhai declarations?
+A: Yes, but ordinary here basically means rhai-exclusive; just mentioning.
+
+56. Should Packagepack, Enginepack, Gamepack, and Modpack composition also be representable as Rhai declarations?
+A: Yes. Ofc supposedly in the/a like final artifact-form in a folder *hierarchy*, but yeah. Basically: Folder structure follows capability structure (starting from a point, the Vapor capability root or whatever th fuck, and ending at several points where an engine can attach basically, and games and mods can also interface with and yk?).
+
+57. Should any composition artifact require a non-Rhai manifest, or should that be treated as a fallback only if Rhai fails?
+A: oh, uhm, ofc we can use toml as well to declare rhai-file-level dependencies, yeaaaaaaah, good idea. then not Cargo.toml but Vapor.toml, yeah.
+
+58. Should Rhai declaration files be parseable and validatable by launcher/SDK tooling without launching an engine/game fixture?
+A: Yes.
+
+59. Should Rhai declaration errors include file path, declaration path, target role, capability path, Steam publication metadata if relevant, and suggested fix?
+A: Sounds good. Yes.
+
+60. Should Rhai be declaration-owned and host-scheduled rather than declaration-only?
+A: Yeah, basically? Sounds reasonable at first glance.
+
+61. Should platform-level Rhai callbacks be in scope for authoring hooks, validation hooks, publish hooks, or launcher lifecycle hooks?
+A: Yeah. Kinda a part of that Launcher Bootstrap/self-hosting thing I mentioned, yk?
+
+62. Should runtime/gameplay-style Rhai callbacks stay out of scope for this batch?
+A: Yes.
+
+63. Should Rhai-side capability usage versus Rust-side capability kernel usage get its own follow-up batch?
+A: Not an entire batch lmao, but it, and a toooon of other things inside and outside this batch's scope need follow-up discussion or threads or microthreads or whatever the fuck, but yes.
+
+64. Should Rhai declaration `ctx` be a projected Capability graph view?
+A: Yes.
+
+65. Should different authoring contexts get different `ctx` projections: packagepack composition, mod metadata, publish metadata, validation hook, and SDK command extension?
+A: EVERY type of capability should have it's own authoring context type/projection, hence we wanna consider more flat/homogeneous capability dependency ""slot"" wherever it makes sense, yk?
+
+66. Should Rhai declarations be allowed to declare Steam/Workshop metadata such as title, tags, visibility, changelog, preview image, and dependencies?
+A: Yesn't. Yes, but via Vapor.toml.
+
+67. Should Steam/Workshop metadata declared in Rhai be projected into Steam fields/tags/descriptions by publishing tools?
+A: Declared in Vapor.toml, but yes.
+
+68. Should binary/preview/media support files for Workshop presentation be allowed even if canonical authored Vapor metadata is Rhai?
+A: Again, declared in Vapor.toml, but yes, we do want to allow support files of other types, such as the Vapor.toml capability manifest.
+
+69. Should Rhai declarations include capability version requirements and target role constraints?
+A: That and more, inside mostly/fully in Vapor.toml, yes?
+
+70. Should Rhai declarations be able to declare explicit conflicts and compatibility hints?
+A: Vapor.toml should be able to.
+
+71. Should Rhai declarations be deterministic enough to produce stable fingerprints?
+A: Ones that are loaded at startup into the "static"/readonly root-like root-originating "first" part of a capability graph, yk? The dynamism that can be "implemented"/exposed by some rhai declarations loaded at startup may allow advanced actual dynamic rhai- or even rust-based capability nodes, yk?
+
+72. Should Rhai syntax be constrained to a declaration DSL subset for platform metadata?
+A: Nah, platform metadata is done via Vapor.toml and maaaaaaybe also a Vapor.lock if we need it at some point I guess. Just thought of that lol.
+
+73. Should arbitrary Rhai execution during validation be forbidden unless declared as a typed hook/capability?
+A: Nah. Fuck security (in that "specific" sense) lmao.
+
+74. Should Phase 3 include a Rhai linter/validator independent of any concrete engine/game?
+A: I don't think I wanna go down that rabbit hole as of now D:
+
+75. What is the smallest Rhai declaration example that proves the platform architecture is real?
+A: God, what do I know. Broad questions like this really do not lend themselves well to the way I can best answer questions and convey information/opinion, yk?
+
+Steam Integration Boundary
+76. Should Steam auth/identity be mandatory for published/public Vapor usage?
+A: Yes. No Steam Account no Vapor Usage.
+
+77. Should local/offline authoring mode be allowed without Steam auth?
+A: Yes.
+
+78. Should local/offline authoring identities be temporary Vapor identities that later bind to Steam identities?
+A: Yes.
+
+79. Should Steam AppID ownership be the core entitlement check for access to Vapor tooling?
+A: Yes. Not because I wanna lock anyone out, it's free for all, but Steam is just a hard requirement; for reasons.
+
+80. Should Vapor verify ownership through Steam-native ownership/auth flows rather than custom account infrastructure?
+A: Yes, *precisely*.
+
+81. Should Steam session/auth tickets be hidden behind a Vapor auth capability, or should SDK users see Steam terms directly?
+A: Nah, everything is Capabilities. And btw, capability comes by rhai-authoring contexts enevr being direct raw capability access, but scoped controlled access, yk?
+
+82. Should Vapor store only SteamID-linked identity metadata, or should it create stable Vapor creator IDs mapped to SteamIDs?
+A: SteamID-linked. custom IDs mean we need like a custom registry or sum, meaning we need to mebrace the idea of using a new github repo as a sort of automatic free-hosted registry, yk? But that comes with MASSIVE security implications, so we can only store certain things there in good faith.
+
+83. Should creator identity be tied to Steam account, Steam publisher account, Workshop item owner, or a Vapor-local profile?
+A: Well, just hard-rely on Steam account identity/steamid_64/whatever/uuid/yk?
+
+84. Should Vapor support multiple local author profiles under one Steam account?
+A: No.
+
+85. Should Vapor distinguish player identity, mod author identity, modpack author identity, and publisher identity?
+A: No. Those are roles/ranks you can freely assign/promote your to, and demote yourself from, excluding first-party author ofc, me.
+
+86. Should Steam Web API / backend-server integration be in Phase 3 scope, or should Phase 3 rely only on client-side Steamworks APIs where possible?
+A: Please elaborate, this is very generic for me, I need specifics.
+
+87. Should Phase 3 include any private backend service, or should it be strictly launcher plus Steamworks plus local files?
+A: Yes, plus maaaaybe that github registry I talked about.
+
+88. Should Vapor ever cache Steam entitlement results locally, and if yes, under what offline constraints?
+A: I don't know what you mean by "Steam entitlement results", like what???? Like do you mean workshop content? Yes? Ofc we wanna cache that? That's what you call "downloading", duh, yk? Or like what else did you mean exactly?
+
+89. Should Steam being unavailable block public mod download/update, but not block local authoring or already-installed offline play/test?
+A: Yes, *precisely*.
+
+90. Should Vapor diagnostics explicitly distinguish Steam offline, Steam auth failed, no app ownership, Workshop unavailable, and local cache corrupted?
+A: Yeah.
+
+91. Should Steam-specific terminology like AppID, PublishedFileId, UGC item, depot, build, branch, package, and Workshop item be mirrored in Vapor docs or hidden behind Vapor terms?
+A: Mirrored in Vapor docs.
+
+Workshop / Distribution / Publishing
+92. Should Steam Workshop be the mandatory public distribution surface for Vapor mods and modpacks in Phase 3?
+A:
+
+93. Should Vapor support Workshop upload/publish from the launcher, a CLI, or both?
+A:
+
+94. Should Vapor support Workshop download/install/update from the launcher, a CLI, or both?
+A:
+
+95. Should Phase 3 prove upload, update, subscribe/download, install, enable, disable, and uninstall flows?
+A:
+
+96. Should Workshop item metadata be the primary public metadata, with Vapor metadata embedded inside uploaded item contents?
+A:
+
+97. Should Vapor metadata be duplicated into Workshop tags/title/description where useful for search and filtering?
+A:
+
+98. Should Workshop item tags include target role such as engine mod, game mod, extension mod, enginepack, gamepack, modpack, or packagepack?
+A:
+
+99. Should Workshop item visibility states be part of Phase 3 authoring UX?
+A:
+
+100. Should Vapor support private/unlisted Workshop test uploads for author iteration?
+A:
+
+101. Should published artifacts be immutable by Vapor policy, with updates creating new internal content revisions even when Workshop item ID stays stable?
+A:
+
+102. Should Workshop item ID identify the publication channel while Vapor revision/fingerprint identifies exact contents?
+A:
+
+103. Should a Vapor modpack be publishable as its own Workshop item that depends on other Workshop items?
+A:
+
+104. Should nested modpacks be represented through Workshop dependencies, Vapor metadata dependencies, or both?
+A:
+
+105. Should Vapor avoid relying on Steam load order and instead resolve ordering through Vapor metadata/capability graph policy?
+A:
+
+106. Should Vapor download dependencies automatically when Steam/Workshop APIs permit it?
+A:
+
+107. Should Vapor verify downloaded Workshop contents against Vapor fingerprints before use?
+A:
+
+108. Should Phase 3 include corrupted/incomplete Workshop download diagnostics?
+A:
+
+Launcher Modes / User Flow
+109. Should the launcher have separate Player Mode, Modpack Author Mode, and Developer Mode?
+A:
+
+110. Should Player Mode hide capability graph internals almost completely?
+A:
+
+111. Should Modpack Author Mode expose packagepack/modpack composition, public capability paths, and compatibility diagnostics without raw implementation internals?
+A:
+
+112. Should Developer Mode expose full graph paths, raw metadata, artifact roots, Steam IDs, fingerprints, and validation traces?
+A:
+
+113. Should mode switching be explicit, or should the launcher infer the mode from context?
+A:
+
+114. Should the launcher be the canonical UI for browsing installed content, subscribed Workshop content, local dev content, and packagepacks?
+A:
+
+115. Should the launcher discover local source/workspace artifacts?
+A:
+
+116. Should the launcher discover installed runtime artifacts?
+A:
+
+117. Should the launcher resolve which local artifacts override or shadow Workshop artifacts during development?
+A:
+
+118. Should local dev artifacts ever override published Workshop artifacts automatically?
+A:
+
+119. Should the launcher present Packagepacks as the main launchable object?
+A:
+
+120. Should players be able to create Packagepacks directly, or only choose curated/default ones?
+A:
+
+121. Should Modpack Authors create Packagepacks by composing Enginepacks, Gamepacks, and Modpacks?
+A:
+
+122. Should Developer Mode allow inspecting internal files of mods, while Player/Modpack Author modes cannot rearrange mod internals?
+A:
+
+123. Should the launcher have a first-class console/log panel for validation and launched process logs?
+A:
+
+124. Should launcher operations be expressible as SDK commands backed by the same capability/Rhai validation model?
+A:
+
+SDK / Authoring Tooling
+125. Should Vapor SDK mean the full creator-facing toolchain, not just code libraries?
+A:
+
+126. Should the SDK be accessible through launcher UI, CLI commands, and Rust workspace tooling?
+A:
+
+127. Should `xtask` remain internal developer tooling while Vapor SDK becomes public creator tooling?
+A:
+
+128. Should the SDK generate new Engine, Game, Mod, Modpack, and Packagepack project skeletons?
+A:
+
+129. Should SDK scaffolding enforce reserved role names and folder layout?
+A:
+
+130. Should SDK scaffolding create Rhai declaration assets by default rather than separate manifests?
+A:
+
+131. Should the SDK include validation/lint commands that do not require launching an engine/game?
+A:
+
+132. Should the SDK include package/fingerprint/build commands for local authoring?
+A:
+
+133. Should the SDK include publish/update commands for Steam Workshop?
+A:
+
+134. Should the SDK include migration tooling for Vapor metadata/schema changes?
+A:
+
+135. Should the SDK include a local content registry for dev-only artifacts?
+A:
+
+136. Should the SDK include documentation generation from Vapor metadata and Rhai declarations?
+A:
+
+137. Should SDK commands be stable public contracts in Phase 3, or can command names remain rough as long as semantics are real?
+A:
+
+138. Should Phase 3 produce a minimal but real SDK command matrix with examples?
+A:
+
+Pack / Artifact Vocabulary
+139. Is Packagepack still the right term for the complete launchable composition?
+A:
+
+140. Should Packagepack be the object players launch and modpack authors compose?
+A:
+
+141. Should Enginepack mean selected generic Engine fixture plus compatible engine-side contributions?
+A:
+
+142. Should Gamepack mean selected generic Game fixture plus compatible game-side contributions?
+A:
+
+143. Should Modpack mean a reusable composition of mods and/or nested modpacks attached to some target role?
+A:
+
+144. Should Engine Mod and Game Mod be top-level attachment categories?
+A:
+
+145. Should Extension Mod remain the generic mod-of-a-mod category?
+A:
+
+146. Should every mod attach to exactly one parent role/artifact, even if it depends on other visible capabilities?
+A:
+
+147. Should Enginepack/Gamepack/Modpack/Packagepack all be declared using Rhai assets?
+A:
+
+148. Should ordinary mods have no separate manifest file because metadata lives on Rhai declaration files/folders?
+A:
+
+149. Should Packagepacks and Modpacks also avoid separate manifests, or do composition artifacts need a distinct manifest format?
+A:
+
+150. Should the word package be banned from Vapor-specific names unless qualified as Steam package, build artifact, source package, or runtime artifact?
+A:
+
+151. Should Steam package remain a distinct term because Steam uses packages for store/license distribution?
+A:
+
+152. Should build artifact, source package, runtime artifact, Workshop item, and Packagepack each get distinct glossary pages?
+A:
+
+153. Should Packagepack fingerprints include Enginepack, Gamepack, Modpacks, mods, versions, Workshop IDs, local dev IDs, public capability paths, and Rhai declaration identities?
+A:
+
+154. Should fingerprints be deterministic plaintext plus stable machine-readable structure?
+A:
+
+155. Should fingerprints be used for compatibility checks, diagnostics, caching, publishing, and reproducibility?
+A:
+
+156. Should fingerprints be content-addressed hashes, semantic manifests, or both?
+A:
+
+157. Should nested modpack boundaries remain visible inside fingerprints?
+A:
+
+158. Should a Packagepack be allowed to depend on unpublished local artifacts in Developer Mode only?
+A:
+
+Validation / Diagnostics / Trust
+159. Should Vapor validation detect cycles, missing required providers, duplicate singleton providers, explicit conflicts, version mismatches, invalid target roles, visibility violations, bad Rhai declarations, and fingerprint mismatches?
+A:
+
+160. Should all user-facing conflict reports be generated from lower-level graph validation primitives?
+A:
+
+161. Should player diagnostics be projections of richer modpack-author/developer diagnostics?
+A:
+
+162. Should Player diagnostics prioritize what broke, which item is responsible if known, and what action is safe?
+A:
+
+163. Should Modpack Author diagnostics prioritize compatibility graph, target roles, version constraints, missing dependencies, and conflicts?
+A:
+
+164. Should Developer diagnostics include raw file paths, Steam IDs, fingerprints, graph paths, Rhai declaration paths, and validation primitive names?
+A:
+
+165. Should invalid authoring/config fail before launch whenever possible?
+A:
+
+166. Should the launcher never start an engine/game if Packagepack validation fails?
+A:
+
+167. Should Steam/Workshop/network failures be recoverable diagnostics rather than panics?
+A:
+
+168. Should internal invariant violations in Vapor tooling panic-fast during development builds?
+A:
+
+169. Should published Workshop content be treated as untrusted input until validated by Vapor?
+A:
+
+170. Should Vapor sandbox or restrict installed mod content at the platform level, or is that engine/game/runtime-specific?
+A:
+
+171. Should Vapor support content signing, or is Steam identity plus fingerprints sufficient for Phase 3?
+A:
+
+172. Should Vapor maintain an install ledger for what was installed, from where, when, and with which fingerprint?
+A:
+
+173. Should corrupted local cache trigger redownload, quarantine, or hard failure?
+A:
+
+Phase 3 Acceptance Matrix
+174. Should Phase 3 acceptance be defined as a matrix of valid and invalid Vapor platform scenarios?
+A:
+
+175. Should the matrix include local-only authoring without Steam upload?
+A:
+
+176. Should the matrix include real Steam auth and ownership verification?
+A:
+
+177. Should the matrix include Workshop upload/update/publish?
+A:
+
+178. Should the matrix include Workshop subscribe/download/install/enable/disable/uninstall?
+A:
+
+179. Should the matrix include one default valid Packagepack and one heavily modded valid Packagepack?
+A:
+
+180. Should the matrix include nested Modpacks?
+A:
+
+181. Should the matrix include custom generic Engine and Game fixtures only as platform role fixtures, not as domain prototypes?
+A:
+
+182. Should the matrix include invalid dependency, invalid version, duplicate provider, missing provider, explicit conflict, bad Rhai declaration, corrupted download, and visibility violation cases?
+A:
+
+183. Should the matrix include Player, Modpack Author, and Developer diagnostic projections for at least one failure?
+A:
+
+184. Should the matrix include deterministic fingerprint comparison between two valid Packagepacks?
+A:
+
+185. Should the matrix include publishing metadata projection from Rhai to Workshop fields?
+A:
+
+186. Should the matrix include offline mode behavior with already-installed content?
+A:
+
+187. Should the matrix include local dev artifact shadowing a Workshop artifact?
+A:
+
+188. Should the matrix include update/migration behavior when a published mod changes metadata schema?
+A:
+
+189. Should automated tests cover pure validation primitives while Steam flows remain manually verified or integration-tested outside CI?
+A:
+
+190. Should CI remain limited to build, unit tests, lint, and pure validation fixtures for Phase 3?
+A:
+
+191. What is the smallest honest Phase 3 acceptance matrix under this Vapor/Capability/Rhai/Steam scope?
+A:
+
+192. What is the largest Phase 3 acceptance requirement in this batch that should probably be deferred despite sounding important?
+A:
+
+Next Follow-Up
+193. After answering this rebuilt batch 005, should the next batch focus on Capability taxonomy, Rhai declaration shape, Steam publishing flow, Packagepack/modpack vocabulary, SDK command surface, or diagnostics?
+A:
+
+194. Which term in this batch is still most likely to be wrong: Packagepack, Enginepack, Gamepack, Modpack, Extension Mod, Vapor Platform, Capability Profile, Capability Declaration, Rhai Asset, or Runtime Lock?
+A:
+
+195. Which topic here most needs a concrete prototype sketch before more questions are useful?
+A:
+
+196. Which topic here should explicitly not be prototyped until the vocabulary is cleaner?
+A:
+
+197. What is the single worst false assumption still present in this rebuilt batch?
+A:
