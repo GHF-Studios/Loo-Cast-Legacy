@@ -314,312 +314,312 @@ A: Mirrored in Vapor docs.
 
 Workshop / Distribution / Publishing
 92. Should Steam Workshop be the mandatory public distribution surface for Vapor mods and modpacks in Phase 3?
-A:
+A: Yes.
 
 93. Should Vapor support Workshop upload/publish from the launcher, a CLI, or both?
-A:
+A: Both.
 
 94. Should Vapor support Workshop download/install/update from the launcher, a CLI, or both?
-A:
+A: Both.
 
 95. Should Phase 3 prove upload, update, subscribe/download, install, enable, disable, and uninstall flows?
-A:
+A: Yes.
 
 96. Should Workshop item metadata be the primary public metadata, with Vapor metadata embedded inside uploaded item contents?
-A:
+A: Yes? Sounds like a good idea (for *packs).
 
 97. Should Vapor metadata be duplicated into Workshop tags/title/description where useful for search and filtering?
-A:
+A: Yes. Duplicated, or even like structurally linked, in the rust sense of making invalid states unrepresentable.
 
 98. Should Workshop item tags include target role such as engine mod, game mod, extension mod, enginepack, gamepack, modpack, or packagepack?
-A:
+A: Yes, *precisely*.
 
 99. Should Workshop item visibility states be part of Phase 3 authoring UX?
-A:
+A: Wdym? Like whether it's fully public on the workshop (yet) or not, or wdym? I feel like you are hinting at whether we want workshop-items integration into linter/lsp kinda stuff for rhai-land, and idk, if that's what you were aiming at, then.... idk, that's far-future, yk?
 
 100. Should Vapor support private/unlisted Workshop test uploads for author iteration?
-A:
+A: Ofc. Just like Steam allows us to do, yes please.
 
 101. Should published artifacts be immutable by Vapor policy, with updates creating new internal content revisions even when Workshop item ID stays stable?
-A:
+A: Yes, *precisely*.
 
 102. Should Workshop item ID identify the publication channel while Vapor revision/fingerprint identifies exact contents?
-A:
+A: Basically? Yeah, we do want to manage versioning ourselves, not via steam's depot stuff or whatever, no. Right? Not really sure/locked-in on this one tbh chief.
 
 103. Should a Vapor modpack be publishable as its own Workshop item that depends on other Workshop items?
-A:
+A: Yes.
 
 104. Should nested modpacks be represented through Workshop dependencies, Vapor metadata dependencies, or both?
-A:
+A: Both.
 
 105. Should Vapor avoid relying on Steam load order and instead resolve ordering through Vapor metadata/capability graph policy?
-A:
+A: Yes.
 
 106. Should Vapor download dependencies automatically when Steam/Workshop APIs permit it?
-A:
+A: Yes. Maybe even subscribe to them, but I assume steam does not allow subscribing to items via the logged in SteamCMD/SteamAPI..... or?
 
 107. Should Vapor verify downloaded Workshop contents against Vapor fingerprints before use?
-A:
+A: Yes. Also sounds like a need for the automatically managed registry repo to maintain a set of fingerprints, yk? Maybe also hashes, and whatever, yk?
 
 108. Should Phase 3 include corrupted/incomplete Workshop download diagnostics?
-A:
+A: Yes.
 
 Launcher Modes / User Flow
 109. Should the launcher have separate Player Mode, Modpack Author Mode, and Developer Mode?
-A:
+A: Yes.
 
 110. Should Player Mode hide capability graph internals almost completely?
-A:
+A: Basically, yes.
 
 111. Should Modpack Author Mode expose packagepack/modpack composition, public capability paths, and compatibility diagnostics without raw implementation internals?
-A:
+A: Yes.
 
 112. Should Developer Mode expose full graph paths, raw metadata, artifact roots, Steam IDs, fingerprints, and validation traces?
-A:
+A: Yes.
 
 113. Should mode switching be explicit, or should the launcher infer the mode from context?
-A:
+A: Nono, it should be very explicit, but kinda like onion layers, so like peeling away or re-applying layers to the launcher experience, yk? Anyway, that's more a UX hint/direction/suggestion, lol. Moving onto the next questiooooon.
 
 114. Should the launcher be the canonical UI for browsing installed content, subscribed Workshop content, local dev content, and packagepacks?
-A:
+A: Yes, but kinda co-existing with the steam workshop (and others) UI ofc, cause it is in fact, very nice.
 
 115. Should the launcher discover local source/workspace artifacts?
-A:
+A: Yes. Vapor/the launcher is what unites the SDK/Dev side with the Engine/Game/Player-kinda side, yk?
 
 116. Should the launcher discover installed runtime artifacts?
-A:
+A: Yes. We wanna have a sort of registry or cache for these artifacts. Also, "runtime artifact" in my terms as I described capabilities and all is a weird terminology, cause the Capability itself is the runtime-representation, and any "artifacts" are not runtime objects/things, unless I am indeed not understanding correctly what "artifact" even means, which tbf, I really do not.
 
 117. Should the launcher resolve which local artifacts override or shadow Workshop artifacts during development?
-A:
+A: Yes?
 
 118. Should local dev artifacts ever override published Workshop artifacts automatically?
-A:
+A: That' the thing with answer 117: No! No local dev artifacts should not override published workshop artifacts at all, yk? Like, maybe, but then you gotta give a good explanation of what you mean, yk? This is too generic, I need details.
 
 119. Should the launcher present Packagepacks as the main launchable object?
-A:
+A: Yes.
 
 120. Should players be able to create Packagepacks directly, or only choose curated/default ones?
-A:
+A: Yes, but: "... choose curated/default/""manually""-installed ones", kinda like curseforge, yk?
 
 121. Should Modpack Authors create Packagepacks by composing Enginepacks, Gamepacks, and Modpacks?
-A:
+A: Yes.
 
 122. Should Developer Mode allow inspecting internal files of mods, while Player/Modpack Author modes cannot rearrange mod internals?
-A:
+A: Well, we cannot arrange the mod internals of mods we installed and/or like depend on ofc, but we can have a look inside them at a technical level in developer mode ofc and want (in the future tbf) proper LSP and linter support and all, yk?
 
 123. Should the launcher have a first-class console/log panel for validation and launched process logs?
-A:
+A: Yes. Although, two separate ones ofc. One for the launcher and it's validationd and all and, and one for the launched process logs (no logs for SDK tools (for now?)).
 
 124. Should launcher operations be expressible as SDK commands backed by the same capability/Rhai validation model?
-A:
+A: Yes.
 
 SDK / Authoring Tooling
 125. Should Vapor SDK mean the full creator-facing toolchain, not just code libraries?
-A:
+A: Yes.
 
 126. Should the SDK be accessible through launcher UI, CLI commands, and Rust workspace tooling?
-A:
+A: Yes, basically.
 
 127. Should `xtask` remain internal developer tooling while Vapor SDK becomes public creator tooling?
-A:
+A: Yes. xtask is for repo-level/root-level first-class development.
 
 128. Should the SDK generate new Engine, Game, Mod, Modpack, and Packagepack project skeletons?
-A:
+A: Yes, *precisely*.
 
 129. Should SDK scaffolding enforce reserved role names and folder layout?
-A:
+A: Yes, although this seems like a dangerously broad/generic question!
 
 130. Should SDK scaffolding create Rhai declaration assets by default rather than separate manifests?
-A:
+A: What?
 
 131. Should the SDK include validation/lint commands that do not require launching an engine/game?
-A:
+A: Yes.
 
 132. Should the SDK include package/fingerprint/build commands for local authoring?
-A:
+A: Yes.
 
 133. Should the SDK include publish/update commands for Steam Workshop?
-A:
+A: Yes.
 
 134. Should the SDK include migration tooling for Vapor metadata/schema changes?
-A:
+A: Yes.
 
 135. Should the SDK include a local content registry for dev-only artifacts?
-A:
+A: Yes.
 
 136. Should the SDK include documentation generation from Vapor metadata and Rhai declarations?
-A:
+A: Oh my fucking god that sounds so advanced but so incredibly advantageous.... Yes! Albeit probably somewhat barebones at the start, but yeah, just like `cargo doc` does it.
 
 137. Should SDK commands be stable public contracts in Phase 3, or can command names remain rough as long as semantics are real?
-A:
+A: Stable public contracts in Phase 3.
 
 138. Should Phase 3 produce a minimal but real SDK command matrix with examples?
-A:
+A: Yes.
 
 Pack / Artifact Vocabulary
 139. Is Packagepack still the right term for the complete launchable composition?
-A:
+A: Yes. I simply cannot think of a better name. There are more precise terms like "Full Composition Package" but it's all either verbose, or too generic, or both, yk? Packagepack is so oddly ambiguous, that ironically it's a g(semi-)ood name, yk?
 
 140. Should Packagepack be the object players launch and modpack authors compose?
-A:
+A: Yes, and for which developers create the raw content artifacts like engines, games, and mods, and even modpacks, *even nested modpacks*, yk?
 
 141. Should Enginepack mean selected generic Engine fixture plus compatible engine-side contributions?
-A:
+A: Yes, and building on that in an additive and conflict free way we can easily imagine those engine/game-specific modpacks also being nestable or like "wrappable" rather (so more a bottoms up apoproach than top-down, but yeah), yk?
 
 142. Should Gamepack mean selected generic Game fixture plus compatible game-side contributions?
-A:
+A: Yes, and same as 141, yk?
 
 143. Should Modpack mean a reusable composition of mods and/or nested modpacks attached to some target role?
-A:
+A: Yes.
 
 144. Should Engine Mod and Game Mod be top-level attachment categories?
-A:
+A: Well, either it's just the hardcoded Vapor root that's the only one single "top-level atachment category", or all of "Vapor-Root(No contract or anything, just hardcoded), Engine, and Game, aaaaand ofc nested Mods, aka Extension Mods, yk?" must count as top-level attachment categories, yk? Does that make sense?
 
 145. Should Extension Mod remain the generic mod-of-a-mod category?
-A:
+A: Yes, *precisely*.
 
 146. Should every mod attach to exactly one parent role/artifact, even if it depends on other visible capabilities?
-A:
+A: Hm, I don't know tbh..... I see the value in having one single unequivocal parent, but I also see the value in a multi-parent approach cause ofc often we want multiple dependencies.... maybe we just do like inheritance for projects which pulls in SOME dependencies or like which ARE sorta *special* dependencies, and the rest is gathered just normal via Vapor.toml or whatever, yk?
 
 147. Should Enginepack/Gamepack/Modpack/Packagepack all be declared using Rhai assets?
-A:
+A: Should be *able to be declared*, not required to, cause ofc we cooooooul potentially hardcode an enginepack or gamepack or modpack or packagepack, but ofc I highly advise against that, but I think if the structure works, it should support that possibility, yk?
 
 148. Should ordinary mods have no separate manifest file because metadata lives on Rhai declaration files/folders?
-A:
+A: No, we do want Vapor.toml to hold that kinda stuff.
 
 149. Should Packagepacks and Modpacks also avoid separate manifests, or do composition artifacts need a distinct manifest format?
-A:
+A: Vapor.toml.
 
 150. Should the word package be banned from Vapor-specific names unless qualified as Steam package, build artifact, source package, or runtime artifact?
-A:
+A: Nah. I like "packagepack". It's a good scoped usage of "package".
 
 151. Should Steam package remain a distinct term because Steam uses packages for store/license distribution?
-A:
+A: Yes, assuming that isn't just for game updates but also/rather for workshop content, yk?`
 
 152. Should build artifact, source package, runtime artifact, Workshop item, and Packagepack each get distinct glossary pages?
-A:
+A: build artifact, source package, runtime artifact, and also to an extent Workshop Item, are all (still?) controversial terms.
 
 153. Should Packagepack fingerprints include Enginepack, Gamepack, Modpacks, mods, versions, Workshop IDs, local dev IDs, public capability paths, and Rhai declaration identities?
-A:
+A: Yes. An ID/Hash is more like a unique path and identifier, while a fingerprint is the same concept but on steroids with much more guaranteed uniqueness basically, for lack of a better explanation lol.
 
 154. Should fingerprints be deterministic plaintext plus stable machine-readable structure?
-A:
+A: Yes, *precisely*.
 
 155. Should fingerprints be used for compatibility checks, diagnostics, caching, publishing, and reproducibility?
-A:
+A: Yes, and also partial or like "scoped" or "local" fingerprints of individual sub-nodes or sum, yk?
 
 156. Should fingerprints be content-addressed hashes, semantic manifests, or both?
-A:
+A: Both sounds good. Both hashing and human-readable manifest basically, yeah.
 
 157. Should nested modpack boundaries remain visible inside fingerprints?
-A:
+A: Yes, but: I want fingerprints to be "gettable" in a variety of ways, yk? And this sounds like *one* configuration suggestion, yk? But fair enough, yeah.
 
 158. Should a Packagepack be allowed to depend on unpublished local artifacts in Developer Mode only?
-A:
+A: Yes, but only local/cloned/sdk/whatever-yk-what-I-mean workspaces defining the packagepack itself, cause published (versions of) packagepacks should not be allowed to depend on unpublished local (versions of) artifacts, and no, not only in developer mode, but also in modpack author mode.
 
 Validation / Diagnostics / Trust
 159. Should Vapor validation detect cycles, missing required providers, duplicate singleton providers, explicit conflicts, version mismatches, invalid target roles, visibility violations, bad Rhai declarations, and fingerprint mismatches?
-A:
+A: Yes!
 
 160. Should all user-facing conflict reports be generated from lower-level graph validation primitives?
-A:
+A: Yes?
 
 161. Should player diagnostics be projections of richer modpack-author/developer diagnostics?
-A:
+A: Yes, *precisely*.
 
 162. Should Player diagnostics prioritize what broke, which item is responsible if known, and what action is safe?
-A:
+A: Yeah, basically.
 
 163. Should Modpack Author diagnostics prioritize compatibility graph, target roles, version constraints, missing dependencies, and conflicts?
-A:
+A: Configurable however we need it, yk? Idk, prioritizing one thing globally/by-default feels wrong here, yk?
 
 164. Should Developer diagnostics include raw file paths, Steam IDs, fingerprints, graph paths, Rhai declaration paths, and validation primitive names?
-A:
+A: Yes.
 
 165. Should invalid authoring/config fail before launch whenever possible?
-A:
+A: Yes.
 
 166. Should the launcher never start an engine/game if Packagepack validation fails?
-A:
+A: Yes.
 
 167. Should Steam/Workshop/network failures be recoverable diagnostics rather than panics?
-A:
+A: Yes.
 
 168. Should internal invariant violations in Vapor tooling panic-fast during development builds?
-A:
+A: Yes.
 
 169. Should published Workshop content be treated as untrusted input until validated by Vapor?
-A:
+A: Nah. Everything trusted, use at your own caution, but ofc once I have the monetary capacities I will want to implement some form of proactive moderation, but yeah. For now, Steam is the guard, not me nor Vapor.
 
 170. Should Vapor sandbox or restrict installed mod content at the platform level, or is that engine/game/runtime-specific?
-A:
+A: Well, no, the capability graph naturally sandboxes or like scopes functionality and data and all, yk? No need (for now?).
 
 171. Should Vapor support content signing, or is Steam identity plus fingerprints sufficient for Phase 3?
-A:
+A: No content signinf, steam identity content owner check for upload plus fingerprints matching for download is sufficient, yes.
 
 172. Should Vapor maintain an install ledger for what was installed, from where, when, and with which fingerprint?
-A:
+A: Yes.
 
 173. Should corrupted local cache trigger redownload, quarantine, or hard failure?
-A:
+A: Suggest to try to either redownload, or try-to-quarantine/try-to-ignore/try-to-disable, or a good ol hard fail in te form of the user simply closing the warning window basically and thus implicitly accepting that the launchable packagepack is in fact not launchable and/or could not be launched due to some other reason(s), yk?
 
 Phase 3 Acceptance Matrix
 174. Should Phase 3 acceptance be defined as a matrix of valid and invalid Vapor platform scenarios?
-A:
+A: "A matrix" sounds a biiiit simplistic tbh, but yeah, basically.
 
 175. Should the matrix include local-only authoring without Steam upload?
-A:
+A: Yes.
 
 176. Should the matrix include real Steam auth and ownership verification?
-A:
+A: Yes.
 
 177. Should the matrix include Workshop upload/update/publish?
-A:
+A: Yes.
 
 178. Should the matrix include Workshop subscribe/download/install/enable/disable/uninstall?
-A:
+A: Yes.
 
 179. Should the matrix include one default valid Packagepack and one heavily modded valid Packagepack?
-A:
+A: Yes, maybe even a whole matrix of modded packagepacks on it's own, with engine mods, game  mods, both, both plus extension mods in multiple variations as well, yk? Hence my earlier criticism that "a matrix" sounds a bit too simplistic, yk?
 
 180. Should the matrix include nested Modpacks?
-A:
+A: Yes, and also same additional info here as with 179.
 
 181. Should the matrix include custom generic Engine and Game fixtures only as platform role fixtures, not as domain prototypes?
-A:
+A: Nono we do want proper prototypes, as I just said, but with the aims of being SOMETHING, like ANYTHING, not a serious prototype, more akin to a placeholder or like architectural MVP, which can be constructed whle the main function stays clean for example, yk?
 
 182. Should the matrix include invalid dependency, invalid version, duplicate provider, missing provider, explicit conflict, bad Rhai declaration, corrupted download, and visibility violation cases?
-A:
+A: Yes, all of that good shit, yes.
 
 183. Should the matrix include Player, Modpack Author, and Developer diagnostic projections for at least one failure?
-A:
+A: Yes, absolutely, like all other things in this section we want kinda comprehensive or larger scale testing, not just one stupid example , but proper minimal MVPs for covering every case or like every feature in every (meaningfully) distinct permutation and/or variation, yk?
 
 184. Should the matrix include deterministic fingerprint comparison between two valid Packagepacks?
-A:
+A: Yes. But, ofc, they will be different if it's not precisely the same packagepack in two instances, yk?
 
 185. Should the matrix include publishing metadata projection from Rhai to Workshop fields?
-A:
+A: Yes.
 
 186. Should the matrix include offline mode behavior with already-installed content?
-A:
+A: Yes.
 
 187. Should the matrix include local dev artifact shadowing a Workshop artifact?
-A:
+A: Yes, sort of things waiting in the publishing pipeline of the running machine until the machine stops and the stuff is persisted, or the network comes back and we are able to authenticate and shit, yeah, yk?
 
 188. Should the matrix include update/migration behavior when a published mod changes metadata schema?
-A:
+A: Uhm, no. Vapor is Vapor. At this semver stage (pre-alpha), I really don't care. If Vapor changes in that way meaningfully, I will nuke and recretae the steam workshop configuration for that app ID, yk?
 
 189. Should automated tests cover pure validation primitives while Steam flows remain manually verified or integration-tested outside CI?
-A:
+A: Manually verified, not integration-tested (for most thing at least I presume), but yeah, basically.
 
 190. Should CI remain limited to build, unit tests, lint, and pure validation fixtures for Phase 3?
-A:
+A: Yes, basically. Maybe include the automatically-managed repo-registry thing, maybe not tho tbf.
 
 191. What is the smallest honest Phase 3 acceptance matrix under this Vapor/Capability/Rhai/Steam scope?
-A:
+A: No idea, super-broad question again.
 
 192. What is the largest Phase 3 acceptance requirement in this batch that should probably be deferred despite sounding important?
-A:
+A: None, I have precise answers as best as I could, and without your further follow-up feedback it will be hard to determine what could be improved upon, yk?
 
 Next Follow-Up
 193. After answering this rebuilt batch 005, should the next batch focus on Capability taxonomy, Rhai declaration shape, Steam publishing flow, Packagepack/modpack vocabulary, SDK command surface, or diagnostics?
