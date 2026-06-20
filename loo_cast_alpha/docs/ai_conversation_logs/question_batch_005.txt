@@ -626,13 +626,13 @@ Next Follow-Up
 A:
 
 194. Which term in this batch is still most likely to be wrong: Packagepack, Enginepack, Gamepack, Modpack, Extension Mod, Vapor Platform, Capability Profile, Capability Declaration, Rhai Asset, or Runtime Lock?
-A:
+A: Vapor Platform, Capability Profile, Capability Declaration, Rhai Asset, and Runtime Lock. I hope you can see a pattern in that, or rather in what I didn't mention in this wrong-ness list to be precise.
 
 195. Which topic here most needs a concrete prototype sketch before more questions are useful?
-A:
+A: Idk, seems like a weird question. Idk.
 
 196. Which topic here should explicitly not be prototyped until the vocabulary is cleaner?
-A:
+A: Idk, it's all one thing yk? Very interdependent, yk?
 
 197. What is the single worst false assumption still present in this rebuilt batch?
-A:
+A: That this is somehow treatable as completely 100% decoupled separate modules/sections, yk? It's really still one big conglomerate of technology lol, yk?
