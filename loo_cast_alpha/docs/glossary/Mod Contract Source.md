@@ -2,7 +2,6 @@
 canonical_name: Mod Contract Source
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Mod Contract Source is the mod's contract-crate source side.

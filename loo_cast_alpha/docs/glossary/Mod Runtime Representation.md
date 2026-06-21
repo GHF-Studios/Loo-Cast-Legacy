@@ -2,12 +2,11 @@
 canonical_name: Mod Runtime Representation
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Mod Runtime Representation defines the in-memory integrated form of a mod after loading and registration.
 The runtime resolves capabilities established at Runtime Lock (for example [[Scale Definition]], metric, phenomenon, and
-[[Scale Realizer]] declarations) into active capability instances and executable behavior through
+[[Scale Realizer]] declarations) into active capabilities and executable behavior through
 the [[Modding Runtime]],
 the [[Capability Runtime]],
 and the [[USF Runtime]].

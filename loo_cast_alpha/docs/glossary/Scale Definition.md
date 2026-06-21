@@ -2,7 +2,6 @@
 canonical_name: Scale Definition
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 A Scale Definition declares what is semantically meaningful at one [[Scale]] coordinate inside the [[USF Contract]].

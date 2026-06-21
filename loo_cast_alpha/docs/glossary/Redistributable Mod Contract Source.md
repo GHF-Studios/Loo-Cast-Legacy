@@ -2,7 +2,6 @@
 canonical_name: Redistributable Mod Contract Source
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Redistributable Mod Contract Source is the as-is packaged distribution form of the [[Mod Contract Source]].

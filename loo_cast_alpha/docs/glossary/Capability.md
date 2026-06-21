@@ -11,6 +11,10 @@ mod, and sub-mod layers.
 Capabilities are defined by Vapor and used by Vapor itself, engines, games, mods, and sub-mods.
 A capability intentionally spans runtime graph node, contract surface, API surface, authority surface, and composition
 unit.
+This breadth is deliberate, not accidental terminology overload.
+Capabilities are the foundational Vapor substrate: engines, games, mods, packagepacks, SDK operations, launcher
+operations, auth, publishing, installing, validation, fingerprinting, and launch surfaces may all be represented through
+capability-shaped metadata and runtime/API surfaces.
 
 Current broader-ecosystem pressure:
 Capabilities are the cross-layer contract substrate of the [[Vapor Ecosystem]], where engines, games, mods, modules,
@@ -27,6 +31,7 @@ Identity and visibility:
 
 - Capabilities should not be anonymous.
 - Private/internal capabilities are allowed, but they still need identity and metadata.
+- Capabilities are stable path-addressable objects by default.
 - Visibility should roughly follow Rust-like visibility semantics where useful, including private, `pub(super)`,
   `pub(crate)`, and public-style scopes.
 - Internal/private nodes are real full-graph nodes, not merely nodes hidden from user-facing projection.
@@ -39,16 +44,25 @@ Type relationship:
 A capability can itself be a type/category used by other capabilities, but a capability cannot be its own type.
 Self-typing, self-dependency, and dependency cycles are invalid bootstrap shapes.
 Non-circular type/dependency/dependent relationships are part of what forms the capability graph.
+The term `Capability Instance` should be avoided for now.
+The in-memory validated object should usually just be called a Capability, while authored/pre-lock forms should be
+called [[Capability Declaration]] where that distinction matters.
+[[Capability Slot Type]] is the current preferred term for the projected/gated slot/context shape that older notes called
+`Capability Profile` or `Capability Type Template`.
+`Capability Declaration` remains the pre-lock authored declaration artifact.
+`Capability Type` remains too ambiguous to use as settled terminology.
 
 Graph shape:
-The running `core_engine` process should have one global runtime capability graph.
+Capability graph data structures are reused across multiple environments, not one monolithic process graph.
+The SDK may have one graph per tool instance, the launcher has its own graph, the launcher can construct a proto-graph
+root/seed for a selected composition, and the launched composition has its resolved runtime graph.
 Packagepack, enginepack, gamepack, modpack, engine, game, mod, script, and user-facing views are projections or metadata
-views over that graph, not separate authoritative runtime graphs.
+views over the relevant graph environment, not separate authoring truths.
 The raw capability metadata may be simpler than the runtime graph, for example a registry scanned before graph
 construction.
-Current pressure allows the launcher composition graph and runtime graph to become separate artifacts connected by a
-resolved handoff format, but the preferred semantic model is still one graph changing representation/mode across
-composition, validation, handoff, lock, and runtime.
+Launcher/SDK graphs are currently static-only/read-only/hardcoded environments.
+Launchable Engine/Game compositions can expose mutable substrate layered onto the immutable startup-generated graph
+core; products/packs that do not expose such APIs simply do not support that kind of runtime extension.
 
 Staged construction:
 
@@ -62,6 +76,9 @@ Staged construction:
 
 `Capability Declaration` is the pre-lock artifact.
 At the definition lock transition, validated capability declarations are promoted into capabilities.
+For launcher and SDK tooling, the exact Runtime Lock semantics are still under pressure.
+Runtime Lock applies to launchable Engine/Game runtime composition, not to treating the launcher/SDK as dynamic
+Rhai-authored runtime compositions.
 
 Capability flow across Rust/Rhai is cyclic, not one-way:
 This is phase-separated runtime: declaration phase and execution phase coexist in one runtime but remain distinct.
@@ -70,7 +87,7 @@ This is phase-separated runtime: declaration phase and execution phase coexist i
 2. Rhai declaration entrypoints run with profile-scoped `ctx` and emit one capability declaration.
 3. Declaration payload includes structured data plus declared behavior callbacks/closures shaped by contract/profile.
 4. Rust validates and lock-transitions that declaration into a capability.
-5. Runtime materializes and executes capability instances, invoking Rhai callbacks through projected `ctx` handles.
+5. Runtime materializes and executes capabilities, invoking Rhai callbacks through projected `ctx` handles.
 6. Callback outcomes feed back into Rust-side reconcile/commit/apply paths.
 
 Callback invocation paths are what restore script control flow freedom, but only through typed, scoped,
@@ -114,8 +131,14 @@ A composite capability may own policy that its children do not directly know abo
 mechanisms rather than one native Rust function.
 
 Examples:
-Non-USF-specific capabilities may include logging/console output, configuration access, application startup, Rhai
-support, event/message/hook surfaces, ECS integration, or standard-library-like script APIs.
+Engine/game-independent capabilities may include logging/console output, configuration access, application startup,
+[[Rhai]] support, auth, publish, install, validate, fingerprint, launch, event/message/hook surfaces, or
+standard-library-like script APIs.
+SDK commands, launcher commands, and Steam integration surfaces should be capabilities, even when they are lightweight
+Rust wrappers over Steam APIs or operating-system command execution.
+CLI commands should generally map one-to-one to capabilities.
+When a command appears broad, the corresponding capability may subdivide itself internally rather than making the
+command/capability relation meaningless.
 
 USF boundary:
 [[USF]] is a user of the Vapor capability model, not the foundation of that model.
@@ -131,7 +154,10 @@ remains under active pressure.
 See also:
 
 - [[Capability Declaration]]
-- [[Capability Profile]]
+- [[Capability Slot Type]]
+- [[Callback Type]]
+- [[Callback Context Type]]
+- [[Callback Signature]]
 - [[Rhai Capability]]
 - [[Scale Realizer Cardinality]]
 - [[USF Instance Graph]]

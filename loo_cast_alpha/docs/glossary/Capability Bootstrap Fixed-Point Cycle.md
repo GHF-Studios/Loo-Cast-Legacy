@@ -2,7 +2,6 @@
 canonical_name: Capability Bootstrap Fixed-Point Cycle
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Capability Bootstrap Fixed-Point Cycle is the iterative topological startup process that progressively

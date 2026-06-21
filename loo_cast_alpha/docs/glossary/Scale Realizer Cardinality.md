@@ -2,7 +2,6 @@
 canonical_name: Scale Realizer Cardinality
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 Scale Realizer Cardinality is the activation invariant for [[Scale Realizer]] bindings in an active

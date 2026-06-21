@@ -33,7 +33,7 @@ Current premise slice (draft, intentionally not frozen):
 3. Control-plane lifecycle handling and execution-plane stage logic are separate concerns.
 4. `ECS`, `Render`, and `Async` are first-class distinct workflow domains.
 5. `EcsWhile` and `RenderWhile` are core iterative variants for non-async contexts.
-6. Workflow stages should orchestrate materialized Rust-side runtime artifacts, not raw Rhai engine internals.
+6. Workflow stages should orchestrate materialized Rust-side capability/runtime values, not raw Rhai engine internals.
 7. If declaration/materialization progression is orchestrated by workflow, it should be mediated through explicit
    Rust-side capability contracts rather than ad hoc script engine calls.
 

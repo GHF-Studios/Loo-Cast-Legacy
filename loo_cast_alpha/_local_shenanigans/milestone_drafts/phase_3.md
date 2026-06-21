@@ -1,7 +1,11 @@
-Superseded planning note (2026-06-17):
+SUPERSEDED PLANNING NOTE (2026-06-17):
 This milestone draft is stale as active Phase 3 scope.
 Its USF runtime spine framing is superseded by `question_batch_004a.txt`.
 New framing: `Phase 3: Vapor Launcher and Product-Stack Proof`.
+Do not use this milestone text as active Phase 3 scope without rewriting it from the current glossary and owner-answer
+logs.
+
+--- Historical stale body follows. Do not implement as written. ---
 
 Title =>
 

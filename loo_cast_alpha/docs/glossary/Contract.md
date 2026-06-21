@@ -3,7 +3,6 @@ canonical_name: Contract
 status: WIP-draft
 aliases:
   - Contract Surface
-source_of_truth: [ ]
 ---
 
 The Contract is an organizational umbrella for [[Contract Family]] entities across the [[Vapor Ecosystem]],

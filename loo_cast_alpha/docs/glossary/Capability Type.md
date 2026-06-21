@@ -1,24 +1,28 @@
 ---
 canonical_name: Capability Type
-status: WIP-draft
+status: superseded-pressure
 aliases: []
-source_of_truth: [ ]
 ---
 
-Capability Type is a legacy label for the declaration-time profile category now modeled as [[Capability Profile]].
-It remains valid as a compatibility term in legacy notes and code-facing language.
+Capability Type is a legacy label for the declaration-time profile/category concept now being reframed as
+[[Capability Slot Type]].
+It remains valid as a compatibility term in legacy notes and code-facing language, but should not be used as active
+schema terminology.
 
-A capability/profile answers "what kind of declaration profile is this?" (for example `Scale`, `Metric`,
-`Phenomenon`, `Scale Realizer`).
+A capability slot type answers "what kind of projected/gated capability slot/context shape is this?"
 
-Each script profile maps to one capability profile identity for that declaration context.
-Multiplicity policy for capability/profile categories is canonicalized in [[Capability]].
+Each script or callback context should eventually map through a capability slot type for that declaration/invocation
+context.
+Multiplicity policy for these categories is canonicalized in [[Capability]] and [[Capability Slot Type]].
 
 See also:
 
+- [[Capability Slot Type]]
 - [[Capability Profile]]
 - [[Script Profile]]
-- [[Callback Profile]]
+- [[Callback Type]]
+- [[Callback Context Type]]
+- [[Callback Signature]]
 - [[Capability Type Template]]
 - [[Capability Declaration]]
 - [[Capability]]

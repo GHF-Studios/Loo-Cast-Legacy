@@ -2,7 +2,6 @@
 canonical_name: Global Capability API Graph
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Global Capability API Graph is the host-authoritative unrestricted graph produced by Rust runtime bootstrap,

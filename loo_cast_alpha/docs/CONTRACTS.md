@@ -18,8 +18,9 @@ Current pre-alpha boundary caveat:
 - `core_mod` is mandatory but replaceable by selecting another valid coupled Engine pair.
 - `base_mod` is mandatory but replaceable as the Game layer for Loo Cast.
 - [[Packagepack]] is the complete user/modpack-author-facing launch composition.
-- The unqualified word `package` is too overloaded for current architecture planning; qualify it as Steam package, build
-  artifact, source package, runtime artifact, [[Packagepack]], [[Enginepack]], [[Gamepack]], or [[Modpack]].
+- The unqualified word `package` is too overloaded for current architecture planning; qualify it as Steam package,
+  [[Source Artifact]], [[Build Artifact]], [[Distributable Artifact]], [[Packagepack]], [[Enginepack]], [[Gamepack]], or
+  [[Modpack]].
 - This file is a contract planning surface; the latest glossary and owner-confirmed answers outrank stale wording here.
 
 Glossary:
@@ -47,8 +48,9 @@ Glossary:
 Frozen contract set (per published game version):
 
 - Public `mod_api` surface.
-- Mod declaration/composition schema.
-- Mod artifact/load-order/composition rules.
+- [[Vapor.toml]] declaration/composition metadata schema.
+- Mod artifact/composition rules, including [[Fingerprint]] and [[Vapor.lock]] pressure where active planning requires
+  deterministic resolution.
 - Save-data schema + compatibility semantics.
 
 Publish policy:

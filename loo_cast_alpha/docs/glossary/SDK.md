@@ -2,14 +2,40 @@
 canonical_name: SDK
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
-The SDK is the creator-facing contract and tooling surface of the [[Modding Ecosystem]].
-It supports authoring, validating, packaging, and integrating mods against the [[Contract]] and runtime-facing modding
-rules.
-This surface includes structure conventions and workflow rails for both [[Project Structure]] and [[Mod Structure]].
-Runtime execution semantics remain enforced by runtime authorities such as the [[Modding Runtime]] and their respective
-contracts such as the [[Modding Contract]].
+The SDK is the full creator-facing toolchain surface of the [[Vapor Ecosystem]], not merely a code library.
+It supports authoring, validating, linting, packaging, fingerprinting, building, publishing, updating, migrating, and
+documenting engines, games, mods, modpacks, packagepacks, and related Vapor artifacts.
+
+Current owner-answer-informed direction:
+
+- The SDK should be accessible through launcher UI, CLI commands, and Rust workspace tooling.
+- SDK CLI commands should exist before the launcher UI, while the full launcher remains part of Phase 3 acceptance.
+- `xtask` remains internal repo/root-level first-party development tooling; Vapor SDK is the public creator tooling.
+- The SDK and launcher should be siblings over a shared `vapor_core`, not one built as a thin layer inside the other.
+- SDK scaffolding should generate Engine, Game, Mod, Modpack, and [[Packagepack]] project skeletons.
+- SDK scaffolding should enforce reserved role names and folder layout where Vapor requires them.
+- SDK validation/lint commands should work without launching a concrete engine/game fixture.
+- SDK package/fingerprint/build commands are needed for local authoring.
+- SDK publish/update commands are needed for [[Steam Workshop]].
+- SDK migration tooling is needed for Vapor metadata/schema changes.
+- A local content registry should begin as discovered workspace folders with a simple working index.
+- Documentation generation from [[Vapor.toml]], [[Rhai Asset]], and [[Capability]] metadata is desirable, starting
+  barebones but conceptually similar to `cargo doc`; this is currently Phase 3.5 quality-layer pressure rather than a
+  Phase 3 hard requirement.
+- SDK command semantics should be stable public contracts by Phase 3.
+- SDK command surface/matrix means the concrete set of public CLI/tool commands and examples, not a mathematical matrix.
+
+Boundary:
+The SDK should share semantics with [[Vapor Launcher]] operations through the same [[Capability]]/[[Rhai]]/[[Vapor.toml]]
+validation model where practical.
+Phase 3 should still produce a minimal real SDK command surface with examples.
+CLI commands should exist before launcher UI, but launcher acceptance remains required.
+
+See also:
+
+- [[Vapor Crate Topology]]
+- [[Vapor Launcher]]
 
 #glossary

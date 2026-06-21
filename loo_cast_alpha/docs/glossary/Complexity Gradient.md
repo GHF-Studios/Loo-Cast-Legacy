@@ -2,7 +2,6 @@
 canonical_name: Complexity Gradient
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Complexity Gradient defines a continuous range of interaction depth rather than binary modes.

@@ -18,11 +18,13 @@ Current owner-answer-informed framing:
   checks must respect.
 - Enginepack compatibility should be SemVer-like where version constraints are involved, but exact fingerprint semantics
   remain under pressure.
+- Local/downloaded Enginepack artifacts may group actual engine-side contributions, while published Workshop items may
+  reference dependencies rather than embedding every contribution literally.
 
 Boundary:
 An Enginepack is not the same as an unqualified package.
-Use qualified terms such as Steam package, build artifact, source package, or runtime artifact when those meanings are
-intended.
+Use qualified terms such as Steam package, [[Source Artifact]], [[Build Artifact]], or [[Distributable Artifact]] when
+those meanings are intended.
 The full launch composition containing the Enginepack is a [[Packagepack]].
 
 See also:

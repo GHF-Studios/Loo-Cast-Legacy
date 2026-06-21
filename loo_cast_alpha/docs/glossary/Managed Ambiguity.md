@@ -2,7 +2,6 @@
 canonical_name: Managed Ambiguity
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 Managed Ambiguity means uncertainty is treated as explicit design material rather than hidden noise.

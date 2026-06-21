@@ -2,7 +2,6 @@
 canonical_name: Contract Family
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 A Contract Family is a coherent group of related contract definitions that govern one semantic concern.

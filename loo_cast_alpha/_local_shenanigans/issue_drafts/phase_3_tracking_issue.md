@@ -1,4 +1,4 @@
-Superseded planning note (2026-06-17):
+SUPERSEDED PLANNING NOTE (2026-06-17):
 This draft is stale as an active Phase 3 scope source.
 Owner answers in `loo_cast_alpha/docs/ai_conversation_logs/question_batch_004a.txt` reframe Phase 3 as
 `Phase 3: Vapor Launcher and Product-Stack Proof`.
@@ -6,6 +6,11 @@ The old "minimum real USF runtime spine" premise is superseded.
 Phase 3 is a Vapor launcher/product-stack/modpack/capability proof with real Steam/Workshop integration and no
 USF/worldmodel implementation.
 Do not use this draft as active issue text without rewriting it.
+
+Current active planning should be derived from the glossary, `NOW.md`, answered question batches, and later rewritten
+Phase 3 execution specs.
+
+--- Historical stale body follows. Do not implement as written. ---
 
 Title: Phase 3: Alpha Spine and Release Proof
 Labels: type:phase-tracking, phase:3

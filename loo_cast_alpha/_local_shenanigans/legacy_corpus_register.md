@@ -15,7 +15,8 @@ Generation model:
 
 Trust tags:
 
-- `normative`: source of truth unless superseded by alpha docs.
+- `normative`: historical legacy-authority signal only; must still be reconciled against current owner answers and active
+  glossary wording before promotion.
 - `historical`: useful context, not binding.
 - `speculative`: planning material that needs confirmation before use.
 - `deprecated`: known stale or superseded material.
@@ -40,7 +41,7 @@ Scripting priority within legacy review:
 
 | Path                                                     | Generation          | Type                        | Trust tag      | Relevant phase | Canonical pointer | Notes                                                                                    |
 |----------------------------------------------------------|---------------------|-----------------------------|----------------|----------------|-------------------|------------------------------------------------------------------------------------------|
-| `loo_cast_alpha/`                                        | current alpha       | docs/code                   | normative/TBD  | Phase 1+       | TBD               | Target generation. Legacy material must be reconciled into this shape.                   |
+| `loo_cast_alpha/`                                        | current alpha       | docs/code                   | active/TBD     | Phase 1+       | TBD               | Target generation. Legacy material must be reconciled into this shape.                   |
 | `loo_cast_legacy/documents/intention_records/`           | previous generation | diagram atlas               | TBD            | Phase 2        | TBD               | Candidate canonical legacy intent source; verify against alpha direction.                |
 | `loo_cast_legacy/documents/markdown_summary/`            | previous generation | implementation summaries    | TBD            | Phase 2        | TBD               | Implementation-oriented summaries; align with diagram atlas and alpha docs.              |
 | `loo_cast_legacy/documents/temp_stuff/`                  | previous generation | planning notes/quarantine   | TBD            | Phase 2        | TBD               | Treat as non-canonical until promoted or explicitly superseded.                          |

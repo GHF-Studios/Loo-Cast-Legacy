@@ -2,7 +2,6 @@
 canonical_name: Scale Contract
 status: WIP-draft
 aliases: [ ]
-source_of_truth: [ ]
 ---
 
 The Scale Contract defines the declaration and compatibility rules for [[Scale Definition]], [[Scale Support]], and

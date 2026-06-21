@@ -33,6 +33,7 @@ See also:
 - [[Global Capability API Graph]]
 - [[Capability Projection API]]
 - [[Script Profile]]
-- [[Callback Profile]]
+- [[Callback Type]]
+- [[Callback Context Type]]
 
 #glossary

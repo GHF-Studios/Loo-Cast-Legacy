@@ -2,7 +2,6 @@
 canonical_name: Capability-Centric Semantics
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 Capability-Centric Semantics means project meaning and authority are modeled through capabilities first, while

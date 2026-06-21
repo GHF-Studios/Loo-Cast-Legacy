@@ -16,7 +16,7 @@ Runtime execution/orchestration semantics are carried by runtime-side Rust imple
 Rhai capability usage participates in the cyclic Rust/Rhai execution loop through callback invocation paths; it is not
 an authoring-only surface.
 Callback invocation access resolves to effective callback `ctx` path masks through allow/deny policy gating, rather
-than implicit inheritance from declaration-entry access, and remains bounded by the [[Capability Graph Scope Envelope]].
+than implicit carry-over from declaration-entry access, and remains bounded by the [[Capability Graph Scope Envelope]].
 Canonical loop/lifecycle/multiplicity semantics are defined in [[Capability]].
 
 Current owner-answer-informed clarification:
@@ -32,14 +32,14 @@ invocation paths.
 Authoring boundary:
 Rhai declarations may use structured procedural construction patterns such as builders.
 This does not make Rhai the owner of runtime scheduling; it makes Rhai the authored declaration surface for constructing
-typed capability payloads, callback profiles, and asset definitions.
+typed capability payloads, callback types, callback context types, callback signatures, and asset definitions.
 
 Projection boundary:
 Declaration-entry `ctx` and callback `ctx` should be modeled as projections over the same global capability graph.
 The runtime likely needs a generalized way to create selective projections of specific subgraphs.
 
 Callback boundary:
-Callback profiles are likely typed attachment points.
+Callback types are likely typed attachment points.
 Whether a callback is considered part of its declaring capability or a linked callback capability remains unresolved.
 Phase 3 should include a minimal callback proof through startup/logging/output behavior, but the wording
 `typed hook/callback capability slot` is not yet stable enough to lock.
@@ -51,7 +51,7 @@ visibility scope.
 
 Open pressure:
 The exact meaning of "Rhai closures as normal declaration content" still needs a dedicated pass.
-The exact relationship between callback profiles, slots, and capabilities also needs a dedicated pass.
+The exact relationship between callback types, slots, and capabilities also needs a dedicated pass.
 The Rhai-side capability usage vs Rust-side capability kernel usage split also needs a dedicated pass.
 
 #glossary

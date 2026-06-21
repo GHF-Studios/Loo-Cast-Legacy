@@ -2,7 +2,6 @@
 canonical_name: Project Runtime Representation
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Project Runtime Representation defines the active in-memory integrated form of the project at runtime.
@@ -11,7 +10,7 @@ It is the runtime-stage counterpart to [[Project Authoring Structure]] and [[Pro
 At this stage, the runtime includes:
 
 - active mod graph and resolved ownership mappings
-- materialized capability instances and channels
+- materialized capabilities and channels
 - staged/runtime orchestration state
 - active simulation/runtime state under the [[Runtime Substrate]]
 

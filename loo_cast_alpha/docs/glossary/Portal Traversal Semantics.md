@@ -2,7 +2,6 @@
 canonical_name: Portal Traversal Semantics
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 Portal Traversal Semantics defines continuity rules when observers or entities traverse non-trivial spatial mappings

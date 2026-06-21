@@ -35,7 +35,7 @@ expertise.
 
 Pack vocabulary:
 For current active planning, avoid unqualified `package`.
-Use [[Packagepack]], [[Enginepack]], [[Gamepack]], [[Modpack]], Steam package, build artifact, source package, or runtime
-artifact.
+Use [[Packagepack]], [[Enginepack]], [[Gamepack]], [[Modpack]], Steam package, [[Source Artifact]], [[Build Artifact]], or
+[[Distributable Artifact]].
 
 #glossary

@@ -2,7 +2,6 @@
 canonical_name: Scale Support
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 Scale Support is the declared support state of one capability at one [[Scale]] coordinate.

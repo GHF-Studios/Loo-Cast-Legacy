@@ -2,7 +2,6 @@
 canonical_name: Capability Resolution Semantics
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 Capability Resolution Semantics defines how capabilities/APIs are resolved from declaration/bootstrap into locked

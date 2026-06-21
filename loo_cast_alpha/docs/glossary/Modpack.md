@@ -19,14 +19,24 @@ Current owner-answer-informed framing:
   constraints are compatible.
 - Nested modpacks must not be conceptually flattened away; they are useful separation and organization boundaries even
   when validation eventually resolves one coherent capability graph.
+- Nested/wrapped composition is mostly bottom-up, although an initial top-down initialization/discovery pass may still
+  exist.
 - A resolved stack should preserve enough path/fingerprint hierarchy to explain which Engine, Game, mods, nested
   modpacks, versions, and exposed user-facing capability paths are present.
 - The complete selected launch composition is a [[Packagepack]].
+- Modpacks should be publishable as their own [[Steam Workshop]] items and may depend on other Workshop items.
+- Nested modpacks should be represented through both Workshop dependencies and Vapor metadata dependencies where useful.
+- [[Vapor.toml]] is the current pressure term for modpack/composition manifest data.
 
 Boundary:
 The unqualified word `package` is currently too overloaded for core planning.
-Prefer [[Packagepack]], [[Enginepack]], [[Gamepack]], Modpack, Steam package, build artifact, source package, or runtime
-artifact depending on the concrete meaning.
+Prefer [[Packagepack]], [[Enginepack]], [[Gamepack]], Modpack, Steam package, [[Source Artifact]], [[Build Artifact]], or
+[[Distributable Artifact]] depending on the concrete meaning.
+
+Open pressure:
+Nested folder or pack organization does not create implicit defaults.
+[[Vapor.toml]] should describe each folder/artifact root explicitly, while capability visibility and dependencies remain
+normal explicit graph relationships.
 
 See also:
 

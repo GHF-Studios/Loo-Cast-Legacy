@@ -19,6 +19,24 @@ Current concept additions from the Phase 3/Vapor planning pass:
 - [Engine Mod](Engine%20Mod.md)
 - [Game Mod](Game%20Mod.md)
 - [Extension Mod](Extension%20Mod.md)
+- [Vapor.toml](Vapor.toml.md)
+- [Fingerprint](Fingerprint.md)
+- [Steam](Steam.md)
+- [Steam Workshop](Steam%20Workshop.md)
+- [steam-like-platform-contracts](steam-like-platform-contracts.md)
+- [Capability Slot Type](Capability%20Slot%20Type.md)
+- [Vapor Crate Topology](Vapor%20Crate%20Topology.md)
+- [Vapor Launcher](Vapor%20Launcher.md)
+- [Vapor Product Stack](Vapor%20Product%20Stack.md)
+- [Artifact](Artifact.md)
+- [Source Artifact](Source%20Artifact.md)
+- [Build Artifact](Build%20Artifact.md)
+- [Distributable Artifact](Distributable%20Artifact.md)
+- [Vapor.lock](Vapor.lock.md)
+- [Phase 3 Vapor Scenario Suite](Phase%203%20Vapor%20Scenario%20Suite.md)
+- [Callback Type](Callback%20Type.md)
+- [Callback Context Type](Callback%20Context%20Type.md)
+- [Callback Signature](Callback%20Signature.md)
 
 - [Scale Contract Runtime Notes](Scale%20Contract%20Runtime%20Notes.md)
 - [USF Contract Runtime Boundary Notes](USF%20Contract%20Runtime%20Boundary%20Notes.md)
@@ -47,7 +65,3 @@ Current concept additions from the Phase 3/Vapor planning pass:
 - [Workflow Invariant Ledger Notes](Workflow%20Invariant%20Ledger%20Notes.md)
 - [Workflow Usage Patterns Legacy Notes](Workflow%20Usage%20Patterns%20Legacy%20Notes.md)
 - [Workflow Execution Trace Notes](Workflow%20Execution%20Trace%20Notes.md)
-
-Experimental graph-native ontology section:
-
-- [Simulation Knowledge Manifold (Experimental)](experimental_simulation_ontology/README.md)

@@ -7,14 +7,15 @@ aliases:
 ---
 
 The Capability Contract Family defines what Vapor-level capability contracts must declare and satisfy.
-It is not the same concept as [[Capability Type Template]] host template authority.
+Older notes distinguished it from [[Capability Type Template]] host template authority; current active wording prefers
+[[Capability Slot Type]] for that slot/context-shape concept.
 Capabilities implement this family and expose [[Scaled Capability Channel]]s as scale-specific execution faces whose
 required/allowed shape is derived from that family.
 In declaration scripts, capabilities appear as [[Rhai Capability]] API objects surfaced through profile-tailored `ctx`
 capability-object subgraphs.
 The `ctx` graph is hierarchical (atomic capability nodes + composite/category nodes), with include/exclude path
 declarations controlling exposed subgraphs.
-Runtime executes behavior through materialized capability instances that bind these declared surfaces.
+Runtime executes behavior through materialized capabilities that bind these declared surfaces.
 
 Dependency semantics are layered:
 
@@ -22,7 +23,7 @@ Dependency semantics are layered:
 - declaration dependencies resolve through profile-scoped `ctx` path access requirements
 
 This [[Contract Family]] defines compatibility and boundary rules for capability implementations within the
-[[Contract]] through [[Capability Path]], [[Capability Resolution Semantics]], and profile-governed projection APIs.
+[[Contract]] through [[Capability Path]], [[Capability Resolution Semantics]], and slot-type/projection-governed APIs.
 Runtime callback/API access can be dynamically narrowed/re-opened by policy, but remains bounded by the
 [[Capability Graph Scope Envelope]].
 Scale compatibility declarations are defined by the [[Scale Contract]] through [[Scale Support]] over [[Scale]]

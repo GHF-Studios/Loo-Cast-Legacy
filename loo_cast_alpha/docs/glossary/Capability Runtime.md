@@ -8,19 +8,19 @@ The Capability Runtime is the runtime orchestration layer for capabilities.
 In the first-party stack, the concrete runtime lives inside the [[Spacetime Engine]], but the concept is rooted in the
 [[Vapor Ecosystem]] capability model.
 It handles dynamic discovery, registration, coordination, and execution routing for capability implementations.
-The current direction is one global runtime capability graph inside the running `core_engine` process, with
+The current launch-runtime direction is one resolved capability graph inside the launched Engine/Game composition, with
 [[Packagepack]], [[Enginepack]], [[Gamepack]], [[Modpack]], engine, game, mod, Rhai, and user-facing views expressed as
 projections over that graph.
 The graph should be built/validated layer by layer so dependencies are registered and initialized before dependants are
 allowed to use them.
 Declaration scripts consume [[Rhai Capability]] objects through profile-tailored `ctx` capability-object subgraphs;
-runtime materialized capability instances execute closure logic against runtime capability implementations.
+runtime-materialized capabilities execute closure logic against runtime capability implementations.
 `ctx` capability-object subgraphs are composed from hierarchical API graph nodes (atomic + composite) via
 include/exclude path declarations and can dynamically narrow/re-open by runtime policy inside the
 [[Capability Graph Scope Envelope]].
 These projected subgraphs are concrete [[Capability Projection API]] instances rather than raw global-graph access.
 Callback invocation enforces resolved effective callback `ctx` path masks (allow/deny policy outcome), not implicit
-inheritance from declaration-entrypoint access.
+carry-over from declaration-entrypoint access.
 Capability implementations expose [[Scaled Capability Channel]] structures as per-scale execution paths for that
 runtime execution.
 The runtime realizes contracts defined by the [[Capability Contract]] and coordinates
@@ -36,8 +36,17 @@ Staging boundary:
 For Phase 3 planning, capability construction is staged as artifact discovery, user/modpack projection, shallow metadata
 pre-validation, dependency/capability expansion, deep validation, [[Runtime Lock]] establishment, then locked runtime
 graph execution.
-This staging is currently more important than choosing whether launcher and runtime graphs are one physical graph
-object or separate artifacts connected by a resolved handoff format.
+This staging is about the launchable Engine/Game runtime composition.
+
+Graph environment boundary:
+The same capability graph data structures can be used by multiple environments, but these are different graph instances:
+one per SDK tool instance, one for the launcher, one launcher-time-constructed proto-graph/root/seed for the selected
+composition, and one resolved graph for the launched composition.
+Launcher and SDK authoring environments currently lean static-only/read-only/hardcoded; they should not become
+Rhai-authored dynamic runtime compositions by default.
+Launchable compositions can still expose APIs that add mutable substrate onto the immutable startup-generated graph
+core.
+If a Vapor product or pack does not expose those APIs, it simply does not support that class of dynamic extension.
 
 Invalid graph shapes:
 Dependency cycles indicate a bootstrap paradox and should hard-fail.

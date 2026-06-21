@@ -2,7 +2,6 @@
 canonical_name: Artifact Compatibility Envelope
 status: WIP-draft
 aliases: [ ]
-source_of_truth: [ ]
 ---
 
 The Artifact Compatibility Envelope defines when development artifacts are reusable and when rebuilds are required.

@@ -2,7 +2,6 @@
 canonical_name: Polycentric Pillars
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 Polycentric Pillars means project architecture is intentionally multi-pillar rather than centered on one singular

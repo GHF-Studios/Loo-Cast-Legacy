@@ -2,7 +2,6 @@
 canonical_name: Project Authoring Structure
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Project Authoring Structure defines the source-side repository and workspace layout, including ownership boundaries

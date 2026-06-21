@@ -7,6 +7,7 @@ Related glossary terms:
 - [USF Instantiation Scripts](USF%20Instantiation%20Scripts.md)
 - [USF Instantiation Script Profile Notes](USF%20Instantiation%20Script%20Profile%20Notes.md)
 - [USF Runtime](USF%20Runtime.md)
+- [Capability Slot Type](Capability%20Slot%20Type.md)
 - [Capability Profile](Capability%20Profile.md)
 - [Capability Type Template](Capability%20Type%20Template.md)
 - [Capability Type](Capability%20Type.md)
@@ -52,37 +53,45 @@ Terminology correction (draft):
 
 1. "Rhai type" is useful intuition but too ambiguous for this stack.
 2. Preferred term for script output is [[Capability Declaration]].
-3. Capability type templates live Rust-side as [[Capability Type Template]] registrations.
+3. Current active wording prefers [[Capability Slot Type]] over [[Capability Profile]] and
+   [[Capability Type Template]].
+4. The useful remaining idea behind capability type templates is Rust-side host validation/materialization authority.
 
 Declaration-first posture (primary model):
 
-1. A script profile defines exactly one [[Capability Profile]] identity.
-2. One script/file defines exactly one singleton-like [[Capability Declaration]] of that capability profile.
-3. Legacy wording still uses "Capability Type" in some paths; at glossary level this maps to [[Capability Profile]].
-4. [[Capability Type Template]]s are Rust-side template authorities (trait/registration wiring), not script-produced
+1. A script profile defines exactly one [[Capability Slot Type]] identity.
+2. One script/file defines exactly one singleton-like [[Capability Declaration]] of that capability slot type.
+3. Legacy wording still uses "Capability Profile" or "Capability Type" in some paths; active glossary wording maps this
+   to [[Capability Slot Type]] unless the text explicitly means callback invocation profile.
+4. Rust-side host validation/materialization wiring constrains declarations; older notes may call this
+   [[Capability Type Template]] authority.
+5. [[Capability Type Template]]s are Rust-side template authorities (trait/registration wiring), not script-produced
    objects.
-5. Script execution yields data-first capability declarations (POD-oriented with declared behavior payload), not raw
+6. Script execution yields data-first capability declarations (POD-oriented with declared behavior payload), not raw
    Rust type objects.
-6. Profile defines the allowed script API graph topology: atomic capability nodes plus composite category nodes.
-7. Access is declared as include/exclude path declarations over that graph, so very specific capability-object subgraphs
+7. Capability slot type defines the allowed script API graph topology: atomic capability nodes plus composite category
+   nodes.
+8. Access is declared as include/exclude path declarations over that graph, so very specific capability-object subgraphs
    can be exposed.
-8. Domains that are nonsensical, non-implementable for that capability profile, or dangerous are intentionally omitted.
-9. Capabilities exposed to scripts are [[Rhai Capability]] objects, identified by human-readable string IDs, and access
+9. Domains that are nonsensical, non-implementable for that capability slot type, or dangerous are intentionally
+   omitted.
+10. Capabilities exposed to scripts are [[Rhai Capability]] objects, identified by human-readable string IDs, and access
    to them is granted or denied by profile/policy.
-10. `ctx` is object-based and dynamic; domains/subdomains can open/close over time according to runtime policy and
+11. `ctx` is object-based and dynamic; domains/subdomains can open/close over time according to runtime policy and
    declaration context.
-11. Runtime executes declaration entrypoints with profile-tailored `ctx` subgraphs to produce capability declarations.
-12. Callback closures declared by those entrypoints execute with callback-scoped effective `ctx` masks resolved by
-    allow/deny policy, not implicit inheritance from declaration-entrypoint `ctx`.
-13. A Rust materialization pass consumes those declarations and produces runtime capability machinery.
-14. One Rhai file now leans toward one authored leaf capability/asset node. Richer syntax/logic/fields/parameters may
+12. Runtime executes declaration entrypoints with capability-slot-type-tailored `ctx` subgraphs to produce capability
+    declarations.
+13. Callback closures declared by those entrypoints execute with callback-scoped effective `ctx` masks resolved by
+    allow/deny policy, not implicit carry-over from declaration-entrypoint `ctx`.
+14. A Rust materialization pass consumes those declarations and produces runtime capability machinery.
+15. One Rhai file now leans toward one authored leaf capability/asset node. Richer syntax/logic/fields/parameters may
     exist inside the file, but file-internal capability definitions are private/internal by default and should not
     become public graph nodes casually.
-15. Capability semantics are intentionally split:
+16. Capability semantics are intentionally split:
     declaration-level [[Rhai Capability]] API surfaces and runtime-side Rust implementation/execution surfaces under
     [[Capability Runtime]] in the [[Runtime Substrate]].
-16. This keeps scripts declaration/object-descriptor first while runtime behavior remains Rust-side.
-17. Dependency semantics should remain layered: mod/provider resolution, declaration `ctx` path requirements, and
+17. This keeps scripts declaration/object-descriptor first while runtime behavior remains Rust-side.
+18. Dependency semantics should remain layered: mod/provider resolution, declaration `ctx` path requirements, and
     post-lock runtime interaction must not be conflated.
 
 Legacy dispatch extraction (still useful, but secondary to declaration semantics):
@@ -102,7 +111,7 @@ Open design space (rephrased around declaration/profile model):
 5. How API graph-domain allow/deny surfaces are reviewed and evolved per profile.
 6. How capability-object grants/denials are declared, composed, audited, and dynamically opened/closed per profile.
 7. How declaration entrypoints + `ctx` capability-object subgraphs map into capability declarations and then into
-   materialized runtime capability instances without leaking unrelated domains.
+   runtime-materialized capabilities without leaking unrelated domains.
 8. How fail-fast vs softer failure policy is scoped per profile and environment.
 9. Which registry/dispatch details remain global and which should become profile-local.
 10. How declaration-seam events are shaped relative to execution-seam events without phase leakage.

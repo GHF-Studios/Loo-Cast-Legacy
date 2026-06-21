@@ -2,7 +2,6 @@
 canonical_name: Project Structure
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Project Structure defines the three-stage structural shape of the

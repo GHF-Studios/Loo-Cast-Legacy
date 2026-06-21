@@ -56,8 +56,8 @@ Source inputs:
 
 2026-06-17 note:
 This terminology snapshot is historical where it uses unqualified `package` or `composite package`.
-Current active vocabulary prefers [[Packagepack]], [[Enginepack]], [[Gamepack]], [[Modpack]], Steam package, build
-artifact, source package, or runtime artifact depending on the meaning.
+Current active vocabulary prefers [[Packagepack]], [[Enginepack]], [[Gamepack]], [[Modpack]], Steam package,
+[[Source Artifact]], [[Build Artifact]], or [[Distributable Artifact]] depending on the meaning.
 
 - `mod`:
   - exactly one Rust crate
@@ -125,6 +125,11 @@ artifact, source package, or runtime artifact depending on the meaning.
 
 - No package hash/fingerprint requirement is mandated for alpha baseline.
 
+Current correction:
+This lock snapshot is historical for active Phase 3 Vapor planning.
+Current owner-answer-informed pressure requires [[Fingerprint]] and [[Vapor.lock]]-style resolution/fingerprint data for
+Phase 3 packagepack validation, diagnostics, publishing, caching, and reproducibility.
+
 ### Runtime Provider-Ownership Policy (Locked for Pre-Alpha)
 
 - Pre-alpha policy: provider ownership is load-time locked.
@@ -188,6 +193,11 @@ Required semantic sections (draft):
    - declared asset/runtime resource mapping needed for package/composite-package load
    - asset authority resolution follows the same capability-graph ownership model
    - no pre-alpha hash/fingerprint requirement
+
+Current correction:
+This section uses older `package` / `composite package` / manifest vocabulary.
+Active planning should translate it through [[Packagepack]], [[Enginepack]], [[Gamepack]], [[Modpack]], [[Vapor.toml]],
+[[Vapor.lock]], and [[Fingerprint]] before implementation.
 
 Validation posture:
 
@@ -265,9 +275,10 @@ This keeps accountability clear while acknowledging non-linear dependency realit
 ## Open Decisions Queue (V2 Next Pass)
 
 1. Reconcile this file with glossary corrections from `question_batch_001.txt` through `question_batch_004a.txt`.
-2. Replace old unqualified package/manifest language with Packagepack/Enginepack/Gamepack/Modpack/Rhai declaration
-   vocabulary.
-3. Draft the Phase 3 scope ceiling and execution spec.
+2. Replace old unqualified package/manifest language with Packagepack/Enginepack/Gamepack/Modpack, [[Vapor.toml]],
+   [[Vapor.lock]], [[Fingerprint]], and [[Rhai Asset]] vocabulary.
+3. Draft the Phase 3 scope ceiling and execution spec around [[Phase 3 Vapor Scenario Suite]] rather than a single
+   canonical command or USF runtime spine.
 4. Draft the Phase 4 USF-inclusive execution spec before Phase 3 coding begins.
 5. Capability/slot semantics pass: decide how authority claims, exclusive slots, variadic slots, ordered registries,
    optional providers, and integration apertures relate.

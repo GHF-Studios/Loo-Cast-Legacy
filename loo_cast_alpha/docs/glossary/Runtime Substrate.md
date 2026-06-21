@@ -2,7 +2,6 @@
 canonical_name: Runtime Substrate
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Runtime Substrate is the execution substrate provided by the [[Spacetime Engine]] for running scale-layered

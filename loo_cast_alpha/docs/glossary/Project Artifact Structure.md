@@ -2,7 +2,6 @@
 canonical_name: Project Artifact Structure
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Project Artifact Structure defines build and distribution artifact classes at project scope.

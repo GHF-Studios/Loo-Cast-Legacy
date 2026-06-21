@@ -9,8 +9,8 @@ It realizes the active USF module/framework behavior inside the Spacetime Engine
 [[Capability Runtime]] and [[Modding Runtime]] where the engine architecture requires it.
 Its Rust-side staged lifecycle orchestration can be implemented through the [[Workflow Framework]].
 It invokes declaration-surface entrypoints with profile-tailored `ctx` capability-object subgraphs during activation,
-then executes the resulting runtime capability instances.
-Those runtime capability instances are materialized from capabilities established at the definition lock transition.
+then executes the resulting runtime-materialized capabilities.
+Those runtime-materialized capabilities are derived from capabilities established at the definition lock transition.
 When invoking Rhai-declared callbacks, runtime uses resolved effective callback `ctx` path masks from allow/deny
 policy resolution.
 These subgraphs come from hierarchical API graph composition (atomic + composite nodes) with include/exclude

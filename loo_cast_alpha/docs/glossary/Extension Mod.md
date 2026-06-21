@@ -12,12 +12,12 @@ the root [[Engine]] or [[Game]] fixture.
 
 Current owner-answer-informed framing:
 
-- An Extension Mod attaches to exactly one parent in the mod parent/child hierarchy.
-- Its capabilities may use surfaces available through its mod ancestry.
-- It cannot use capability surfaces that its parent/ancestry has not made available through the inherited composition
-  structure.
-- This parent/ancestry model is intentionally inheritance-like at the mod-composition level, even though the underlying
-  [[Capability]] graph may still contain dependency and interaction edges across other visible surfaces.
+- An Extension Mod attaches to another mod-like artifact as its target role.
+- That relationship should be explicit [[Vapor.toml]] composition/placement metadata, not implicit code logic.
+- Its capabilities may use only the public capability surfaces it explicitly depends on and can see through normal
+  visibility rules.
+- No implicit defaults should be assumed from folder nesting or attachment target.
+- Normal dependencies, conflicts, target role constraints, and folder placement metadata are all declared explicitly.
 
 Boundary:
 `Extension Mod` is still a working term, but it is clearer than using plain `Mod` for both root-targeted and

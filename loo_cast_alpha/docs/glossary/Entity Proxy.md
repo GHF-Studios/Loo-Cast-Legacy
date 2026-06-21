@@ -2,7 +2,6 @@
 canonical_name: Entity Proxy
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 An Entity Proxy is a coupled proxy representation of another entity, used to project behavior, visibility, or both.

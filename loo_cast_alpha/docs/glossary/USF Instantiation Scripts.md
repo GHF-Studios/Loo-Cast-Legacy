@@ -2,22 +2,23 @@
 canonical_name: USF Instantiation Scripts
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The USF Instantiation Scripts are the declaration-centric authoring surface under [[Loo Cast]] for defining
 singleton-like [[Capability Declaration]]s for contract-defined profile categories from the [[USF Contract]].
-These declarations target Rust-registered [[Capability Type Template]] host authorities.
+These declarations target Rust-registered host validation/materialization authorities.
+Older notes call those authorities [[Capability Type Template]]s; active platform wording prefers
+[[Capability Slot Type]] where the text means declaration/slot/context shape.
 Executing these declaration entrypoints with profile-tailored `ctx` capability-object subgraphs emits full
 capability declarations that include structured data plus logic closures.
 Declaration entrypoint access and callback invocation access are distinct scopes (`decl_ctx` vs callback-scoped
 `cb_ctx`) and resolve to different effective masks through allow/deny path-gating policy.
 The `ctx` graph is hierarchical (atomic capability nodes + composite/category nodes) and filtered through
 include/exclude path declarations for each profile.
-Runtime activation then materializes active USF capability instances from those capabilities into the
+Runtime activation then materializes active USF capabilities from those capabilities into the
 [[USF Instance Graph]].
 Capabilities are exposed to scripts as declaration-level [[Rhai Capability]] API objects through `ctx`; runtime behavior
-is executed by the resulting materialized capability instances.
+is executed by the resulting materialized capabilities.
 Lifecycle, Rust/Rhai cyclic loop semantics, callback-path semantics, and capability multiplicity classes are
 canonicalized in [[Capability]].
 First-order declaration profiles are root-level and cannot depend on other capabilities.

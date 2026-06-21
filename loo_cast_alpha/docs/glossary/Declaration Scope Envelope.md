@@ -2,7 +2,6 @@
 canonical_name: Declaration Scope Envelope
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Declaration Scope Envelope is the concrete capability/API projection envelope applied to declaration entrypoint

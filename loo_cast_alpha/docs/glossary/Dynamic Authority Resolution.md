@@ -2,7 +2,6 @@
 canonical_name: Dynamic Authority Resolution
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 Dynamic Authority Resolution means effective authority is resolved at runtime by lifecycle context and operation,

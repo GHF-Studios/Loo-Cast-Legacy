@@ -18,7 +18,7 @@ Current canonical framing (draft):
 1. Rhai declaration and Rust runtime execution coexist in one runtime, but they are phase-separated.
 2. Declaration phase: load scripts, expose profile-scoped `ctx`, emit capability declarations, validate, then
    lock-transition.
-3. Execution phase: run materialized capability instances in USF runtime evolution after lock.
+3. Execution phase: run materialized capabilities in USF runtime evolution after lock.
 4. Callback invocation paths bridge these phases without collapsing them into one undifferentiated model.
 
 Dependency layers (do not conflate):
@@ -28,13 +28,13 @@ Dependency layers (do not conflate):
 2. Declaration dependency layer:
    profile-scoped `ctx` path access and declaration-time dependency requirements.
 3. Runtime interaction layer:
-   post-lock interactions among materialized capability instances (channels/events/callback-driven behavior).
+   post-lock interactions among materialized capabilities (channels/events/callback-driven behavior).
 
 Declaration entrypoint access vs callback access:
 
 1. Declaration entrypoints execute with declaration-scoped access (`decl_ctx`).
 2. Rhai callbacks declared inside that artifact execute later with callback-scoped access (`cb_ctx`), not implicit
-   inheritance from `decl_ctx`.
+   carry-over from `decl_ctx`.
 3. `decl_ctx` and each `cb_ctx` are projections from the same capability graph model, but they can differ in effective
    path masks after allow/deny resolution.
 4. Callback path access can be locked/gated at runtime policy boundaries; previously available declaration paths are not

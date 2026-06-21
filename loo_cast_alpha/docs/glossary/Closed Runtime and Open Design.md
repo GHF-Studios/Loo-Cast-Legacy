@@ -2,7 +2,6 @@
 canonical_name: Closed Runtime and Open Design
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 Closed Runtime and Open Design means runtime activation is deterministic and bounded once locked, while architecture

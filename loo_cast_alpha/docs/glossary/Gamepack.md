@@ -17,6 +17,8 @@ Current owner-answer-informed framing:
 - Game-attached mods and nested Game-targeting modpacks extend the effective Game composition.
 - The effective Game composition produces identity/fingerprint information that downstream modpack and
   [[Extension Mod]] compatibility checks must respect.
+- Local/downloaded Gamepack artifacts may group actual game-side contributions, while published Workshop items may
+  reference dependencies rather than embedding every contribution literally.
 
 Boundary:
 The Gamepack depends on the selected [[Enginepack]].

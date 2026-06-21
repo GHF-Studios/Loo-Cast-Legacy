@@ -2,7 +2,6 @@
 canonical_name: Pillar Dependency Topology
 status: draft
 aliases: []
-source_of_truth: []
 ---
 
 The Pillar Dependency Topology maps role-level dependencies across the [[Vapor Ecosystem]], [[Spacetime Engine]], and

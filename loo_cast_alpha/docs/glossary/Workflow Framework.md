@@ -2,14 +2,14 @@
 canonical_name: Workflow Framework
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Workflow Framework is the Rust-side orchestration layer for staged runtime work in the [[Runtime Substrate]].
 It is responsible for lifecycle coordination (request, progression, completion/failure handling) across workflow
 domains,
 while stage logic itself remains scheduler-visible Bevy systems.
-It orchestrates Rust-side runtime artifacts and explicit Rust contract surfaces, not raw Rhai engine internals.
+It orchestrates materialized Rust-side capability/runtime values and explicit Rust contract surfaces, not raw Rhai
+engine internals.
 
 It treats `ECS`, `Render`, and `Async` as first-class workflow domains.
 `EcsWhile` and `RenderWhile` are core iterative stage variants for non-async domains.

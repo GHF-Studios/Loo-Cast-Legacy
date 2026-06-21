@@ -2,7 +2,6 @@
 canonical_name: Entity Plane Split
 status: WIP-draft
 aliases: [ ]
-source_of_truth: [ ]
 ---
 
 Entity Plane Split is a modeling pattern where one conceptual entity is represented across backend and frontend planes.

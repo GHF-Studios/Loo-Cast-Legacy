@@ -2,7 +2,6 @@
 canonical_name: Redistributable Mod Implementation Library
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Redistributable Mod Implementation Library is the runtime-deliverable implementation library artifact set for a mod.

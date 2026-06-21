@@ -14,14 +14,14 @@ Related glossary terms:
 - [Rhai Value Semantics and AccessCell Notes](Rhai%20Value%20Semantics%20and%20AccessCell%20Notes.md)
 - [Rhai Reflection Macro Surface Notes](Rhai%20Reflection%20Macro%20Surface%20Notes.md)
 
-Canonical target contract (diagram-first):
+Current working target pressure (diagram-informed):
 
 1. Definition and freeze complete before runtime progression.
 2. Runtime tick path is intent-centric:
    emit -> route -> batch -> reconcile -> evaluate -> commit/apply.
 3. Rejection path is panic-fast unless an explicit sentinel branch is intentionally defined.
 
-Primary canonical sources:
+Primary historical signals:
 
 - `loo_cast_legacy/documents/intention_records/scripting_records/41_lifecycle_intent_to_commit.puml`
 - `loo_cast_legacy/documents/intention_records/scripting_records/32_flow_runtime_tick_orchestration.puml`
@@ -74,7 +74,7 @@ Practical interpretation for current glossary work:
 
 1. Keep intent/reconcile/commit/apply as canonical lifecycle intent.
 2. Keep lock-time ownership resolution semantically separate from runtime callback/API gating.
-3. Treat legacy runtime code as implementation evidence and mismatch detector, not sole source-of-truth.
+3. Treat legacy runtime code as implementation evidence and mismatch detector, not source-of-truth.
 4. Promote only durable, reconciled outcomes from legacy/temp signals into glossary terms.
 5. Keep reflection macro surface as a high-signal peer signal (alongside other working frameworks such as workflow);
    runtime intent pipeline docs should compose with it, not overshadow it.

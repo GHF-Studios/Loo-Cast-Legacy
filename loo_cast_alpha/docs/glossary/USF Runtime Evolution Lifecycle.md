@@ -2,11 +2,10 @@
 canonical_name: USF Runtime Evolution Lifecycle
 status: WIP-draft
 aliases: [ ]
-source_of_truth: [ ]
 ---
 
 The USF Runtime Evolution Lifecycle governs runtime progression after the definition lock transition.
-Runtime interactions are driven by active capability instances materialized from capabilities established at the
+Runtime interactions are driven by active capabilities materialized from capabilities established at the
 definition lock transition; these instances carry logic closures and data defined by declaration scripts.
 Execution flows through profile-tailored `ctx` capability-object subgraphs that bound exposed capability objects via
 hierarchical graph composition (atomic + composite nodes) and include/exclude path declarations.

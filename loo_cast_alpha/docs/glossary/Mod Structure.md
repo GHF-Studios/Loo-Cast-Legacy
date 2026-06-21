@@ -2,7 +2,6 @@
 canonical_name: Mod Structure
 status: WIP-draft
 aliases: [ ]
-source_of_truth: [ ]
 ---
 
 The Mod Structure defines the three-stage structural shape of a

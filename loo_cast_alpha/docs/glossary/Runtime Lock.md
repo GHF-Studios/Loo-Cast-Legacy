@@ -2,7 +2,6 @@
 canonical_name: Runtime Lock
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Runtime Lock is the boundary where validated composition becomes immutable runtime state.
@@ -23,6 +22,11 @@ metadata pre-validation, dependency/capability expansion, deep validation, then 
 Post-lock graph mutation is forbidden by default.
 If runtime dynamism is required, it should be modeled through explicit dynamic capability/registry policies rather than
 arbitrary graph mutation.
+
+Batch 005 follow-up clarification:
+Runtime Lock currently applies to launchable Engine/Game runtime composition.
+Launcher and SDK authoring should instead remain a more static-only, read-only, hardcoded capability environment for
+now, not a dynamically Rhai-extended runtime composition.
 
 See also:
 

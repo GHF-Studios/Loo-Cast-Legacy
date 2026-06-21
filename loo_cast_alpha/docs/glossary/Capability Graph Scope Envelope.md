@@ -3,7 +3,6 @@ canonical_name: Capability Graph Scope Envelope
 status: WIP-draft
 aliases:
   - Scope Envelope
-source_of_truth: []
 ---
 
 The Capability Graph Scope Envelope is the hard maximum projected API/context scope allowed for a profile-bound script

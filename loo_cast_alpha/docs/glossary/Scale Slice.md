@@ -2,7 +2,6 @@
 canonical_name: Scale Slice
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 A Scale Slice is the runtime realization of one [[Scale]] coordinate in an active [[USF Instance Graph]].

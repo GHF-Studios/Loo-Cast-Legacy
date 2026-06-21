@@ -2,7 +2,6 @@
 canonical_name: Mod Authoring Structure
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Mod Authoring Structure defines the source-side folder and file layout of a mod.

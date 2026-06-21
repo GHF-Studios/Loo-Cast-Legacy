@@ -2,7 +2,6 @@
 canonical_name: Mod Implementation Source
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 The Mod Implementation Source is the mod's implementation-crate source side.

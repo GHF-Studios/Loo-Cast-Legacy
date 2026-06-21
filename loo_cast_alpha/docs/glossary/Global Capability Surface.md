@@ -2,7 +2,6 @@
 canonical_name: Global Capability Surface
 status: WIP-draft
 aliases: []
-source_of_truth: []
 ---
 
 A Global Capability Surface is a deliberately global capability/API surface for rudimentary cross-domain utilities
