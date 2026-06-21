@@ -19,4 +19,10 @@ Current owner-answer-informed direction:
 Open pressure:
 A central manifest or aggregate lock-like file may be useful later, but it is not locked.
 
+Phase 3 lock-candidate anchor:
+The Phase 3 lockfile scope is anchored by [Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md),
+especially P3-W02, P3-W09, and P3-W11.
+Phase 3 must read/write lockfile state for resolved Packagepack/pack composition, fingerprints, hashes, and generated
+build/publish output where resolved dependency state matters.
+
 #glossary

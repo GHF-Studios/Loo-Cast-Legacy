@@ -5,8 +5,8 @@ aliases:
   - CapabilitySlotType
 ---
 
-A Capability Slot Type is the current preferred name for the projected/gated slot/context shape that older notes called
-[[Capability Profile]], [[Script Profile]], or [[Capability Type Template]].
+A Capability Slot Type is the current preferred name for the projected/gated slot/context shape.
+Older profile/type-template labels are not active glossary pages anymore.
 
 It describes what kind of capability surface can be attached, projected, requested, validated, or exposed in a specific
 context.
@@ -15,8 +15,8 @@ Cardinality should be modeled as a separate field, mode, or implementation detai
 
 Boundary:
 This term is owner-answer-informed but still WIP.
-It should replace `Capability Profile`, `Script Profile`, and `Capability Type Template` in active design language
-where those older terms mean projected/gated capability slot/context shape.
+It should replace older profile/type-template wording in active design language where that wording means
+projected/gated capability slot/context shape.
 
 Open pressure:
 A [[Capability Declaration]] may define a new Capability Slot Type only by explicit opt-in.

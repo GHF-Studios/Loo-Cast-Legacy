@@ -7,7 +7,8 @@ Superseded caveat (2026-06-17):
 This draft is historical where it conflicts with `question_batch_004a.txt`, `NOW.md`, or the current glossary.
 In particular, USF is not a standalone product/package slot; it is a public/API-facing subsystem inside the
 [[Spacetime Engine]].
-Current Phase 3 planning centers the Vapor launcher/product-stack proof, not a USF runtime spine.
+Current Phase 3 planning centers the Vapor launcher/product-stack proof, not USF implementation.
+The active Phase 3 execution anchor is `phase_3_vapor_execution_spec.md`.
 
 ## 1) Ontology (Locked v1)
 
@@ -50,10 +51,10 @@ Open questions for this section:
 - Implementation phases are not strictly forbidden from scope expansion by a hard gate.
 - A formal loopback marker is required when implementation is blocked by unresolved planning ambiguity.
 
-Draft intent map:
+Historical draft intent map:
 
 - Phase 2: planning lock for alpha doctrine + mod/framework contracts.
-- Phase 3: implement modding framework baseline and prove end-to-end minimal loop.
+- Phase 3 historical label: implement modding framework baseline and prove end-to-end minimal loop.
 - Phase 4: plan USF semantics contracts.
 - Phase 5: implement USF semantics contracts.
 - Phase 6: plan USF math contracts.
@@ -62,6 +63,11 @@ Draft intent map:
 - Phase 9: implement capability platform baseline.
 - Phase 10: plan gameplay slice target.
 - Phase 11: implement gameplay slice + human validation proof.
+
+Current correction:
+Use the current phase map from `phase_2_to_11_execution_program.md`.
+In particular, Phase 3 is now `Vapor Launcher and Product-Stack Proof`, and Phase 4 is
+`Product-Stack + USF Prototype/MVP`.
 
 Open questions for this section:
 

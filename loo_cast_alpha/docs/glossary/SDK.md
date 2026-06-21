@@ -30,8 +30,15 @@ Current owner-answer-informed direction:
 Boundary:
 The SDK should share semantics with [[Vapor Launcher]] operations through the same [[Capability]]/[[Rhai]]/[[Vapor.toml]]
 validation model where practical.
-Phase 3 should still produce a minimal real SDK command surface with examples.
+Phase 3 should still produce a small but real SDK command surface with examples.
 CLI commands should exist before launcher UI, but launcher acceptance remains required.
+
+Phase 3 lock-candidate anchor:
+The SDK scope for Phase 3 is anchored by [Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md),
+especially P3-W05.
+Minimum Phase 3 command families are scaffold, validate, fingerprint/dump, build/package, publish/update, install,
+update, enable, disable, uninstall, and local metadata/schema migration where useful for authoring.
+These commands are public creator-facing contracts by Phase 3, even if implementation internals remain rough.
 
 See also:
 

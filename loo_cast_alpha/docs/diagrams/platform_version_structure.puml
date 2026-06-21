@@ -65,8 +65,8 @@ CEC --> CMC : contract root layering
 M1 -up-> CMC : binds to contract root
 M2 -up-> CMC : binds to contract root
 
-M1 -up-> CM : runtime implementation target
-M2 -up-> CM : runtime implementation target
+M1 -up-> CM : runtime artifact target
+M2 -up-> CM : runtime artifact target
 
 M1 -[norank,#c87878,dashed]-> PlatformV2 : forbidden cross-major compatibility
 M2 -[norank,#c87878,dashed]-> PlatformV2 : forbidden cross-major compatibility

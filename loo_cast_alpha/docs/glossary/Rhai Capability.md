@@ -41,7 +41,7 @@ The runtime likely needs a generalized way to create selective projections of sp
 Callback boundary:
 Callback types are likely typed attachment points.
 Whether a callback is considered part of its declaring capability or a linked callback capability remains unresolved.
-Phase 3 should include a minimal callback proof through startup/logging/output behavior, but the wording
+Phase 3 should include a focused callback proof through startup/logging/output behavior, but the wording
 `typed hook/callback capability slot` is not yet stable enough to lock.
 
 Path/visibility policy:
@@ -53,5 +53,11 @@ Open pressure:
 The exact meaning of "Rhai closures as normal declaration content" still needs a dedicated pass.
 The exact relationship between callback types, slots, and capabilities also needs a dedicated pass.
 The Rhai-side capability usage vs Rust-side capability kernel usage split also needs a dedicated pass.
+
+Phase 3 lock-candidate anchor:
+Rhai Capability Phase 3 behavior is anchored by
+[Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md), especially P3-W04.
+Phase 3 must prove declaration `ctx` projection, invalid declaration diagnostics, and a focused startup/logging/output
+callback flow while keeping gameplay-style Rhai callbacks out of scope.
 
 #glossary

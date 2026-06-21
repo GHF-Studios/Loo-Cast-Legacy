@@ -8,7 +8,7 @@ Purpose:
 
 Current pre-alpha boundary caveat:
 
-- The active product stack is `Vapor Ecosystem -> Spacetime Engine -> Loo Cast`.
+- The active product-stack framing is [[Vapor Product Stack]].
 - Vapor is Steam-exclusive and includes SDK/tooling plus runtime protocol/contracts/traits for engines, games, mods,
   packagepacks, enginepacks, gamepacks, and modpacks.
 - USF is a public/API-facing Spacetime Engine subsystem, not a standalone product contract pillar.
@@ -22,6 +22,7 @@ Current pre-alpha boundary caveat:
   [[Source Artifact]], [[Build Artifact]], [[Distributable Artifact]], [[Packagepack]], [[Enginepack]], [[Gamepack]], or
   [[Modpack]].
 - This file is a contract planning surface; the latest glossary and owner-confirmed answers outrank stale wording here.
+- Phase 3 execution scope is anchored in `RFCS/phase_3_vapor_execution_spec.md`.
 
 Glossary:
 
@@ -51,7 +52,7 @@ Frozen contract set (per published game version):
 - [[Vapor.toml]] declaration/composition metadata schema.
 - Mod artifact/composition rules, including [[Fingerprint]] and [[Vapor.lock]] pressure where active planning requires
   deterministic resolution.
-- Save-data schema + compatibility semantics.
+- Save-data schema + compatibility semantics, once save/load enters scope. Save/load is explicitly outside Phase 3.
 
 Publish policy:
 

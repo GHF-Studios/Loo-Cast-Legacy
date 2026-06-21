@@ -42,7 +42,7 @@ Current concept additions from the Phase 3/Vapor planning pass:
 - [USF Contract Runtime Boundary Notes](USF%20Contract%20Runtime%20Boundary%20Notes.md)
 - [USF Runtime Evolution Lifecycle Notes](USF%20Runtime%20Evolution%20Lifecycle%20Notes.md)
 - [Runtime Intent Reconcile Commit Apply Mapping Notes](Runtime%20Intent%20Reconcile%20Commit%20Apply%20Mapping%20Notes.md)
-- [USF Instantiation Script Profile Notes](USF%20Instantiation%20Script%20Profile%20Notes.md)
+- [USF Instantiation Capability Slot Notes](USF%20Instantiation%20Capability%20Slot%20Notes.md)
 - [Capability Dependency Layer Notes](Capability%20Dependency%20Layer%20Notes.md)
 - [Capability Role and State Authority Notes](Capability%20Role%20and%20State%20Authority%20Notes.md)
 - [Rhai Generic Dispatch Policy Notes](Rhai%20Generic%20Dispatch%20Policy%20Notes.md)

@@ -1,4 +1,4 @@
-# USF Instantiation Script Profile Notes
+# USF Instantiation Capability Slot Notes
 
 #tech_glossary
 
@@ -8,13 +8,9 @@ Related glossary terms:
 - [USF Definition Lifecycle](USF%20Definition%20Lifecycle.md)
 - [USF Instance Graph](USF%20Instance%20Graph.md)
 - [Capability Slot Type](Capability%20Slot%20Type.md)
-- [Capability Profile](Capability%20Profile.md)
-- [Script Profile](Script%20Profile.md)
 - [Callback Type](Callback%20Type.md)
 - [Callback Context Type](Callback%20Context%20Type.md)
 - [Callback Signature](Callback%20Signature.md)
-- [Capability Type Template](Capability%20Type%20Template.md)
-- [Capability Type](Capability%20Type.md)
 - [Capability Declaration](Capability%20Declaration.md)
 - [Capability](Capability.md)
 - [Rhai Capability](Rhai%20Capability.md)
@@ -25,17 +21,15 @@ Related glossary terms:
 - [Capability Dependency Layer Notes](Capability%20Dependency%20Layer%20Notes.md)
 - [USF Math Raw Model Foundation Notes](USF%20Math%20Raw%20Model%20Foundation%20Notes.md)
 
-Current profile-direction notes (legacy MVP slice alignment):
+Current capability-slot direction notes (legacy MVP slice alignment):
 
 1. Script file profiles are explicit (`scale`, `metric`, `phenomenon`, `phenomenon_realizer`).
 2. Capability use is context-rooted and profile-gated.
 3. Alias preprocessing (`use ... as ...`) is part of the script-loading flow.
 4. Definition content is loaded, validated, and transitioned through Runtime Lock for runtime progression.
-5. Each script profile maps to one [[Capability Slot Type]] identity; legacy wording may still call this a
-   [[Capability Profile]] or [[Capability Type]].
+5. Each old "script profile" concept maps to one [[Capability Slot Type]] identity.
 6. One script/file always defines one singleton-like [[Capability Declaration]] of that capability slot type.
-7. Older notes call Rust-side host validation/materialization authorities [[Capability Type Template]]s, while scripts
-   emit capability declarations for those authorities.
+7. Rust-side host validation/materialization wiring constrains declarations for those slot types.
 8. Capabilities in scripts are [[Rhai Capability]] dynamic API objects (human-readable string IDs), with profile/policy
    grant or deny access.
 9. Executing script declaration code yields one capability declaration.

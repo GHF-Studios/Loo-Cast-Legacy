@@ -1,6 +1,6 @@
 # NOW
 
-Date: 2026-06-20
+Date: 2026-06-21
 
 Purpose: short current checkpoint, not doctrine.
 
@@ -14,7 +14,8 @@ Current direction:
 - Use `docs/ai_conversation_logs/question_batch_*.txt` as the default Q&A timeline for now.
 - Question batches document both sides of the conversation: agent questions and owner answers/corrections.
 - New architecture threads should usually become focused question batches before glossary/RFC promotion.
-- Last integrated answered thread: `question_batch_005.txt`; first focused glossary integration pass complete, with unresolved points left as pressure.
+- Last integrated answered thread: `question_batch_005.txt`; Phase 3 execution spec now exists as the lock-candidate
+  execution anchor and is linked from the Phase 3-relevant glossary pages.
 - Last answered raw thread: `question_batch_005.txt`.
 - Active question thread: chat-based follow-up on batch 005 integration. Concrete engine/game internals, USF, worldmodel, rendering, and gameplay remain out of scope for this thread.
 - Remove the old `WIP_QUESTION_LEDGER.txt`; question batches replace it.
@@ -26,7 +27,7 @@ Current direction:
 - `Vapor.toml` is the current pressure term for manifest-style metadata, dependencies, conflicts, target roles, version constraints, and Steam/Workshop publication fields.
 - `Vapor.toml` is required for every Vapor artifact root and every folder level that groups capability declarations.
 - Current Vapor.toml pressure: folder composition/nesting/organization/storage metadata plus explicit dependencies and conflicts. No implicit defaults; no special primary-dependency attachment model.
-- `Capability Slot Type` is the preferred current term over `Capability Profile` / `Capability Type Template` for projected/gated capability slot/context shape.
+- `Capability Slot Type` is the preferred current term for projected/gated capability slot/context shape.
 - Callback terminology is split into `Callback Type`, `Callback Context Type`, and `Callback Signature`.
 - Fingerprints are deterministic identity/compatibility summaries used for validation, diagnostics, caching, publishing, and reproducibility.
 - `Vapor.lock` is the current pressure term for generated fingerprint/hash/resolution state; use plain TOML/lock-style files, not a database, for now.
@@ -39,10 +40,13 @@ Current direction:
 - Phase 2 is now framed as `Phase 2: Vapor + USF Planning and Spec Crystallization`; no new coding.
 - Phase 2 must produce both Phase 3 and Phase 4 execution specs before Phase 3 coding begins.
 - Phase 3 is now framed as `Phase 3: Vapor Launcher and Product-Stack Proof`.
+- Active Phase 3 execution anchor: `docs/RFCS/phase_3_vapor_execution_spec.md`.
 - Phase 3 should prove the Vapor launcher/product-stack/modpack/capability system through a non-USF hello-world-on-steroids proof.
 - Phase 3 means full public Vapor completeness for the claimed public seams, while still allowing performance, polish, marketplace scale, and public-hardening to defer.
 - Phase 3 includes real launcher, real Steam/Workshop auth/download/upload, real Rhai/capability/modpack semantics, diagnostics, and multiple proof configurations.
-- Phase 3 acceptance should be a Vapor scenario/integration-test suite centered on hello-world-on-steroids fixtures, composition permutations, and separate mostly-manual Steam flow checks.
+- Phase 3 acceptance should be a Vapor scenario/integration-test suite centered on hello-world-on-steroids fixtures,
+  composition permutations, pure validation tests where practical, and real Steam flows verified manually/outside CI
+  where needed.
 - Phase 3 excludes USF, worldmodel, rendering, save/load, chunks, metrics, phenomena, zones, and traditional gameplay/simulation.
 - Phase 4 is now framed as `Phase 4: Product-Stack + USF Prototype/MVP`.
 - Phase 4 is Phase 3 plus the first full working USF stack/prototype/MVP.

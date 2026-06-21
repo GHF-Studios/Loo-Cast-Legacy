@@ -11,7 +11,7 @@ It is one concrete envelope instance under the umbrella [[Capability Graph Scope
 See also:
 
 - [[Capability Graph Scope Envelope]]
-- [[Script Profile]]
+- [[Capability Slot Type]]
 - [[Capability Projection API]]
 
 #glossary

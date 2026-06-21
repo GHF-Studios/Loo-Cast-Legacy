@@ -52,6 +52,12 @@ Invalid graph shapes:
 Dependency cycles indicate a bootstrap paradox and should hard-fail.
 The root node is the only special bootstrap case and should not be treated as a normal cycle.
 
+Phase 3 lock-candidate anchor:
+Capability Runtime Phase 3 behavior is anchored by
+[Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md), especially P3-W03 and the Runtime Flow.
+Phase 3 must build, validate, lock, and hand off a launchable composition graph before the selected Engine/Game fixture
+runs.
+
 Implementation-facing notes:
 
 - [Capability Dependency Layer Notes](Capability%20Dependency%20Layer%20Notes.md)

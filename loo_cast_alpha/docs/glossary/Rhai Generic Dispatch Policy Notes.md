@@ -5,12 +5,9 @@
 Related glossary terms:
 
 - [USF Instantiation Scripts](USF%20Instantiation%20Scripts.md)
-- [USF Instantiation Script Profile Notes](USF%20Instantiation%20Script%20Profile%20Notes.md)
+- [USF Instantiation Capability Slot Notes](USF%20Instantiation%20Capability%20Slot%20Notes.md)
 - [USF Runtime](USF%20Runtime.md)
 - [Capability Slot Type](Capability%20Slot%20Type.md)
-- [Capability Profile](Capability%20Profile.md)
-- [Capability Type Template](Capability%20Type%20Template.md)
-- [Capability Type](Capability%20Type.md)
 - [Capability Declaration](Capability%20Declaration.md)
 - [Rhai Capability](Rhai%20Capability.md)
 - [Capability Runtime](Capability%20Runtime.md)
@@ -53,20 +50,18 @@ Terminology correction (draft):
 
 1. "Rhai type" is useful intuition but too ambiguous for this stack.
 2. Preferred term for script output is [[Capability Declaration]].
-3. Current active wording prefers [[Capability Slot Type]] over [[Capability Profile]] and
-   [[Capability Type Template]].
+3. Current active wording uses [[Capability Slot Type]] for the old profile/type-template idea.
 4. The useful remaining idea behind capability type templates is Rust-side host validation/materialization authority.
 
 Declaration-first posture (primary model):
 
 1. A script profile defines exactly one [[Capability Slot Type]] identity.
 2. One script/file defines exactly one singleton-like [[Capability Declaration]] of that capability slot type.
-3. Legacy wording still uses "Capability Profile" or "Capability Type" in some paths; active glossary wording maps this
-   to [[Capability Slot Type]] unless the text explicitly means callback invocation profile.
-4. Rust-side host validation/materialization wiring constrains declarations; older notes may call this
-   [[Capability Type Template]] authority.
-5. [[Capability Type Template]]s are Rust-side template authorities (trait/registration wiring), not script-produced
-   objects.
+3. Legacy profile/type wording maps to [[Capability Slot Type]] unless the text explicitly means callback invocation
+   shape.
+4. Rust-side host validation/materialization wiring constrains declarations; older notes may call this capability
+   type-template authority.
+5. Capability slot types are Rust-side template authorities (trait/registration wiring), not script-produced objects.
 6. Script execution yields data-first capability declarations (POD-oriented with declared behavior payload), not raw
    Rust type objects.
 7. Capability slot type defines the allowed script API graph topology: atomic capability nodes plus composite category

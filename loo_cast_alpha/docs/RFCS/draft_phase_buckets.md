@@ -127,7 +127,7 @@ Integrated commentary:
 Agree. Track as policy/RFC discipline that constrains how restoration is done.
 
 Unresolved:
-Where should this policy live as source of truth (RFC-only vs WORKFLOWS/DECISIONS references)?
+Where should this policy live as the active anchor (RFC-only vs WORKFLOWS/DECISIONS references)?
 
 `R12` Stable-alpha definition
 
@@ -263,7 +263,7 @@ Which workflow/macro surfaces are allowed in early restoration before domain con
 `R22` Launcher + modding framework baseline timing
 
 User position:
-Launcher plus modding framework/setup is not optional later work; it must be an explicit early implementation target.
+Launcher plus modding framework/setup is not optional later work; it must be explicit early execution scope.
 
 Integrated commentary:
 Agree. This is a prerequisite for meaningful alpha execution and must not be deferred beyond initial contract/kernel
@@ -467,6 +467,12 @@ Phase-3 minimal done-criteria:
 5. First concrete capability proof is logging: capability must be provided and consumed through the real capability/mod
    resolution path (no hardcoded bypasses).
 
+Current correction:
+This remains useful historical signal, but current Phase 3 scope is larger and is defined by
+`phase_3_vapor_execution_spec.md`.
+The current proof is Vapor Launcher and Product-Stack Proof with Steam/Workshop, Packagepack, Capability, Rhai,
+diagnostics, fingerprints, and hello-world-on-steroids fixtures.
+
 Cross-ID unresolveds (shared):
 
 - Minimum stable-alpha proof surface for composition: one scenario vs multiple scenario classes?
@@ -512,17 +518,17 @@ Open Questions:
 
 ## Bucket 3
 
-Draft Name (Optional): `DRAFT: Phase 3 Modding Framework Implementation`
+Draft Name (Optional): `HISTORICAL: Phase 3 Modding Framework Implementation`
 
 Items:
 
-- [ ] `R03` Runtime spine restoration
+- [ ] `R03` superseded by `phase_3_vapor_execution_spec.md`
 - [ ] `R22` Launcher + mod framework bootstrap implementation
 - [ ] `R38` Layerized workflow implementation proof (root/mod/user)
 
 Open Questions:
 
-- (none currently; baseline captured in `R38` decision)
+- Current actionable scope is no longer this bucket; use `phase_3_vapor_execution_spec.md`.
 
 ---
 

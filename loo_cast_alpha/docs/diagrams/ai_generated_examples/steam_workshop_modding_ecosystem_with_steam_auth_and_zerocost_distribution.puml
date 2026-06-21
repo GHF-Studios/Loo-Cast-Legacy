@@ -1,5 +1,8 @@
 @startuml
 
+' Historical AI-generated example. Not active Vapor doctrine.
+' It predates the Packagepack / Phase 3 Vapor Execution Spec framing.
+
 ' =========================
 ' DARK MODE SAFE THEME
 ' =========================
@@ -51,7 +54,7 @@ skinparam note {
     FontColor #ffffff
 }
 
-title Steam Workshop Modding Ecosystem
+title Historical Steam Workshop Distribution Example
 
 actor Player
 actor ModCreator as Creator

@@ -11,8 +11,8 @@ package "Host Authority (Rust)" {
   rectangle "Global Capability/API Graph\n(Unrestricted Host Graph)" as GLOBAL
 }
 
-package "Profile/Projection Meta-Layer" {
-  rectangle "Capability Profile Graph\n(Nestable/Composite)" as PROFILE
+package "Slot/Projection Meta-Layer" {
+  rectangle "Capability Slot Graph\n(Nestable/Composite)" as PROFILE
   rectangle "Projection Planning\n(Whitelist default,\noptional blacklist override)" as PLAN
   rectangle "Projection Instantiation\n(decl_ctx / cb_ctx / ...)" as PROJECT
 }

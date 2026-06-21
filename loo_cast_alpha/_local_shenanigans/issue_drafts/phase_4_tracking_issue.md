@@ -22,8 +22,8 @@ Owner / Final Decider:
 @leslieghf
 
 Authority:
-This tracking issue is the living authority for Phase 4 while the phase is open. The milestone is only a lightweight
-summary. The gate issue is the canonical final exit decision.
+This tracking issue is the living coordination anchor for Phase 4 while the phase is open. The milestone is only a
+lightweight summary. The gate issue is the final exit decision record.
 
 Purpose:
 Restore prioritized legacy functionality through small vertical slices that must satisfy predefined acceptance gates

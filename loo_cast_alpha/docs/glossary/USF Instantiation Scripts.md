@@ -7,7 +7,7 @@ aliases: []
 The USF Instantiation Scripts are the declaration-centric authoring surface under [[Loo Cast]] for defining
 singleton-like [[Capability Declaration]]s for contract-defined profile categories from the [[USF Contract]].
 These declarations target Rust-registered host validation/materialization authorities.
-Older notes call those authorities [[Capability Type Template]]s; active platform wording prefers
+Older notes call those authorities [[Capability Slot Type]]s; active platform wording prefers
 [[Capability Slot Type]] where the text means declaration/slot/context shape.
 Executing these declaration entrypoints with profile-tailored `ctx` capability-object subgraphs emits full
 capability declarations that include structured data plus logic closures.
@@ -28,7 +28,7 @@ This surface is governed by the [[USF Definition Lifecycle]].
 
 Implementation-facing notes:
 
-- [USF Instantiation Script Profile Notes](USF%20Instantiation%20Script%20Profile%20Notes.md)
+- [USF Instantiation Capability Slot Notes](USF%20Instantiation%20Capability%20Slot%20Notes.md)
 - [Capability Dependency Layer Notes](Capability%20Dependency%20Layer%20Notes.md)
 - [USF Math Raw Model Foundation Notes](USF%20Math%20Raw%20Model%20Foundation%20Notes.md)
 - [Rhai Generic Dispatch Policy Notes](Rhai%20Generic%20Dispatch%20Policy%20Notes.md)

@@ -27,6 +27,12 @@ Use qualified terms such as Steam package, [[Source Artifact]], [[Build Artifact
 those meanings are intended.
 The full launch composition containing the Enginepack is a [[Packagepack]].
 
+Phase 3 lock-candidate anchor:
+Enginepack Phase 3 behavior is anchored by
+[Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md), especially P3-W08 and P3-W09.
+Phase 3 must prove the default Engine fixture, an alternative Engine fixture, Engine Mods, and Engine-side contribution
+to the hello-world-on-steroids output/fingerprint without introducing worldmodel semantics.
+
 See also:
 
 - [[Gamepack]]

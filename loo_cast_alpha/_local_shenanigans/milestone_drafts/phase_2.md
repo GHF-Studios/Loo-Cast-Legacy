@@ -14,8 +14,8 @@ Gate-based (unlocked only after Phase 1 gate issue decision note).
 Description =>
 
 Authority note:
-This milestone is a lightweight phase container. The Phase 2 tracking issue is the living authority while the phase is
-open. The gate issue is the final exit decision record.
+This milestone is a lightweight phase container. The Phase 2 tracking issue is the living coordination anchor while the
+phase is open. The gate issue is the final exit decision record.
 
 Purpose:
 Remove legacy ambiguity and convert USF/SDK complexity into an executable migration plan before restoration

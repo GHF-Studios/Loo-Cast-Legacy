@@ -45,6 +45,13 @@ The suite should center on sets of engines, games, mods, extension mods, engine 
 mixed and matched manually to verify expected success/failure behavior.
 [[Phase 3 Vapor Scenario Suite]] is the current anchor for this pressure.
 
+Phase 3 lock-candidate anchor:
+Packagepack Phase 3 behavior is anchored by
+[Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md), especially P3-W02, P3-W06, P3-W07, and
+P3-W11.
+Phase 3 requires at least one local Packagepack lifecycle and at least one publishable Packagepack path through real
+Workshop upload/update/download/install/enable/disable/uninstall/launch.
+
 See also:
 
 - [[Enginepack]]

@@ -31,4 +31,11 @@ Boundary:
 Launcher and SDK should be sibling surfaces over shared `vapor_core` semantics.
 Launcher operations should be capabilities where that gives useful encapsulation and modularity.
 
+Phase 3 lock-candidate anchor:
+The launcher scope for Phase 3 is anchored by [Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md),
+especially P3-W06.
+Phase 3 requires a real launcher shell, not only CLI commands: content browsing, Packagepack composition, validation
+diagnostics, launcher logs, launched-process logs, Steam/Workshop actions, and launch of valid Packagepacks are all in
+scope.
+
 #glossary

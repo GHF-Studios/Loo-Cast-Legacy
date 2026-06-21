@@ -1,7 +1,7 @@
 # Loo-Cast Docs
 
 This directory is the canonical docs surface for active `loo_cast_alpha/` work.
-If you arrived from repository root, use this file as the docs map and read-order source of truth.
+If you arrived from repository root, use this file as the docs map and read-order anchor.
 
 ## Read Order
 
@@ -15,10 +15,11 @@ If you arrived from repository root, use this file as the docs map and read-orde
 8. [CHANGELOG_DRAFT.md](CHANGELOG_DRAFT.md) (pre-stable release-note drafting while structure is still shifting)
 9. [MIGRATIONS_DRAFT.md](MIGRATIONS_DRAFT.md) (pre-stable migration-impact drafting while contracts are still shifting)
 10. [migrations/README.md](migrations/README.md) (formal migration-guide location/rules once stable-contract mode is active)
-11. [RFCS/phase_2_to_11_execution_program.md](RFCS/phase_2_to_11_execution_program.md) (consolidated roadmap drafting surface for Phases 2..11 and viewpoint infodumps)
-12. [glossary/](glossary/) (concept + technical glossary terms in one folder; split by `#glossary` and `#tech_glossary`
+11. [RFCS/phase_3_vapor_execution_spec.md](RFCS/phase_3_vapor_execution_spec.md) (Phase 3 lock-candidate execution spec)
+12. [RFCS/phase_2_to_11_execution_program.md](RFCS/phase_2_to_11_execution_program.md) (consolidated roadmap drafting surface for Phases 2..11 and viewpoint infodumps)
+13. [glossary/](glossary/) (concept + technical glossary terms in one folder; split by `#glossary` and `#tech_glossary`
     tags)
-13. [diagrams/](diagrams/) (working PlantUML architecture/governance/runtime diagram set)
+14. [diagrams/](diagrams/) (working PlantUML architecture/governance/runtime diagram set)
 
 ## Entry By Intent
 
@@ -28,6 +29,7 @@ If you arrived from repository root, use this file as the docs map and read-orde
 - I want architecture boundaries: [ARCHITECTURE.md](ARCHITECTURE.md)
 - I want policy history: [DECISIONS.md](DECISIONS.md)
 - I want phase/program execution strategy: [RFCS/README.md](RFCS/README.md)
+- I want the current Phase 3 execution anchor: [RFCS/phase_3_vapor_execution_spec.md](RFCS/phase_3_vapor_execution_spec.md)
 - I want consolidated Phase 2..11 roadmap drafting + viewpoint infodump capture: [RFCS/phase_2_to_11_execution_program.md](RFCS/phase_2_to_11_execution_program.md)
 - I want concept terms and semantic relationships: [glossary/](glossary/) (`#glossary`)
 - I want implementation-heavy technical term notes: [glossary/](glossary/) (`#tech_glossary`)

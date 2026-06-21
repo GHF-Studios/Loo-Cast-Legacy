@@ -26,6 +26,12 @@ The full launch composition containing the Gamepack is a [[Packagepack]].
 The Gamepack does not make the [[USF]] a product slot; USF remains a public/API-facing subsystem inside the
 [[Spacetime Engine]].
 
+Phase 3 lock-candidate anchor:
+Gamepack Phase 3 behavior is anchored by
+[Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md), especially P3-W08 and P3-W09.
+Phase 3 must prove the default Game fixture, an alternative Game fixture, Game Mods, Extension Mods, and Game-side
+contribution to the hello-world-on-steroids output/fingerprint without introducing gameplay/worldmodel semantics.
+
 See also:
 
 - [[Enginepack]]

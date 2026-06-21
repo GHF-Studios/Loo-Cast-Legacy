@@ -18,6 +18,7 @@ Current boundary rules:
 
 - Phase 3 architecture work targets Vapor platform seams: SDK, launcher, Steam/Workshop integration, capability graph
   staging, Rhai declarations, [[Vapor.toml]], [[Vapor.lock]], diagnostics, fingerprints, and launch handoff.
+- The active execution anchor for those seams is `RFCS/phase_3_vapor_execution_spec.md`.
 - Concrete first-party engine/game internals and USF/worldmodel concepts are outside the current Vapor-focused pass.
 - `core_engine`, matching `core_mod`, and `base_mod` are reserved built-in role names in a valid Vapor product instance
   stack.

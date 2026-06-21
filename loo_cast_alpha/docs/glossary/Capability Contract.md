@@ -7,7 +7,7 @@ aliases:
 ---
 
 The Capability Contract Family defines what Vapor-level capability contracts must declare and satisfy.
-Older notes distinguished it from [[Capability Type Template]] host template authority; current active wording prefers
+Older notes distinguished it from [[Capability Slot Type]] host template authority; current active wording prefers
 [[Capability Slot Type]] for that slot/context-shape concept.
 Capabilities implement this family and expose [[Scaled Capability Channel]]s as scale-specific execution faces whose
 required/allowed shape is derived from that family.

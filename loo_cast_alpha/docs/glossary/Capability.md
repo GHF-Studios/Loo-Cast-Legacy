@@ -47,10 +47,10 @@ Non-circular type/dependency/dependent relationships are part of what forms the 
 The term `Capability Instance` should be avoided for now.
 The in-memory validated object should usually just be called a Capability, while authored/pre-lock forms should be
 called [[Capability Declaration]] where that distinction matters.
-[[Capability Slot Type]] is the current preferred term for the projected/gated slot/context shape that older notes called
-`Capability Profile` or `Capability Type Template`.
+[[Capability Slot Type]] is the current preferred term for the projected/gated slot/context shape that older notes
+described with profile/type-template wording.
 `Capability Declaration` remains the pre-lock authored declaration artifact.
-`Capability Type` remains too ambiguous to use as settled terminology.
+The old capability-type label remains too ambiguous to use as settled terminology.
 
 Graph shape:
 Capability graph data structures are reused across multiple environments, not one monolithic process graph.
@@ -76,9 +76,10 @@ Staged construction:
 
 `Capability Declaration` is the pre-lock artifact.
 At the definition lock transition, validated capability declarations are promoted into capabilities.
-For launcher and SDK tooling, the exact Runtime Lock semantics are still under pressure.
-Runtime Lock applies to launchable Engine/Game runtime composition, not to treating the launcher/SDK as dynamic
-Rhai-authored runtime compositions.
+For Phase 3, Runtime Lock applies to launchable Engine/Game runtime composition, not to treating the launcher/SDK as
+dynamic Rhai-authored runtime compositions.
+Launcher and SDK capability environments are separate graph instances that currently lean static-only, read-only, and
+hardcoded except where explicit SDK/launcher capability surfaces are implemented.
 
 Capability flow across Rust/Rhai is cyclic, not one-way:
 This is phase-separated runtime: declaration phase and execution phase coexist in one runtime but remain distinct.
@@ -150,6 +151,12 @@ The exact edge taxonomy is still unresolved: dependency edges, slot edges, API e
 be distinct edge kinds or shared edges with policy metadata.
 The exact relation between capability graph edges, slots, authority claims, registries, and integration apertures also
 remains under active pressure.
+
+Phase 3 lock-candidate anchor:
+Capability Phase 3 behavior is anchored by
+[Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md), especially P3-W03.
+Phase 3 must prove stable capability paths, visibility projections, staged graph construction, graph validation,
+Runtime Lock for launched compositions, and diagnostics before any Engine/Game fixture is allowed to run.
 
 See also:
 

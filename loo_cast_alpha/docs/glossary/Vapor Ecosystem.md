@@ -59,6 +59,15 @@ target roles, version constraints, and Steam/Workshop publication fields.
 Rhai remains foundational for authored capability declarations, but Vapor.toml is allowed and expected where manifest
 metadata is the better fit.
 
+Phase 3 lock-candidate anchor:
+[Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md) is the active Phase 3 execution anchor for
+Vapor.
+Phase 3 must prove the SDK, launcher, Steam/Workshop public distribution rail, [[Capability]]/[[Rhai Asset]] substrate,
+[[Packagepack]] composition, diagnostics, fingerprints, local/offline authoring, and hello-world-on-steroids
+Engine/Game fixtures.
+Phase 3 must not implement USF/worldmodel/rendering/save-load/gameplay systems.
+Glossary pages define terms; the execution spec decides what Phase 3 must prove.
+
 Terminology boundary:
 The unqualified word `package` is currently too overloaded for active planning.
 Prefer scoped terms such as [[Packagepack]], [[Enginepack]], [[Gamepack]], [[Modpack]], Steam package,

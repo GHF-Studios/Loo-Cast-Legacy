@@ -52,4 +52,10 @@ Rhai hooks are expected to exist in Phase 3.
 Callbacks are currently best understood as ways to define logic entrypoints with firing policy, such as single-fire,
 multi-fire, or procedural-fire behavior, but exact hook taxonomy remains open.
 
+Phase 3 lock-candidate anchor:
+Rhai Asset Phase 3 behavior is anchored by
+[Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md), especially P3-W04.
+Phase 3 must load and validate Rhai declarations without launching a concrete Engine/Game fixture, map Rhai declaration
+data into capability/fingerprint paths, and prove one focused callback path without locking the full callback taxonomy.
+
 #glossary

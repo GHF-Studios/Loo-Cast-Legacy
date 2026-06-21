@@ -18,8 +18,16 @@ Current owner-answer-informed direction:
   primitives, shared contracts/types, and shared utility surfaces for engines, games, mods, packagepacks, and related
   concepts.
 - `vapor_core` should define traits and shared types that `vapor_steam` implements and integrates with.
-- `vapor_macros` should be public API in Phase 3; if internal-only macros are needed later, they can live in a separate
-  internal macro crate.
+- If Phase 3 uses macro-backed capability metadata, `vapor_macros` should be public API.
+- `vapor_macros` dependency direction is not locked; if internal-only macros are needed later, they can live in a
+  separate internal macro crate.
+
+Phase 3 lock-candidate anchor:
+The active execution anchor is [Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md), especially
+P3-W01.
+Required Phase 3 crate targets are `vapor_core`, `vapor_sdk`, `vapor_launcher`, and `vapor_steam` unless an explicit
+owner-approved rename replaces them.
+`vapor_macros` exists in Phase 3 only if macro-backed capability metadata is used.
 
 Boundary:
 Vapor is not best described as crate first or product/ecosystem first.

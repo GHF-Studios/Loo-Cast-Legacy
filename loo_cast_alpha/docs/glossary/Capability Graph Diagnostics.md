@@ -28,7 +28,7 @@ Current framing:
 - Vapor does not currently sandbox Workshop content as hostile code.
 - Steam identity, Steam ownership checks for upload, and Vapor fingerprints are the Phase 3 trust rails.
 
-Phase 3 pressure:
+Phase 3 lock-candidate direction:
 Phase 3 acceptance should be a scenario/integration-test suite of multiple valid and invalid [[Packagepack]] and
 [[Modpack]] configurations rather than one canonical command or an overly simplistic matrix.
 At minimum, the suite should include an unmodded/default stack, a modded first-party stack, a simple non-first-party
@@ -42,6 +42,7 @@ corrupted/incomplete Workshop downloads, and visibility violations as the releva
 Declared conflicts should be checked as path+version predicates.
 Vapor should also attempt deeper scans for conflicts that should have been declared but were not, without trying to
 prove that every declared conflict is warranted by exact content comparison.
-See [[Phase 3 Vapor Scenario Suite]].
+See [[Phase 3 Vapor Scenario Suite]] and
+[Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md), especially P3-W10 and P3-W11.
 
 #glossary

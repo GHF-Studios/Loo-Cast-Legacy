@@ -14,10 +14,11 @@ Current owner-answer-informed phase framing (2026-06-17):
 - Phase 3: Vapor Launcher and Product-Stack Proof.
 - Phase 4: Product-Stack + USF Prototype/MVP.
 
-This supersedes older Phase 3 wording that framed the phase as a USF runtime spine restoration.
+This supersedes older Phase 3 wording that treated the phase as USF implementation work.
 Phase 3 coding must prove Vapor launcher/product-stack/modpack/capability semantics with real Steam/Workshop
 integration, while excluding USF/worldmodel implementation.
 Phase 4 is the first USF-inclusive product-stack prototype/MVP phase.
+The active Phase 3 execution spec is `phase_3_vapor_execution_spec.md`.
 
 Purpose:
 
@@ -277,8 +278,8 @@ This keeps accountability clear while acknowledging non-linear dependency realit
 1. Reconcile this file with glossary corrections from `question_batch_001.txt` through `question_batch_004a.txt`.
 2. Replace old unqualified package/manifest language with Packagepack/Enginepack/Gamepack/Modpack, [[Vapor.toml]],
    [[Vapor.lock]], [[Fingerprint]], and [[Rhai Asset]] vocabulary.
-3. Draft the Phase 3 scope ceiling and execution spec around [[Phase 3 Vapor Scenario Suite]] rather than a single
-   canonical command or USF runtime spine.
+3. Maintain `phase_3_vapor_execution_spec.md` as the Phase 3 scope ceiling and execution spec around
+   [[Phase 3 Vapor Scenario Suite]].
 4. Draft the Phase 4 USF-inclusive execution spec before Phase 3 coding begins.
 5. Capability/slot semantics pass: decide how authority claims, exclusive slots, variadic slots, ordered registries,
    optional providers, and integration apertures relate.

@@ -32,4 +32,12 @@ Developer Mode should require an explicit unsafe flag to launch despite mismatch
 Pack Author Mode may allow it only behind an explicit unsafe setting.
 Player Mode should block launch.
 
+Phase 3 lock-candidate anchor:
+The Phase 3 fingerprint scope is anchored by [Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md),
+especially P3-W02, P3-W09, and P3-W11.
+Phase 3 fingerprints must support deterministic composition comparison, Packagepack output, downloaded Workshop content
+verification, diagnostics, caching, publishing, and reproducibility.
+This is an integrity/compatibility/reproducibility rail, not a claim that Vapor provides a hostile-code sandbox in
+Phase 3.
+
 #glossary

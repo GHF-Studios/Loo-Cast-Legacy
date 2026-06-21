@@ -38,6 +38,12 @@ Nested folder or pack organization does not create implicit defaults.
 [[Vapor.toml]] should describe each folder/artifact root explicitly, while capability visibility and dependencies remain
 normal explicit graph relationships.
 
+Phase 3 lock-candidate anchor:
+Modpack Phase 3 behavior is anchored by [Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md),
+especially P3-W02, P3-W07, P3-W08, and P3-W11.
+Phase 3 must prove nested Modpacks, Workshop-backed Modpack dependencies, explicit dependency/conflict validation, and
+visible contribution to Packagepack fingerprints/outputs where applicable.
+
 See also:
 
 - [[Enginepack]]

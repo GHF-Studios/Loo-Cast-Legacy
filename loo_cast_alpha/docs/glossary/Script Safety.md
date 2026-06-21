@@ -32,7 +32,7 @@ See also:
 
 - [[Global Capability API Graph]]
 - [[Capability Projection API]]
-- [[Script Profile]]
+- [[Capability Slot Type]]
 - [[Callback Type]]
 - [[Callback Context Type]]
 

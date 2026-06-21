@@ -14,8 +14,8 @@ Gate-based (unlocked only after Phase 3 gate issue decision note).
 Description =>
 
 Authority note:
-This milestone is a lightweight phase container. The Phase 4 tracking issue is the living authority while the phase is
-open. The gate issue is the final exit decision record.
+This milestone is a lightweight phase container. The Phase 4 tracking issue is the living coordination anchor while the
+phase is open. The gate issue is the final exit decision record.
 
 Purpose:
 Restore prioritized legacy functionality through small vertical slices that must satisfy predefined acceptance gates

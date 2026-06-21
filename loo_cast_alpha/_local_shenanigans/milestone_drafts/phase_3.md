@@ -1,15 +1,6 @@
-SUPERSEDED PLANNING NOTE (2026-06-17):
-This milestone draft is stale as active Phase 3 scope.
-Its USF runtime spine framing is superseded by `question_batch_004a.txt`.
-New framing: `Phase 3: Vapor Launcher and Product-Stack Proof`.
-Do not use this milestone text as active Phase 3 scope without rewriting it from the current glossary and owner-answer
-logs.
-
---- Historical stale body follows. Do not implement as written. ---
-
 Title =>
 
-Phase 3: Alpha Spine and Release Proof
+Phase 3: Vapor Launcher and Product-Stack Proof
 
 Due date =>
 
@@ -18,23 +9,32 @@ Gate-based (unlocked only after Phase 2 gate issue decision note).
 Description =>
 
 Authority note:
-This milestone is a lightweight phase container. The Phase 3 tracking issue is the living authority while the phase is
-open. The gate issue is the final exit decision record.
+This milestone is a lightweight phase container.
+The Phase 3 tracking issue is the living coordination anchor while the phase is open.
+The gate issue is the final exit decision record.
+The execution spec is `loo_cast_alpha/docs/RFCS/phase_3_vapor_execution_spec.md`.
 
 Purpose:
-Implement the minimum real USF runtime spine in `loo_cast_alpha`, prove core runtime claims, and prove the release smoke
-path.
+Implement a real Vapor platform slice proving SDK, launcher, Steam/Workshop distribution, Packagepack composition,
+Capability/Rhai substrate, diagnostics, fingerprints, and launch handoff through hello-world-on-steroids fixtures.
 
 Summary scope:
 
-- [ ] Minimal typed USF runtime spine boots and runs in alpha
-- [ ] Deterministic bootstrap, state boundary, capability bridge, and observability baseline are proven
-- [ ] Release smoke path is documented and executed once with evidence
+- [ ] Vapor workspace/crate foundation is implemented
+- [ ] Vapor.toml, Vapor.lock, fingerprints, packs, and artifact data models are implemented
+- [ ] Capability graph staging, validation, visibility, projections, and Runtime Lock are implemented
+- [ ] Rhai declaration loading/validation and focused callback proof are implemented
+- [ ] SDK commands and launcher modes exist and share validation semantics
+- [ ] Real Steam/Workshop publish, update, download, install, enable, disable, and uninstall flows are verified
+- [ ] Product-stack fixtures prove Engine/Game/mod/modpack composition without USF/worldmodel scope
+- [ ] Scenario suite covers valid and invalid Vapor platform cases
 
 Exit summary:
 
-- [ ] Determinism and release smoke evidence are linked from the tracking issue
-- [ ] Known gaps are converted to Phase 4 issues
+- [ ] Valid Packagepack lifecycle works end to end
+- [ ] Invalid Packagepack lifecycle fails before launch with projected diagnostics
+- [ ] Steam/manual verification notes are recorded
+- [ ] Phase 3.5 and Phase 4 deferrals are explicit
 - [ ] Gate issue records final Phase 3 decision and unlocks Phase 4
 
 Tracking linkage:

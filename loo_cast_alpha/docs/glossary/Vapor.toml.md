@@ -60,4 +60,12 @@ filesystem clutter.
 Every folder should be explicit.
 The exact field names for placement, dependencies, conflicts, and publication metadata remain unsettled.
 
+Phase 3 lock-candidate anchor:
+The Phase 3 manifest scope is anchored by [Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md),
+especially P3-W02.
+Phase 3 must implement a real Vapor.toml parser/validator, explicit dependency/conflict objects, explicit
+folder/composition/storage metadata, version constraints, and Steam/Workshop metadata sufficient for publish/install
+flows.
+Exact field names are not locked here.
+
 #glossary

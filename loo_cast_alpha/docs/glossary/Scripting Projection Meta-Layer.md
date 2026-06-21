@@ -14,8 +14,8 @@ Reflection metadata and host-side orchestration logic are high-signal implementa
 See also:
 
 - [[Capability Slot Type]]
-- [[Capability Profile]]
-- [[Script Profile]]
+- [[Capability Slot Type]]
+- [[Capability Slot Type]]
 - [[Callback Type]]
 - [[Callback Context Type]]
 - [[Callback Signature]]

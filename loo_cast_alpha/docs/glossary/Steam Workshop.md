@@ -29,4 +29,11 @@ Vapor should manage its own compatibility/version/fingerprint semantics rather t
 depot/version semantics as the authoritative composition model.
 The GitHub-backed registry idea is parked until the Steam-only flow is proven; it is Phase 3.5 pressure at most.
 
+Phase 3 lock-candidate anchor:
+The Workshop scope for Phase 3 is anchored by
+[Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md), especially P3-W07 and P3-W11.
+Phase 3 requires upload/publish, update, private/unlisted test upload, subscribe/download/install, enable/disable,
+uninstall, dependency detection, prompted auto-subscribe where SteamUGC permits it, offline behavior for already
+installed content, and corrupted/incomplete download diagnostics.
+
 #glossary

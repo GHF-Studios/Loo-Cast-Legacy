@@ -13,7 +13,7 @@ See also:
 
 - [[Global Capability API Graph]]
 - [[Capability Slot Type]]
-- [[Capability Profile]]
+- [[Capability Slot Type]]
 - [[Capability Path]]
 - [[Script Safety]]
 

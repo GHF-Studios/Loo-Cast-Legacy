@@ -28,6 +28,11 @@ Runtime Lock currently applies to launchable Engine/Game runtime composition.
 Launcher and SDK authoring should instead remain a more static-only, read-only, hardcoded capability environment for
 now, not a dynamically Rhai-extended runtime composition.
 
+Phase 3 lock-candidate anchor:
+Runtime Lock Phase 3 behavior is anchored by
+[Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md), especially P3-W03 and the Runtime Flow.
+In Phase 3, no selected Engine/Game fixture should run until the launchable composition reaches Runtime Lock.
+
 See also:
 
 - [[Capability Bootstrap Fixed-Point Cycle]]
