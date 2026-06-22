@@ -16,6 +16,9 @@ Related glossary terms:
 - [Workflow Invariant Ledger Notes](Workflow%20Invariant%20Ledger%20Notes.md)
 
 This note documents the current typed workflow request/response and timeout-control behavior.
+Status note: this is legacy implementation signal.
+The typed request/response split and controlled timeout path are useful evidence; the exact helper names and default
+panic behavior are not target doctrine.
 
 ## Typed Workflow Request vs Composite Workflow (Current)
 
@@ -48,6 +51,8 @@ Each family maps to typed request/response envelopes and per-signature channels.
 
 ## Current Timeout Behavior
 
+Default timeout behavior and controlled timeout behavior are materially different:
+
 - Base `run_workflow_*` helpers:
     - use `RealTime` or `VirtualTime` timeout mode
     - timeout publishes a workflow-timeout signal and then panics
@@ -61,6 +66,7 @@ Each family maps to typed request/response envelopes and per-signature channels.
 `workflow_request_*_relay_system` enforces a single active workflow instance per `(module_name, workflow_name)` key in
 the `WorkflowMap`.
 If a workflow instance is already active for that key, insertion retries on later frames.
+This is a coarse active-run key gate and should be treated as a concurrency bottleneck, not settled admission policy.
 
 ## Source Pointers
 

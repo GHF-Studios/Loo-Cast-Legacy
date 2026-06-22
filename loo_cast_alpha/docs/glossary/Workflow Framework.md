@@ -14,10 +14,18 @@ engine internals.
 It treats `ECS`, `Render`, and `Async` as first-class workflow domains.
 `EcsWhile` and `RenderWhile` are core iterative stage variants for non-async domains.
 
+Status boundary:
+The Workflow Framework remains a future-target Rust orchestration concept.
+The implementation-facing workflow notes are legacy evidence and refactor pressure, not a commitment to preserve the
+old macro/runtime surface wholesale.
+
 Scope boundary:
 
 - workflow orchestration is Rust-side
 - Rhai-side capability/domain exposure is handled by script-profile and binding surfaces
+- stage logic should stay scheduler-visible as normal Bevy systems where practical
+- legacy exclusive control-plane dispatch, placeholder swaps, unsafe handoff, active-run gates, and single-item polling
+  are refactor debt unless a later design explicitly re-justifies them
 
 Terminology used across workflow runtime notes:
 

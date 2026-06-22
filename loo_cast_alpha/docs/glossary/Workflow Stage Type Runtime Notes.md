@@ -14,6 +14,8 @@ Related glossary terms:
 - [Workflow Invariant Ledger Notes](Workflow%20Invariant%20Ledger%20Notes.md)
 
 `StageType` is the runtime discriminator for workflow domains at stage level.
+Status note: this is legacy implementation signal.
+The first-class domain distinction is useful target vocabulary, while exact enum naming remains implementation detail.
 
 ## Current StageType Values
 

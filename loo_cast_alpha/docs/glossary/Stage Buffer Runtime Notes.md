@@ -12,6 +12,8 @@ Related glossary terms:
 - [Workflow Invariant Ledger Notes](Workflow%20Invariant%20Ledger%20Notes.md)
 
 Stage buffers are per-workflow-domain queues carrying in-flight stage objects and optional stage data payloads.
+Status note: this page is legacy implementation signal.
+Per-domain buffering remains useful evidence; the old single-item poll behavior is a known problem, not target doctrine.
 
 ## Current Buffer Families
 

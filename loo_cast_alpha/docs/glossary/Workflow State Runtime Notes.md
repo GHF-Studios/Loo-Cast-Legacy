@@ -12,6 +12,8 @@ Related glossary terms:
 - [Workflow Invariant Ledger Notes](Workflow%20Invariant%20Ledger%20Notes.md)
 
 `WorkflowState` is the per-workflow-instance lifecycle state machine.
+Status note: this is legacy implementation signal.
+The requested/processing lifecycle shape is useful evidence, but the exact flag structure is not target doctrine.
 
 ## Current State Variants
 

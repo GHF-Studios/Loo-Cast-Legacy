@@ -16,6 +16,8 @@ Related glossary terms:
 
 In this note cluster, a normal workflow is a typed workflow request handled by the workflow runtime
 (`run_workflow_*` families), not a composite wrapper.
+Status note: this distinction remains useful target vocabulary, while the exact legacy request/runtime implementation
+is evidence rather than final doctrine.
 
 ## Current Shape
 
@@ -30,6 +32,8 @@ In this note cluster, a normal workflow is a typed workflow request handled by t
 - Keyed by `(module_name, workflow_name, request_id)` for response matching.
 - Active-run gating currently enforces a single active workflow instance per `(module_name, workflow_name)` in
   the `WorkflowMap`.
+- This active-run key gate is a coarse concurrency bottleneck and should be treated as refactor pressure, not the final
+  concurrency policy.
 
 ## Relation To Composite Workflows
 

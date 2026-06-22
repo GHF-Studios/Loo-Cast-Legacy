@@ -25,6 +25,12 @@ Related glossary terms:
 - [Workflow Usage Patterns Legacy Notes](Workflow%20Usage%20Patterns%20Legacy%20Notes.md)
 - [Rhai Reflection Macro Surface Notes](Rhai%20Reflection%20Macro%20Surface%20Notes.md)
 
+Status note:
+Current working decision is that [[Workflow Framework]] remains a future-target Rust orchestration concept, while the
+detailed runtime pages are legacy implementation signals.
+Preserve the target pressure around Rust-side lifecycle orchestration, Bevy-visible typed stage systems, domain
+separation, and normal/composite distinction; treat known bottlenecks and unsafe conventions as refactor debt.
+
 Current premise slice (draft, intentionally not frozen):
 
 1. Workflow framework scope is Rust-side orchestration semantics.

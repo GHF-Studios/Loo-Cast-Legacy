@@ -287,23 +287,23 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 236. `DONE` Workflow Execution Trace Notes should be removed.
 237. `DONE` Remove backlinks to Workflow Execution Trace Notes.
 238. `DONE` Workflow Usage Patterns Legacy Notes should become the canonical trace/example page.
-239. `FIX` Workflow pages need consistent legacy implementation signal status.
-240. `FIX` Workflow Framework should remain Rust-side orchestration, not Rhai lifecycle ownership.
-241. `FIX` Workflow stage execution should stay Bevy-system-visible where possible.
-242. `FIX` Workflow control-plane exclusive `&mut World` usage should be documented as refactor debt.
+239. `DONE` Workflow pages need consistent legacy implementation signal status.
+240. `DONE` Workflow Framework should remain Rust-side orchestration, not Rhai lifecycle ownership.
+241. `DONE` Workflow stage execution should stay Bevy-system-visible where possible.
+242. `DONE` Workflow control-plane exclusive `&mut World` usage should be documented as refactor debt.
 243. `DONE` Stage Buffer backlog should be marked as a real observed legacy problem.
 244. `DONE` Backlog caused visual holes/lag; current neutral wording understates severity.
 245. `DONE` Single-item poll progress should be marked deterministic but throughput-limited.
-246. `FIX` Unsafe output/input `transmute` contract should be marked legacy hazard.
-247. `FIX` Placeholder stage slot lifecycle should remain refactor-sensitive invariant.
-248. `FIX` Active-run key gate should be flagged as concurrency bottleneck.
-249. `FIX` RenderWhile sharding should be described as partial parallelism-preserving mechanism, not full parallelism.
-250. `FIX` Stage Sender Cache can remain legacy mechanism signal.
-251. `FIX` Normal vs composite workflow distinction is useful and should stay.
-252. `FIX` Workflow Type timeout behavior should distinguish panic defaults from controlled retry/abort path.
-253. `MOVE` Consider moving workflow legacy notes out of primary glossary later.
-254. `DECIDE` Decide whether workflow framework remains future target architecture or only legacy evidence.
-255. `AUDIT` Check workflow terms for accidental current-target wording.
+246. `DONE` Unsafe output/input `transmute` contract should be marked legacy hazard.
+247. `DONE` Placeholder stage slot lifecycle should remain refactor-sensitive invariant.
+248. `DONE` Active-run key gate should be flagged as concurrency bottleneck.
+249. `DONE` RenderWhile sharding should be described as partial parallelism-preserving mechanism, not full parallelism.
+250. `DONE` Stage Sender Cache can remain legacy mechanism signal.
+251. `DONE` Normal vs composite workflow distinction is useful and should stay.
+252. `DONE` Workflow Type timeout behavior should distinguish panic defaults from controlled retry/abort path.
+253. `DONE` Consider moving workflow legacy notes out of primary glossary later.
+254. `DONE` Decide whether workflow framework remains future target architecture or only legacy evidence.
+255. `DONE` Check workflow terms for accidental current-target wording.
 
 ## Failure / Runtime Lock / Determinism
 

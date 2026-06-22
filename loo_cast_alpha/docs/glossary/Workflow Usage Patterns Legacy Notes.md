@@ -15,6 +15,7 @@ Related glossary terms:
 
 This note is the canonical home for concrete legacy workflow usage examples.
 Other workflow runtime notes should link here instead of duplicating examples.
+Status note: examples here are evidence for useful workflow shapes and pain points, not target API commitments.
 
 ## Pattern A: Startup Completion Signal (`Core::FinishStartup`)
 

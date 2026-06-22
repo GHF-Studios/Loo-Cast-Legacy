@@ -13,6 +13,9 @@ Related glossary terms:
 - [Workflow Invariant Ledger Notes](Workflow%20Invariant%20Ledger%20Notes.md)
 
 `WorkflowInstance` is the runtime-owned container for an active typed workflow request.
+Status note: this is legacy implementation signal.
+The run-container idea may survive, but placeholder replacement patterns should be treated as refactor-sensitive
+invariants.
 
 ## Current Variant Families
 
@@ -39,6 +42,7 @@ and, where needed, a data buffer.
 
 - `take_data_buffer` and `take_callback` use placeholder replacement patterns while values are in-flight.
 - Correctness depends on handlers restoring valid values before later access paths require them.
+- Future rewrites should prefer state shapes that make invalid placeholder access unrepresentable where practical.
 
 ## Source Pointers
 

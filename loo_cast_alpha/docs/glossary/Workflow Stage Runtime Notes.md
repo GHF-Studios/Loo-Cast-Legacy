@@ -15,6 +15,10 @@ Related glossary terms:
 - [Workflow Invariant Ledger Notes](Workflow%20Invariant%20Ledger%20Notes.md)
 
 This note documents current workflow-domain stage behavior and stage-lifecycle mechanics.
+Status note: this is legacy implementation signal.
+The useful target pressure is scheduler-visible stage execution across workflow domains; placeholder slots,
+`unsafe transmute` handoff, single-item polling, and coarse run gates are hazards or bottlenecks unless a future design
+re-justifies them.
 
 ## Stage Families (Current)
 
@@ -42,8 +46,10 @@ Documented invariant in current model:
 
 - Placeholder exists only while a real stage object is in-flight.
 - Stage slots are expected to be re-filled by returned real stage objects before the slot is needed again.
+- This is a refactor-sensitive invariant, not an ideal API shape; future rewrites should prevent placeholder access by
+  construction where possible.
 
-## Output->Input Handoff via `unsafe transmute` (Current Contract)
+## Output->Input Handoff via `unsafe transmute` (Legacy Hazard)
 
 Macro-generated stage response handlers currently use `unsafe { std::mem::transmute(output) }` for stage-to-stage
 output/input handoff.
@@ -57,6 +63,8 @@ Current intended soundness contract in this codebase:
 Current limitation:
 
 - The macro wiring does not mechanically prove representation compatibility; the contract is author-maintained.
+- This is legacy hazard evidence. A future implementation should encode or prove stage-boundary compatibility rather
+  than relying on author-maintained layout assumptions.
 
 ## Throughput Behavior (Current)
 
@@ -88,9 +96,8 @@ Legacy design rationale (documented intent):
 
 Current caveat:
 
-- this sharding is a parallelism-preserving mechanism, but overall realized parallelism is still bounded by other
-  workflow
-  runtime bottlenecks documented in this note.
+- this sharding is a partial parallelism-preserving mechanism, not full parallelism by itself
+- overall realized parallelism is still bounded by other workflow runtime bottlenecks documented in this note
 
 ## Source Pointers
 

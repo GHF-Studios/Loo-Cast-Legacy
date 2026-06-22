@@ -10,6 +10,9 @@ Use Obsidian tags to split the graph:
 
 Current implementation-facing notes:
 
+Workflow runtime-note pages are retained here as `#tech_glossary` legacy evidence for now.
+A later vault-structure pass may move legacy-note clusters out of the primary glossary folder.
+
 Current concept additions from the Phase 3/Vapor planning pass:
 
 - [Enginepack](Enginepack.md)

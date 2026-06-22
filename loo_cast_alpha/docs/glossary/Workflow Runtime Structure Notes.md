@@ -21,6 +21,8 @@ Related glossary terms:
 
 This note documents current legacy workflow-runtime structure and behavior.
 It is documentation-first, not a redesign proposal.
+Treat it as legacy implementation signal: useful mechanics and vocabulary may survive, but the exact old macro/runtime
+surface is not target doctrine.
 
 ## Runtime Layer Map (Current)
 

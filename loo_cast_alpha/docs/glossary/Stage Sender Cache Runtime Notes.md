@@ -13,6 +13,9 @@ Related glossary terms:
 - [Workflow Invariant Ledger Notes](Workflow%20Invariant%20Ledger%20Notes.md)
 
 Stage sender caches are runtime maps that resolve workflow stage metadata to concrete buffer-message sender objects.
+Status note: this page is legacy mechanism signal.
+The dynamic metadata-to-sender routing idea may remain useful, but the exact cache families and boxed sender surface are
+not target doctrine.
 
 ## Current Cache Families
 
