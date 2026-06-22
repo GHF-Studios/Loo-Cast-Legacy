@@ -13,7 +13,6 @@ Related glossary terms:
 - [Workflow State Runtime Notes](Workflow%20State%20Runtime%20Notes.md)
 - [Workflow Stage Runtime Notes](Workflow%20Stage%20Runtime%20Notes.md)
 - [Workflow Invariant Ledger Notes](Workflow%20Invariant%20Ledger%20Notes.md)
-- [Workflow Execution Trace Notes](Workflow%20Execution%20Trace%20Notes.md)
 
 In this note cluster, a normal workflow is a typed workflow request handled by the workflow runtime
 (`run_workflow_*` families), not a composite wrapper.

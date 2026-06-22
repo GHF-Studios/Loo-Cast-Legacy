@@ -10,7 +10,6 @@ Related glossary terms:
 - [Stage Sender Cache Runtime Notes](Stage%20Sender%20Cache%20Runtime%20Notes.md)
 - [Workflow Runtime Structure Notes](Workflow%20Runtime%20Structure%20Notes.md)
 - [Workflow Invariant Ledger Notes](Workflow%20Invariant%20Ledger%20Notes.md)
-- [Workflow Execution Trace Notes](Workflow%20Execution%20Trace%20Notes.md)
 
 Stage buffers are per-workflow-domain queues carrying in-flight stage objects and optional stage data payloads.
 
@@ -35,6 +34,13 @@ Each entry stores `(module_name, workflow_name, stage_index, stage_object, optio
 - deterministic step-wise progression
 - predictable serialization point per poll system
 - backlog can accumulate under high ingress until later ticks drain it
+
+## Known Legacy Problem
+
+The single-item poll pattern is not just a neutral throughput detail.
+Legacy testing observed backlog causing visible holes and broader system lag under load.
+Any future workflow rewrite should treat buffer draining, backpressure, sharding, and scheduling pressure as first-class
+runtime concerns rather than preserving this behavior by default.
 
 ## Source Pointers
 

@@ -12,6 +12,7 @@ Format:
 - `MOVE`: page/tag/location/classification issue.
 - `AUDIT`: cross-page consistency pass needed.
 - `DECIDE`: unresolved owner/design decision required before rewrite.
+- `DONE`: resolved; kept temporarily for review before archive/removal.
 
 This ledger is intentionally terse. It is a work queue, not doctrine.
 
@@ -79,7 +80,7 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 51. `FIX` `core_mod` independent replacement is forbidden for Phase 3; docs should not imply mix-and-match.
 52. `AUDIT` Ensure `core_engine`, `core_mod`, and `base_mod` are always described as reserved role names and literal crate names where relevant.
 53. `FIX` Loo Cast page should distinguish Game, Product bundle, and Project/repo context more sharply.
-54. `FIX` Spacetime Engine page should not claim ownership of Vapor-level capability runtime.
+54. `DONE` Spacetime Engine page should not claim ownership of Vapor-level capability runtime.
 55. `FIX` USF should stay public/API-facing Spacetime subsystem, not product pillar.
 56. `AUDIT` Search for phrasing that makes USF directly replaceable without replacing/forking the Engine.
 57. `FIX` Pillar Dependency Topology should reflect future multi-project split pressure.
@@ -142,9 +143,9 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 108. `FIX` Capability Projection API may be enough to absorb Scripting Projection Meta-Layer.
 109. `DECIDE` Decide whether Capability Contract should split into metadata, declaration rules, projection rules, and runtime rules.
 110. `FIX` Capability Contract currently carries too much legacy/USF/Rhai/runtime pressure in one page.
-111. `FIX` Capability Runtime should be Vapor-defined infrastructure embedded/adapted by launched compositions.
-112. `FIX` Spacetime Engine should utilize/extend capability runtime, not host or define it.
-113. `FIX` Runtime Substrate should not sound like it owns Capability semantics.
+111. `DONE` Capability Runtime should be Vapor-defined infrastructure embedded/adapted by launched compositions.
+112. `DONE` Spacetime Engine should utilize/extend capability runtime, not host or define it.
+113. `DONE` Runtime Substrate should not sound like it owns Capability semantics.
 114. `FIX` Capability Runtime and Modding Runtime are deeply coupled; docs should not overstate sibling separateness.
 115. `FIX` Modding is a major composition use of capability semantics.
 116. `FIX` Mod runtime representation should say mods resolve into capability graph contributions.
@@ -205,10 +206,10 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 165. `FIX` Callback access outside resolved mask hard-fails.
 166. `FIX` Rhai generic dispatch cannot rely on runtime Rust monomorphization.
 167. `FIX` Rhai Generic Dispatch page is substance-correct but too dense; add concise summary.
-168. `FIX` Reflection macro surface is useful legacy signal, not final doctrine.
-169. `FIX` Bridge/access-provider notes are useful legacy/quarantine signal, not stable target.
-170. `FIX` Value semantics / AccessCell notes are provisional and need status banner.
-171. `FIX` Add consistent `legacy_signal` / `quarantine_signal` status blocks to Rhai tech notes.
+168. `DONE` Reflection macro surface is useful legacy signal, not final doctrine.
+169. `DONE` Bridge/access-provider notes are useful legacy/quarantine signal, not stable target.
+170. `DONE` Value semantics / AccessCell notes are provisional and need status banner.
+171. `DONE` Add consistent `legacy_signal` / `quarantine_signal` status blocks to Rhai tech notes.
 172. `FIX` Script Safety should be projection-safety, not broad anti-malware guarantee.
 173. `FIX` Native engine/mod binaries cannot be made non-malicious merely by Vapor docs.
 174. `FIX` Workshop content is validated for integrity/compatibility/fingerprint, not sandboxed as hostile code.
@@ -224,7 +225,7 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 181. `FIX` USF is public/API-facing Spacetime subsystem, not Vapor product pillar.
 182. `FIX` Replacing USF effectively means replacing/forking enough of Spacetime Engine to be another Engine.
 183. `FIX` USF Contract is internal to Spacetime Engine product stack, not Vapor-level contract family.
-184. `FIX` USF Runtime should compose with Vapor capability runtime, not redefine it.
+184. `DONE` USF Runtime should compose with Vapor capability runtime, not redefine it.
 185. `FIX` USF Definition Lifecycle applies to immutable startup-constructed core, not every dynamic runtime structure.
 186. `FIX` Runtime evolution can add dynamic state/substrate over locked core if explicitly modeled.
 187. `FIX` USF Instantiation Scripts feel wobbly because generic Rhai and USF-specific profiles are mixed.
@@ -235,46 +236,47 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 192. `FIX` Remove “highest-authority draft math foundation” wording if custom math lib is no longer direction.
 193. `FIX` USF Position Stack remains useful but must derive from current math posture.
 194. `FIX` Scale remains canonical semantic coordinate, not runtime realization by itself.
-195. `FIX` Scale Contract should not require explicit unsupported declarations for every capability-scale pair.
-196. `FIX` Scale Support should become positive support declaration plus default absence semantics unless specific denial is needed.
-197. `FIX` Scale Support may need to generalize beyond capabilities to scale-aware semantic surfaces.
-198. `FIX` Scale Contract Runtime Notes must stop saying each pair is explicitly supported/unsupported.
+195. `DONE` Scale Contract should not require explicit unsupported declarations for every capability-scale pair.
+196. `DONE` Scale Support should become positive support declaration plus default absence semantics unless specific denial is needed.
+197. `DONE` Scale Support may need to generalize beyond capabilities to scale-aware semantic surfaces.
+198. `DONE` Scale Contract Runtime Notes must stop saying each pair is explicitly supported/unsupported.
 199. `DECIDE` Confirm whether `supported` / `unsupported` enum survives as internal resolved state.
 200. `DECIDE` Confirm whether every canonical scale still requires one scale definition and one realizer type.
 201. `DECIDE` Confirm whether every active scale requires at least one Phenomenon and Metric.
-202. `FIX` Scaled Capability Channel should become a USF-compatible capability pattern, not general capability law.
+202. `DONE` Scaled Capability Channel should become a USF-compatible capability pattern, not general capability law.
 203. `RENAME` Consider `Scale-Scoped Capability Channel` or `USF-Scoped Capability Channel`.
-204. `FIX` Global utilities such as logging/math may be unscaled or differently scoped.
+204. `DONE` Global utilities such as logging/math may be unscaled or differently scoped.
 205. `FIX` Observer-Relative Simulation needs internal coherence pass.
 206. `FIX` Higher scales also participate in significance flow; current wording underexplores this.
 207. `FIX` Larger-scale changes affecting lower-scale detail need a home concept.
 208. `FIX` Cross-scale significance flow may deserve a page.
 209. `FIX` Scale View should be substrate for camera/render/chunk loading later, not those implementations.
 210. `FIX` Entity Proxy, Entity Plane Split, and Portal Traversal need clearer mechanism-vs-semantics split.
-211. `FIX` Entity Plane Split should mention usefulness for f32/f64 technologies such as physics engines.
-212. `FIX` Do not overcommit to Rapier specifically.
-213. `FIX` Portal Traversal should link Entity Plane Split.
+211. `DONE` Entity Plane Split should mention usefulness for f32/f64 technologies such as physics engines.
+212. `DONE` Do not overcommit to Rapier specifically.
+213. `DONE` Portal Traversal should link Entity Plane Split.
 214. `FIX` Entity Proxy can simplify world wrapping mechanically, while Portal Traversal owns semantic continuity.
 215. `FIX` Zone-era pages should keep “superseded but signal-bearing” status.
 
 ## Artifacts / Source / Packaging / Project Structure
 
-216. `FIX` Build Artifact needs concrete examples: linked shared objects/binaries before packaging.
-217. `FIX` Build Artifact should distinguish “built output” from assembled runtime library payload set.
-218. `FIX` Distributable Artifact should remain final packaged/uploadable object.
-219. `FIX` Source Artifact should include Vapor.toml and Rhai declarations explicitly.
-220. `FIX` Redistributable Mod Implementation Library should remain runtime-deliverable platform library set.
-221. `FIX` Redistributable Mod Contract Source should remain development/dependency source package.
+216. `DONE` Build Artifact needs concrete examples: linked shared objects/binaries before packaging.
+217. `DONE` Build Artifact should distinguish “built output” from assembled runtime library payload set.
+218. `DONE` Distributable Artifact should remain final packaged/uploadable object.
+218a. `DECIDE` `Authoring Artifact` naming pressure: alias/rename candidate for built outputs once surrounded by runtime libraries, payloads, manifests, dependencies, and publication metadata; avoid collision with `Source Artifact`.
+219. `DONE` Source Artifact should include Vapor.toml and Rhai declarations explicitly.
+220. `DONE` Redistributable Mod Implementation Library should remain runtime-deliverable platform library set.
+221. `DONE` Redistributable Mod Contract Source should remain development/dependency source package.
 222. `AUDIT` Check artifact pages for source/build/distributable/runtime confusion.
 223. `FIX` Project Artifact Structure feels too wobbly; tighten or fold.
 224. `MERGE` Project Artifact Structure may fold into Artifact + Project Structure if no unique role remains.
 225. `FIX` Project Authoring Structure must discuss intended multi-repo/multi-project future.
 226. `FIX` Project Structure may be too generic unless it carries real authoring/artifact/runtime taxonomy value.
-227. `FIX` Project Runtime Representation should avoid making Capability Runtime sound Spacetime-owned.
+227. `DONE` Project Runtime Representation should avoid making Capability Runtime sound Spacetime-owned.
 228. `FIX` Project Ethos needs inspiration and systemic-reality language.
 229. `FIX` Project Ethos should mention showing deep interconnection rather than simplified lies.
 230. `FIX` Player-to-Creator Path should connect more strongly to inspiration and systemic literacy.
-231. `FIX` SDK should include LSP/editor support where applicable.
+231. `DONE` SDK should include LSP/editor support where applicable.
 232. `FIX` SDK command surface should stay public creator-facing contract by Phase 3.
 233. `FIX` SDK vs xtask boundary should remain clear.
 234. `FIX` Vapor Launcher modes should stay player/modpack-author/developer separated.
@@ -282,16 +284,16 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 
 ## Workflow / Legacy Runtime
 
-236. `DELETE` Workflow Execution Trace Notes should be removed.
-237. `AUDIT` Remove backlinks to Workflow Execution Trace Notes.
-238. `FIX` Workflow Usage Patterns Legacy Notes should become the canonical trace/example page.
+236. `DONE` Workflow Execution Trace Notes should be removed.
+237. `DONE` Remove backlinks to Workflow Execution Trace Notes.
+238. `DONE` Workflow Usage Patterns Legacy Notes should become the canonical trace/example page.
 239. `FIX` Workflow pages need consistent legacy implementation signal status.
 240. `FIX` Workflow Framework should remain Rust-side orchestration, not Rhai lifecycle ownership.
 241. `FIX` Workflow stage execution should stay Bevy-system-visible where possible.
 242. `FIX` Workflow control-plane exclusive `&mut World` usage should be documented as refactor debt.
-243. `FIX` Stage Buffer backlog should be marked as a real observed legacy problem.
-244. `FIX` Backlog caused visual holes/lag; current neutral wording understates severity.
-245. `FIX` Single-item poll progress should be marked deterministic but throughput-limited.
+243. `DONE` Stage Buffer backlog should be marked as a real observed legacy problem.
+244. `DONE` Backlog caused visual holes/lag; current neutral wording understates severity.
+245. `DONE` Single-item poll progress should be marked deterministic but throughput-limited.
 246. `FIX` Unsafe output/input `transmute` contract should be marked legacy hazard.
 247. `FIX` Placeholder stage slot lifecycle should remain refactor-sensitive invariant.
 248. `FIX` Active-run key gate should be flagged as concurrency bottleneck.
@@ -336,16 +338,16 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 
 ## Immediate Low-Risk Edit Queue
 
-281. `FIX` Add Entity Plane Split link to Portal Traversal Semantics.
-282. `FIX` Add traditional f32/f64 tech motivation to Entity Plane Split.
-283. `FIX` Add Build Artifact examples.
-284. `FIX` Add LSP/editor support pressure to SDK.
-285. `FIX` Add legacy/quarantine status labels to Rhai tech notes.
-286. `FIX` Mark Stage Buffer backlog as known legacy problem.
-287. `FIX` Remove Workflow Execution Trace backlinks.
-288. `FIX` Reword Spacetime Engine so it utilizes Capability Runtime.
-289. `FIX` Reword Scaled Capability Channel as USF-specific pattern.
-290. `FIX` Reword Scale Support away from mandatory explicit unsupported entries.
+281. `DONE` Add Entity Plane Split link to Portal Traversal Semantics.
+282. `DONE` Add traditional f32/f64 tech motivation to Entity Plane Split.
+283. `DONE` Add Build Artifact examples.
+284. `DONE` Add LSP/editor support pressure to SDK.
+285. `DONE` Add legacy/quarantine status labels to Rhai tech notes.
+286. `DONE` Mark Stage Buffer backlog as known legacy problem.
+287. `DONE` Remove Workflow Execution Trace backlinks.
+288. `DONE` Reword Spacetime Engine so it utilizes Capability Runtime.
+289. `DONE` Reword Scaled Capability Channel as USF-specific pattern.
+290. `DONE` Reword Scale Support away from mandatory explicit unsupported entries.
 
 ## Higher-Risk Rewrite Queue
 

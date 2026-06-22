@@ -5,8 +5,9 @@ aliases: []
 ---
 
 The Capability Runtime is the runtime orchestration layer for capabilities.
-In the first-party stack, the concrete runtime lives inside the [[Spacetime Engine]], but the concept is rooted in the
-[[Vapor Ecosystem]] capability model.
+It is a [[Vapor Ecosystem]]-level concept.
+Concrete launched Engine/Game compositions embed or adapt capability-runtime machinery, and the first-party
+[[Spacetime Engine]] uses and extends that machinery rather than owning the concept.
 It handles dynamic discovery, registration, coordination, and execution routing for capability implementations.
 The current launch-runtime direction is one resolved capability graph inside the launched Engine/Game composition, with
 [[Packagepack]], [[Enginepack]], [[Gamepack]], [[Modpack]], engine, game, mod, Rhai, and user-facing views expressed as
@@ -21,8 +22,8 @@ include/exclude path declarations and can dynamically narrow/re-open by runtime 
 These projected subgraphs are concrete [[Capability Projection API]] instances rather than raw global-graph access.
 Callback invocation enforces resolved effective callback `ctx` path masks (allow/deny policy outcome), not implicit
 carry-over from declaration-entrypoint access.
-Capability implementations expose [[Scaled Capability Channel]] structures as per-scale execution paths for that
-runtime execution.
+USF-aware capability implementations may expose [[Scaled Capability Channel]] structures as scale-scoped execution paths
+for that runtime execution.
 The runtime realizes contracts defined by the [[Capability Contract]] and coordinates
 with [[Observer-Relative Simulation]].
 Canonical lifecycle, Rust/Rhai loop semantics, callback-path semantics, and multiplicity classes are defined in

@@ -20,6 +20,8 @@ Current owner-answer-informed direction:
 - SDK package/fingerprint/build commands are needed for local authoring.
 - SDK publish/update commands are needed for [[Steam Workshop]].
 - SDK migration tooling is needed for Vapor metadata/schema changes.
+- LSP/editor support is desirable where the public authoring surface benefits from it, but exact Phase 3 scope is not
+  locked.
 - A local content registry should begin as discovered workspace folders with a simple working index.
 - Documentation generation from [[Vapor.toml]], [[Rhai Asset]], and [[Capability]] metadata is desirable, starting
   barebones but conceptually similar to `cargo doc`; this is currently Phase 3.5 quality-layer pressure rather than a

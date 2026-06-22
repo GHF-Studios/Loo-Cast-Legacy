@@ -13,7 +13,6 @@ Related glossary terms:
 - [Stage Buffer Runtime Notes](Stage%20Buffer%20Runtime%20Notes.md)
 - [Stage Sender Cache Runtime Notes](Stage%20Sender%20Cache%20Runtime%20Notes.md)
 - [Workflow Invariant Ledger Notes](Workflow%20Invariant%20Ledger%20Notes.md)
-- [Workflow Execution Trace Notes](Workflow%20Execution%20Trace%20Notes.md)
 
 This note documents current workflow-domain stage behavior and stage-lifecycle mechanics.
 

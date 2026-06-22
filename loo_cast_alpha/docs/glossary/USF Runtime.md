@@ -5,8 +5,8 @@ aliases: []
 ---
 
 The USF Runtime is the Spacetime Engine runtime implementation of the [[USF Contract]] family.
-It realizes the active USF module/framework behavior inside the Spacetime Engine stack and interacts with the
-[[Capability Runtime]] and [[Modding Runtime]] where the engine architecture requires it.
+It realizes the active USF module/framework behavior inside the Spacetime Engine stack and composes with Vapor-level
+[[Capability Runtime]] semantics and [[Modding Runtime]] machinery where the selected engine architecture requires it.
 Its Rust-side staged lifecycle orchestration can be implemented through the [[Workflow Framework]].
 It invokes declaration-surface entrypoints with profile-tailored `ctx` capability-object subgraphs during activation,
 then executes the resulting runtime-materialized capabilities.

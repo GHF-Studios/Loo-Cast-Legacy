@@ -11,7 +11,6 @@ Related glossary terms:
 - [Workflow Runtime Structure Notes](Workflow%20Runtime%20Structure%20Notes.md)
 - [Workflow Type Request and Timeout Notes](Workflow%20Type%20Request%20and%20Timeout%20Notes.md)
 - [Workflow Invariant Ledger Notes](Workflow%20Invariant%20Ledger%20Notes.md)
-- [Workflow Execution Trace Notes](Workflow%20Execution%20Trace%20Notes.md)
 
 Stage sender caches are runtime maps that resolve workflow stage metadata to concrete buffer-message sender objects.
 

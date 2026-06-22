@@ -7,7 +7,8 @@ aliases: []
 The Runtime Substrate is the execution substrate provided by the [[Spacetime Engine]] for running scale-layered
 simulation and capability-driven runtime behavior.
 It is the execution medium for [[Capability-Centric Semantics]], not the authority-definition layer itself.
-It hosts runtime orchestration through [[Capability Runtime]], [[Modding Runtime]], and [[USF Runtime]].
+It composes with Vapor-level [[Capability Runtime]] semantics and hosts engine-side [[Modding Runtime]] and
+[[USF Runtime]] execution where the selected Engine exposes those systems.
 Rust-side staged lifecycle orchestration is handled through the [[Workflow Framework]].
 ECS is the underlying execution/data medium in this substrate, while semantic capability-type-template authority remains
 contract-defined.

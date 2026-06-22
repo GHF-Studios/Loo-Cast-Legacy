@@ -2,6 +2,11 @@
 
 #tech_glossary
 
+Status note:
+This page is legacy/quarantine evidence, not settled target doctrine.
+It preserves useful bridge and access-provider signals from `loo_cast_legacy` and
+`TMP_rhai_semantic_reset_quarantine` for later reconciliation.
+
 Related glossary terms:
 
 - [Rhai Reflection Macro Surface Notes](Rhai%20Reflection%20Macro%20Surface%20Notes.md)

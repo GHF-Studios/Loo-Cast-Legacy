@@ -6,7 +6,7 @@ aliases: []
 
 The Spacetime Engine is the first-party [[Engine]] product that provides the [[Runtime Substrate]] for default and
 heavily modified experiences.
-It hosts composable system behavior through the [[Capability Runtime]] within the boundaries of the [[Contract]].
+It uses and extends Vapor-level [[Capability Runtime]] semantics within the boundaries of the [[Contract]].
 
 In the broader [[Vapor Ecosystem]] framing, the Spacetime Engine is an official engine/framework product rather than the
 only possible engine product.

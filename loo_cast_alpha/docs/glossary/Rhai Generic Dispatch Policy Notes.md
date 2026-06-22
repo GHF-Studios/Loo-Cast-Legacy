@@ -2,6 +2,11 @@
 
 #tech_glossary
 
+Status note:
+This page mixes active declaration-first direction with legacy/quarantine dispatch evidence.
+The declaration model is the stronger target signal; concrete dispatch catalogs and prefixes remain provisional until
+reconciled with current Vapor/Rhai implementation.
+
 Related glossary terms:
 
 - [USF Instantiation Scripts](USF%20Instantiation%20Scripts.md)

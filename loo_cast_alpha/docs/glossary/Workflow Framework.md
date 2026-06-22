@@ -41,7 +41,6 @@ Implementation-facing notes:
 - [Stage Sender Cache Runtime Notes](Stage%20Sender%20Cache%20Runtime%20Notes.md)
 - [Workflow Invariant Ledger Notes](Workflow%20Invariant%20Ledger%20Notes.md)
 - [Workflow Usage Patterns Legacy Notes](Workflow%20Usage%20Patterns%20Legacy%20Notes.md)
-- [Workflow Execution Trace Notes](Workflow%20Execution%20Trace%20Notes.md)
 - [Rhai Reflection Macro Surface Notes](Rhai%20Reflection%20Macro%20Surface%20Notes.md)
 
 Current run identity/concurrency draft is maintained in those premise notes.

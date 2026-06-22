@@ -13,7 +13,6 @@ Related glossary terms:
 - [Stage Sender Cache Runtime Notes](Stage%20Sender%20Cache%20Runtime%20Notes.md)
 - [Workflow Instance Runtime Notes](Workflow%20Instance%20Runtime%20Notes.md)
 - [Workflow State Runtime Notes](Workflow%20State%20Runtime%20Notes.md)
-- [Workflow Execution Trace Notes](Workflow%20Execution%20Trace%20Notes.md)
 
 This ledger captures current behavior contracts that are easy to forget during refactor.
 

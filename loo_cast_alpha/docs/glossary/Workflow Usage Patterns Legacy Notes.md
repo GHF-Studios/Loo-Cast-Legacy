@@ -12,7 +12,6 @@ Related glossary terms:
 - [Workflow Type Request and Timeout Notes](Workflow%20Type%20Request%20and%20Timeout%20Notes.md)
 - [Workflow Stage Runtime Notes](Workflow%20Stage%20Runtime%20Notes.md)
 - [Workflow Invariant Ledger Notes](Workflow%20Invariant%20Ledger%20Notes.md)
-- [Workflow Execution Trace Notes](Workflow%20Execution%20Trace%20Notes.md)
 
 This note is the canonical home for concrete legacy workflow usage examples.
 Other workflow runtime notes should link here instead of duplicating examples.

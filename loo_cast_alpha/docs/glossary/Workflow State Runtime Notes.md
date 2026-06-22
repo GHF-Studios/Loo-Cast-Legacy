@@ -10,7 +10,6 @@ Related glossary terms:
 - [Workflow Stage Type Runtime Notes](Workflow%20Stage%20Type%20Runtime%20Notes.md)
 - [Workflow Stage Runtime Notes](Workflow%20Stage%20Runtime%20Notes.md)
 - [Workflow Invariant Ledger Notes](Workflow%20Invariant%20Ledger%20Notes.md)
-- [Workflow Execution Trace Notes](Workflow%20Execution%20Trace%20Notes.md)
 
 `WorkflowState` is the per-workflow-instance lifecycle state machine.
 

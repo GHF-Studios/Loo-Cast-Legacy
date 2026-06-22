@@ -2,6 +2,11 @@
 
 #tech_glossary
 
+Status note:
+This page is a high-signal legacy implementation note, not final target doctrine.
+The macro and registration model worked in the legacy tree and remains useful evidence for future Vapor/Rhai
+reflection design.
+
 Related glossary terms:
 
 - [Rhai Generic Dispatch Policy Notes](Rhai%20Generic%20Dispatch%20Policy%20Notes.md)

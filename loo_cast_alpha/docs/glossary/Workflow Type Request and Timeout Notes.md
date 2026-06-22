@@ -14,7 +14,6 @@ Related glossary terms:
 - [Workflow Stage Runtime Notes](Workflow%20Stage%20Runtime%20Notes.md)
 - [Stage Sender Cache Runtime Notes](Stage%20Sender%20Cache%20Runtime%20Notes.md)
 - [Workflow Invariant Ledger Notes](Workflow%20Invariant%20Ledger%20Notes.md)
-- [Workflow Execution Trace Notes](Workflow%20Execution%20Trace%20Notes.md)
 
 This note documents the current typed workflow request/response and timeout-control behavior.
 

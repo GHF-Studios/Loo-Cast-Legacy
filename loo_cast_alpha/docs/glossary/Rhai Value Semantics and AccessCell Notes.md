@@ -2,6 +2,11 @@
 
 #tech_glossary
 
+Status note:
+This page is provisional legacy/quarantine evidence, not settled target doctrine.
+The value-semantics and `AccessCell` model should be preserved as design signal while the final bridge shape remains
+open.
+
 Related glossary terms:
 
 - [USF Instantiation Scripts](USF%20Instantiation%20Scripts.md)

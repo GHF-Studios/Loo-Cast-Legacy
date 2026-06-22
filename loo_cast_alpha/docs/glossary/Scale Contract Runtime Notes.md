@@ -16,7 +16,8 @@ Current runtime-facing assumptions carried from active glossary + legacy notes:
 
 1. Canonical scale spine is treated as `-35..35` (`71` coordinates).
 2. Each coordinate declares one scale definition and one declared scale-realizer type.
-3. Capability support is explicit per `(capability, scale)` pair (`supported`/`unsupported`).
+3. Scale support is declared positively for supported scale coordinates; unsupported coordinates normally remain
+   implicit unless a later policy needs explicit denial.
 4. Active scale slices must satisfy one-effective-realizer cardinality.
 5. Scale-facing numeric behavior should be interpreted through the raw-model math contract posture
    (facade-first surfaces, explicit conversion boundaries, explicit operation policy).
