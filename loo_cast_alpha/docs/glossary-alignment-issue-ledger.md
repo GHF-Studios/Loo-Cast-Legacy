@@ -1,881 +1,361 @@
 # Glossary Alignment Issue Ledger
 
-Status: first-pass audit from `glossary-and-tech-glossary-summary.md` owner edits plus cross-document scans.
-
-Purpose: identify the documentation changes implied by the owner corrections before rewriting glossary/RFC/source docs. This is a ledger, not final doctrine.
-
-## Legend
-
-- `direct`: explicitly requested or strongly implied by owner edits.
-- `inferred`: found by cross-reading the glossary, tech glossary, RFCs, and current summary.
-- `question`: needs owner confirmation before rewrite.
-- `spillover`: affects non-glossary docs too.
-
-## Global Structure
-
-### GL-001: Preserve The Modified Summary As Owner-Intent Input
-
-Type: direct.
-
-Affected files:
-
-- `loo_cast_alpha/docs/glossary-and-tech-glossary-summary.md`
-
-Issue:
-The summary now contains owner corrections inline. It should be treated as a temporary source-of-truth input, not polished documentation.
-
-Likely action:
-Keep it unchanged for now or archive it as an input record before replacing it with generated/embedded summaries.
-
-### GL-002: Add Per-Page `Summary` Sections For Obsidian Embeds
-
-Type: direct/inferred.
-
-Affected files:
-
-- all glossary and tech-glossary pages
-- future summary index pages
-
-Issue:
-Obsidian supports embedding a note or a heading with `![[Note#Heading]]`. The glossary can use this by adding stable `## Summary` sections to pages and building summary indexes from embeds such as `![[Capability#Summary]]`.
-
-Likely action:
-Add a short `## Summary` section to each glossary page. Then create separate index files for normal glossary and tech glossary that embed those summaries rather than duplicating text.
-
-### GL-003: Harden The `#glossary` vs `#tech_glossary` Split
-
-Type: direct/inferred.
-
-Affected files:
-
-- `loo_cast_alpha/docs/glossary/README.md`
-- all pages with implementation-facing content
-- all pages with concept-level content
-
-Issue:
-The current split is useful but soft. Several pages tagged `#glossary` are planning or implementation-facing (`Vapor Crate Topology`, `Phase 3 Vapor Scenario Suite`, possibly `SDK`, `Vapor Launcher`, `Vapor.toml`, `Vapor.lock`). The README also includes tag text in prose, which makes naive tag scanning count it as both glossary and tech glossary.
-
-Likely action:
-Define classification criteria:
-
-- `#glossary`: stable conceptual vocabulary and product/domain semantics.
-- `#tech_glossary`: implementation notes, legacy/quarantine evidence, code/runtime behavior notes, phase/test/runbook notes.
-- optional future tags: `#legacy_signal`, `#quarantine_signal`, `#phase_plan`, `#owner_input`.
-
-### GL-004: Split Summary Indexes Into Normal And Tech Glossary
-
-Type: direct.
-
-Affected files:
-
-- `loo_cast_alpha/docs/glossary/README.md`
-- new `Glossary Summary.md`
-- new `Tech Glossary Summary.md`
-
-Issue:
-The owner wants persistent TOC-like summaries for normal glossary and tech glossary. The current single summary is useful as an audit artifact, but it mixes conceptual and implementation-facing pages.
-
-Likely action:
-After `## Summary` sections exist, create two Obsidian-friendly index pages using embeds and explicit source ordering.
-
-### GL-005: Keep Alphabetical Review Mode
-
-Type: direct.
-
-Affected files:
-
-- summary/index pages
-
-Issue:
-The owner explicitly found alphabetical ordering useful for holistic review because it avoids rabbit-hole ordering.
-
-Likely action:
-Keep alphabetic per-page order in the review summaries, even if other topic maps are later added.
-
-### GL-006: Add A Cross-Concept Coherence Map
-
-Type: direct/inferred.
-
-Affected files:
-
-- new ledger/map document, possibly generated from links later
-
-Issue:
-The owner wants a “double loop” coherence pass: each concept checked against relevant other concepts. A fully exhaustive all-pairs review is too large to do manually in one edit pass, but the docs can support it with a graph/coherence map.
-
-Likely action:
-Create a topology map grouping concepts by capability, Vapor/product stack, Rhai, USF, workflow, artifacts, and phase planning. Then audit cross-group contradictions.
-
-## Capability / Modding / Runtime Layering
-
-### CAP-001: Capability Runtime Is Vapor-Level, Not Hosted By Spacetime Engine
-
-Type: direct/spillover.
-
-Affected files:
-
-- `glossary/Capability Runtime.md`
-- `glossary/Spacetime Engine.md`
-- `glossary/Runtime Substrate.md`
-- `glossary/Runtime Substrate.md`
-- `glossary/USF Runtime.md`
-- `docs/ARCHITECTURE.md`
-
-Issue:
-Current wording says the concrete Capability Runtime lives inside or is hosted by Spacetime Engine. Owner correction: Spacetime Engine should extend/utilize the capability runtime; Capability semantics supersede Engine/USF and help implement them.
-
-Likely action:
-Reframe Capability Runtime as Vapor-defined infrastructure with concrete runtime embeddings/adapters in launched Engine/Game compositions. Spacetime Engine is a first-party user/extension point, not the owner of the concept.
-
-### CAP-002: Scaled Capability Channel Is Outdated Or Misframed
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Scaled Capability Channel.md`
-- `glossary/Capability Contract.md`
-- `glossary/Capability Runtime.md`
-- `glossary/Scale Contract.md`
-- `glossary/Scale Support.md`
-
-Issue:
-Current wording implies scale-scoped channels are intrinsic to capabilities or that capability infrastructure depends on USF. Owner correction: scale-scoped capability channels are a USF-compatible implementation pattern, not the general capability model.
-
-Likely action:
-Rename or reframe as `Scale-Scoped Capability Channel` or `USF-Scaled Capability Channel`, with an explicit boundary: general capabilities are Vapor-level and may or may not be scale-scoped.
-
-### CAP-003: Capability Contract Is Overburdened By Legacy Concepts
-
-Type: direct/question.
-
-Affected files:
-
-- `glossary/Capability Contract.md`
-- `glossary/Contract.md`
-- `glossary/Contract Family.md`
-- `glossary/Capability.md`
-- `glossary/Capability Runtime.md`
-
-Issue:
-Owner says the summary is mostly good but the concept feels broadly contaminated by legacy framing. The page mixes contract family, scaled channels, Rhai `ctx`, dependency layering, metadata requirements, and USF boundaries.
-
-Likely action:
-Do a focused rewrite or split:
-
-- Capability Contract: durable rules a capability declaration/implementation must satisfy.
-- Capability Runtime: runtime execution/orchestration.
-- Capability Projection: script/callback facades.
-- Capability Metadata: discovery/validation/diagnostic substrate.
-
-### CAP-004: Modding And Capability Are Closer Than Docs Suggest
-
-Type: direct/inferred.
-
-Affected files:
-
-- `glossary/Mod Runtime Representation.md`
-- `glossary/Modding Contract.md`
-- `glossary/Modding Runtime.md`
-- `glossary/Capability.md`
-- `glossary/Capability Runtime.md`
-
-Issue:
-Owner notes that Modding and Capability are not identical, but are more tightly coupled than many pages imply. Current docs sometimes present them as sibling families instead of deeply interdependent views over composition/runtime capability graph semantics.
-
-Likely action:
-Clarify that modding is one major product/composition use of the capability model. Modding runtime resolves mods/artifacts into capability graph contributions rather than standing beside capability semantics as an unrelated layer.
-
-### CAP-005: Some Capabilities Directly Call Rust Kernels
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Runtime Intent Reconcile Commit Apply Mapping Notes.md`
-- `glossary/Capability.md`
-- `glossary/Capability Runtime.md`
-- `glossary/Execution-Reconciliation Dual Core.md`
-- `glossary/Rhai Capability.md`
-
-Issue:
-Current summary overstates “capabilities as intent emitters/request relays.” Owner correction: some capabilities are intent emitters, while others directly call into Rust kernel layers. Canonical state progression still needs reconcile/commit/apply discipline where relevant.
-
-Likely action:
-Replace blanket wording with capability classes:
-
-- pure projected/query capabilities
-- request/intent-emitting capabilities
-- direct Rust-kernel binding capabilities
-- authority/reconciler capabilities, if later formalized
-
-### CAP-006: Hardcoded Native Capabilities Must Project Into Rhai Contexts
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Rhai Capability.md`
-- `glossary/Rhai Asset.md`
-- `glossary/Capability.md`
-- `glossary/Capability Projection API.md`
-
-Issue:
-Owner correction: Rust-defined/hardcoded capabilities can be projected into Rhai `ctx` and used like any other context-visible capability. Rhai-defined capabilities are not the only projected things.
-
-Likely action:
-Make native-vs-Rhai capability origin explicit and separate origin from projection/use.
-
-### CAP-007: Callback Context Type Needs Stronger Compile-Time/Metadata Framing
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Callback Context Type.md`
-- `glossary/Callback Signature.md`
-- `glossary/Callback Type.md`
-- `glossary/Rhai Capability.md`
-- `RFCS/phase_3_vapor_execution_spec.md`
-
-Issue:
-Owner correction: callback context metadata should mirror Rust function shape/signature enough to pull in or reject the required dependency/`ctx` capability graph projection at callback validation time.
-
-Likely action:
-Clarify callback context type as host-defined metadata plus projected context, not just a prose description of available data.
-
-### CAP-008: Capability Role Taxonomy Remains Open, But Input/Output Has Evidence
-
-Type: direct/question.
-
-Affected files:
-
-- `glossary/Capability Role.md`
-- `glossary/Capability Role and State Authority Notes.md`
-- `glossary/Scale Slice.md`
-
-Issue:
-Owner notes `Scale Slice` may support a simpler input/output split, but not enough to decide. Existing docs say input/output is underpowered.
-
-Likely action:
-Track both:
-
-- input/output as useful directional vocabulary in some runtime/scale contexts
-- broader authority/reconciler/realizer/bridge/mutator as unresolved role pressure
-
-### CAP-009: Optional Providers And Integration Apertures Are Underdefined
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Modding Contract.md`
-- `glossary/Slot Graph Composition.md`
-- `RFCS/phase_2_to_11_execution_program.md`
-
-Issue:
-Owner is uncomfortable with `optional providers` and `integration apertures` because they are nearly unexplored. Current docs use them as if they are understood pressure terms.
-
-Likely action:
-Demote these terms to explicitly unresolved vocabulary or create small placeholder pages that say they are not yet formal concepts.
-
-### CAP-010: Slot Graph Composition Needs Static-Core / Dynamic-Substrate Boundary
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Slot Graph Composition.md`
-- `glossary/Runtime Lock.md`
-- `glossary/Capability Runtime.md`
-
-Issue:
-Owner correction: slots are the static composition mechanism for the immutable startup-generated graph core/root/host. Dynamic mutable substrate layered on top does not follow Slot Graph Composition directly.
-
-Likely action:
-Add an explicit static graph core vs dynamic substrate section.
-
-## Vapor / Product / Phase Planning
-
-### VAP-001: Phase 3 Scenario Suite Should Become Phase 3 Vapor Testing Suite
-
-Type: direct/spillover.
-
-Affected files:
-
-- `glossary/Phase 3 Vapor Scenario Suite.md`
-- `glossary/README.md`
-- `glossary/Packagepack.md`
-- `glossary/Capability Graph Diagnostics.md`
-- `RFCS/phase_3_vapor_execution_spec.md`
-- `RFCS/phase_2_to_11_execution_program.md`
-- `docs/NOW.md`
-
-Issue:
-Owner prefers `Phase 3 Vapor Testing Suite`, not `Scenario Suite` or `Test Suite`, because the suite includes manual verification flows that cannot be automatically run/verified. Existing docs repeatedly say scenario/integration-test suite.
-
-Likely action:
-Rename page and references, or keep old page as alias with canonical name changed. Replace `integration-test suite` wording with `testing suite` and distinguish automated validation fixtures from manually verified Steam/Workshop flows.
-
-### VAP-002: Phase 3 Automated Testing Scope Is Overstated
-
-Type: direct/spillover.
-
-Affected files:
-
-- `RFCS/phase_3_vapor_execution_spec.md`
-- `glossary/Phase 3 Vapor Scenario Suite.md`
-- `docs/NOW.md`
-- `question_batch_005.txt` as source evidence
-
-Issue:
-Owner answer in batch 005 says Steam flows are manually verified, not integration-tested for most things. Current docs still use integration-test language too heavily.
-
-Likely action:
-Formalize three lanes:
-
-- automated unit/pure-validation tests
-- local manual scenario runs
-- Steam/Workshop manual verification checklist
-
-### VAP-003: Project Authoring Structure Must Reflect Upcoming Multi-Repo Split
-
-Type: direct/spillover/question.
-
-Affected files:
-
-- `glossary/Project Authoring Structure.md`
-- `glossary/Project Structure.md`
-- `glossary/Vapor Crate Topology.md`
-- `docs/NOW.md`
-- `docs/ARCHITECTURE.md`
-
-Issue:
-Owner now expects a future Vapor-based multi-repo/multi-project layout splitting Loo Cast, Spacetime Engine, and Vapor. Current `NOW.md` says “Keep one repo,” which conflicts unless scoped as current-only.
-
-Likely action:
-Clarify current mono-repo as temporary crystallization workspace and add a future migration note for the Great Split into Vapor, Spacetime Engine, and Loo Cast repositories/projects.
-
-### VAP-004: SDK Needs LSP Support Mentioned
-
-Type: direct.
-
-Affected files:
-
-- `glossary/SDK.md`
-- `RFCS/phase_3_vapor_execution_spec.md` if Phase 3 scope includes it
-
-Issue:
-Owner added LSP support “if/where applicable” to SDK expectations.
-
-Likely action:
-Add LSP/editor support as a desirable SDK surface, likely not a hard Phase 3 gate unless owner confirms.
-
-### VAP-005: Build Artifact Needs Dynamic-Library Packaging Boundary
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Build Artifact.md`
-- `glossary/Distributable Artifact.md`
-- `glossary/Redistributable Mod Implementation Library.md`
-- `glossary/Mod Artifact Structure.md`
-
-Issue:
-Owner correction: Build Artifact is akin to a linked shared object or binary before nearby/packaged dynamic library payloads are assembled.
-
-Likely action:
-Add concrete examples and clarify the boundary between built outputs and packaged distributable/runtime-deliverable library sets.
-
-### VAP-006: Engine Page Has A Weird USF Boundary Coupling
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Engine.md`
-- `glossary/Spacetime Engine.md`
-- `glossary/USF.md`
-- `glossary/Pillar Dependency Topology.md`
-
-Issue:
-Owner flags the Engine summary framing as awkward because non-Spacetime engines and first-party USF product-slot caution are related but not the same sentence-level concern.
-
-Likely action:
-Separate:
-
-- generic Engine role and non-Spacetime engines
-- first-party Spacetime/USF boundary
-
-### VAP-007: Project Ethos Needs Inspiration / Systemic Reality
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Project Ethos.md`
-- `glossary/Player-to-Creator Path.md`
-- maybe `docs/README.md`
-
-Issue:
-Owner says inspiration is a major ethos component: inspiring people to look at the real systemic complexity and interconnection of reality rather than simplified lies.
-
-Likely action:
-Rewrite Project Ethos from a thin list into a stronger statement including inspiration, systemic complexity, interconnection, curiosity, and empowerment.
-
-### VAP-008: Project Artifact Structure Feels Wobbly
-
-Type: direct/question.
-
-Affected files:
-
-- `glossary/Project Artifact Structure.md`
-- `glossary/Artifact.md`
-- `glossary/Mod Artifact Structure.md`
-
-Issue:
-Owner is unsure about this concept. It may be too abstract or duplicative of Artifact and Mod Artifact Structure.
-
-Likely action:
-Either tighten it as project-scope artifact taxonomy or fold it into Artifact/Project Structure if it does not carry unique value.
-
-### VAP-009: Vapor Public/Open Source / Multi-Project Implications Need Propagation
-
-Type: inferred/spillover.
-
-Affected files:
-
-- `glossary/Vapor Ecosystem.md`
-- `glossary/Vapor Crate Topology.md`
-- `glossary/Project Authoring Structure.md`
-- `docs/ARCHITECTURE.md`
-- `docs/NOW.md`
-
-Issue:
-The future repo split changes wording around product ownership, public crate topology, proprietary first-party code, SDK availability, and project structure.
-
-Likely action:
-Create one authoritative repo/product topology note and link from affected pages.
-
-## Rhai / Scripting / Legacy Signal
-
-### RHAI-001: Legacy/Quarantine Notes Need Explicit Labels
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Rhai Bridge Domains and Access Provider Notes.md`
-- `glossary/Rhai Reflection Macro Surface Notes.md`
-- `glossary/Rhai Generic Dispatch Policy Notes.md`
-- `glossary/Rhai Value Semantics and AccessCell Notes.md`
-- workflow runtime notes, possibly
-
-Issue:
-Owner wants useful legacy/quarantine code clearly labeled as such. Current pages sometimes say high-signal/provisional, but not as a consistent status model.
-
-Likely action:
-Add a standard status block to all tech notes:
-
-- active target doctrine
-- legacy implementation signal
-- quarantine/provisional signal
-- obsolete/stale
-
-### RHAI-002: Rhai Asset Phase 3 Proof Is Understated
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Rhai Asset.md`
-- `RFCS/phase_3_vapor_execution_spec.md`
-
-Issue:
-Owner correction changes “prove one focused callback path” to “prove the whole Phase 3 stack working fully with capability stuff.” The focused callback proof may still be part of this, but the page should not understate Rhai's role in Phase 3.
-
-Likely action:
-Reword Phase 3 anchor: Rhai Asset must participate in end-to-end packagepack/capability/fingerprint/launcher/Steam proof, while callback taxonomy remains intentionally limited.
-
-### RHAI-003: Scripting Projection Meta-Layer May Need Rename Or Deletion
-
-Type: direct/question.
-
-Affected files:
-
-- `glossary/Scripting Projection Meta-Layer.md`
-- `glossary/Global Capability API Graph.md`
-- `glossary/Capability Projection API.md`
-- `glossary/Rhai Capability.md`
-
-Issue:
-Owner finds the current concept unclear, silly, and possibly misnamed. It may overlap heavily with Capability Projection API.
-
-Likely action:
-Investigate whether this page should be:
-
-- folded into Capability Projection API
-- renamed to `Projection Context Mapping`
-- kept only as a tech note
-- deleted
-
-### RHAI-004: Script Safety Needs Engine-Author Boundary
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Script Safety.md`
-- `glossary/Steam.md`
-- `glossary/Capability Graph Diagnostics.md`
-- `RFCS/phase_3_vapor_execution_spec.md`
-
-Issue:
-Current script safety can sound like Vapor prevents malicious software generally. Owner correction: if someone implements an engine, Vapor cannot make malicious engine code impossible. The boundary should be script/projection safety and validation, not hostile-code sandboxing.
-
-Likely action:
-Clarify:
-
-- Rhai scripts get constrained projected contexts.
-- Workshop/downloaded content is validated for integrity/compatibility.
-- Vapor Phase 3 is not a hostile-code sandbox, especially for native engine/mod binaries.
-
-### RHAI-005: Rhai Generic Dispatch Page Is Correct But Dense
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Rhai Generic Dispatch Policy Notes.md`
-
-Issue:
-Owner says the concept is a mouthful but not wrong.
-
-Likely action:
-Keep substance, add a better `## Summary` and perhaps split declaration-first model from dispatch-catalog model.
-
-### RHAI-006: Rhai Instantiation Script Language Feels Wobbly
-
-Type: direct/question.
-
-Affected files:
-
-- `glossary/USF Instantiation Scripts.md`
-- `glossary/USF Instantiation Capability Slot Notes.md`
-- `glossary/Rhai Asset.md`
-- `glossary/Rhai Capability.md`
-
-Issue:
-Owner flags the USF instantiation script framing as somewhat uncertain. It may be mixing general Rhai declaration substrate with USF-specific declaration profiles.
-
-Likely action:
-Separate generic Rhai declaration semantics from USF-specific script profiles/slot types.
+Status: concise rewrite after owner rejection of the verbose first-pass ledger.
+
+Format:
+
+- `FIX`: concrete wording/content fix.
+- `RENAME`: likely name/title/canonical-name change.
+- `DELETE`: likely page/concept removal.
+- `SPLIT`: concept should split into smaller concepts.
+- `MERGE`: concept should fold into another concept.
+- `MOVE`: page/tag/location/classification issue.
+- `AUDIT`: cross-page consistency pass needed.
+- `DECIDE`: unresolved owner/design decision required before rewrite.
+
+This ledger is intentionally terse. It is a work queue, not doctrine.
+
+## Source-Control Issues
+
+1. `FIX` Modified summary now mixes summary text and owner corrections; preserve it as an input artifact, not polished docs.
+2. `FIX` The summary may be ahead of many source pages; promote corrected summary language back into source pages where valid.
+3. `AUDIT` The source glossary and summary now diverge in owner-intent level; build a systematic source-vs-summary comparison pass.
+4. `FIX` Future summary docs should not include raw owner comments inline.
+5. `FIX` Keep the alphabetic review mode because it helps holistic review.
+6. `FIX` Add terse issue ledgers for future alignment passes rather than essay-style ledgers.
+7. `AUDIT` Add a second pass that finds issues not explicitly mentioned by owner comments.
+8. `AUDIT` Add a third pass that checks each glossary page against every relevant linked concept.
+9. `FIX` Preserve exact source filenames when summaries or issue ledgers reference pages.
+10. `FIX` Distinguish “owner correction,” “assistant inference,” and “source-doc contradiction” in future ledgers.
+
+## Obsidian / Summary Infrastructure
+
+11. `FIX` Add stable `## Summary` sections to glossary pages so Obsidian embeds can use `![[Page#Summary]]`.
+12. `FIX` Keep `## Summary` sections concise enough to embed cleanly.
+13. `FIX` Add separate persistent summary index for `#glossary`.
+14. `FIX` Add separate persistent summary index for `#tech_glossary`.
+15. `FIX` Summary indexes should use embeds instead of duplicating summary text manually.
+16. `MOVE` Decide where generated/review summaries live so they do not pollute the canonical glossary folder.
+17. `FIX` README should explain embed conventions if the vault adopts summary sections.
+18. `FIX` README should explain that `.obsidian/` files are editor state, not glossary content.
+19. `AUDIT` Check whether every page has a single stable heading suitable for embedding.
+20. `AUDIT` Check whether aliases/canonical names conflict with Obsidian link targets.
+
+## Glossary vs Tech Glossary Split
+
+21. `FIX` Define hard criteria for `#glossary` vs `#tech_glossary`.
+22. `MOVE` Implementation notes should consistently use `#tech_glossary`.
+23. `MOVE` Legacy/quarantine evidence pages should not look like stable concept pages.
+24. `MOVE` Phase execution/testing/runbook pages may need a tag other than plain `#glossary`.
+25. `MOVE` Crate/workspace topology pages may be tech/plan notes, not stable glossary concepts.
+26. `MOVE` `Vapor.toml` and `Vapor.lock` may be hybrid schema concepts; decide tag treatment.
+27. `MOVE` `SDK` and `Vapor Launcher` may be product/tool concepts but also implementation plans; decide tag treatment.
+28. `FIX` README tag explanation currently makes naive scans count README as both glossary and tech glossary.
+29. `FIX` Add standard status vocabulary for `stable concept`, `WIP concept`, `tech note`, `legacy signal`, `quarantine signal`, and `stale`.
+30. `AUDIT` Reclassify every page after status vocabulary exists.
+
+## Vapor / Product Stack
+
+31. `FIX` Vapor must remain the foundational layer for capabilities, Rhai authoring, SDK, launcher, composition, and distribution.
+32. `FIX` Vapor should be independently understandable without first-party Spacetime/Loo Cast internals.
+33. `FIX` Vapor is Steam-exclusive for Phase 3; storefront abstraction stays future-pressure.
+34. `FIX` `steam-like-platform-contracts` should remain future-pressure and not weaken Steam-first implementation.
+35. `FIX` Vapor is more than modding; remove or deprecate overly narrow “Vapor Modding Ecosystem” framing.
+36. `AUDIT` Search docs for old “platform” vs “ecosystem” confusion.
+37. `DECIDE` Decide whether “Vapor Platform” should become a top-level concept or remain avoided.
+38. `FIX` Generic Engine/Game roles are Vapor composition roles, not Spacetime/Loo Cast templates.
+39. `FIX` A Vapor Engine/Game can expose minimal modding after bootstrap; docs should mark this as allowed but not the intended ergonomic path.
+40. `FIX` First-party examples should not smuggle first-party internals into generic Vapor role definitions.
+41. `FIX` Engine page currently couples non-Spacetime engines and USF boundary awkwardly; split those concerns.
+42. `FIX` Game page should stay about `base_mod`/Game role, not mod artifact internals.
+43. `FIX` Enginepack/Gamepack/Packagepack terminology is mostly settled; protect it from old unqualified `package` language.
+44. `AUDIT` Remove old `package`, `composite package`, and vague manifest wording from roadmap/RFC docs.
+45. `FIX` Packagepack remains launchable composition, not source/build/distribution artifact.
+46. `FIX` Enginepack must select coupled `core_engine` + matching `core_mod`.
+47. `FIX` Gamepack must select one `base_mod` compatible with selected Enginepack.
+48. `FIX` Modpack nesting must stay visible in fingerprints/diagnostics and not be conceptually flattened.
+49. `FIX` Extension Mod attachment must be explicit metadata, not implicit folder/code behavior.
+50. `FIX` Reserved role pages should keep “mandatory but replaceable by valid selection” crisp.
+51. `FIX` `core_mod` independent replacement is forbidden for Phase 3; docs should not imply mix-and-match.
+52. `AUDIT` Ensure `core_engine`, `core_mod`, and `base_mod` are always described as reserved role names and literal crate names where relevant.
+53. `FIX` Loo Cast page should distinguish Game, Product bundle, and Project/repo context more sharply.
+54. `FIX` Spacetime Engine page should not claim ownership of Vapor-level capability runtime.
+55. `FIX` USF should stay public/API-facing Spacetime subsystem, not product pillar.
+56. `AUDIT` Search for phrasing that makes USF directly replaceable without replacing/forking the Engine.
+57. `FIX` Pillar Dependency Topology should reflect future multi-project split pressure.
+58. `FIX` Vapor Crate Topology should connect to likely future repo split.
+59. `DECIDE` Current `NOW.md` says keep one repo; owner now expects future split. Clarify current policy vs future plan.
+60. `FIX` Project Authoring Structure should mention eventual Vapor / Spacetime Engine / Loo Cast split.
+
+## Phase 3 / Testing / Execution Plans
+
+61. `RENAME` `Phase 3 Vapor Scenario Suite` likely becomes `Phase 3 Vapor Testing Suite`.
+62. `FIX` Avoid “integration-test suite” as the main term; some flows are manual and not CI-runnable.
+63. `FIX` Distinguish automated validation tests, local manual scenarios, and Steam manual verification.
+64. `FIX` Phase 3 testing language should include manually verified Steam/Workshop flows.
+65. `FIX` Phase 3 should prove public/installable/authorable/publishable artifacts, not only logs/fingerprints.
+66. `FIX` Phase 3 remains Vapor/Capability/Rhai/Steam proof, not USF/worldmodel proof.
+67. `FIX` Phase 3 still requires real executable launch fixtures.
+68. `FIX` Hello-world-on-steroids fixtures should be minimal real MVPs, not fake placeholders.
+69. `FIX` Phase 3 output should stay non-gameplay: logs, strings, files, fingerprints, diagnostics.
+70. `AUDIT` Update `phase_3_vapor_execution_spec.md` after glossary terminology changes.
+71. `AUDIT` Update `phase_2_to_11_execution_program.md` after testing-suite rename.
+72. `AUDIT` Update `NOW.md` after testing-suite rename.
+73. `AUDIT` Update glossary backlinks after testing-suite rename.
+74. `FIX` Phase 3 acceptance should include broad valid/invalid permutation coverage, not one token matrix.
+75. `FIX` Published schema migration can remain deferred/pre-alpha-nukable.
+76. `FIX` CI should not imply live Steam integration testing by default.
+77. `FIX` Steam flows should fail with structured diagnostics, not panics, where possible.
+78. `FIX` Workshop verification should validate fingerprints without claiming hostile-code sandboxing.
+79. `FIX` Phase 3 docs should say Vapor.lock/fingerprints are mandatory despite older alpha docs saying no hashes.
+80. `AUDIT` Remove stale Phase 3-as-USF wording anywhere still present.
+
+## Capability Bedrock
+
+81. `FIX` Capability remains intentionally broad: graph node, contract surface, API surface, authority surface, metadata unit, orchestration seam.
+82. `FIX` Capability breadth should be described as intentional, not accidental overload.
+83. `FIX` Vapor defines what Capability means before engines/games define their own capability types.
+84. `FIX` Capabilities can be Rust-only with no Rhai declaration surface.
+85. `FIX` Rhai support itself is a capability.
+86. `FIX` Pure Rhai capabilities without meaningful Rust host support should remain disallowed except trivial local computation.
+87. `FIX` Native/hardcoded Rust capabilities must be projectable into Rhai contexts.
+88. `FIX` Capability graph is Vapor-level; Spacetime/USF are users/extensions, not owners.
+89. `FIX` Running `core_engine` process should have one large runtime capability graph, with separate metadata registries/projections as needed.
+90. `FIX` The raw capability metadata registry may differ from the active runtime graph.
+91. `FIX` Capability graph should be heavily concurrent/multithread-friendly if everything routes through it.
+92. `FIX` Capabilities should not be anonymous; private/internal is okay.
+93. `FIX` Visibility should roughly follow Rust-like semantics where useful.
+94. `FIX` Private/internal nodes remain real full-graph nodes, not just hidden projections.
+95. `FIX` Leaf-like capabilities should not hide large private subgraphs by default.
+96. `FIX` Umbrella/composite capabilities may justify private subgraphs.
+97. `FIX` A capability can serve as type/category for other capabilities but cannot be its own type.
+98. `FIX` Self-typing, self-dependency, and dependency cycles are invalid bootstrap shapes.
+99. `FIX` Composite capabilities are first-class nodes, not named views.
+100. `FIX` Composite capabilities may own policy unknown to child capabilities.
+101. `FIX` “Capability Instance” remains suspect terminology; avoid unless a later pass locks it.
+102. `FIX` Capability Declaration remains pre-lock authored payload, not runtime object.
+103. `FIX` Capability Slot Type remains the projected/gated slot/context shape, not callback type.
+104. `FIX` Capability Slot Type creation must be explicit opt-in, not automatic per declaration.
+105. `FIX` Capability edge taxonomy remains unresolved; docs should not imply final dependency/slot/API/authority edge model.
+106. `FIX` Capability path is addressing/policy input, not dependency or causality.
+107. `FIX` Capability Location remains unresolved implementation vocabulary.
+108. `FIX` Capability Projection API may be enough to absorb Scripting Projection Meta-Layer.
+109. `DECIDE` Decide whether Capability Contract should split into metadata, declaration rules, projection rules, and runtime rules.
+110. `FIX` Capability Contract currently carries too much legacy/USF/Rhai/runtime pressure in one page.
+111. `FIX` Capability Runtime should be Vapor-defined infrastructure embedded/adapted by launched compositions.
+112. `FIX` Spacetime Engine should utilize/extend capability runtime, not host or define it.
+113. `FIX` Runtime Substrate should not sound like it owns Capability semantics.
+114. `FIX` Capability Runtime and Modding Runtime are deeply coupled; docs should not overstate sibling separateness.
+115. `FIX` Modding is a major composition use of capability semantics.
+116. `FIX` Mod runtime representation should say mods resolve into capability graph contributions.
+117. `FIX` Some capabilities emit intents/requests; others directly bind Rust kernel operations.
+118. `FIX` Reconcile/commit/apply still owns canonical state progression where state authority matters.
+119. `FIX` Capability roles beyond input/output remain unresolved.
+120. `FIX` Input/output may remain useful directional vocabulary in scale/runtime contexts.
+121. `DECIDE` Authority/reconciler/realizer/bridge/mutator role taxonomy needs later pressure testing.
+122. `FIX` Dynamic authority resolution should stay phase/operation relative.
+123. `FIX` Global Capability Surface should not grant global domain-state authority.
+124. `FIX` Global Capability API Graph must remain host-authoritative and not script-safe.
+125. `FIX` Capability Graph Diagnostics should keep player/modpack-author/developer projections distinct.
+126. `FIX` Explicit mod-wide conflicts are author-friendly metadata, not replacement for graph validation.
+127. `FIX` Steam/Workshop failures should be recoverable diagnostics where possible.
+128. `FIX` Internal invariant violations can remain panic-fast in development.
+129. `FIX` Capability graph diagnostics must not imply hostile-code sandboxing.
+130. `FIX` Capability Bootstrap Fixed-Point Cycle should stay deterministic and cycle-free.
+
+## Slots / Static Graph Core / Dynamic Substrate
+
+131. `FIX` Slots are static composition mechanics for startup graph core.
+132. `FIX` Runtime dynamism after lock should be modeled by capabilities/registries/kernels, not slot mutation.
+133. `FIX` Filled slot is itself a capability node in parent/child relation.
+134. `FIX` Slot is parent-owned child position with type/cardinality/policy.
+135. `FIX` Slot cardinality should not be baked into Capability Slot Type.
+136. `FIX` One slot should accept one concrete node/capability type unless later generalized.
+137. `FIX` Deep acyclic nesting is allowed; cycles are not.
+138. `FIX` Slot graph composition belongs before Runtime Lock.
+139. `FIX` Immutable startup core vs dynamic runtime substrate needs consistent vocabulary.
+140. `FIX` Optional provider is underexplored; do not present as settled.
+141. `FIX` Integration aperture is underexplored; do not present as settled.
+142. `FIX` Exclusive slot, variadic slot, ordered registry, optional provider, and integration aperture need definitions or demotion.
+143. `DECIDE` Decide which slot policy names deserve standalone glossary pages.
+144. `FIX` Ordered registry may imply lookup/query semantics, not just ordering; mark unresolved.
+145. `FIX` User-selected load order should not be normal conflict-resolution mechanism.
+
+## Rhai / Scripting
+
+146. `FIX` Rhai is declaration-first and effectively declaration-only, but callbacks/closures can contain behavior.
+147. `FIX` “Scripts do not own lifecycle scheduling” is better than “scripts do not orchestrate lifecycle.”
+148. `FIX` Scripts may influence lifecycle through sanctioned extension/configuration points.
+149. `FIX` Scripts must not define fundamental scheduler structure.
+150. `FIX` Rhai Asset should say Phase 3 proves end-to-end capability/Rhai stack, not only one callback path.
+151. `FIX` Focused callback proof remains useful but should not understate Rhai’s Phase 3 role.
+152. `FIX` One Rhai file maps to one authored leaf declaration by default.
+153. `FIX` File-internal capability definitions should default private/internal.
+154. `FIX` Folder-level Rhai aggregation plus Vapor.toml grouping is allowed.
+155. `FIX` Vapor.toml owns manifest/dependency/publication metadata; Rhai owns declarations.
+156. `FIX` Sidecar `.meta` files remain disfavored.
+157. `FIX` Generated textures/models/sounds remain outputs/caches/delivery artifacts, not canonical authored source.
+158. `FIX` Rhai Capability should include projected native hardcoded capabilities.
+159. `FIX` Rhai Capability should separate origin from projection/use.
+160. `FIX` Rhai Capability should say Rust owns heavy/most state authority, not all conceivable state authority.
+161. `FIX` Callback Type, Callback Context Type, and Callback Signature must stay separate.
+162. `FIX` Callback Context Type needs stronger host metadata / Rust function-shape framing.
+163. `FIX` Callback metadata should help validate or reject required context graph projection early.
+164. `FIX` Callback access masks differ from declaration access masks.
+165. `FIX` Callback access outside resolved mask hard-fails.
+166. `FIX` Rhai generic dispatch cannot rely on runtime Rust monomorphization.
+167. `FIX` Rhai Generic Dispatch page is substance-correct but too dense; add concise summary.
+168. `FIX` Reflection macro surface is useful legacy signal, not final doctrine.
+169. `FIX` Bridge/access-provider notes are useful legacy/quarantine signal, not stable target.
+170. `FIX` Value semantics / AccessCell notes are provisional and need status banner.
+171. `FIX` Add consistent `legacy_signal` / `quarantine_signal` status blocks to Rhai tech notes.
+172. `FIX` Script Safety should be projection-safety, not broad anti-malware guarantee.
+173. `FIX` Native engine/mod binaries cannot be made non-malicious merely by Vapor docs.
+174. `FIX` Workshop content is validated for integrity/compatibility/fingerprint, not sandboxed as hostile code.
+175. `MERGE` Scripting Projection Meta-Layer may fold into Capability Projection API.
+176. `RENAME` If kept, Scripting Projection Meta-Layer needs a clearer name.
+177. `DECIDE` Decide whether Scripting Projection Meta-Layer survives at all.
+178. `FIX` Generic Rhai declaration semantics should not be buried inside USF instantiation pages.
+179. `SPLIT` Separate generic Rhai declaration substrate from USF-specific script profiles.
+180. `FIX` Future scripting-language support should remain possible without making Rhai semantics too engine-specific.
 
 ## USF / Scale / Simulation
 
-### USF-001: USF Math Raw Model Notes Are Outdated
-
-Type: direct.
-
-Affected files:
-
-- `glossary/USF Math Raw Model Foundation Notes.md`
-- `glossary/Scale Contract Runtime Notes.md`
-- `glossary/USF Position Stack and Overflow Policy Notes.md`
-- `glossary/Rhai Generic Dispatch Policy Notes.md`
-
-Issue:
-Owner moved away from a custom math implementation toward existing crates and `num_traits`, while retaining many mathematical semantics and constraints.
-
-Likely action:
-Rewrite page as historical raw-model semantics, not active implementation foundation. Preserve semantic ideas: explicit conversion boundaries, operation policy, determinism, panic contracts, shape/domain constraints. Replace custom-math-authority claims with “prefer established crates where possible.”
-
-### USF-002: Scale Support Should Not Require Explicit Unsupported Entries For Every Pair
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Scale Support.md`
-- `glossary/Scale Contract.md`
-- `glossary/Scale Contract Runtime Notes.md`
-- `glossary/Capability Contract.md`
-
-Issue:
-Current docs require each capability-scale pair to declare `supported` or `unsupported`. Owner doubts this due to combinatorial explosion. Explicit support declarations are desirable, but explicit non-support blacklists are likely not.
-
-Likely action:
-Change model toward positive support declarations plus default absence/unsupported semantics, unless a specific contract needs explicit denial.
-
-### USF-003: Scale Support May Be More General Than Capability Support
-
-Type: direct/question.
-
-Affected files:
-
-- `glossary/Scale Support.md`
-- `glossary/Scale Contract.md`
-
-Issue:
-Owner notes support may apply to more than capabilities because capabilities may be more syntax/structure than semantics in some contexts.
-
-Likely action:
-Generalize Scale Support to scale-coordinate support declarations for capability-backed or contract-backed semantic surfaces.
-
-### USF-004: Observer-Relative Simulation Needs Internal Consistency Pass
-
-Type: direct/question.
-
-Affected files:
-
-- `glossary/Observer-Relative Simulation.md`
-- `glossary/Scale View.md`
-- `glossary/USF Runtime Evolution Lifecycle.md`
-- `glossary/Phenomenon.md`
-- `glossary/Metric.md`
-
-Issue:
-Owner says higher scales also use significance flow and current docs do not discuss how larger-scale changes affect lower scales. This may or may not belong directly in Observer-Relative Simulation.
-
-Likely action:
-Add an open-pressure section or create a separate `Cross-Scale Significance Flow` concept.
-
-### USF-005: Definition Lock Applies To Immutable Startup Core, Not All Runtime Substrate
-
-Type: direct.
-
-Affected files:
-
-- `glossary/USF Definition Lifecycle.md`
-- `glossary/Runtime Lock.md`
-- `glossary/Slot Graph Composition.md`
-- `glossary/USF Runtime Evolution Lifecycle.md`
-
-Issue:
-Owner correction: definition mutation is absent from the immutable startup-constructed core, but dynamic substrate can still exist on top.
-
-Likely action:
-Add “immutable startup core vs dynamic runtime substrate” language consistently.
-
-### USF-006: USF Instance Graph Multiplicity May Need Recheck
-
-Type: inferred/question.
-
-Affected files:
-
-- `glossary/USF Instance Graph.md`
-- `glossary/Scale Support.md`
-- `glossary/Scale Contract.md`
-
-Issue:
-Current page says at least one Phenomenon and Metric per scale. Given support-declaration changes and USF uncertainty, this hard invariant may need owner reconfirmation.
-
-Likely action:
-Flag for question batch before rewriting.
-
-## Entity / Spatial Semantics
-
-### ENT-001: Entity Plane Split Enables Traditional f32/f64 Engines
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Entity Plane Split.md`
-- `glossary/Spacetime Engine.md`
-- maybe future physics/rendering notes
-
-Issue:
-Owner notes that entity plane split helps integrate traditional f32/f64 technologies such as Rapier.
-
-Likely action:
-Add this as an implementation motivation without overcommitting to Rapier specifically.
-
-### ENT-002: Portal Traversal Should Include Entity Plane Split
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Portal Traversal Semantics.md`
-- `glossary/Entity Plane Split.md`
-- `glossary/Entity Proxy.md`
-
-Issue:
-Current portal page links Scale View, Observer-Relative Simulation, and Entity Proxy, but owner expects Entity Plane Split to be relevant too.
-
-Likely action:
-Add Entity Plane Split to portal semantics dependencies.
-
-### ENT-003: Entity Proxy / World Wrapping Semantics Need Separation
-
-Type: direct/question.
-
-Affected files:
-
-- `glossary/Entity Proxy.md`
-- `glossary/Portal Traversal Semantics.md`
-
-Issue:
-Owner notes proxies simplify world wrapping mechanically, but semantically that may belong more to portal traversal.
-
-Likely action:
-Clarify proxy as a mechanism, portal traversal as semantic continuity model.
-
-## Workflow / Legacy Runtime Notes
-
-### WF-001: Delete Workflow Execution Trace Notes
-
-Type: direct/spillover.
-
-Affected files:
-
-- `glossary/Workflow Execution Trace Notes.md`
-- `glossary/README.md`
-- all workflow note backlinks
-
-Issue:
-Owner says this page/concept should be removed as weird and outdated. It is currently only a compatibility pointer to Workflow Usage Patterns Legacy Notes.
-
-Likely action:
-Delete the page and remove backlinks from workflow notes and README, or replace with an alias redirect only if Obsidian link stability matters.
-
-### WF-002: Stage Buffer Backlog Was A Real Runtime Problem
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Stage Buffer Runtime Notes.md`
-- `glossary/Workflow Stage Runtime Notes.md`
-- `glossary/Workflow Invariant Ledger Notes.md`
-- maybe future workflow issue/RFC
-
-Issue:
-Owner confirms backlog caused visual holes and lagged the whole system. Current docs describe backlog neutrally; they should identify it as a legacy limitation/risk.
-
-Likely action:
-Add a “Known Legacy Problem” section and create a future implementation issue for throughput/backpressure/sharding.
-
-### WF-003: Workflow Notes Need Legacy Status Consistency
-
-Type: inferred.
-
-Affected files:
-
-- all `Workflow * Runtime Notes.md`
-- `Stage Buffer Runtime Notes.md`
-- `Stage Sender Cache Runtime Notes.md`
-
-Issue:
-Workflow pages document legacy behavior but some summaries read as active architecture. They need a consistent status banner: legacy implementation signal, not target doctrine unless promoted.
-
-Likely action:
-Standardize tech-note headers.
-
-## General Concept Cleanup
-
-### GEN-001: Closed Runtime And Open Design May Be Too Broad To Keep
-
-Type: direct/question.
-
-Affected files:
-
-- `glossary/Closed Runtime and Open Design.md`
-- `glossary/Runtime Lock.md`
-- `glossary/Managed Ambiguity.md`
-- `glossary/Project Runtime Representation.md`
-
-Issue:
-Owner says the concept feels over-generic, under-specified, and likely not redeemable in current form.
-
-Likely action:
-Either delete/fold into Runtime Lock and Managed Ambiguity, or rewrite narrowly around “immutable activation boundary, evolvable design between activations.”
-
-### GEN-002: Capability Contract And Closed Runtime Are “Feels Wrong” Investigation Items
-
-Type: direct/question.
-
-Affected files:
-
-- `glossary/Capability Contract.md`
-- `glossary/Closed Runtime and Open Design.md`
-
-Issue:
-Both pages triggered broad owner discomfort, not just wording corrections. They should not be patched lightly.
-
-Likely action:
-Ask focused question batch before rewriting.
-
-### GEN-003: Determinism Should Be “Deterministic-By-Default”
-
-Type: direct.
-
-Affected files:
-
-- `glossary/Runtime Substrate.md`
-- `glossary/Runtime Lock.md`
-- `glossary/Capability Runtime.md`
-
-Issue:
-Owner edited summary to `deterministic(-by-default)`. Absolute determinism may overstate runtime reality.
-
-Likely action:
-Use “deterministic-by-default activation/composition” and distinguish deterministic lock/validation from nondeterministic or externally influenced runtime behavior.
-
-### GEN-004: Summary Text May Be Ahead Of Source Pages
-
-Type: direct/inferred.
-
-Affected files:
-
-- many glossary pages
-
-Issue:
-Owner noticed some summaries are more coherent than source pages. This likely means summary language should be promoted back into source pages after correction.
-
-Likely action:
-During rewrite, compare each source page against its summary and promote concise improved framing into `## Summary`.
-
-### GEN-005: Need Questions Before Final Rewrite Of Fuzzy Concepts
-
-Type: direct.
-
-Affected files:
-
-- owner-question batch document to be created
-
-Issue:
-Several concepts are uncertain enough that rewriting now would encode guesses: Capability Contract, Closed Runtime and Open Design, Scripting Projection Meta-Layer, USF Instantiation Scripts, Scale Support generalization, optional providers/integration apertures.
-
-Likely action:
-Prepare a focused question batch before editing those pages.
-
-## Immediate Edit Candidates
-
-These are low-risk enough to edit after ledger review:
-
-1. Add legacy/quarantine status labels to Rhai bridge/reflection/value-semantics notes.
-2. Add Entity Plane Split link to Portal Traversal Semantics.
-3. Add f32/f64/traditional physics motivation to Entity Plane Split.
-4. Add LSP support as SDK pressure.
-5. Add Build Artifact examples.
-6. Mark Stage Buffer backlog as legacy risk.
-7. Delete or de-reference Workflow Execution Trace Notes.
-8. Reword Spacetime Engine / Capability Runtime ownership.
-9. Reword Scaled Capability Channel as USF-specific capability implementation pattern.
-10. Rename Phase 3 Vapor Scenario Suite to Phase 3 Vapor Testing Suite after owner confirms filename/link strategy.
-
-## Question Batch Seeds
-
-1. Should `Closed Runtime and Open Design` be deleted, folded into Runtime Lock, or rewritten narrowly?
-2. Should `Capability Contract` be split into multiple pages, or rewritten as one narrower page?
-3. Should `Scripting Projection Meta-Layer` be deleted/folded into Capability Projection API, renamed, or kept as a tech note?
-4. Should `Scale Support` mean positive support declarations only, with absence meaning unsupported?
-5. Does Scale Support apply only to capabilities, or to any scale-aware semantic surface?
-6. Should `Phase 3 Vapor Scenario Suite.md` be renamed on disk, or should it keep the filename with a new canonical name/alias?
-7. Is the future repo split now strong enough to update `NOW.md`, or should `NOW.md` continue saying “keep one repo” as current operational policy?
-8. Should `USF Instance Graph` still require at least one Phenomenon and Metric per scale?
-9. Should `USF Instantiation Scripts` be USF-specific only, with generic Rhai declaration semantics moved elsewhere?
-10. Should workflow legacy notes remain in glossary indefinitely, or move to a legacy implementation evidence folder?
+181. `FIX` USF is public/API-facing Spacetime subsystem, not Vapor product pillar.
+182. `FIX` Replacing USF effectively means replacing/forking enough of Spacetime Engine to be another Engine.
+183. `FIX` USF Contract is internal to Spacetime Engine product stack, not Vapor-level contract family.
+184. `FIX` USF Runtime should compose with Vapor capability runtime, not redefine it.
+185. `FIX` USF Definition Lifecycle applies to immutable startup-constructed core, not every dynamic runtime structure.
+186. `FIX` Runtime evolution can add dynamic state/substrate over locked core if explicitly modeled.
+187. `FIX` USF Instantiation Scripts feel wobbly because generic Rhai and USF-specific profiles are mixed.
+188. `FIX` USF Instantiation Capability Slot Notes should be clearly legacy MVP slice alignment.
+189. `FIX` USF Math Raw Model Foundation is outdated as implementation authority.
+190. `FIX` USF math should prefer existing crates and `num_traits` where practical.
+191. `FIX` Preserve raw-model semantics that still matter: conversion boundaries, operation policy, determinism, panic contracts.
+192. `FIX` Remove “highest-authority draft math foundation” wording if custom math lib is no longer direction.
+193. `FIX` USF Position Stack remains useful but must derive from current math posture.
+194. `FIX` Scale remains canonical semantic coordinate, not runtime realization by itself.
+195. `FIX` Scale Contract should not require explicit unsupported declarations for every capability-scale pair.
+196. `FIX` Scale Support should become positive support declaration plus default absence semantics unless specific denial is needed.
+197. `FIX` Scale Support may need to generalize beyond capabilities to scale-aware semantic surfaces.
+198. `FIX` Scale Contract Runtime Notes must stop saying each pair is explicitly supported/unsupported.
+199. `DECIDE` Confirm whether `supported` / `unsupported` enum survives as internal resolved state.
+200. `DECIDE` Confirm whether every canonical scale still requires one scale definition and one realizer type.
+201. `DECIDE` Confirm whether every active scale requires at least one Phenomenon and Metric.
+202. `FIX` Scaled Capability Channel should become a USF-compatible capability pattern, not general capability law.
+203. `RENAME` Consider `Scale-Scoped Capability Channel` or `USF-Scoped Capability Channel`.
+204. `FIX` Global utilities such as logging/math may be unscaled or differently scoped.
+205. `FIX` Observer-Relative Simulation needs internal coherence pass.
+206. `FIX` Higher scales also participate in significance flow; current wording underexplores this.
+207. `FIX` Larger-scale changes affecting lower-scale detail need a home concept.
+208. `FIX` Cross-scale significance flow may deserve a page.
+209. `FIX` Scale View should be substrate for camera/render/chunk loading later, not those implementations.
+210. `FIX` Entity Proxy, Entity Plane Split, and Portal Traversal need clearer mechanism-vs-semantics split.
+211. `FIX` Entity Plane Split should mention usefulness for f32/f64 technologies such as physics engines.
+212. `FIX` Do not overcommit to Rapier specifically.
+213. `FIX` Portal Traversal should link Entity Plane Split.
+214. `FIX` Entity Proxy can simplify world wrapping mechanically, while Portal Traversal owns semantic continuity.
+215. `FIX` Zone-era pages should keep “superseded but signal-bearing” status.
+
+## Artifacts / Source / Packaging / Project Structure
+
+216. `FIX` Build Artifact needs concrete examples: linked shared objects/binaries before packaging.
+217. `FIX` Build Artifact should distinguish “built output” from assembled runtime library payload set.
+218. `FIX` Distributable Artifact should remain final packaged/uploadable object.
+219. `FIX` Source Artifact should include Vapor.toml and Rhai declarations explicitly.
+220. `FIX` Redistributable Mod Implementation Library should remain runtime-deliverable platform library set.
+221. `FIX` Redistributable Mod Contract Source should remain development/dependency source package.
+222. `AUDIT` Check artifact pages for source/build/distributable/runtime confusion.
+223. `FIX` Project Artifact Structure feels too wobbly; tighten or fold.
+224. `MERGE` Project Artifact Structure may fold into Artifact + Project Structure if no unique role remains.
+225. `FIX` Project Authoring Structure must discuss intended multi-repo/multi-project future.
+226. `FIX` Project Structure may be too generic unless it carries real authoring/artifact/runtime taxonomy value.
+227. `FIX` Project Runtime Representation should avoid making Capability Runtime sound Spacetime-owned.
+228. `FIX` Project Ethos needs inspiration and systemic-reality language.
+229. `FIX` Project Ethos should mention showing deep interconnection rather than simplified lies.
+230. `FIX` Player-to-Creator Path should connect more strongly to inspiration and systemic literacy.
+231. `FIX` SDK should include LSP/editor support where applicable.
+232. `FIX` SDK command surface should stay public creator-facing contract by Phase 3.
+233. `FIX` SDK vs xtask boundary should remain clear.
+234. `FIX` Vapor Launcher modes should stay player/modpack-author/developer separated.
+235. `FIX` Launcher and SDK should be sibling surfaces over Vapor core, not nested.
+
+## Workflow / Legacy Runtime
+
+236. `DELETE` Workflow Execution Trace Notes should be removed.
+237. `AUDIT` Remove backlinks to Workflow Execution Trace Notes.
+238. `FIX` Workflow Usage Patterns Legacy Notes should become the canonical trace/example page.
+239. `FIX` Workflow pages need consistent legacy implementation signal status.
+240. `FIX` Workflow Framework should remain Rust-side orchestration, not Rhai lifecycle ownership.
+241. `FIX` Workflow stage execution should stay Bevy-system-visible where possible.
+242. `FIX` Workflow control-plane exclusive `&mut World` usage should be documented as refactor debt.
+243. `FIX` Stage Buffer backlog should be marked as a real observed legacy problem.
+244. `FIX` Backlog caused visual holes/lag; current neutral wording understates severity.
+245. `FIX` Single-item poll progress should be marked deterministic but throughput-limited.
+246. `FIX` Unsafe output/input `transmute` contract should be marked legacy hazard.
+247. `FIX` Placeholder stage slot lifecycle should remain refactor-sensitive invariant.
+248. `FIX` Active-run key gate should be flagged as concurrency bottleneck.
+249. `FIX` RenderWhile sharding should be described as partial parallelism-preserving mechanism, not full parallelism.
+250. `FIX` Stage Sender Cache can remain legacy mechanism signal.
+251. `FIX` Normal vs composite workflow distinction is useful and should stay.
+252. `FIX` Workflow Type timeout behavior should distinguish panic defaults from controlled retry/abort path.
+253. `MOVE` Consider moving workflow legacy notes out of primary glossary later.
+254. `DECIDE` Decide whether workflow framework remains future target architecture or only legacy evidence.
+255. `AUDIT` Check workflow terms for accidental current-target wording.
+
+## Failure / Runtime Lock / Determinism
+
+256. `FIX` Runtime Lock applies to launchable Engine/Game composition, not launcher/SDK dynamic runtimes.
+257. `FIX` Runtime Lock should distinguish immutable startup graph core from dynamic runtime substrate.
+258. `FIX` Post-lock graph mutation is forbidden by default.
+259. `FIX` Runtime dynamism after lock requires explicit capability/registry policy.
+260. `FIX` Determinism should be “deterministic-by-default” where absolute determinism is too strong.
+261. `FIX` Deterministic activation/composition should be separated from runtime nondeterminism/external IO.
+262. `FIX` Asymmetric Failure Doctrine should keep startup invalidity from crashing launcher if clean diagnostics exist.
+263. `FIX` Runtime invariant violations may panic even in user builds.
+264. `FIX` Persistence paths need special backup/autosave/corruption-avoidance behavior.
+265. `DECIDE` `panic-fast` vs `fail-fast` doctrine wording remains unsettled.
+266. `FIX` Closed Runtime and Open Design feels too broad/weak.
+267. `MERGE` Closed Runtime and Open Design may fold into Runtime Lock + Managed Ambiguity.
+268. `DECIDE` Decide whether Closed Runtime and Open Design survives as a page.
+269. `FIX` Managed Ambiguity is useful if it names unresolved edges without excusing drift.
+270. `FIX` Dynamic Authority Resolution should stay but needs concrete examples eventually.
+
+## Cross-Doc Propagation
+
+271. `AUDIT` Update `docs/ARCHITECTURE.md` after capability runtime ownership correction.
+272. `AUDIT` Update `docs/NOW.md` after repo-split and testing-suite corrections.
+273. `AUDIT` Update `docs/RFCS/phase_3_vapor_execution_spec.md` after Phase 3 testing terminology changes.
+274. `AUDIT` Update `docs/RFCS/phase_2_to_11_execution_program.md` after Packagepack/testing/capability terminology changes.
+275. `AUDIT` Update `docs/RFCS/alpha_doctrine_draft.md` for stale Phase 3/USF references.
+276. `AUDIT` Check docs root files for old package/manifest/capability wording.
+277. `AUDIT` Check diagram filenames/descriptions for obsolete terminology.
+278. `AUDIT` Check question batch references before promoting new doctrine.
+279. `AUDIT` Add a migration note for renamed/deleted glossary pages.
+280. `AUDIT` Add backlink cleanup pass after page rename/delete decisions.
+
+## Immediate Low-Risk Edit Queue
+
+281. `FIX` Add Entity Plane Split link to Portal Traversal Semantics.
+282. `FIX` Add traditional f32/f64 tech motivation to Entity Plane Split.
+283. `FIX` Add Build Artifact examples.
+284. `FIX` Add LSP/editor support pressure to SDK.
+285. `FIX` Add legacy/quarantine status labels to Rhai tech notes.
+286. `FIX` Mark Stage Buffer backlog as known legacy problem.
+287. `FIX` Remove Workflow Execution Trace backlinks.
+288. `FIX` Reword Spacetime Engine so it utilizes Capability Runtime.
+289. `FIX` Reword Scaled Capability Channel as USF-specific pattern.
+290. `FIX` Reword Scale Support away from mandatory explicit unsupported entries.
+
+## Higher-Risk Rewrite Queue
+
+291. `SPLIT` Capability Contract likely needs structural rewrite.
+292. `MERGE` Scripting Projection Meta-Layer likely merges into Capability Projection API.
+293. `RENAME` Phase 3 Vapor Scenario Suite likely renames to Phase 3 Vapor Testing Suite.
+294. `MERGE` Closed Runtime and Open Design likely merges into Runtime Lock/Managed Ambiguity.
+295. `SPLIT` USF Instantiation Scripts likely splits generic Rhai declaration semantics from USF-specific profiles.
+296. `FIX` USF Math Raw Model Foundation needs full rewrite to existing-crates/num_traits posture.
+297. `FIX` Project Authoring Structure needs multi-repo future rewrite.
+298. `FIX` Project Ethos needs full expansion.
+299. `AUDIT` Capability vs Modding relationship needs broad cross-page rewrite.
+300. `AUDIT` Vapor/Spacetime/USF ownership boundaries need full cross-page rewrite.
