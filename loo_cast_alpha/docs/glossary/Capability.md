@@ -40,19 +40,23 @@ Identity and visibility:
 - Large/umbrella capabilities may contain private subgraphs, but leaf-like capabilities should usually not hide
   subgraphs.
 
-Type relationship:
-A capability can itself be a type/category used by other capabilities, but a capability cannot be its own type.
-Self-typing, self-dependency, and dependency cycles are invalid bootstrap shapes.
-Non-circular type/dependency/dependent relationships are part of what forms the capability graph.
+Type/trait/source relationship:
+Use [[Capability Type]] for a declared capability kind/category.
+Use [[Capability Trait]] for a Rust-trait-like dynamic contract that Capability Types can implement.
+Use [[Capability Extension Slot]] for an explicit graph extension/dependency point whose validity is expressed through
+trait bounds and slot policy.
 Use [[Capability Instance]] when the text means one concrete validated/materialized graph object in a specific graph
 environment.
-Use plain Capability for the broad Vapor concept/model, contract surface, type/category pressure, or when instance-level
-precision is not needed.
-Authored/pre-materialization forms should be called [[Capability Declaration]] where that distinction matters.
-[[Capability Slot Type]] is the current preferred term for the projected/gated slot/context shape that older notes
-described with profile/type-template wording.
-`Capability Declaration` remains the pre-lock authored declaration artifact.
-The old capability-type label remains too ambiguous to use as settled terminology.
+Use plain Capability for the broad Vapor concept/model, contract surface, type/trait/instance family, or when
+instance-level precision is not needed.
+Authored/pre-materialization forms should be called [[Capability Declaration]] or [[Capability Node]] where that
+distinction matters.
+`Capability Type Template` is deprecated active vocabulary.
+The old profile/type-template pressure is now split across Capability Type, Capability Trait,
+[[Capability Type Signature]], [[Capability Trait Signature]], [[Capability Instance Signature]], and Capability
+Extension Slot.
+Self-typing, self-dependency, and dependency cycles are invalid bootstrap shapes.
+Non-circular type/dependency/dependent relationships are part of what forms the capability graph.
 
 Graph shape:
 Capability graph data structures are reused across multiple environments, not one monolithic process graph.
@@ -82,8 +86,8 @@ Staged construction:
 6. Establish the [[Runtime Lock]].
 7. Enter the locked runtime graph representation.
 
-`Capability Declaration` is the pre-materialization authored artifact.
-During iterative/topological startup, validated capability declarations may be promoted into staged
+`Capability Declaration` is the raw declared form of a [[Capability Node]], not one mandatory single-file object.
+During iterative/topological startup, validated capability-node material may be promoted into staged
 [[Capability Instance]]s before final Runtime Lock.
 For Phase 3, Runtime Lock applies to launchable Engine/Game runtime composition, not to treating the launcher/SDK as
 dynamic Rhai-authored runtime compositions.
@@ -93,12 +97,14 @@ hardcoded except where explicit SDK/launcher capability surfaces are implemented
 Capability flow across Rust/Rhai is cyclic, not one-way:
 This is phase-separated runtime: declaration phase and execution phase coexist in one runtime but remain distinct.
 
-1. Rust registers host templates and projected API graph surfaces.
-2. Rhai declaration entrypoints run with profile-scoped `ctx` and emit one capability declaration.
-3. Declaration payload includes structured data plus declared behavior callbacks/closures shaped by contract/profile.
-4. Rust validates and materializes that declaration into a staged or runtime [[Capability Instance]].
-5. Runtime executes Capability Instances, invoking Rhai callbacks through projected `ctx` handles.
-6. Callback outcomes feed back into Rust-side reconcile/commit/apply paths.
+1. Rust registers host contracts, projected API graph surfaces, and known type/trait/callback signature families.
+2. [[Vapor.toml]] classifies typed source files inside [[Capability Module]] / [[Capability Node]] trees.
+3. Rhai declaration assets contribute [[Capability Type]]s, [[Capability Trait]]s, and [[Capability Callback]]s.
+4. Declaration payload includes structured data plus declared callbacks/closures shaped by explicit type, trait,
+   callback, and extension-slot contracts.
+5. Rust validates and materializes declared node material into staged or runtime [[Capability Instance]]s.
+6. Runtime executes Capability Instances, invoking Rhai callbacks through projected `ctx` handles.
+7. Callback outcomes feed back into Rust-side reconcile/commit/apply paths.
 
 Callback invocation paths are what restore script control flow freedom, but only through typed, scoped,
 lifetime-bounded interfaces.
@@ -159,11 +165,11 @@ capability shapes may be higher-order/layer-dependent rather than single flat no
 
 Open pressure:
 Owner direction now favors a heterogeneous graph with heterogeneous edge kinds.
-[[Capability Slot Type]]s should be treated as graph edge types or edge-type-like declarations.
+[[Capability Extension Slot]]s should be treated as graph edge types or edge-type-like declarations.
 The exact edge taxonomy is still unresolved, but dependency edges, slot edges, API exposure edges, authority edges,
 registry edges, and projection edges should not be prematurely collapsed into one generic edge model.
-The exact relation between graph edge types, capability type/template pressure, slots, authority claims, registries, and
-integration apertures remains under active pressure.
+The exact relation between graph edge types, Capability Types, Capability Traits, extension slots, authority claims,
+registries, and integration apertures remains under active pressure.
 
 Phase 3 lock-candidate anchor:
 Capability Phase 3 behavior is anchored by
@@ -174,7 +180,16 @@ Runtime Lock for launched compositions, and diagnostics before any Engine/Game f
 See also:
 
 - [[Capability Declaration]]
+- [[Capability Node]]
+- [[Capability Module]]
+- [[Capability Type]]
+- [[Capability Trait]]
+- [[Capability Extension Slot]]
 - [[Capability Instance]]
+- [[Capability Type Signature]]
+- [[Capability Trait Signature]]
+- [[Capability Instance Signature]]
+- [[Capability Callback]]
 - [[Capability Slot Type]]
 - [[Callback Type]]
 - [[Callback Context Type]]

@@ -1,6 +1,6 @@
 # Glossary and Tech Glossary Summary
 
-Source scope: the original 136 Markdown pages in `loo_cast_alpha/docs/glossary/`. Obsidian workspace metadata under `.obsidian/` is editor state and is not summarized here.
+Source scope: current Markdown pages in `loo_cast_alpha/docs/glossary/`. Obsidian workspace metadata under `.obsidian/` is editor state and is not summarized here.
 
 The glossary divides terms by tag: `#glossary` pages are concept vocabulary, while `#tech_glossary` pages are implementation-facing notes. `README.md` is the index for this split and carries both concerns.
 
@@ -12,7 +12,7 @@ Vapor is currently Steam-exclusive. Phase 3 is a proof of SDK, launcher, Steam/W
 
 The Spacetime Engine and Loo Cast are first-party instances inside Vapor. The Engine role is a coupled `core_engine` plus matching `core_mod`; the Game role is `base_mod`. USF is a public/API-facing Spacetime Engine subsystem, not a standalone Vapor product layer.
 
-Rhai is the canonical declaration and callback authoring surface, but not the raw runtime authority surface. Scripts emit data-first Capability Declarations and sanctioned callbacks through projected `ctx` facades. Rust owns host registration, materialization, scheduling, heavy kernels, mutation authority, validation, and reconcile/commit/apply.
+Rhai is the canonical typed declaration and callback authoring surface, but not the raw runtime authority surface. Capability Modules/Nodes use Vapor.toml to classify Rhai files as type, trait, callback, or child-capability material. Rust owns host registration, materialization, scheduling, heavy kernels, mutation authority, validation, and reconcile/commit/apply.
 
 Runtime composition is closed after Runtime Lock. Design remains open between lock cycles, but post-lock graph mutation is forbidden by default. Runtime dynamism should be expressed through explicit capabilities, registries, or policies, not arbitrary structural mutation.
 
@@ -38,7 +38,7 @@ Defines Build Artifact as built output from source that has not yet been assembl
 
 ### Callback Context Type.md
 
-Defines the dedicated `ctx` type projected into a Callback Type. Each type of callback should have its own projected context, scoped to allowed capabilities/data/operations, mirroring the rust function shape/signature using custom metadata to get that sweet semantic meaningfulness in the metadata so we can automatically pull in (or reject as invalid) the entire dependency/`ctx` capability graph projection at basically "compile-time" for the callback.
+Defines the dedicated `ctx` type projected into a Callback Type / Capability Callback. Each callback type should have its own projected context, and trait callbacks should be shaped by the declaring Capability Trait, implementing Capability Type, and resolved projection policy.
 
 ### Callback Scope Envelope.md
 
@@ -46,23 +46,27 @@ Defines the concrete capability/API projection envelope used for callback invoca
 
 ### Callback Signature.md
 
-Defines metadata that identifies a callback context and invocation shape without requiring the fully resolved capability graph. It is fingerprint/ID-like, supports compatibility checks and diagnostics, and remains separate from executable callback logic.
+Defines metadata that identifies a Capability Callback context and invocation shape without requiring the fully resolved capability graph. It is the callback-side member of the broader signature family beside Capability Type Signature, Capability Trait Signature, and Capability Instance Signature.
 
 ### Callback Type.md
 
-Defines a typed callback function shape in Vapor/Rhai terms. It describes the kind of callback entrypoint, may encode firing policy such as single-fire or multi-fire, has a dedicated Callback Context Type, and is not the same as Capability Slot Type.
+Defines the type of a Capability Callback. It describes scheduled/mediated callback entrypoints, may encode firing policy such as single-fire or multi-fire, has a dedicated Callback Context Type, and is not arbitrary callable logic.
 
 ### Capability Bootstrap Fixed-Point Cycle.md
 
 Defines the deterministic iterative startup process that materializes resolvable capability/API layers. First-order declarations are root-level and cannot depend on other capabilities; dependency cycles are invalid.
 
+### Capability Callback.md
+
+Defines a capability-relevant scheduled/mediated logic entrypoint. Capability Callbacks have Callback Types, Callback Signatures, projected Callback Context Types, and may be declared by Capability Traits and implemented by Capability Types; arbitrary functions are not capability concepts by default.
+
 ### Capability Contract.md
 
-Defines the Capability Contract Family as the overloaded umbrella for capability metadata, declaration, projection, and runtime/instance rules. It separates provider dependencies from declaration `ctx` dependencies, requires Vapor-readable metadata before lock, treats USF as a user of the capability model, and now has an accepted future split into smaller contract surfaces.
+Defines the Capability Contract Family as the overloaded umbrella for capability metadata, declaration, projection, and runtime/instance rules. It now splits old slot/template pressure across Capability Type, Capability Trait, Capability Extension Slot, and the signature family while preserving provider-vs-declaration dependency separation.
 
 ### Capability Declaration.md
 
-Defines the authored pre-materialization payload for a Capability / Capability Instance. It is data-first, shaped by a Capability Slot Type/Rust host contract, may include declared behavior callbacks, and may be promoted into staged Capability Instances during iterative/topological startup before final Runtime Lock.
+Defines the raw authored form of a Capability Node before validation/materialization into a Capability Instance. It can be spread across a Capability Module/Node source subtree with typed files for Capability Types, Capability Traits, and Capability Callbacks plus Vapor.toml metadata.
 
 ### Capability Dependency Layer Notes.md
 
@@ -70,7 +74,7 @@ Documents the key phase split: Rhai declaration and Rust runtime execution coexi
 
 ### Capability Graph Diagnostics.md
 
-Defines diagnostics produced from invalid or suspicious capability/slot graph states. It recommends classifying errors by graph primitive first, then projecting them into player, modpack-author, and developer views; Phase 3 should prove diagnostics for conflicts, cycles, missing providers, bad Rhai declarations, fingerprint mismatches, corrupted downloads, and visibility violations.
+Defines diagnostics produced from invalid or suspicious capability, trait, callback, signature, or extension-slot graph states. It recommends classifying errors by graph primitive first, then projecting them into player, modpack-author, and developer views.
 
 ### Capability Graph Scope Envelope.md
 
@@ -100,13 +104,45 @@ Defines Capability Role as an unresolved term for how a capability participates 
 
 Defines the runtime orchestration layer for capability discovery, registration, validation, coordination, and execution routing. It builds and locks one resolved launched Engine/Game runtime graph as the main authority source, while metadata registries, lockfile/fingerprint material, and projections remain supporting views; canonical mutation decisions stay in host reconcile/commit/apply paths.
 
+### Capability Extension Slot.md
+
+Defines an explicit capability graph extension/dependency point. It accepts candidate Capability Instances when their Capability Type Signatures satisfy required Capability Trait bounds and additional slot policy such as cardinality, ordering, optionality, replacement, or conflicts.
+
 ### Capability Instance.md
 
 Defines a concrete validated/materialized occurrence of a Capability in a specific graph environment. Use it for staged or runtime graph objects; use Capability for the broad model/type/contract concept and Capability Declaration for authored pre-materialization payloads.
 
+### Capability Instance Signature.md
+
+Defines metadata/fingerprint-like description of a concrete declared, staged, or runtime capability graph node. It can include graph identity, path, source/module path, type signatures, implemented traits, callbacks, child relationships, and diagnostics material.
+
+### Capability Module.md
+
+Defines a typed source-layout unit for authoring capability graph material. A module is usually a folder with Vapor.toml, generated Vapor.lock, and reserved typed subfolders such as `types`, `traits`, `callbacks`, and recursive `capabilities`.
+
+### Capability Node.md
+
+Defines the declared/source-side graph node that can later become a Capability Instance. Capability Declaration is the raw declared form of a Capability Node, usually represented by a module-shaped source subtree rather than one Rhai file.
+
 ### Capability Slot Type.md
 
-Defines a capability-graph slot/edge type: the declared shape of a slot a capability type/template can require, import, expose, or implement. It is related to but not identical with concrete Capability Type Template pressure or metadata signatures; cardinality and callback types remain separate.
+Legacy bridge term now superseded by Capability Extension Slot plus Capability Trait bounds and signature metadata. Old usages may map to extension slots, traits, callback types, projection scopes, or host-contract wiring depending on context.
+
+### Capability Trait Signature.md
+
+Defines metadata/fingerprint-like description of a Capability Trait. It identifies required trait callbacks, projection surfaces, compatibility constraints, and diagnostics material for implementers and extension-slot validation.
+
+### Capability Trait.md
+
+Defines a dynamic, Rhai-compatible, Rust-trait-like capability-side interface/marker/contract that Capability Types can implement. Traits can declare trait callbacks, and Capability Extension Slots use trait bounds to validate accepted candidates.
+
+### Capability Type Signature.md
+
+Defines metadata/fingerprint-like description of a Capability Type, including identity, implemented traits, callbacks, projection/context surfaces, compatibility metadata, and fingerprint material.
+
+### Capability Type.md
+
+Defines the declared kind/category of capability that can later produce or classify Capability Instances. It is defined by typed source files inside Capability Modules/Nodes, can implement Capability Traits, and replaces old template-style thinking.
 
 ### Capability-Centric Semantics.md
 
@@ -114,7 +150,7 @@ Defines the doctrine that project meaning and authority are modeled through capa
 
 ### Capability.md
 
-Defines Capability as Vapor's intentionally broad runtime/contract graph primitive spanning ability, authority, API exposure, metadata, composition, validation, and orchestration. Capabilities are Vapor-defined before engines/games extend them; the graph should be concurrency-friendly; identity/visibility should be Rust-like where useful; composite capabilities are first-class nodes; and Rust/Rhai capability boundaries remain host-governed.
+Defines Capability as Vapor's intentionally broad runtime/contract graph primitive spanning ability, authority, API exposure, metadata, composition, validation, and orchestration. The active model splits source/type semantics into Capability Modules, Nodes, Types, Traits, Extension Slots, Callbacks, Signatures, and Instances while Rust/Rhai boundaries remain host-governed.
 
 ### Chunk.md
 
@@ -328,7 +364,7 @@ Defines `core_engine`, `core_mod`, and `base_mod` as reserved structural role na
 
 ### Rhai Asset.md
 
-Defines Rhai declaration files as canonical authored asset/capability declaration surfaces. One file should normally define one authored leaf Capability Declaration; Vapor.toml carries manifest metadata; generated media is output/cache rather than canonical source; Phase 3 must load/validate declarations and prove the whole phase 3 stack working fully with the capability stuff.
+Defines Rhai Asset as the umbrella for typed Rhai source files contributing capability material. Vapor.toml classifies files as Capability Type, Capability Trait, Capability Callback, or node/module-facing assets; one Rhai file no longer implies one Capability Declaration.
 
 ### Rhai Bridge Domains and Access Provider Notes.md
 
@@ -336,11 +372,11 @@ Documents bridge-domain and access-provider findings from legacy/quarantine code
 
 ### Rhai Capability.md
 
-Defines Rhai Capability as a declaration-level, dynamic, human-readable API object exposed through projected `ctx` subgraphs. Scripts define declarations, parameters, policy logic, and callbacks, while Rust owns scheduling, heavy kernels, heavy/most state authority, and host-side execution, and hardcoded capabilities, which can also be projected into a context and used from that context like any other "native" rhai capabilities, yk?
+Defines Rhai Capability as a declaration-level, dynamic, human-readable API object exposed through projected `ctx` subgraphs. Scripts define typed declaration material, parameters, policy logic, and callbacks, while Rust owns scheduling, heavy kernels, state authority, host-side execution, and projection of native capabilities into Rhai contexts.
 
 ### Rhai Generic Dispatch Policy Notes.md
 
-Documents how Rhai should handle generic-like behavior without runtime Rust monomorphization. It favors explicit dispatch registries/catalogs, deterministic signature/type IDs, panic-fast duplicate/missing registration, declaration-first semantics, one script per Capability Declaration, projected `ctx` graphs, and keeping facade/bridge layers thin over monomorphized Rust-safe surfaces. This is quite the mouthful, but it's not wrong!
+Documents how Rhai should handle generic-like behavior without runtime Rust monomorphization. It now maps legacy profile/type-template/slot-type wording to Capability Type, Capability Trait, Capability Extension Slot, Callback Type, and explicit signature metadata over typed Rhai assets.
 
 ### Rhai Reflection Macro Surface Notes.md
 
@@ -416,7 +452,7 @@ Legacy bridge name now merged into Capability Projection API. The preserved sign
 
 ### Slot Graph Composition.md
 
-Defines composition-time ownership and extension as parent-owned slots filled by capabilities under type/cardinality/policy rules. It explains how reserved Engine/Game pillars are mandatory but replaceable before lock, forbids cycles/self-slots, and recommends modeling runtime dynamism through explicit capabilities rather than post-lock slot mutation. Yeah, basically. Slots are like the "static" mechanism for contributing to the immutable "static" graph core/root/host we hand off into the runtime to add dynamic and dynamically mutable substrate on top, and yeah, those ofc then don't follow the "Slot Graph Composition" model anymore, yeah. Makes sense. 
+Defines composition-time ownership and extension as parent-owned Capability Extension Slots filled by candidates whose Capability Type Signatures satisfy required Capability Trait bounds and slot policy. It explains mandatory Engine/Game pillars, forbids cycles/self-slots, and recommends modeling runtime dynamism through explicit capabilities rather than post-lock slot mutation.
 
 ### Source Artifact.md
 
@@ -460,11 +496,11 @@ Defines the active structured set of runtime-materialized USF capabilities, orga
 
 ### USF Instantiation Capability Slot Notes.md
 
-Documents the declaration/profile model for USF instantiation scripts: profiles such as scale, metric, phenomenon, and phenomenon_realizer map to Capability Slot Types; one script emits one Capability Declaration; access is via include/exclude-filtered `ctx`; callbacks use separate masks; and runtime materializes capabilities after lock.
+Documents the legacy USF instantiation-script model and maps it forward: old profiles now become type/trait/callback source classifications or projection policies, Rhai files are typed assets contributing to Capability Module/Node material, and runtime later materializes Capability Instances.
 
 ### USF Instantiation Scripts.md
 
-Defines declaration-centric Rhai authoring for singleton-like USF Capability Declarations. Scripts run with profile-tailored `ctx`, emit structured data plus logic closures, separate declaration and callback scopes, and feed runtime materialization into the USF Instance Graph. Hm, idk. Also a bit wibbly wobbly, yk?
+Defines declaration-centric Rhai authoring for USF-specific Capability Declaration / Capability Node material. Scripts run with type/trait/callback-tailored `ctx`, emit structured data plus callback closures, separate declaration and callback scopes, and feed runtime materialization into the USF Instance Graph.
 
 ### USF Math Raw Model Foundation Notes.md
 
@@ -516,7 +552,7 @@ Defines Vapor.lock as the resolved dependency, fingerprint, and hash-state count
 
 ### Vapor.toml.md
 
-Defines Vapor.toml as the required manifest surface for every Vapor artifact root and every folder grouping capability declarations. It carries dependencies, conflicts, visibility, target roles, version constraints, placement/storage metadata, pack composition, and Steam/Workshop publication metadata, while Rhai files declare capabilities.
+Defines Vapor.toml as the required manifest surface for every Vapor artifact root and Capability Module/Node source folder. It classifies typed Rhai files as types, traits, callbacks, or child capability material while also carrying dependencies, conflicts, visibility, target roles, placement/storage metadata, pack composition, and Steam/Workshop publication metadata.
 
 ### Workflow Framework Premise Notes.md
 

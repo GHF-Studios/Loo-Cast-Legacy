@@ -10,8 +10,8 @@ It is the execution medium for [[Capability-Centric Semantics]], not the authori
 It composes with Vapor-level [[Capability Runtime]] semantics and hosts engine-side [[Modding Runtime]] and
 [[USF Runtime]] execution where the selected Engine exposes those systems.
 Rust-side staged lifecycle orchestration is handled through the [[Workflow Framework]].
-ECS is the underlying execution/data medium in this substrate, while semantic capability-type-template authority remains
-contract-defined.
+ECS is the underlying execution/data medium in this substrate, while semantic capability type/trait/callback authority
+remains contract-defined.
 [[Runtime Lock]] enforces deterministic-by-default activation and fixed startup composition boundaries, while explicit
 runtime substrate policy owns any permitted post-lock state evolution, registries, external IO, and nondeterministic
 runtime effects.

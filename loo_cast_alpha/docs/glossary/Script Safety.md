@@ -19,7 +19,7 @@ The default posture for hooks/events/messages should be non-consuming and non-ca
 contract explicitly allows consumption or cancellation.
 
 Asset boundary:
-[[Rhai Asset]] declaration files are the canonical authored asset format.
+[[Rhai Asset]] declaration files are the canonical authored Rhai source format for typed capability material.
 Generated textures, models, sounds, and other media payloads are runtime outputs, caches, or delivery artifacts rather
 than traditional authored source assets.
 
@@ -32,7 +32,7 @@ See also:
 
 - [[Global Capability API Graph]]
 - [[Capability Projection API]]
-- [[Capability Slot Type]]
+- [[Capability Extension Slot]]
 - [[Callback Type]]
 - [[Callback Context Type]]
 

@@ -17,8 +17,11 @@ Boundary:
 - Capability Instance is the validated/materialized graph object produced from declarations, Rust host definitions, or
   other explicit capability sources.
 - Plain [[Capability]] may still name the broad Vapor concept/model when instance-level precision is not needed.
-- Capability Type / Capability Type Template wording remains unresolved and should be pressure-tested with
-  [[Capability Slot Type]] before becoming stable doctrine.
+- [[Capability Type]] names the declared kind/category behind an instance.
+- [[Capability Trait]] names explicit contracts implemented by the instance's Capability Type.
+- [[Capability Instance Signature]] describes graph-node identity and compatibility metadata for declared/staged/runtime
+  instances.
+- `Capability Type Template` is deprecated active vocabulary.
 
 Startup timing:
 Capability Instances can be created in staged/topological startup layers before the final [[Runtime Lock]].

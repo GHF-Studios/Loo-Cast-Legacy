@@ -5,16 +5,16 @@ aliases: []
 ---
 
 The USF Instantiation Scripts are the declaration-centric authoring surface under [[Loo Cast]] for defining
-singleton-like [[Capability Declaration]]s for contract-defined profile categories from the [[USF Contract]].
+USF-specific [[Capability Declaration]] / [[Capability Node]] material from the [[USF Contract]].
 These declarations target Rust-registered host validation/materialization authorities.
-Older notes call those authorities [[Capability Slot Type]]s; active platform wording prefers
-[[Capability Slot Type]] where the text means declaration/slot/context shape.
-Executing these declaration entrypoints with profile-tailored `ctx` capability-object subgraphs emits full
-capability declarations that include structured data plus logic closures.
+Older notes call those authorities [[Capability Slot Type]]s; active platform wording now splits that pressure across
+[[Capability Type]], [[Capability Trait]], [[Capability Extension Slot]], and signature metadata.
+Executing these declaration entrypoints with type/trait/callback-tailored `ctx` capability-object subgraphs emits full
+capability-node declaration material that includes structured data plus callback closures.
 Declaration entrypoint access and callback invocation access are distinct scopes (`decl_ctx` vs callback-scoped
 `cb_ctx`) and resolve to different effective masks through allow/deny path-gating policy.
 The `ctx` graph is hierarchical (atomic capability nodes + composite/category nodes) and filtered through
-include/exclude path declarations for each profile.
+include/exclude path declarations for each declaration/projection policy.
 Runtime activation then materializes active USF [[Capability Instance]]s into the [[USF Instance Graph]].
 Capabilities are exposed to scripts as declaration-level [[Rhai Capability]] API objects through `ctx`; runtime behavior
 is executed by the resulting Capability Instances.

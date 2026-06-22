@@ -4,12 +4,13 @@ status: WIP-draft
 aliases: []
 ---
 
-The Slot Graph Composition defines composition-time ownership and extension structure as declared slot filling from a
-root through nested capability/mod/framework graphs.
+Slot Graph Composition defines composition-time ownership and extension structure as declared extension-slot filling
+from a root through nested capability/mod/framework graphs.
 Slots are an abstract helper concept and are not limited to whole mods.
 They may exist at engine, game, mod, capability-node, module, or smaller API-surface levels.
-At the current abstraction level, a slot is best understood as a node-owned child position that accepts a capability of a
-declared type under a cardinality/policy shape.
+At the current abstraction level, a slot is best understood as a node-owned [[Capability Extension Slot]] that accepts
+candidate capability nodes whose [[Capability Type Signature]] satisfies required [[Capability Trait]] bounds under a
+cardinality/policy shape.
 This is stronger than "edge with policy" but still keeps room for richer edge metadata.
 
 In the first-party [[Vapor Product Instance Stack]], the `core_engine` and matching `core_mod` form a coupled mandatory
@@ -26,10 +27,12 @@ Slot mechanics:
 
 - A slot is owned by a parent node.
 - A filled slot is itself a [[Capability]] node in that parent/child relation.
-- A slot should accept one concrete capability/node type.
+- A slot should accept candidates through explicit trait bounds and signature validation, not through implicit folder
+  position or one hardcoded concrete type.
+- Multiple required traits are allowed, with exact bound-composition rules still open.
 - Cardinality belongs to the slot policy: exactly one, zero-or-one, zero-or-more, one-or-more, exact N, tuple-like,
   struct-like, enum-like, registry-like, or other Rust-inspired shapes remain possible.
-- A node cannot have itself as a slot type, dependency, or dependant.
+- A node cannot have itself as an extension-slot candidate, dependency, or dependant.
 - Cycles are invalid, but deep acyclic nesting is allowed when justified.
 
 Composition is valid only when required slots resolve and singleton-critical ownership resolves to exactly one owner per
@@ -46,6 +49,6 @@ Open policy vocabulary includes exclusive slots, variadic slots, ordered registr
 apertures.
 These are not final field-level schema yet; they are current pressure terms for preventing `slot` from collapsing into
 one overly rigid mechanism.
-Replacement currently means selecting a different capability of the same accepted type before lock.
+Replacement currently means selecting a different capability satisfying the same extension-slot bounds before lock.
 
 #glossary

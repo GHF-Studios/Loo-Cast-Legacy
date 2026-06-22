@@ -5,9 +5,8 @@ aliases:
   - Rhai Declaration Asset
 ---
 
-A Rhai Asset is a canonical authored asset/capability declaration surface represented as a [[Rhai]] declaration file.
-Current owner-answer-informed doctrine is strong for authored declaration files: one Rhai declaration file should map to
-one authored leaf capability declaration by default.
+A Rhai Asset is a canonical authored [[Rhai]] source file that contributes typed capability declaration material.
+It is now an umbrella over specialized Rhai source-file roles rather than proof that one file equals one capability.
 Batch 005 correction:
 Rhai declarations are foundational, but they are not the only primary source form.
 Rust-defined hardcoded or type-system-bound capabilities and Rhai-defined data-oriented capabilities are both primary
@@ -15,21 +14,31 @@ inputs into the dynamic heterogeneous [[Capability]] graph.
 
 File/node shape:
 
-- One Rhai declaration file should represent one authored leaf capability declaration node.
-- The file is a different container artifact type, not proof that the node is graph-top-level.
-- File-internal capability definitions should be private/internal-only by default.
-- Folder/module-style assets may use Rhai-level `mod.rs`-like aggregator files for grouping capability declarations and
-  module-like structure.
+- One Rhai file is one typed declaration asset, not necessarily one [[Capability Node]] or one
+  [[Capability Instance]].
+- [[Vapor.toml]] classifies each Rhai file's role, for example capability type, capability trait, or capability
+  callback material.
+- File and folder names should remain freely choosable where practical; manifest classification is the source of truth.
+- Reserved typed folders such as `types`, `traits`, `callbacks`, and `capabilities` make the module layout readable
+  without making arbitrary folder structure semantic by default.
 - [[Vapor.toml]] is now allowed and expected for manifest-style metadata such as dependencies, conflicts, target roles,
   version requirements, and Steam/Workshop publication fields.
 - Separate sidecar `.meta` files remain disfavored; Vapor.toml is the explicit manifest surface when manifest data is
   needed.
 
+Current specialized Rhai asset roles:
+
+- Rhai Capability Type Asset: defines [[Capability Type]] material.
+- Rhai Capability Trait Asset: defines [[Capability Trait]] material.
+- Rhai Capability Callback Asset: defines [[Capability Callback]] material.
+- Rhai Capability Node/Module Asset: possible umbrella wording for files that contribute to a [[Capability Node]] or
+  [[Capability Module]], but the module itself is folder/manifest structure rather than one Rhai file.
+
 Boundary:
-Rhai is for declaring capabilities.
+Rhai is for declaring capability-relevant source material.
 [[Vapor.toml]] is the Cargo.toml-like build/package metadata equivalent for folder/artifact structure, dependencies,
 attachment, and publication metadata.
-Rhai authoring contexts should be generated per capability kind from Vapor.toml and capability metadata.
+Rhai authoring contexts should be generated from Vapor.toml, type/trait/callback metadata, and capability graph policy.
 
 Rust kernel topology pressure:
 Rust leaf capability kernels should also tend toward one file per leaf kernel.
@@ -49,13 +58,15 @@ The relationship between Rhai-side capability usage and Rust-side capability ker
 Platform-level Rhai callbacks for authoring, validation, publishing, or launcher lifecycle hooks are in scope; runtime
 gameplay-style Rhai callbacks remain out of scope for the current Vapor-focused pass.
 Rhai hooks are expected to exist in Phase 3.
-Callbacks are currently best understood as ways to define logic entrypoints with firing policy, such as single-fire,
-multi-fire, or procedural-fire behavior, but exact hook taxonomy remains open.
+[[Capability Callback]]s are scheduled/mediated entrypoints with firing policy, such as single-fire, multi-fire, or
+procedural-fire behavior.
+Generic capability functions are not active doctrine.
 
 Phase 3 lock-candidate anchor:
 Rhai Asset Phase 3 behavior is anchored by
 [Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md), especially P3-W04.
-Phase 3 must load and validate Rhai declarations without launching a concrete Engine/Game fixture, map Rhai declaration
-data into capability/fingerprint paths, and prove one focused callback path without locking the full callback taxonomy.
+Phase 3 must load and validate Rhai declarations without launching a concrete Engine/Game fixture, map typed Rhai
+declaration data into capability/fingerprint paths, and prove one focused callback path without locking the full
+callback taxonomy.
 
 #glossary

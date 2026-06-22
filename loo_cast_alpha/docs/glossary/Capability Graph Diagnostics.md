@@ -6,11 +6,12 @@ aliases:
   - Mod Conflict Diagnostics
 ---
 
-Capability Graph Diagnostics are reports produced from invalid or suspicious [[Capability]]/slot graph states.
+Capability Graph Diagnostics are reports produced from invalid or suspicious [[Capability]] /
+[[Capability Extension Slot]] graph states.
 
 Current framing:
 
-- The low-level primitive is an invalid capability/slot graph state.
+- The low-level primitive is an invalid capability, trait, callback, signature, or extension-slot graph state.
 - `mod conflict` is still a valid user-facing diagnosis.
 - Explicit mod-wide conflicts are author-friendly metadata layered over graph validation.
 - Validation errors should first be classified by graph primitive, then projected into player, modpack-author, and
@@ -37,8 +38,9 @@ permutations.
 Successful runs should produce composition/fingerprint artifacts and launcher-visible logs/output.
 Invalid runs should produce launcher-native diagnostics before `core_engine` starts.
 The first validation proofs should include cycle detection, explicit conflict detection, missing required providers,
-duplicate singleton providers, version mismatches, invalid target roles, bad Rhai declarations, fingerprint mismatches,
-corrupted/incomplete Workshop downloads, and visibility violations as the relevant type/cardinality model permits.
+duplicate singleton providers, version mismatches, invalid target roles, bad typed Rhai declarations, fingerprint
+mismatches, corrupted/incomplete Workshop downloads, and visibility violations as the relevant type/trait/cardinality
+model permits.
 Declared conflicts should be checked as path+version predicates.
 Vapor should also attempt deeper scans for conflicts that should have been declared but were not, without trying to
 prove that every declared conflict is warranted by exact content comparison.

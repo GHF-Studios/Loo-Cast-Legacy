@@ -16,8 +16,8 @@ Related glossary terms:
 Current canonical framing (draft):
 
 1. Rhai declaration and Rust runtime execution coexist in one runtime, but they are phase-separated.
-2. Declaration phase: load scripts, expose profile-scoped `ctx`, emit capability declarations, validate, then
-   lock-transition.
+2. Declaration phase: load typed source material, expose declaration/type/trait/callback-scoped `ctx`, emit capability
+   node declaration material, validate, then lock-transition.
 3. Execution phase: run [[Capability Instance]]s in USF runtime evolution after lock.
 4. Callback invocation paths bridge these phases without collapsing them into one undifferentiated model.
 
@@ -26,7 +26,7 @@ Dependency layers (do not conflate):
 1. Mod dependency layer:
    mod graph/provider ownership and compatibility.
 2. Declaration dependency layer:
-   profile-scoped `ctx` path access and declaration-time dependency requirements.
+   declaration/type/trait/callback-scoped `ctx` path access and declaration-time dependency requirements.
 3. Runtime interaction layer:
    post-lock interactions among [[Capability Instance]]s (channels/events/callback-driven behavior).
 
@@ -61,7 +61,8 @@ Open policy surface (still active):
 1. Exact declaration dependency grammar (`required`/`optional`, include/exclude precedence).
 2. Cycle policy in declaration dependency resolution.
 3. Error taxonomy and diagnostics shape across declaration and execution seam boundaries.
-4. How callback access-mask policy inputs are declared per callback kind and resolved/validated against profile policy.
+4. How callback access-mask policy inputs are declared per callback kind and resolved/validated against projection
+   policy.
 5. How dynamic path open/close policy is versioned and audited for callback contexts.
 
 Legacy source pointers:

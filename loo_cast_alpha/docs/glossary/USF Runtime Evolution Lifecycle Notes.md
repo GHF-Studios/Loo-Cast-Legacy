@@ -16,8 +16,9 @@ Current execution-shape notes:
 
 1. Definition side transitions through Runtime Lock before runtime progression.
 2. Runtime flow is still framed as `intent -> reconcile -> commit -> apply`.
-3. Runtime operates on active capabilities materialized from capabilities established at Runtime Lock.
-4. These capabilities execute closure logic through profile-tailored `ctx` capability-object subgraphs.
+3. Runtime operates on active [[Capability Instance]]s materialized from capabilities established at Runtime Lock.
+4. These instances execute callback closure logic through type/trait/callback-tailored `ctx` capability-object
+   subgraphs.
 5. `ctx` capability-object subgraphs are hierarchical (atomic + composite API graph nodes), filtered by include/exclude
    path declarations, and may
    dynamically open/close by runtime policy.

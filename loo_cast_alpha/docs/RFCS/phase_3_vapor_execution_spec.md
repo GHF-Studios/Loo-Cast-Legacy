@@ -158,7 +158,8 @@ Required output:
 - SemVer-like version constraint parsing.
 - Explicit dependency and conflict objects.
 - Explicit folder/composition/storage metadata without implicit folder defaults.
-- Explicit Vapor.toml coverage for every Vapor artifact root and every folder level that groups capability declarations.
+- Explicit Vapor.toml coverage for every Vapor artifact root and every folder level that groups typed capability module
+  or node declarations.
 - Steam/Workshop metadata fields sufficient for Phase 3 publish/install flows.
 
 Done means:
@@ -175,8 +176,8 @@ Required output:
 
 - Stable path-addressed capabilities.
 - Private/internal/public visibility semantics.
-- Capability declarations.
-- Capability Slot Types, only created by explicit opt-in.
+- Capability node/type/trait/callback declarations.
+- Capability Extension Slots with explicit trait-bound support.
 - Capability projections for Player, Modpack Author, and Developer modes.
 - Graph staging from discovery through Runtime Lock.
 - Validation for cycles, missing required providers, duplicate singleton providers, explicit conflicts, version

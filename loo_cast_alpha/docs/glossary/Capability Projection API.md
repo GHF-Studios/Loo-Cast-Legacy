@@ -15,7 +15,7 @@ than a separate scripting-owned layer.
 See also:
 
 - [[Global Capability API Graph]]
-- [[Capability Slot Type]]
+- [[Capability Extension Slot]]
 - [[Capability Path]]
 - [[Script Safety]]
 

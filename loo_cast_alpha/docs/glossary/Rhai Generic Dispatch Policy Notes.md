@@ -51,42 +51,45 @@ Active quarantine dispatch-surface signal (`TMP_rhai_semantic_reset_quarantine`)
 High-signal documentation anchor for reflection shape and layering boundaries:
 [Rhai Reflection Macro Surface Notes](Rhai%20Reflection%20Macro%20Surface%20Notes.md)
 
-Terminology correction (draft):
+Terminology correction (legacy-to-current mapping):
 
 1. "Rhai type" is useful intuition but too ambiguous for this stack.
-2. Preferred term for script output is [[Capability Declaration]].
-3. Current active wording uses [[Capability Slot Type]] for the old profile/type-template idea.
-4. The useful remaining idea behind capability type templates is Rust-side host validation/materialization authority.
+2. Preferred term for raw declared graph output is [[Capability Declaration]] / [[Capability Node]] material.
+3. Current active wording replaces old profile/type-template/slot-type pressure with [[Capability Type]],
+   [[Capability Trait]], [[Capability Extension Slot]], and signature metadata.
+4. The useful remaining idea behind capability type templates is Rust-side host validation/materialization authority plus
+   explicit type/trait/callback signatures.
 
-Declaration-first posture (primary model):
+Declaration-first posture (legacy MVP slice, superseded by module/node typing):
 
-1. A script profile defines exactly one [[Capability Slot Type]] identity.
-2. One script/file defines exactly one singleton-like [[Capability Declaration]] of that capability slot type.
-3. Legacy profile/type wording maps to [[Capability Slot Type]] unless the text explicitly means callback invocation
-   shape.
+1. Old script profiles should now be interpreted as type/trait/callback source classifications or projection policies,
+   not as final vocabulary.
+2. One script/file no longer implies one singleton-like Capability Declaration.
+   A Rhai file is one typed [[Rhai Asset]] contributing to a [[Capability Module]] / [[Capability Node]].
+3. Legacy profile/type wording usually maps to Capability Type, Capability Trait, Capability Extension Slot, or
+   [[Callback Type]], depending on the exact meaning.
 4. Rust-side host validation/materialization wiring constrains declarations; older notes may call this capability
    type-template authority.
-5. Capability slot types are Rust-side template authorities (trait/registration wiring), not script-produced objects.
-6. Script execution yields data-first capability declarations (POD-oriented with declared behavior payload), not raw
-   Rust type objects.
-7. Capability slot type defines the allowed script API graph topology: atomic capability nodes plus composite category
-   nodes.
+5. Extension slots are graph extension/dependency points with trait bounds, not script-produced objects.
+6. Script execution yields data-first declaration material, not raw Rust type objects.
+7. Capability type/trait/callback signatures define the allowed script API graph topology: atomic capability nodes plus
+   composite/category nodes.
 8. Access is declared as include/exclude path declarations over that graph, so very specific capability-object subgraphs
    can be exposed.
-9. Domains that are nonsensical, non-implementable for that capability slot type, or dangerous are intentionally
-   omitted.
+9. Domains that are nonsensical, non-implementable for that type/trait/callback projection surface, or dangerous are
+   intentionally omitted.
 10. Capabilities exposed to scripts are [[Rhai Capability]] objects, identified by human-readable string IDs, and access
-   to them is granted or denied by profile/policy.
+   to them is granted or denied by declaration/projection policy.
 11. `ctx` is object-based and dynamic; domains/subdomains can open/close over time according to runtime policy and
    declaration context.
-12. Runtime executes declaration entrypoints with capability-slot-type-tailored `ctx` subgraphs to produce capability
-    declarations.
+12. Runtime executes declaration entrypoints with type/trait/callback-tailored `ctx` subgraphs to produce capability
+    node declaration material.
 13. Callback closures declared by those entrypoints execute with callback-scoped effective `ctx` masks resolved by
     allow/deny policy, not implicit carry-over from declaration-entrypoint `ctx`.
 14. A Rust materialization pass consumes those declarations and produces runtime capability machinery.
-15. One Rhai file now leans toward one authored leaf capability/asset node. Richer syntax/logic/fields/parameters may
-    exist inside the file, but file-internal capability definitions are private/internal by default and should not
-    become public graph nodes casually.
+15. One Rhai file now leans toward one typed declaration asset, not one authored leaf capability node.
+    Richer syntax/logic/fields/parameters may exist inside the file, but public graph nodes must come from explicit
+    module/node/type/trait/callback declarations.
 16. Capability semantics are intentionally split:
     declaration-level [[Rhai Capability]] API surfaces and runtime-side Rust implementation/execution surfaces under
     [[Capability Runtime]] in the [[Runtime Substrate]].

@@ -27,9 +27,11 @@ Current capability-slot direction notes (legacy MVP slice alignment):
 2. Capability use is context-rooted and profile-gated.
 3. Alias preprocessing (`use ... as ...`) is part of the script-loading flow.
 4. Definition content is loaded, validated, and transitioned through Runtime Lock for runtime progression.
-5. Each old "script profile" concept maps to one [[Capability Slot Type]] identity.
-6. One script/file always defines one singleton-like [[Capability Declaration]] of that capability slot type.
-7. Rust-side host validation/materialization wiring constrains declarations for those slot types.
+5. Each old "script profile" concept should now be re-read as some mix of [[Capability Type]], [[Capability Trait]],
+   [[Capability Extension Slot]], and projection policy.
+6. One script/file no longer defines one singleton-like [[Capability Declaration]] by active doctrine.
+   A file is one typed [[Rhai Asset]] contributing to [[Capability Module]] / [[Capability Node]] material.
+7. Rust-side host validation/materialization wiring constrains declarations for those type/trait/callback surfaces.
 8. Capabilities in scripts are [[Rhai Capability]] dynamic API objects (human-readable string IDs), with profile/policy
    grant or deny access.
 9. Executing script declaration code yields one capability declaration.
@@ -38,12 +40,12 @@ Current capability-slot direction notes (legacy MVP slice alignment):
 12. `ctx` is object-based and dynamic, so domains/subdomains can open/close over time.
 13. Access used during declaration entrypoint execution is separate from callback invocation access; callback closures
     run with callback-scoped `ctx` masks resolved by allow/deny policy, which may be narrower or otherwise different.
-14. Complex declarations are still authored as one file/one capability declaration by using richer declaration syntax
-    and logic within that file.
+14. Complex declarations are authored as module/node source trees with typed files and manifest classification rather
+    than as one file/one capability declaration.
 15. Raw unrestricted host graph access is not script-safe; scripts use projected facades (`ctx` objects) only.
 16. Runtime later materializes USF [[Capability Instance]]s (for example Scale/Phenomenon instances) from declarations
     and host definitions established during staged startup and Runtime Lock.
-17. These Capability Instances carry closures/logic that execute through profile-tailored `ctx`
+17. These Capability Instances carry callback closures/logic that execute through type/trait/callback-tailored `ctx`
     capability-object subgraphs.
 18. Canonical lifecycle, cyclic Rust/Rhai loop semantics, callback-path semantics, and multiplicity classes are
     defined in [[Capability]].
@@ -55,10 +57,10 @@ Current capability-slot direction notes (legacy MVP slice alignment):
 Current startup-flow shape used as reference:
 
 1. Read script files.
-2. Resolve include/exclude capability-path declarations against profile API graph topology.
+2. Resolve include/exclude capability-path declarations against type/trait/callback API graph topology.
 3. Preprocess aliases.
-4. Compile and execute declaration entrypoints with profile-tailored `ctx` capability-object subgraphs to emit
-   capability declarations.
+4. Compile and execute declaration entrypoints with type/trait/callback-tailored `ctx` capability-object subgraphs to
+   emit capability-node declaration material.
 5. Activate runtime and materialize capabilities from capabilities established at Runtime Lock.
 6. Emit runtime proof logging.
 7. Runtime-lock definition-side mutation.

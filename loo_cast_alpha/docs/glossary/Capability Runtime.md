@@ -17,8 +17,8 @@ registries, lockfile/fingerprint material, and player/modpack-author/developer p
 than separate runtime graph truths.
 The graph should be built/validated layer by layer so dependencies are registered and initialized before dependants are
 allowed to use them.
-Declaration scripts consume [[Rhai Capability]] objects through profile-tailored `ctx` capability-object subgraphs;
-runtime [[Capability Instance]]s execute closure logic against runtime capability implementations.
+Declaration scripts consume [[Rhai Capability]] objects through type/trait/callback-tailored `ctx` capability-object
+subgraphs; runtime [[Capability Instance]]s execute closure logic against runtime capability implementations.
 `ctx` capability-object subgraphs are composed from hierarchical API graph nodes (atomic + composite) via
 include/exclude path declarations and can dynamically narrow/re-open by runtime policy inside the
 [[Capability Graph Scope Envelope]].

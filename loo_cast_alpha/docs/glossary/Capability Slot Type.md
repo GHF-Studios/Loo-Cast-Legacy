@@ -1,39 +1,48 @@
 ---
 canonical_name: Capability Slot Type
-status: WIP-draft
+status: legacy-bridge
 aliases:
   - CapabilitySlotType
 ---
 
-A Capability Slot Type is a capability-graph slot/edge type: the declared shape of a slot a capability type/template
-can require, import, expose, or implement.
-Older profile/type-template labels are not active glossary pages anymore, but the distinction between a concrete
-Capability Type Template, the slot type that accepts it, and the metadata signature describing either surface remains
-real pressure.
+Capability Slot Type is legacy bridge terminology for the concept now better expressed as
+[[Capability Extension Slot]] plus [[Capability Trait]] bounds and signature metadata.
 
-It describes what kind of capability surface can be attached, projected, requested, validated, or exposed in a specific
-context.
-Owner direction now treats Capability Slot Types as graph edge types or edge-type-like declarations in the heterogeneous
-capability graph.
-Cardinality should not be baked directly into the slot type.
-Cardinality should be modeled as a separate field, mode, or implementation detail on a slot using that slot type.
+Older notes used Capability Slot Type for several overlapping ideas:
+
+- profile/type-template identity
+- graph edge or slot kind
+- accepted capability kind
+- projected declaration context shape
+- Rust-side validation/materialization authority
+
+Active wording splits those apart:
+
+- [[Capability Type]] names the capability kind/category.
+- [[Capability Trait]] names explicit interface/marker/contract bounds.
+- [[Capability Type Signature]] and [[Capability Trait Signature]] describe metadata/fingerprint-like surfaces.
+- [[Capability Extension Slot]] names the explicit graph extension/dependency point.
+- [[Callback Type]], [[Callback Context Type]], and [[Callback Signature]] remain callback-side concepts.
 
 Boundary:
-This term is owner-answer-informed but still WIP.
-It should not be flattened into callback metadata, projection scope, or generic path policy.
-Scope-envelope pages describe access/projection boundaries; Capability Slot Type names a more concrete slot/edge
-compatibility surface.
+Do not use Capability Slot Type for new doctrine unless explicitly discussing legacy notes.
+Use Capability Extension Slot when the intended meaning is "this graph position accepts candidates satisfying these
+trait bounds and slot policies."
+Cardinality, ordering, optionality, replacement behavior, and conflict behavior should stay explicit slot policy rather
+than trait identity.
 
 Open pressure:
-A Capability Type can declare or import one or more Capability Slot Types it wants to expose or fill.
-Other [[Capability Instance]]s whose declarations/implementations satisfy those slot types may then occupy those slots.
-[[Vapor.toml]] is expected to import/define slot-type metadata in a Cargo.toml-like role.
-Local, non-imported slot-type implementations should be backed by Rust host contracts, ideally with macro-generated
-wiring where practical.
-Rhai declarations may provide concrete capability/callback/slot-type declaration payloads, but those asset classes need
-a follow-up split before this is final.
-Do not assume every capability declaration automatically creates a slot type.
-[[Callback Type]], [[Callback Context Type]], and [[Callback Signature]] remain different callback-side concepts and are
-not simply the same thing as Capability Slot Type.
+Old pages that say Capability Slot Type probably need case-by-case migration.
+Some usages should become Capability Extension Slot.
+Some should become Capability Trait.
+Some should become Callback Type, Callback Context Type, Capability Projection API, or host-contract wiring.
+
+See also:
+
+- [[Capability Extension Slot]]
+- [[Capability Trait]]
+- [[Capability Type Signature]]
+- [[Capability Trait Signature]]
+- [[Callback Type]]
 
 #glossary

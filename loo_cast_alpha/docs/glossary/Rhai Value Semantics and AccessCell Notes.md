@@ -68,8 +68,8 @@ Current design tension (intentional and unresolved):
    retain a deeper value-semantics model (`Scoped*`, lifecycle windows, explicit access policy) as a first-class
    scripting contract. More complex but also more flexible rhai-facing semantics.
 3. Integration constraint:
-   whichever direction wins must compose cleanly with [[Capability Declaration]]s and profile-tailored `ctx`
-   capability-object subgraphs.
+   whichever direction wins must compose cleanly with [[Capability Declaration]]s and
+   declaration/type/trait/callback-tailored `ctx` capability-object subgraphs.
 4. Reflection layer constraint:
    value-semantics decisions must still fit the macro reflection/registration topology documented in
    [Rhai Reflection Macro Surface Notes](Rhai%20Reflection%20Macro%20Surface%20Notes.md).

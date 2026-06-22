@@ -135,8 +135,8 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 100. `DONE` Composite capabilities may own policy unknown to child capabilities.
 101. `DONE` `Capability Instance` is now preferred for concrete validated/materialized graph objects.
 102. `DONE` Capability Declaration remains authored pre-materialization payload, not runtime object.
-103. `DONE` Capability Slot Type remains separate from callback metadata and projection scope, but its exact type/template relation needs follow-up.
-104. `DONE` Capability Slot Type creation must be explicit opt-in, not automatic per declaration.
+103. `DONE` Capability Slot Type is demoted to legacy bridge vocabulary; active model uses Capability Extension Slot plus Capability Trait bounds.
+104. `DONE` Extension-slot creation must be explicit opt-in, not automatic per declaration.
 105. `DONE` Capability graph edges are heterogeneous; docs should not collapse dependency/slot/API/authority edges into one model.
 106. `DONE` Capability path is addressing/policy input, not dependency or causality.
 107. `DONE` Capability Location is demoted; preserve placement/storage concerns under clearer future terms.
@@ -144,9 +144,13 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 109. `DONE` Capability Contract should split into metadata, declaration rules, projection rules, and runtime/instance rules.
 110. `DONE` Capability Contract currently carries too much legacy/USF/Rhai/runtime pressure in one page.
 110a. `AUDIT` Replace plain `Capability` with `Capability Instance` where docs mean concrete staged/runtime graph object.
-110b. `DECIDE` Formalize Capability Type, Capability Type Template, Capability Slot Type, and metadata-signature relationships.
-110c. `SPLIT` Rhai Asset may need separate asset classes for capability declarations, callback declarations, and slot-type declarations.
-110d. `DECIDE` Replace `Capability Location` signal with clearer source/artifact placement, storage metadata, and in-memory graph identity terms.
+110b. `DONE` `Capability Type Template` is deprecated; use Capability Type, Capability Trait, Capability Extension Slot, and signature families.
+110c. `DONE` Rhai Asset is now umbrella vocabulary for typed Capability Type/Trait/Callback/Node/Module source assets.
+110d. `DONE` `Capability Location` signal is initially replaced by Capability Module, Capability Node, Capability Path, and Capability Instance Signature framing.
+110e. `DECIDE` Formalize exact Capability Module folder grammar, including reserved `types`, `traits`, `callbacks`, and `capabilities` folders.
+110f. `DECIDE` Define precise trait-bound composition rules for Capability Extension Slots with multiple required Capability Traits.
+110g. `DECIDE` Finalize signature-family contents for Capability Type, Capability Trait, Capability Instance, and Callback signatures.
+110h. `AUDIT` Continue separating source placement, artifact placement, storage metadata, and graph identity after the module/node rewrite.
 111. `DONE` Capability Runtime should be Vapor-defined infrastructure embedded/adapted by launched compositions.
 112. `DONE` Spacetime Engine should utilize/extend capability runtime, not host or define it.
 113. `DONE` Runtime Substrate should not sound like it owns Capability semantics.
@@ -174,8 +178,8 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 132. `FIX` Runtime dynamism after lock should be modeled by capabilities/registries/kernels, not slot mutation.
 133. `FIX` Filled slot is itself a capability node in parent/child relation.
 134. `FIX` Slot is parent-owned child position with type/cardinality/policy.
-135. `FIX` Slot cardinality should not be baked into Capability Slot Type.
-136. `FIX` One slot should accept one concrete node/capability type unless later generalized.
+135. `DONE` Slot cardinality should not be baked into Capability Extension Slot or Capability Trait identity.
+136. `DONE` One-concrete-type slot thinking is superseded by explicit Capability Extension Slot trait bounds.
 137. `FIX` Deep acyclic nesting is allowed; cycles are not.
 138. `FIX` Slot graph composition belongs before Runtime Lock.
 139. `FIX` Immutable startup core vs dynamic runtime substrate needs consistent vocabulary.
@@ -221,7 +225,7 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 176. `DONE` If kept, Scripting Projection Meta-Layer needs a clearer name.
 177. `DONE` Decide whether Scripting Projection Meta-Layer survives at all.
 178. `FIX` Generic Rhai declaration semantics should not be buried inside USF instantiation pages.
-179. `SPLIT` Separate generic Rhai declaration substrate from USF-specific script profiles.
+179. `SPLIT` Separate generic typed Rhai module/node declaration substrate from USF-specific legacy profile notes.
 180. `FIX` Future scripting-language support should remain possible without making Rhai semantics too engine-specific.
 
 ## USF / Scale / Simulation
