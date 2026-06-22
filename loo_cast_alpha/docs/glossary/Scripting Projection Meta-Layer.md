@@ -1,24 +1,24 @@
 ---
 canonical_name: Scripting Projection Meta-Layer
-status: WIP-draft
+status: merged-legacy
 aliases: []
 ---
 
-The Scripting Projection Meta-Layer defines how declaration/callback projection contexts are mapped to projected
-capability/API
-facades.
-It relates co-equal projection contexts (for example declaration and callback contexts) without collapsing them into
-one scope.
-Reflection metadata and host-side orchestration logic are high-signal implementation mechanisms for this layer.
+The Scripting Projection Meta-Layer is a legacy bridge name for what is now handled by
+[[Capability Projection API]].
+Scripting projection is capability projection.
+Declaration `ctx` and callback `ctx` remain distinct concrete projection contexts, but they do not require a separate
+scripting-owned meta-layer.
+
+Preserved signal:
+Reflection metadata and host-side orchestration logic are high-signal implementation mechanisms for building projected
+capability/API facades.
 
 See also:
 
-- [[Capability Slot Type]]
-- [[Capability Slot Type]]
-- [[Capability Slot Type]]
+- [[Capability Projection API]]
 - [[Callback Type]]
 - [[Callback Context Type]]
 - [[Callback Signature]]
-- [[Capability Projection API]]
 
 #glossary

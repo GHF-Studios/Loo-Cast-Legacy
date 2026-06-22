@@ -12,7 +12,9 @@ It composes with Vapor-level [[Capability Runtime]] semantics and hosts engine-s
 Rust-side staged lifecycle orchestration is handled through the [[Workflow Framework]].
 ECS is the underlying execution/data medium in this substrate, while semantic capability-type-template authority remains
 contract-defined.
-Deterministic activation and fixed runtime composition boundaries are enforced through [[Runtime Lock]].
+[[Runtime Lock]] enforces deterministic-by-default activation and fixed startup composition boundaries, while explicit
+runtime substrate policy owns any permitted post-lock state evolution, registries, external IO, and nondeterministic
+runtime effects.
 
 Implementation-facing notes:
 

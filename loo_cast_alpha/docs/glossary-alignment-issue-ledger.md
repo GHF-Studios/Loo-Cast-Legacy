@@ -90,59 +90,63 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 
 ## Phase 3 / Testing / Execution Plans
 
-61. `RENAME` `Phase 3 Vapor Scenario Suite` likely becomes `Phase 3 Vapor Testing Suite`.
-62. `FIX` Avoid “integration-test suite” as the main term; some flows are manual and not CI-runnable.
-63. `FIX` Distinguish automated validation tests, local manual scenarios, and Steam manual verification.
-64. `FIX` Phase 3 testing language should include manually verified Steam/Workshop flows.
-65. `FIX` Phase 3 should prove public/installable/authorable/publishable artifacts, not only logs/fingerprints.
-66. `FIX` Phase 3 remains Vapor/Capability/Rhai/Steam proof, not USF/worldmodel proof.
-67. `FIX` Phase 3 still requires real executable launch fixtures.
-68. `FIX` Hello-world-on-steroids fixtures should be minimal real MVPs, not fake placeholders.
-69. `FIX` Phase 3 output should stay non-gameplay: logs, strings, files, fingerprints, diagnostics.
-70. `AUDIT` Update `phase_3_vapor_execution_spec.md` after glossary terminology changes.
-71. `AUDIT` Update `phase_2_to_11_execution_program.md` after testing-suite rename.
-72. `AUDIT` Update `NOW.md` after testing-suite rename.
-73. `AUDIT` Update glossary backlinks after testing-suite rename.
-74. `FIX` Phase 3 acceptance should include broad valid/invalid permutation coverage, not one token matrix.
-75. `FIX` Published schema migration can remain deferred/pre-alpha-nukable.
-76. `FIX` CI should not imply live Steam integration testing by default.
-77. `FIX` Steam flows should fail with structured diagnostics, not panics, where possible.
-78. `FIX` Workshop verification should validate fingerprints without claiming hostile-code sandboxing.
-79. `FIX` Phase 3 docs should say Vapor.lock/fingerprints are mandatory despite older alpha docs saying no hashes.
-80. `AUDIT` Remove stale Phase 3-as-USF wording anywhere still present.
+61. `DONE` `Phase 3 Vapor Scenario Suite` likely becomes `Phase 3 Vapor Testing Suite`.
+62. `DONE` Avoid “integration-test suite” as the main term; some flows are manual and not CI-runnable.
+63. `DONE` Distinguish automated validation tests, local manual scenarios, and Steam manual verification.
+64. `DONE` Phase 3 testing language should include manually verified Steam/Workshop flows.
+65. `DONE` Phase 3 should prove public/installable/authorable/publishable artifacts, not only logs/fingerprints.
+66. `DONE` Phase 3 remains Vapor/Capability/Rhai/Steam proof, not USF/worldmodel proof.
+67. `DONE` Phase 3 still requires real executable launch fixtures.
+68. `DONE` Hello-world-on-steroids fixtures should be minimal real MVPs, not fake placeholders.
+69. `DONE` Phase 3 output should stay non-gameplay: logs, strings, files, fingerprints, diagnostics.
+70. `DONE` Update `phase_3_vapor_execution_spec.md` after glossary terminology changes.
+71. `DONE` Update `phase_2_to_11_execution_program.md` after testing-suite rename.
+72. `DONE` Update `NOW.md` after testing-suite rename.
+73. `DONE` Update glossary backlinks after testing-suite rename.
+74. `DONE` Phase 3 acceptance should include broad valid/invalid permutation coverage, not one token matrix.
+75. `DONE` Published schema migration can remain deferred/pre-alpha-nukable.
+76. `DONE` CI should not imply live Steam integration testing by default.
+77. `DONE` Steam flows should fail with structured diagnostics, not panics, where possible.
+78. `DONE` Workshop verification should validate fingerprints without claiming hostile-code sandboxing.
+79. `DONE` Phase 3 docs should say Vapor.lock/fingerprints are mandatory despite older alpha docs saying no hashes.
+80. `DONE` Remove stale Phase 3-as-USF wording anywhere still present.
 
 ## Capability Bedrock
 
-81. `FIX` Capability remains intentionally broad: graph node, contract surface, API surface, authority surface, metadata unit, orchestration seam.
-82. `FIX` Capability breadth should be described as intentional, not accidental overload.
-83. `FIX` Vapor defines what Capability means before engines/games define their own capability types.
-84. `FIX` Capabilities can be Rust-only with no Rhai declaration surface.
-85. `FIX` Rhai support itself is a capability.
-86. `FIX` Pure Rhai capabilities without meaningful Rust host support should remain disallowed except trivial local computation.
-87. `FIX` Native/hardcoded Rust capabilities must be projectable into Rhai contexts.
-88. `FIX` Capability graph is Vapor-level; Spacetime/USF are users/extensions, not owners.
-89. `FIX` Running `core_engine` process should have one large runtime capability graph, with separate metadata registries/projections as needed.
-90. `FIX` The raw capability metadata registry may differ from the active runtime graph.
-91. `FIX` Capability graph should be heavily concurrent/multithread-friendly if everything routes through it.
-92. `FIX` Capabilities should not be anonymous; private/internal is okay.
-93. `FIX` Visibility should roughly follow Rust-like semantics where useful.
-94. `FIX` Private/internal nodes remain real full-graph nodes, not just hidden projections.
-95. `FIX` Leaf-like capabilities should not hide large private subgraphs by default.
-96. `FIX` Umbrella/composite capabilities may justify private subgraphs.
-97. `FIX` A capability can serve as type/category for other capabilities but cannot be its own type.
-98. `FIX` Self-typing, self-dependency, and dependency cycles are invalid bootstrap shapes.
-99. `FIX` Composite capabilities are first-class nodes, not named views.
-100. `FIX` Composite capabilities may own policy unknown to child capabilities.
-101. `FIX` “Capability Instance” remains suspect terminology; avoid unless a later pass locks it.
-102. `FIX` Capability Declaration remains pre-lock authored payload, not runtime object.
-103. `FIX` Capability Slot Type remains the projected/gated slot/context shape, not callback type.
-104. `FIX` Capability Slot Type creation must be explicit opt-in, not automatic per declaration.
-105. `FIX` Capability edge taxonomy remains unresolved; docs should not imply final dependency/slot/API/authority edge model.
-106. `FIX` Capability path is addressing/policy input, not dependency or causality.
-107. `FIX` Capability Location remains unresolved implementation vocabulary.
-108. `FIX` Capability Projection API may be enough to absorb Scripting Projection Meta-Layer.
-109. `DECIDE` Decide whether Capability Contract should split into metadata, declaration rules, projection rules, and runtime rules.
-110. `FIX` Capability Contract currently carries too much legacy/USF/Rhai/runtime pressure in one page.
+81. `DONE` Capability remains intentionally broad: graph node, contract surface, API surface, authority surface, metadata unit, orchestration seam.
+82. `DONE` Capability breadth should be described as intentional, not accidental overload.
+83. `DONE` Vapor defines what Capability means before engines/games define their own capability types.
+84. `DONE` Capabilities can be Rust-only with no Rhai declaration surface.
+85. `DONE` Rhai support itself is a capability.
+86. `DONE` Pure Rhai capabilities without meaningful Rust host support should remain disallowed except trivial local computation.
+87. `DONE` Native/hardcoded Rust capabilities must be projectable into Rhai contexts.
+88. `DONE` Capability graph is Vapor-level; Spacetime/USF are users/extensions, not owners.
+89. `DONE` Running `core_engine` process should have one large runtime capability graph, with separate metadata registries/projections as needed.
+90. `DONE` The raw capability metadata registry may differ from the active runtime graph.
+91. `DONE` Capability graph should be heavily concurrent/multithread-friendly if everything routes through it.
+92. `DONE` Capabilities should not be anonymous; private/internal is okay.
+93. `DONE` Visibility should roughly follow Rust-like semantics where useful.
+94. `DONE` Private/internal nodes remain real full-graph nodes, not just hidden projections.
+95. `DONE` Leaf-like capabilities should not hide large private subgraphs by default.
+96. `DONE` Umbrella/composite capabilities may justify private subgraphs.
+97. `DONE` A capability can serve as type/category for other capabilities but cannot be its own type.
+98. `DONE` Self-typing, self-dependency, and dependency cycles are invalid bootstrap shapes.
+99. `DONE` Composite capabilities are first-class nodes, not named views.
+100. `DONE` Composite capabilities may own policy unknown to child capabilities.
+101. `DONE` `Capability Instance` is now preferred for concrete validated/materialized graph objects.
+102. `DONE` Capability Declaration remains authored pre-materialization payload, not runtime object.
+103. `DONE` Capability Slot Type remains separate from callback metadata and projection scope, but its exact type/template relation needs follow-up.
+104. `DONE` Capability Slot Type creation must be explicit opt-in, not automatic per declaration.
+105. `DONE` Capability graph edges are heterogeneous; docs should not collapse dependency/slot/API/authority edges into one model.
+106. `DONE` Capability path is addressing/policy input, not dependency or causality.
+107. `DONE` Capability Location is demoted; preserve placement/storage concerns under clearer future terms.
+108. `DONE` Capability Projection API absorbs Scripting Projection Meta-Layer.
+109. `DONE` Capability Contract should split into metadata, declaration rules, projection rules, and runtime/instance rules.
+110. `DONE` Capability Contract currently carries too much legacy/USF/Rhai/runtime pressure in one page.
+110a. `AUDIT` Replace plain `Capability` with `Capability Instance` where docs mean concrete staged/runtime graph object.
+110b. `DECIDE` Formalize Capability Type, Capability Type Template, Capability Slot Type, and metadata-signature relationships.
+110c. `SPLIT` Rhai Asset may need separate asset classes for capability declarations, callback declarations, and slot-type declarations.
+110d. `DECIDE` Replace `Capability Location` signal with clearer source/artifact placement, storage metadata, and in-memory graph identity terms.
 111. `DONE` Capability Runtime should be Vapor-defined infrastructure embedded/adapted by launched compositions.
 112. `DONE` Spacetime Engine should utilize/extend capability runtime, not host or define it.
 113. `DONE` Runtime Substrate should not sound like it owns Capability semantics.
@@ -213,9 +217,9 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 172. `FIX` Script Safety should be projection-safety, not broad anti-malware guarantee.
 173. `FIX` Native engine/mod binaries cannot be made non-malicious merely by Vapor docs.
 174. `FIX` Workshop content is validated for integrity/compatibility/fingerprint, not sandboxed as hostile code.
-175. `MERGE` Scripting Projection Meta-Layer may fold into Capability Projection API.
-176. `RENAME` If kept, Scripting Projection Meta-Layer needs a clearer name.
-177. `DECIDE` Decide whether Scripting Projection Meta-Layer survives at all.
+175. `DONE` Scripting Projection Meta-Layer may fold into Capability Projection API.
+176. `DONE` If kept, Scripting Projection Meta-Layer needs a clearer name.
+177. `DONE` Decide whether Scripting Projection Meta-Layer survives at all.
 178. `FIX` Generic Rhai declaration semantics should not be buried inside USF instantiation pages.
 179. `SPLIT` Separate generic Rhai declaration substrate from USF-specific script profiles.
 180. `FIX` Future scripting-language support should remain possible without making Rhai semantics too engine-specific.
@@ -307,27 +311,27 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 
 ## Failure / Runtime Lock / Determinism
 
-256. `FIX` Runtime Lock applies to launchable Engine/Game composition, not launcher/SDK dynamic runtimes.
-257. `FIX` Runtime Lock should distinguish immutable startup graph core from dynamic runtime substrate.
-258. `FIX` Post-lock graph mutation is forbidden by default.
-259. `FIX` Runtime dynamism after lock requires explicit capability/registry policy.
-260. `FIX` Determinism should be “deterministic-by-default” where absolute determinism is too strong.
-261. `FIX` Deterministic activation/composition should be separated from runtime nondeterminism/external IO.
-262. `FIX` Asymmetric Failure Doctrine should keep startup invalidity from crashing launcher if clean diagnostics exist.
-263. `FIX` Runtime invariant violations may panic even in user builds.
-264. `FIX` Persistence paths need special backup/autosave/corruption-avoidance behavior.
-265. `DECIDE` `panic-fast` vs `fail-fast` doctrine wording remains unsettled.
-266. `FIX` Closed Runtime and Open Design feels too broad/weak.
-267. `MERGE` Closed Runtime and Open Design may fold into Runtime Lock + Managed Ambiguity.
-268. `DECIDE` Decide whether Closed Runtime and Open Design survives as a page.
-269. `FIX` Managed Ambiguity is useful if it names unresolved edges without excusing drift.
-270. `FIX` Dynamic Authority Resolution should stay but needs concrete examples eventually.
+256. `DONE` Runtime Lock applies to launchable Engine/Game composition, not launcher/SDK dynamic runtimes.
+257. `DONE` Runtime Lock should distinguish immutable startup graph core from dynamic runtime substrate.
+258. `DONE` Post-lock graph mutation is forbidden by default.
+259. `DONE` Runtime dynamism after lock requires explicit capability/registry policy.
+260. `DONE` Determinism should be “deterministic-by-default” where absolute determinism is too strong.
+261. `DONE` Deterministic activation/composition should be separated from runtime nondeterminism/external IO.
+262. `DONE` Asymmetric Failure Doctrine should keep startup invalidity from crashing launcher if clean diagnostics exist.
+263. `DONE` Runtime invariant violations may panic even in user builds.
+264. `DONE` Persistence paths need special backup/autosave/corruption-avoidance behavior.
+265. `DONE` `panic-fast` vs `fail-fast` doctrine wording remains unsettled; use precise failure phrases until locked.
+266. `DONE` Closed Runtime and Open Design feels too broad/weak.
+267. `DONE` Closed Runtime and Open Design folded conceptually into Runtime Lock + Managed Ambiguity.
+268. `DONE` Closed Runtime and Open Design survives as a bridge page for now.
+269. `DONE` Managed Ambiguity is useful if it names unresolved edges without excusing drift.
+270. `DONE` Dynamic Authority Resolution should stay but needs concrete examples eventually.
 
 ## Cross-Doc Propagation
 
 271. `AUDIT` Update `docs/ARCHITECTURE.md` after capability runtime ownership correction.
 272. `AUDIT` Update `docs/NOW.md` after repo-split and testing-suite corrections.
-273. `AUDIT` Update `docs/RFCS/phase_3_vapor_execution_spec.md` after Phase 3 testing terminology changes.
+273. `DONE` Update `docs/RFCS/phase_3_vapor_execution_spec.md` after Phase 3 testing terminology changes.
 274. `AUDIT` Update `docs/RFCS/phase_2_to_11_execution_program.md` after Packagepack/testing/capability terminology changes.
 275. `AUDIT` Update `docs/RFCS/alpha_doctrine_draft.md` for stale Phase 3/USF references.
 276. `AUDIT` Check docs root files for old package/manifest/capability wording.
@@ -352,9 +356,9 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 ## Higher-Risk Rewrite Queue
 
 291. `SPLIT` Capability Contract likely needs structural rewrite.
-292. `MERGE` Scripting Projection Meta-Layer likely merges into Capability Projection API.
-293. `RENAME` Phase 3 Vapor Scenario Suite likely renames to Phase 3 Vapor Testing Suite.
-294. `MERGE` Closed Runtime and Open Design likely merges into Runtime Lock/Managed Ambiguity.
+292. `DONE` Scripting Projection Meta-Layer likely merges into Capability Projection API.
+293. `DONE` Phase 3 Vapor Scenario Suite likely renames to Phase 3 Vapor Testing Suite.
+294. `DONE` Closed Runtime and Open Design likely merges into Runtime Lock/Managed Ambiguity.
 295. `SPLIT` USF Instantiation Scripts likely splits generic Rhai declaration semantics from USF-specific profiles.
 296. `FIX` USF Math Raw Model Foundation needs full rewrite to existing-crates/num_traits posture.
 297. `FIX` Project Authoring Structure needs multi-repo future rewrite.

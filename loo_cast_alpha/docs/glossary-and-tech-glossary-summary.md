@@ -30,7 +30,7 @@ Defines Artifact as a concrete file, folder, archive, build output, distribution
 
 ### Asymmetric Failure Doctrine.md
 
-States the failure posture: runtime integrity violations should fail visibly and quickly, while persistence-sensitive paths such as save/load need stronger recovery and corruption-avoidance policy. Startup invalidity should fail launch cleanly through launcher diagnostics rather than crashing the launcher, and persistence safety should rely on backups/autosaves plus hard failure when safety is uncertain.
+States the failure posture: startup/config invalidity should block launch with structured diagnostics where possible, while runtime invariant violations may still panic visibly. Persistence-sensitive paths such as save/load need stronger corruption-avoidance, backup/autosave, atomic or replace-safe write patterns, and hard failure when the safe path is no longer trustworthy.
 
 ### Build Artifact.md
 
@@ -58,11 +58,11 @@ Defines the deterministic iterative startup process that materializes resolvable
 
 ### Capability Contract.md
 
-Defines the Capability Contract Family as the rules capabilities must declare and satisfy across compatibility, paths, projection, scaled channels, and runtime coordination. It separates provider dependencies from declaration `ctx` dependencies, requires Vapor-readable metadata before lock, and treats USF as a user of the capability model rather than its foundation. This whole concept is massively burdened by legacy shit, so much so, even though the summary is mostly good, so that I don't even know how to frame this as a correction, it's more a note that it's very broadly a kinda-fucky-wucky concept, yk?
+Defines the Capability Contract Family as the overloaded umbrella for capability metadata, declaration, projection, and runtime/instance rules. It separates provider dependencies from declaration `ctx` dependencies, requires Vapor-readable metadata before lock, treats USF as a user of the capability model, and now has an accepted future split into smaller contract surfaces.
 
 ### Capability Declaration.md
 
-Defines the pre-lock authored payload for a Capability. It is data-first, shaped by a Capability Slot Type/Rust host contract, may include declared behavior callbacks, and is promoted into a Capability only after validation and Runtime Lock transition.
+Defines the authored pre-materialization payload for a Capability / Capability Instance. It is data-first, shaped by a Capability Slot Type/Rust host contract, may include declared behavior callbacks, and may be promoted into staged Capability Instances during iterative/topological startup before final Runtime Lock.
 
 ### Capability Dependency Layer Notes.md
 
@@ -82,7 +82,7 @@ Defines a stable addressing route inside a capability/API graph or projection fa
 
 ### Capability Projection API.md
 
-Defines script-safe or callback-safe contextual facades projected from the capability/API graph. These lightweight Rhai-facing handles include declaration `ctx` and callback `ctx`, and are intentionally not raw access to the unrestricted host graph.
+Defines script-safe or callback-safe contextual facades projected from the capability/API graph. These lightweight Rhai-facing handles include declaration `ctx` and callback `ctx`, are not raw access to the unrestricted host graph, and absorb the old Scripting Projection Meta-Layer concept because scripting projection is capability projection.
 
 ### Capability Resolution Semantics.md
 
@@ -98,11 +98,15 @@ Defines Capability Role as an unresolved term for how a capability participates 
 
 ### Capability Runtime.md
 
-Defines the runtime orchestration layer for capability discovery, registration, validation, coordination, and execution routing. It builds and locks a resolved launched Engine/Game graph through staged discovery/validation, executes materialized capabilities through projected contexts and scaled channels, and keeps canonical mutation decisions in host reconcile/commit/apply paths.
+Defines the runtime orchestration layer for capability discovery, registration, validation, coordination, and execution routing. It builds and locks one resolved launched Engine/Game runtime graph as the main authority source, while metadata registries, lockfile/fingerprint material, and projections remain supporting views; canonical mutation decisions stay in host reconcile/commit/apply paths.
+
+### Capability Instance.md
+
+Defines a concrete validated/materialized occurrence of a Capability in a specific graph environment. Use it for staged or runtime graph objects; use Capability for the broad model/type/contract concept and Capability Declaration for authored pre-materialization payloads.
 
 ### Capability Slot Type.md
 
-Defines the projected/gated slot/context shape formerly described with profile/type-template wording. It describes what kind of capability surface can be attached, requested, validated, or exposed, while cardinality remains a separate slot policy and callbacks remain separate concepts.
+Defines a capability-graph slot/edge type: the declared shape of a slot a capability type/template can require, import, expose, or implement. It is related to but not identical with concrete Capability Type Template pressure or metadata signatures; cardinality and callback types remain separate.
 
 ### Capability-Centric Semantics.md
 
@@ -110,7 +114,7 @@ Defines the doctrine that project meaning and authority are modeled through capa
 
 ### Capability.md
 
-Defines Capability as Vapor's core runtime/contract graph primitive spanning ability, authority, API exposure, composition, validation, and orchestration. It sets identity/visibility rules, staged graph construction, Rust/Rhai declaration and callback flow, host-owned execution authority, composite capability semantics, USF boundary, and Phase 3 requirements for stable paths, projection, validation, lock, and diagnostics.
+Defines Capability as Vapor's intentionally broad runtime/contract graph primitive spanning ability, authority, API exposure, metadata, composition, validation, and orchestration. Capabilities are Vapor-defined before engines/games extend them; the graph should be concurrency-friendly; identity/visibility should be Rust-like where useful; composite capabilities are first-class nodes; and Rust/Rhai capability boundaries remain host-governed.
 
 ### Chunk.md
 
@@ -118,7 +122,7 @@ Defines Chunk as the first-level USF spatial partition at a canonical Scale, fix
 
 ### Closed Runtime and Open Design.md
 
-Defines the principle that runtime activation is deterministic and bounded once locked, while design and contracts can evolve between lock cycles. Structural changes should pass through explicit lifecycle transitions rather than hidden hot mutation. Again, this is hard to correct, but it just generally seems fucky-wucky, and not even in the good/recoverable/redeemable sense I think, yk? It's so broad and over-generic but under-specified, yk?
+Defines a bridge phrase for the combination of Runtime Lock and Managed Ambiguity. It should not carry much standalone doctrine: concrete runtime closure rules belong in Runtime Lock, while unresolved design tracking belongs in Managed Ambiguity.
 
 ### Complexity Gradient.md
 
@@ -146,7 +150,7 @@ Defines Distributable Artifact as the final packaged object produced by Vapor to
 
 ### Dynamic Authority Resolution.md
 
-Defines authority as lifecycle- and operation-relative rather than one global static fact. Runtime policy can narrow or re-open access within the Capability Graph Scope Envelope, while definition, runtime, and output/application authority remain distinct.
+Defines authority as lifecycle- and operation-relative rather than one global static fact. Runtime policy can narrow or re-open access within the Capability Graph Scope Envelope, while definition, runtime, callback, reconcile/commit/apply, and persistence authority remain distinct.
 
 ### Engine Mod.md
 
@@ -206,7 +210,7 @@ Defines Loo Cast primarily as the first-party Game built on Spacetime Engine wit
 
 ### Managed Ambiguity.md
 
-Defines a practice of treating unresolved design edges as explicit tracked material while preserving hard invariants. It avoids both premature over-locking and unstructured drift.
+Defines a practice of treating unresolved design edges as explicit tracked material while preserving hard invariants. It should produce named open questions, ledger entries, TODOs, or phase-bound decisions; it is not permission to leave contradictions invisible.
 
 ### Metric.md
 
@@ -260,9 +264,9 @@ Defines view-conditioned detail resolution over the scale system. The active sca
 
 Defines the complete launch composition object players launch and modpack authors edit. It selects exactly one Enginepack and exactly one compatible Gamepack, includes selected Modpacks/Engine Mods/Game Mods/Extension Mods, carries resolved fingerprint metadata, and is central to Phase 3 local and Workshop-backed lifecycle proof.
 
-### Phase 3 Vapor Scenario Suite.md
+### Phase 3 Vapor Testing Suite.md
 
-Defines the "scenario-test"/integration-test suite for proving Vapor composition without USF/worldmodel/gameplay scope. It must cover local-only authoring, default and heavily modded packagepacks, extension and nested modpacks, alternative engines/games, offline installed launch, Steam upload/update/download/install flows, and invalid dependency/conflict/fingerprint/Rhai/Vapor.toml/download cases. Also, maybe rename the whole concept to "Phase 3 Vapor Testing Suite"? Not "Test Suite" but "Testing Suite" cause it includes scenarios which cannot be automatically initiated, and definitely not automatically ran and verified, yk? But ofc the integration tests can, assuming that entire paradigm of testing proves useful in even one place, which maaaaaaaaaaay not be the case, who knows, maybe integration tests are overrated for my use case lmfao... idk lol.
+Defines the Phase 3 Vapor Testing Suite for proving Vapor composition without USF/worldmodel/gameplay scope. It combines automated validation tests, local/manual scenarios, and manually verified Steam/Workshop flows; it must cover local-only authoring, default and heavily modded packagepacks, extension and nested modpacks, alternative engines/games, offline installed launch, Steam upload/update/download/install flows, and invalid dependency/conflict/fingerprint/Rhai/Vapor.toml/download cases.
 
 ### Phenomenon.md
 
@@ -300,7 +304,7 @@ Inspiration is also such a big part, yk? Inspiring people to look at the real sy
 
 ### Project Runtime Representation.md
 
-Defines the active in-memory project form after Runtime Lock, including mod graph, ownership mappings, materialized capabilities/channels, workflow state, and runtime substrate state. Structure is fixed at lock; runtime evolution changes state/intent within that structure.
+Defines the active in-memory project form after Runtime Lock, including mod graph, ownership mappings, Capability Instances/channels, workflow state, and runtime substrate state. Startup graph structure is fixed at lock; runtime evolution changes state/intent within that structure through explicit capability, registry, kernel, or substrate policy.
 
 ### Project Structure.md
 
@@ -352,11 +356,11 @@ Documents target runtime lifecycle semantics: after definition/freeze, ticks fol
 
 ### Runtime Lock.md
 
-Defines the boundary where validated launch composition becomes immutable runtime state before Engine/Game execution. It requires fixed ownership, fixed callback masks, fixed active mod graph, converged cycle-free bootstrap, and forbids post-lock graph mutation by default.
+Defines the boundary where validated launch composition becomes an immutable startup graph core before Engine/Game execution. It requires fixed ownership, fixed callback masks, fixed active mod graph, converged cycle-free bootstrap, and forbids post-lock graph mutation by default while still allowing explicitly governed runtime substrate state.
 
 ### Runtime Substrate.md
 
-Defines the Spacetime Engine execution substrate for scale-layered simulation and capability-driven runtime behavior. ECS is the execution/data medium, while contracts/capabilities define semantic authority, and deterministic(-by-default) activation is enforced through Runtime Lock.
+Defines the Spacetime Engine execution substrate for scale-layered simulation and capability-driven runtime behavior. ECS is the execution/data medium, contracts/capabilities define semantic authority, Runtime Lock enforces deterministic-by-default activation, and explicit substrate policy owns post-lock state evolution, registries, external IO, and nondeterministic effects.
 
 ### SDK.md
 
@@ -408,7 +412,7 @@ Defines the invariant that scripts cannot access the unrestricted global capabil
 
 ### Scripting Projection Meta-Layer.md
 
-Defines the layer that maps declaration and callback contexts into projected capability/API facades. It keeps contexts co-equal rather than parent/child and treats reflection metadata plus host orchestration as key implementation mechanisms. This is veeeeeery wibbly-fucking-wobbly lmao. Like, I can see where this is coming from kinda, but in this form it feels very silly and highly unclear and ambiguous, yk? The whole concept name maaaaay even be wrong and in need of a rename.
+Legacy bridge name now merged into Capability Projection API. The preserved signal is that declaration `ctx` and callback `ctx` are distinct projected contexts, and reflection metadata plus host orchestration remain useful implementation mechanisms.
 
 ### Slot Graph Composition.md
 
@@ -472,7 +476,7 @@ Summarizes reusable position-stack semantics: recursive GridVec scale chain plus
 
 ### USF Runtime Evolution Lifecycle Notes.md
 
-Documents target runtime execution after Runtime Lock: active materialized capabilities execute through hierarchical `ctx` subgraphs, callbacks enforce resolved masks, and runtime progression follows intent/reconcile/commit/apply. It notes current alpha is spec-first and uses legacy code as evidence.
+Documents target runtime execution after Runtime Lock: active Capability Instances execute through hierarchical `ctx` subgraphs, callbacks enforce resolved masks, and runtime progression follows intent/reconcile/commit/apply. It notes current alpha is spec-first and uses legacy code as evidence.
 
 ### USF Runtime Evolution Lifecycle.md
 
@@ -514,17 +518,13 @@ Defines Vapor.lock as the resolved dependency, fingerprint, and hash-state count
 
 Defines Vapor.toml as the required manifest surface for every Vapor artifact root and every folder grouping capability declarations. It carries dependencies, conflicts, visibility, target roles, version constraints, placement/storage metadata, pack composition, and Steam/Workshop publication metadata, while Rhai files declare capabilities.
 
-### Workflow Execution Trace Notes.md
-
-Marks itself as a compatibility pointer. Concrete workflow examples and traces are now maintained in Workflow Usage Patterns Legacy Notes. Please remove this term/concept/page entirely, it seems just weird and outdated, yk? 
-
 ### Workflow Framework Premise Notes.md
 
 Documents the core premise that workflow is Rust-side orchestration for materialized runtime values, with stage execution remaining Bevy-system-visible. It treats ECS, Render, Async, EcsWhile, and RenderWhile as first-class domains, separates control-plane lifecycle from execution-plane logic, and drafts run identity/concurrency via `run_id` and `concurrency_key`.
 
 ### Workflow Framework.md
 
-Defines the Workflow Framework as the Rust-side orchestration layer for staged runtime work in the Runtime Substrate. It coordinates requests, progression, completion/failure, domain stages, and materialized capability/runtime values rather than raw Rhai engine internals.
+Defines the Workflow Framework as the Rust-side orchestration layer for staged runtime work in the Runtime Substrate. It coordinates requests, progression, completion/failure, domain stages, and Capability Instance/runtime values rather than raw Rhai engine internals.
 
 ### Workflow Instance Runtime Notes.md
 

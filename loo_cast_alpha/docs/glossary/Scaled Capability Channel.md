@@ -11,7 +11,7 @@ When a capability participates in USF scale semantics, channel availability acro
 [[Scale Support]], and execution binds to active [[Scale Slice]] context.
 Declaration scripts access channel-relevant capability objects through profile-tailored `ctx` capability-object
 subgraphs, and
-runtime-materialized capabilities execute closure logic through those resolved channels.
+runtime [[Capability Instance]]s execute closure logic through those resolved channels.
 Those subgraphs are derived from hierarchical API graph composition (atomic + composite nodes) with include/exclude
 path declarations.
 It is governed through the capability contract context inside the [[Contract]] and the USF scale contract, without being

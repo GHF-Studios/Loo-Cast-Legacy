@@ -15,10 +15,9 @@ Declaration entrypoint access and callback invocation access are distinct scopes
 `cb_ctx`) and resolve to different effective masks through allow/deny path-gating policy.
 The `ctx` graph is hierarchical (atomic capability nodes + composite/category nodes) and filtered through
 include/exclude path declarations for each profile.
-Runtime activation then materializes active USF capabilities from those capabilities into the
-[[USF Instance Graph]].
+Runtime activation then materializes active USF [[Capability Instance]]s into the [[USF Instance Graph]].
 Capabilities are exposed to scripts as declaration-level [[Rhai Capability]] API objects through `ctx`; runtime behavior
-is executed by the resulting materialized capabilities.
+is executed by the resulting Capability Instances.
 Lifecycle, Rust/Rhai cyclic loop semantics, callback-path semantics, and capability multiplicity classes are
 canonicalized in [[Capability]].
 First-order declaration profiles are root-level and cannot depend on other capabilities.

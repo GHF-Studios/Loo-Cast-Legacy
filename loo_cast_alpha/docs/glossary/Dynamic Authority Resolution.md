@@ -14,6 +14,14 @@ the [[Capability Graph Scope Envelope]].
 Globally scoped rudimentary capability surfaces may be active across many contexts, but this does not imply global
 domain-state authority.
 
+Concrete examples:
+
+- declaration-time authority can validate a [[Capability Declaration]] without owning runtime state mutation
+- callback-time authority can expose a narrower or re-opened `ctx` projection without widening beyond the graph envelope
+- reconcile/commit/apply authority can own canonical state progression even when a capability emitted the original
+  request or intent
+- persistence authority can reject or abort unsafe writes even when runtime simulation authority produced new state
+
 See also:
 
 - [[Capability Role]]

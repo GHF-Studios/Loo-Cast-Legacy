@@ -41,9 +41,9 @@ Current capability-slot direction notes (legacy MVP slice alignment):
 14. Complex declarations are still authored as one file/one capability declaration by using richer declaration syntax
     and logic within that file.
 15. Raw unrestricted host graph access is not script-safe; scripts use projected facades (`ctx` objects) only.
-16. Runtime later materializes USF capabilities (for example Scale/Phenomenon instances) from capabilities
-    established at Runtime Lock.
-17. These runtime-materialized capabilities carry closures/logic that execute through profile-tailored `ctx`
+16. Runtime later materializes USF [[Capability Instance]]s (for example Scale/Phenomenon instances) from declarations
+    and host definitions established during staged startup and Runtime Lock.
+17. These Capability Instances carry closures/logic that execute through profile-tailored `ctx`
     capability-object subgraphs.
 18. Canonical lifecycle, cyclic Rust/Rhai loop semantics, callback-path semantics, and multiplicity classes are
     defined in [[Capability]].

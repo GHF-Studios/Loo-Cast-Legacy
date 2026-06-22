@@ -40,10 +40,11 @@ Published versions of packagepacks must not depend on unpublished local artifact
 Local workspace artifacts are acceptable for authoring/modpack-author workflows before publication.
 
 Acceptance pressure:
-Phase 3 should use a scenario/integration-test suite rather than a single canonical command or overly simplistic matrix.
+Phase 3 should use a testing suite rather than a single canonical command, CI-only integration-test suite, or overly
+simplistic matrix.
 The suite should center on sets of engines, games, mods, extension mods, engine mods, game mods, and packs that can be
 mixed and matched manually to verify expected success/failure behavior.
-[[Phase 3 Vapor Scenario Suite]] is the current anchor for this pressure.
+[[Phase 3 Vapor Testing Suite]] is the current anchor for this pressure.
 
 Phase 3 lock-candidate anchor:
 Packagepack Phase 3 behavior is anchored by

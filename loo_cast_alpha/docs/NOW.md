@@ -44,9 +44,9 @@ Current direction:
 - Phase 3 should prove the Vapor launcher/product-stack/modpack/capability system through a non-USF hello-world-on-steroids proof.
 - Phase 3 means full public Vapor completeness for the claimed public seams, while still allowing performance, polish, marketplace scale, and public-hardening to defer.
 - Phase 3 includes real launcher, real Steam/Workshop auth/download/upload, real Rhai/capability/modpack semantics, diagnostics, and multiple proof configurations.
-- Phase 3 acceptance should be a Vapor scenario/integration-test suite centered on hello-world-on-steroids fixtures,
-  composition permutations, pure validation tests where practical, and real Steam flows verified manually/outside CI
-  where needed.
+- Phase 3 acceptance should be a Vapor Testing Suite centered on hello-world-on-steroids executable fixtures,
+  composition permutations, automated validation tests where practical, local/manual scenarios, and real Steam flows
+  verified manually/outside CI where needed.
 - Phase 3 excludes USF, worldmodel, rendering, save/load, chunks, metrics, phenomena, zones, and traditional gameplay/simulation.
 - Phase 4 is now framed as `Phase 4: Product-Stack + USF Prototype/MVP`.
 - Phase 4 is Phase 3 plus the first full working USF stack/prototype/MVP.

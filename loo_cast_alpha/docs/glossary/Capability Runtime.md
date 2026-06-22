@@ -12,10 +12,13 @@ It handles dynamic discovery, registration, coordination, and execution routing 
 The current launch-runtime direction is one resolved capability graph inside the launched Engine/Game composition, with
 [[Packagepack]], [[Enginepack]], [[Gamepack]], [[Modpack]], engine, game, mod, Rhai, and user-facing views expressed as
 projections over that graph.
+Within a launched `core_engine` process, that resolved runtime graph should be the main authority source; raw metadata
+registries, lockfile/fingerprint material, and player/modpack-author/developer projections are supporting views rather
+than separate runtime graph truths.
 The graph should be built/validated layer by layer so dependencies are registered and initialized before dependants are
 allowed to use them.
 Declaration scripts consume [[Rhai Capability]] objects through profile-tailored `ctx` capability-object subgraphs;
-runtime-materialized capabilities execute closure logic against runtime capability implementations.
+runtime [[Capability Instance]]s execute closure logic against runtime capability implementations.
 `ctx` capability-object subgraphs are composed from hierarchical API graph nodes (atomic + composite) via
 include/exclude path declarations and can dynamically narrow/re-open by runtime policy inside the
 [[Capability Graph Scope Envelope]].

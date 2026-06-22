@@ -279,7 +279,7 @@ This keeps accountability clear while acknowledging non-linear dependency realit
 2. Replace old unqualified package/manifest language with Packagepack/Enginepack/Gamepack/Modpack, [[Vapor.toml]],
    [[Vapor.lock]], [[Fingerprint]], and [[Rhai Asset]] vocabulary.
 3. Maintain `phase_3_vapor_execution_spec.md` as the Phase 3 scope ceiling and execution spec around
-   [[Phase 3 Vapor Scenario Suite]].
+   [[Phase 3 Vapor Testing Suite]].
 4. Draft the Phase 4 USF-inclusive execution spec before Phase 3 coding begins.
 5. Capability/slot semantics pass: decide how authority claims, exclusive slots, variadic slots, ordered registries,
    optional providers, and integration apertures relate.

@@ -111,7 +111,7 @@ Open design space (rephrased around declaration/profile model):
 5. How API graph-domain allow/deny surfaces are reviewed and evolved per profile.
 6. How capability-object grants/denials are declared, composed, audited, and dynamically opened/closed per profile.
 7. How declaration entrypoints + `ctx` capability-object subgraphs map into capability declarations and then into
-   runtime-materialized capabilities without leaking unrelated domains.
+   runtime [[Capability Instance]]s without leaking unrelated domains.
 8. How fail-fast vs softer failure policy is scoped per profile and environment.
 9. Which registry/dispatch details remain global and which should become profile-local.
 10. How declaration-seam events are shaped relative to execution-seam events without phase leakage.

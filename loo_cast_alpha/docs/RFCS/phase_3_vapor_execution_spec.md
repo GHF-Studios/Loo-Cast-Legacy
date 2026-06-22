@@ -18,6 +18,8 @@ Phase 3: Vapor Launcher and Product-Stack Proof.
 Objective:
 Implement a real Vapor platform slice that can discover, validate, compose, publish, install, and launch Packagepacks
 through the SDK, launcher, capability/Rhai substrate, and Steam Workshop distribution rails.
+Phase 3 completion requires public-oriented Vapor seams that are authorable, publishable, installable, launchable, and
+diagnostically inspectable, not only log/fingerprint output.
 
 Phase 3 must prove the Vapor product stack without implementing USF/worldmodel/gameplay systems.
 
@@ -34,8 +36,8 @@ In scope:
   Engine/Game compositions.
 - Rhai declaration loading, validation, and focused callback proof.
 - Packagepack, Enginepack, Gamepack, Modpack, Engine Mod, Game Mod, and Extension Mod composition.
-- Fingerprints, diagnostics, local content index, install ledger, and scenario suite.
-- Small but real Engine/Game fixtures that exist only to prove product-stack mechanics.
+- Fingerprints, diagnostics, local content index, install ledger, and the Phase 3 Vapor Testing Suite.
+- Small but real executable Engine/Game fixtures that exist only to prove product-stack mechanics.
 
 Out of scope:
 
@@ -144,7 +146,7 @@ Define and implement the first real data model for:
 - Build Artifact.
 - Distributable Artifact.
 - Workshop item metadata.
-- Capability Path and candidate Capability Location.
+- Capability Path and source/artifact placement metadata.
 - Fingerprint.
 - Vapor.toml.
 - Vapor.lock.
@@ -281,7 +283,7 @@ Done means:
 
 ### P3-W08: Product-Stack Fixtures
 
-Implement deliberately simple but real Engine/Game fixture sets.
+Implement deliberately simple but real executable Engine/Game fixture sets.
 
 Required fixtures:
 
@@ -296,6 +298,7 @@ Required fixtures:
 
 The fixtures may only produce logs, strings, files, fingerprints, and diagnostics.
 They must not introduce gameplay/worldmodel/rendering/save/load semantics.
+They are hello-world-on-steroids MVP fixtures, not fake placeholders.
 
 Done means:
 
@@ -359,9 +362,12 @@ Done means:
 - Internal invariants panic-fast in development builds.
 - Steam/network failures remain recoverable diagnostics.
 
-### P3-W11: Scenario Suite
+### P3-W11: Testing Suite
 
-Implement the Phase 3 scenario/integration-test suite.
+Implement the [[Phase 3 Vapor Testing Suite]].
+This suite has three lanes: automated validation tests, local/manual scenario runs, and manual Steam/Workshop
+verification records.
+It is not CI-only and not merely an integration-test suite.
 
 Required valid scenarios:
 
@@ -395,8 +401,9 @@ Required invalid scenarios:
 Done means:
 
 - Pure validation primitives are covered by automated unit/integration tests where practical.
-- Steam flows can be manually verified and recorded outside CI.
-- The owner can manually mix and match scenario artifacts to evaluate the system.
+- Local/manual scenario runs let the owner mix and match scenario artifacts to evaluate valid and invalid compositions.
+- Steam/Workshop flows can be manually verified and recorded outside CI where live Steam is required.
+- CI must not be treated as proof of live Steam integration unless live Steam verification is explicitly configured.
 
 ### P3-W12: Documentation and Phase Close
 
@@ -408,7 +415,7 @@ Required output:
 - Launcher mode notes.
 - Vapor.toml schema notes.
 - Vapor.lock/fingerprint notes.
-- Scenario suite runbook.
+- Testing suite runbook.
 - Steam manual verification checklist.
 - Known Phase 3.5 and Phase 4 deferrals.
 - Phase 4 handoff notes.
@@ -431,7 +438,7 @@ Phase 3 is complete only when:
 - Steam Workshop upload/update/subscribe/download/install/enable/disable/uninstall flows work for real, even if manual
   verification is required.
 - The hello-world-on-steroids fixture proves Engine/Game/mod/modpack/capability/Rhai composition without USF.
-- The scenario suite covers the agreed valid/invalid cases.
+- The testing suite covers the agreed valid/invalid cases.
 - No Phase 3 implementation depends on USF/worldmodel/rendering/save/load semantics.
 
 ## Explicit Deferrals

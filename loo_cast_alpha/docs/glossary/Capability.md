@@ -9,8 +9,8 @@ The Capability is the core [[Vapor Ecosystem]]-level runtime/contract graph prim
 authority surfaces, API exposure, composition structure, and orchestration seams across ecosystem, [[Engine]], [[Game]],
 mod, and sub-mod layers.
 Capabilities are defined by Vapor and used by Vapor itself, engines, games, mods, and sub-mods.
-A capability intentionally spans runtime graph node, contract surface, API surface, authority surface, and composition
-unit.
+A capability intentionally spans runtime graph node, contract surface, API surface, authority surface, metadata unit,
+composition unit, and orchestration seam.
 This breadth is deliberate, not accidental terminology overload.
 Capabilities are the foundational Vapor substrate: engines, games, mods, packagepacks, SDK operations, launcher
 operations, auth, publishing, installing, validation, fingerprinting, and launch surfaces may all be represented through
@@ -44,9 +44,11 @@ Type relationship:
 A capability can itself be a type/category used by other capabilities, but a capability cannot be its own type.
 Self-typing, self-dependency, and dependency cycles are invalid bootstrap shapes.
 Non-circular type/dependency/dependent relationships are part of what forms the capability graph.
-The term `Capability Instance` should be avoided for now.
-The in-memory validated object should usually just be called a Capability, while authored/pre-lock forms should be
-called [[Capability Declaration]] where that distinction matters.
+Use [[Capability Instance]] when the text means one concrete validated/materialized graph object in a specific graph
+environment.
+Use plain Capability for the broad Vapor concept/model, contract surface, type/category pressure, or when instance-level
+precision is not needed.
+Authored/pre-materialization forms should be called [[Capability Declaration]] where that distinction matters.
 [[Capability Slot Type]] is the current preferred term for the projected/gated slot/context shape that older notes
 described with profile/type-template wording.
 `Capability Declaration` remains the pre-lock authored declaration artifact.
@@ -56,10 +58,16 @@ Graph shape:
 Capability graph data structures are reused across multiple environments, not one monolithic process graph.
 The SDK may have one graph per tool instance, the launcher has its own graph, the launcher can construct a proto-graph
 root/seed for a selected composition, and the launched composition has its resolved runtime graph.
+Because many validation, projection, diagnostic, authoring, and runtime surfaces route through these graph structures,
+implementation should be concurrency- and multithread-friendly by design.
+The exact structure is not locked, but likely pressure includes read-heavy snapshots, staged mutation, explicit
+handoff/lock boundaries, and avoiding one global mutable bottleneck.
 Packagepack, enginepack, gamepack, modpack, engine, game, mod, script, and user-facing views are projections or metadata
 views over the relevant graph environment, not separate authoring truths.
 The raw capability metadata may be simpler than the runtime graph, for example a registry scanned before graph
 construction.
+Metadata registries, lockfile/fingerprint material, and projections are support views over graph construction and
+diagnostics; they are allowed to differ from the active runtime graph and should not be mistaken for the same object.
 Launcher/SDK graphs are currently static-only/read-only/hardcoded environments.
 Launchable Engine/Game compositions can expose mutable substrate layered onto the immutable startup-generated graph
 core; products/packs that do not expose such APIs simply do not support that kind of runtime extension.
@@ -74,8 +82,9 @@ Staged construction:
 6. Establish the [[Runtime Lock]].
 7. Enter the locked runtime graph representation.
 
-`Capability Declaration` is the pre-lock artifact.
-At the definition lock transition, validated capability declarations are promoted into capabilities.
+`Capability Declaration` is the pre-materialization authored artifact.
+During iterative/topological startup, validated capability declarations may be promoted into staged
+[[Capability Instance]]s before final Runtime Lock.
 For Phase 3, Runtime Lock applies to launchable Engine/Game runtime composition, not to treating the launcher/SDK as
 dynamic Rhai-authored runtime compositions.
 Launcher and SDK capability environments are separate graph instances that currently lean static-only, read-only, and
@@ -87,8 +96,8 @@ This is phase-separated runtime: declaration phase and execution phase coexist i
 1. Rust registers host templates and projected API graph surfaces.
 2. Rhai declaration entrypoints run with profile-scoped `ctx` and emit one capability declaration.
 3. Declaration payload includes structured data plus declared behavior callbacks/closures shaped by contract/profile.
-4. Rust validates and lock-transitions that declaration into a capability.
-5. Runtime materializes and executes capabilities, invoking Rhai callbacks through projected `ctx` handles.
+4. Rust validates and materializes that declaration into a staged or runtime [[Capability Instance]].
+5. Runtime executes Capability Instances, invoking Rhai callbacks through projected `ctx` handles.
 6. Callback outcomes feed back into Rust-side reconcile/commit/apply paths.
 
 Callback invocation paths are what restore script control flow freedom, but only through typed, scoped,
@@ -109,6 +118,8 @@ Rust/Rhai boundary:
 
 - A capability can exist entirely in Rust with no Rhai declaration surface.
 - [[Rhai Capability]] support is itself a capability.
+- Native or hardcoded Rust capabilities must still be projectable into Rhai `ctx` surfaces when the relevant profile and
+  visibility policy expose them.
 - A capability should not exist purely as a Rhai declaration with no Rust host support beyond trivial script-local
   computation.
 - Rhai may do simple local work, but low-level data access, heavy kernels, and runtime orchestration should remain
@@ -147,10 +158,12 @@ USF concepts such as [[Scale]], [[Scale Realizer]], [[Phenomenon]], and [[Metric
 capability shapes may be higher-order/layer-dependent rather than single flat nodes.
 
 Open pressure:
-The exact edge taxonomy is still unresolved: dependency edges, slot edges, API exposure edges, and authority edges may
-be distinct edge kinds or shared edges with policy metadata.
-The exact relation between capability graph edges, slots, authority claims, registries, and integration apertures also
-remains under active pressure.
+Owner direction now favors a heterogeneous graph with heterogeneous edge kinds.
+[[Capability Slot Type]]s should be treated as graph edge types or edge-type-like declarations.
+The exact edge taxonomy is still unresolved, but dependency edges, slot edges, API exposure edges, authority edges,
+registry edges, and projection edges should not be prematurely collapsed into one generic edge model.
+The exact relation between graph edge types, capability type/template pressure, slots, authority claims, registries, and
+integration apertures remains under active pressure.
 
 Phase 3 lock-candidate anchor:
 Capability Phase 3 behavior is anchored by
@@ -161,6 +174,7 @@ Runtime Lock for launched compositions, and diagnostics before any Engine/Game f
 See also:
 
 - [[Capability Declaration]]
+- [[Capability Instance]]
 - [[Capability Slot Type]]
 - [[Callback Type]]
 - [[Callback Context Type]]

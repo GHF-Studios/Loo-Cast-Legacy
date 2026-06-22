@@ -9,14 +9,15 @@ aliases:
 The Capability Contract Family defines what Vapor-level capability contracts must declare and satisfy.
 Older notes distinguished it from [[Capability Slot Type]] host template authority; current active wording prefers
 [[Capability Slot Type]] for that slot/context-shape concept.
-Capabilities implement this family.
+Capabilities and [[Capability Instance]]s implement this family at different layers: the broad model defines the
+contract surface, while concrete instances satisfy it in a specific graph environment.
 USF-aware capabilities may expose [[Scaled Capability Channel]]s as scale-specific execution faces whose
 required/allowed shape is derived from the capability contract plus the USF scale contract.
 In declaration scripts, capabilities appear as [[Rhai Capability]] API objects surfaced through profile-tailored `ctx`
 capability-object subgraphs.
 The `ctx` graph is hierarchical (atomic capability nodes + composite/category nodes), with include/exclude path
 declarations controlling exposed subgraphs.
-Runtime executes behavior through materialized capabilities that bind these declared surfaces.
+Runtime executes behavior through [[Capability Instance]]s that bind these declared surfaces.
 
 Dependency semantics are layered:
 
@@ -42,5 +43,10 @@ Every capability needs enough Vapor-readable metadata for discovery, validation,
 resolution, and diagnostics.
 This metadata may be generated from Rust macros, supplied explicitly, or derived from declarations, but it must be
 available to the capability runtime before lock.
+
+Split note:
+This page is an overloaded umbrella and should split in a later structural rewrite.
+Owner-approved split targets are metadata rules, declaration rules, projection rules, and runtime/instance rules.
+Until that split happens, this page should be treated as a map of pressure areas, not one clean final contract object.
 
 #glossary

@@ -14,6 +14,5 @@ See also:
 - [[Capability Projection API]]
 - [[Capability Bootstrap Fixed-Point Cycle]]
 - [[Script Safety]]
-- [[Scripting Projection Meta-Layer]]
 
 #glossary
