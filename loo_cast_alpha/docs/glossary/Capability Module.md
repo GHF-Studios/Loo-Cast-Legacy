@@ -51,5 +51,6 @@ See also:
 - [[Capability Kernel]]
 - [[Kernel Artifact]]
 - [[Rust Surface Graph]]
+- [Define Capability Module](../diagrams/author_content/define_capability_module/_mod_.puml)
 
 #glossary

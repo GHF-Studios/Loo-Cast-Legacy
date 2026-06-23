@@ -18,6 +18,6 @@ See also:
 - [[Runtime Lock]]
 
 Implementation-facing anchor:
-[Capability Bootstrap Fixed-Point and Projection Model](../diagrams/capability_bootstrap_fixed_point_and_projection_model.puml)
+[Build Capability Graph](../diagrams/launch_packagepack/build_capability_graph/_mod_.puml)
 
 #glossary

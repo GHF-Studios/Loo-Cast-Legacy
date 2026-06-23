@@ -1,0 +1,17 @@
+@startuml
+!include ../../../_theme.puml
+title Rhai Asset Declaration
+top to bottom direction
+
+package "Rhai Files" {
+  rectangle "Data Declarations\nconfigs, localization, tables" as Data
+  rectangle "Surface Declarations\ntypes, traits, callbacks" as Surfaces
+}
+
+rectangle "Vapor.toml Classification" as Manifest
+rectangle "Declaration Validation" as Validate
+
+Data --> Manifest : are classified as data role in
+Surfaces --> Manifest : are classified as surface roles in
+Manifest --> Validate : classifies files for
+@enduml

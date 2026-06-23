@@ -1,0 +1,17 @@
+@startuml
+!include ../../../_theme.puml
+title Rust Output Build
+top to bottom direction
+
+rectangle "Toolchain Lock" as Toolchain
+rectangle "Rust Compilation" as Compile
+rectangle "Kernel Linking" as Link
+rectangle "Native Dependency Recording" as Deps
+rectangle "Compile/Link Error State" as Fail
+
+Toolchain --> Compile : constrains
+Compile --> Link : produces objects for
+Link --> Deps : records linked deps through
+Compile --> Fail : reports compile error to
+Link --> Fail : reports link error to
+@enduml

@@ -1,0 +1,19 @@
+@startuml
+!include ../../../_theme.puml
+title Artifact Packing
+left to right direction
+
+package "Payload" {
+  rectangle "Manifest Payload" as Manifests
+  rectangle "Rhai/Data Payload" as Rhai
+  rectangle "Native Payload" as Native
+}
+
+rectangle "Publication Metadata" as Metadata
+rectangle "Package Bytes" as Package
+
+Manifests --> Package : flows into
+Rhai --> Package : flows into
+Native --> Package : flows into
+Metadata --> Package : ships alongside payload in
+@enduml

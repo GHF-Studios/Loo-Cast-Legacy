@@ -1,0 +1,45 @@
+skinparam backgroundColor #121417
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam defaultFontName JetBrains Mono
+skinparam defaultFontColor #f3f5f7
+skinparam linetype polyline
+skinparam nodesep 42
+skinparam ranksep 42
+skinparam ArrowMessageAlignment center
+hide stereotype
+
+skinparam rectangle {
+  BackgroundColor #26313c
+  BorderColor #7c8b9b
+  FontColor #ffffff
+  RoundCorner 8
+}
+
+skinparam rectangle<<zoom>> {
+  BackgroundColor #1d5f91
+  BorderColor #8fd4ff
+  FontColor #ffffff
+}
+
+skinparam package {
+  BackgroundColor #1b2128
+  BorderColor #5f6a75
+  FontColor #ffffff
+}
+
+skinparam ArrowColor #79b8ff
+skinparam ArrowFontColor #f3f5f7
+
+skinparam legend {
+  BackgroundColor #181c22
+  BorderColor #79b8ff
+  FontColor #f3f5f7
+}
+
+legend bottom
+|<#26313c><color:#ffffff> Local node </color>| actor, process, phase, state, or artifact |
+|<#1d5f91><color:#ffffff> Zoom node </color>| click it, or open the matching child folder |
+|<#1b2128><color:#ffffff> Group </color>| visual grouping only; no causal claim |
+|<#79b8ff><color:#121417> Arrow label </color>| read as: source + label + target |
+endlegend

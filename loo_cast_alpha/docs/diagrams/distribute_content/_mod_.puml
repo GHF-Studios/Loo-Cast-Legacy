@@ -1,0 +1,10 @@
+@startuml
+!include ../_theme.puml
+title Distribute Content
+top to bottom direction
+
+rectangle "Workshop Item Publication" as Publish <<zoom>> [[publish_workshop_item/_mod_.puml]]
+rectangle "Workshop Item Installation" as Install <<zoom>> [[install_workshop_item/_mod_.puml]]
+
+Publish --> Install : makes Workshop item available to
+@enduml

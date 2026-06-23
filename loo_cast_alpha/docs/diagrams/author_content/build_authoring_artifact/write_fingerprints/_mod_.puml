@@ -1,0 +1,16 @@
+@startuml
+!include ../../../_theme.puml
+title Fingerprint Recording
+left to right direction
+
+rectangle "Package Byte Hash" as Bytes
+rectangle "Dependency Graph Hash" as Graph
+rectangle "Kernel Artifact Hash" as Kernels
+rectangle "Toolchain Envelope Proof" as Toolchain
+rectangle "Vapor.lock" as Lock
+
+Bytes --> Lock : writes content hash into
+Graph --> Lock : writes graph hash into
+Kernels --> Lock : writes native hash into
+Toolchain --> Lock : writes compatibility proof into
+@enduml

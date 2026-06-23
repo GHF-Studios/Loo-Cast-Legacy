@@ -1,0 +1,16 @@
+@startuml
+!include ../../../_theme.puml
+title Module File Organization
+top to bottom direction
+
+rectangle "Module folder" as Folder
+rectangle "Vapor.toml" as Manifest
+rectangle "role folders\ntypes/, traits/,\ncallbacks/, data/" as Roles
+rectangle "child modules\ncapabilities/" as Children
+rectangle "Vapor.lock" as Lock
+
+Folder --> Manifest : contains
+Manifest --> Roles : assigns file roles to
+Manifest --> Children : assigns child-module role to
+Manifest --> Lock : resolves into
+@enduml

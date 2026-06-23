@@ -1,0 +1,19 @@
+@startuml
+!include ../_theme.puml
+title Locked Runtime Execution
+top to bottom direction
+
+package "Runtime Loop" {
+  rectangle "Engine/Game Startup" as Start
+  rectangle "Runtime Tick" as Tick <<zoom>> [[tick_runtime/_mod_.puml]]
+  rectangle "Callback Dispatch" as Callbacks <<zoom>> [[dispatch_callbacks/_mod_.puml]]
+  rectangle "State Reconciliation" as Reconcile <<zoom>> [[reconcile_state/_mod_.puml]]
+  rectangle "Continue/Shutdown Decision" as Continue
+}
+
+Start --> Tick : enters
+Tick --> Callbacks : schedules
+Callbacks --> Reconcile : produces intents for
+Reconcile --> Continue : commits state before
+Continue --> Tick : loops back to
+@enduml

@@ -209,6 +209,27 @@ Current owner direction:
 Blocking question:
 ```
 
+## Diagram Authoring Policy
+
+PlantUML diagrams under `loo_cast_alpha/docs/diagrams/` are part of the working docs surface, not decorative exports.
+Keep them readable at the source level before relying on Obsidian embeds, canvas layout, or viewer zoom.
+
+- Folder hierarchy is diagram hierarchy. A folder is a diagram module; `_mod_.puml` is that module's entry diagram.
+- A box that expands into more detail should correspond to a child folder, be visually marked as zoomable, and carry a
+  PlantUML hyperlink to that child `_mod_.puml` when the renderer supports it.
+- Keep each diagram focused on one responsibility. If it becomes a long strip or tries to explain child detail in one
+  edge label, aggregate sibling detail, change direction, or split the detail into a child folder.
+- Every arrow must have a clear label. Prefer labels that make `source + label + target` read like a sentence.
+- Prefer node names that describe the actor, process, phase, state, or artifact rather than imperative commands.
+  For example, use `Enginepack Selection` instead of `Select Enginepack`.
+- Packages/groups are allowed as visual grouping only. Do not imply causality just because items are grouped together.
+- Diagram "types" are local visual-language choices, not a registry. Explain the marks in the legend instead of creating
+  a global taxonomy unless the owner explicitly asks for one.
+- Legends should be visually accessible: use colored swatches plus text labels, not text-only descriptions or color-only
+  meaning.
+- Do not over-prioritize avoiding dangling links or undefined future concepts. Obsidian dangling links can be useful
+  pressure markers when they preserve meaningful future work.
+
 ## Project Orientation Entrypoint
 
 Keep this section brief. Product/project doctrine belongs in the glossary and public docs, not in this agent file.

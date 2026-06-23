@@ -1,0 +1,24 @@
+@startuml
+!include ../_theme.puml
+title Packagepack Launch
+top to bottom direction
+
+package "Preflight" {
+  rectangle "Packagepack Resolution" as Resolve <<zoom>> [[resolve_packagepack/_mod_.puml]]
+  rectangle "Installation Verification" as Verify
+  rectangle "Capability Graph Build" as Graph <<zoom>> [[build_capability_graph/_mod_.puml]]
+}
+
+package "Runtime Admission" {
+  rectangle "Kernel Artifact Loading" as Kernels <<zoom>> [[load_kernel_artifacts/_mod_.puml]]
+  rectangle "Runtime Locking" as Lock <<zoom>> [[lock_runtime/_mod_.puml]]
+  rectangle "Engine/Game Startup" as Start
+}
+
+Resolve --> Verify : feeds plan to
+Verify --> Graph : admits content to
+Graph --> Kernels : supplies kernel refs to
+Kernels --> Lock : registers surfaces for
+Lock --> Start : permits
+Verify --> Resolve : retries via
+@enduml

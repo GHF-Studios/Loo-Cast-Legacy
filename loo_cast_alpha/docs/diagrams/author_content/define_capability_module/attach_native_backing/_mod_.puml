@@ -1,0 +1,16 @@
+@startuml
+!include ../../../_theme.puml
+title Native Backing Attachment
+top to bottom direction
+
+rectangle "Kernel Refs" as Refs
+rectangle "Kernel Artifact Build" as Build
+rectangle "Toolchain Envelope Record" as Toolchain
+rectangle "Scriptable Rust Surface Exposure" as Surfaces
+rectangle "Raw Native Access Rejection" as Reject
+
+Refs --> Build : selects manifest refs for
+Build --> Toolchain : records build envelope through
+Toolchain --> Surfaces : proves compatibility before
+Build --> Reject : routes missing proof to
+@enduml

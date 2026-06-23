@@ -1,0 +1,17 @@
+@startuml
+!include ../../../_theme.puml
+title cb_ctx Build
+top to bottom direction
+
+rectangle "Callback Type Intake" as Type
+rectangle "Runtime Mask Intake" as Mask
+rectangle "Host Contract Projection" as Contracts
+rectangle "cb_ctx Creation" as Ctx
+rectangle "Projection Rejection" as Reject
+
+Type --> Mask : declares required access for
+Mask --> Contracts : admits allowed surface to
+Contracts --> Ctx : projects host surface into
+Mask --> Reject : routes denied access to
+Contracts --> Reject : routes denied host surface to
+@enduml

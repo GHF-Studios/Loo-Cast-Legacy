@@ -82,4 +82,7 @@ Phase 3 must load and validate Rhai declarations without launching a concrete En
 declaration/data payloads into capability/fingerprint paths, and prove one focused callback path without locking the
 full callback taxonomy.
 
+Diagram:
+[Declare Rhai Assets](../diagrams/author_content/define_capability_module/declare_rhai_assets/_mod_.puml)
+
 #glossary
