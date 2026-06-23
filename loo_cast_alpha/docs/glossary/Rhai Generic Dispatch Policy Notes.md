@@ -71,7 +71,7 @@ Declaration-first posture (legacy MVP slice, superseded by module/node typing):
 4. Rust-side host validation/materialization wiring constrains declarations; older notes may call this capability
    type-template authority.
 5. Extension slots are graph extension/dependency points with trait bounds, not script-produced objects.
-6. Script execution yields data-first declaration material, not raw Rust type objects.
+6. Script execution yields data/declaration material, not raw Rust type objects.
 7. Capability type/trait/callback signatures define the allowed script API graph topology: atomic capability nodes plus
    composite/category nodes.
 8. Access is declared as include/exclude path declarations over that graph, so very specific capability-object subgraphs
@@ -87,9 +87,9 @@ Declaration-first posture (legacy MVP slice, superseded by module/node typing):
 13. Callback closures declared by those entrypoints execute with callback-scoped effective `ctx` masks resolved by
     allow/deny policy, not implicit carry-over from declaration-entrypoint `ctx`.
 14. A Rust materialization pass consumes those declarations and produces runtime capability machinery.
-15. One Rhai file now leans toward one typed declaration asset, not one authored leaf capability node.
-    Richer syntax/logic/fields/parameters may exist inside the file, but public graph nodes must come from explicit
-    module/node/type/trait/callback declarations.
+15. One Rhai file now leans toward one typed declaration or data asset, not one authored leaf capability node.
+    Richer syntax, fields, parameters, and local construction code may exist inside the file, but public graph nodes
+    must come from explicit module/node/type/trait/callback declarations.
 16. Capability semantics are intentionally split:
     declaration-level [[Rhai Capability]] API surfaces and runtime-side Rust implementation/execution surfaces under
     [[Capability Runtime]] in the [[Runtime Substrate]].

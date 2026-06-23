@@ -17,12 +17,15 @@ It is the place where manifest-style metadata lives when that data should not be
 [[Rhai Asset]] file, and it is also the normal place for attachment/dependency metadata.
 It is also the source of truth for classifying Rhai files as [[Capability Type]], [[Capability Trait]], or
 [[Capability Callback]] declaration assets.
+It should also declare [[Capability Kernel]] imports and [[Kernel Artifact]] references when a module needs native
+implementation backing.
 
 Current owner-answer-informed uses:
 
 - capability/file-level dependencies
 - folder-level composition, nesting, organization, and storage integration metadata
 - typed source-file classification for capability types, traits, callbacks, and child capability nodes
+- kernel imports, native surface requirements, and module-level kernel artifact references
 - visibility/publicness metadata
 - packagepack, modpack, enginepack, and gamepack composition metadata
 - target roles
@@ -61,6 +64,8 @@ Vapor.toml exists because some metadata is manifest-shaped and should be validat
 concrete engine/game fixture launches.
 Vapor.toml is analogous to Cargo.toml as build-system/package-system metadata, while [[Rhai Asset]] files declare
 capability types, traits, callbacks, and other typed capability-node material.
+Kernel declarations in Vapor.toml should name required native backing without exposing raw private kernel internals as
+public capability API.
 Sidecar `.meta` files remain disfavored.
 
 Open pressure:
@@ -68,8 +73,8 @@ Open pressure:
 Nested Vapor.toml files need careful treatment because nesting describes typed capability module/node metadata, not
 arbitrary filesystem clutter.
 Every meaningful folder should be explicit.
-The exact field names for source classification, placement, dependencies, conflicts, and publication metadata remain
-unsettled.
+The exact field names for source classification, kernel imports, placement, dependencies, conflicts, and publication
+metadata remain unsettled.
 
 Phase 3 lock-candidate anchor:
 The Phase 3 manifest scope is anchored by [Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md),

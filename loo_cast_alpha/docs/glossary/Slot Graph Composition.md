@@ -42,8 +42,8 @@ Invalid graphs hard-fail before runtime and are guaranteed to not be the case on
 Timing:
 Slot filling and graph composition happen at composition time during ultra-early runtime, before the runtime lock.
 Runtime graph mutation should be forbidden by default.
-If runtime dynamism is needed, model it as a capability whose Rust kernel provides dynamic behavior, for example a
-registry capability, rather than as arbitrary post-lock slot mutation.
+If runtime dynamism is needed, model it through explicit capability/runtime-substrate policy, for example a registry
+capability backed by a [[Capability Kernel]], rather than as arbitrary post-lock slot mutation.
 
 Open policy vocabulary includes exclusive slots, variadic slots, ordered registries, optional providers, and integration
 apertures.

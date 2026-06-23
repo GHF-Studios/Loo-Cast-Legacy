@@ -28,6 +28,10 @@ Current owner-answer-informed direction:
   Phase 3 hard requirement.
 - SDK command semantics should be stable public contracts by Phase 3.
 - SDK command surface/matrix means the concrete set of public CLI/tool commands and examples, not a mathematical matrix.
+- The SDK may need to manage the [[Vapor Toolchain Envelope]] for native [[Kernel Artifact]] builds, including supported
+  Rust/cargo/toolchain branches.
+- Toolchain control may mean vendoring one or more canonical Rust/cargo branches, or acting as a Rust meta-toolchain
+  launcher for Vapor projects.
 
 Boundary:
 The SDK should share semantics with [[Vapor Launcher]] operations through the same [[Capability]]/[[Rhai]]/[[Vapor.toml]]
@@ -46,5 +50,7 @@ See also:
 
 - [[Vapor Crate Topology]]
 - [[Vapor Launcher]]
+- [[Vapor Toolchain Envelope]]
+- [[Kernel Artifact]]
 
 #glossary

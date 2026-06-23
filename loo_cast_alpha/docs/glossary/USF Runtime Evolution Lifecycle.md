@@ -6,7 +6,8 @@ aliases: [ ]
 
 The USF Runtime Evolution Lifecycle governs runtime progression after the definition lock transition.
 Runtime interactions are driven by active [[Capability Instance]]s materialized from capabilities established at the
-definition lock transition; these instances carry callback closures and data defined by declaration scripts.
+definition lock transition; these instances carry declaration data and sanctioned callback closures defined by
+declaration scripts.
 Execution flows through type/trait/callback-tailored `ctx` capability-object subgraphs that bound exposed capability
 objects via hierarchical graph composition (atomic + composite nodes) and include/exclude path declarations.
 When Rhai-declared callbacks are invoked in this phase, runtime enforces resolved effective callback `ctx` path masks

@@ -29,7 +29,7 @@ Runtime Lock freezes the startup graph structure; it does not freeze all runtime
 Mutable runtime substrate may exist after lock, but it must be mediated by explicit capability, registry, kernel, or
 state-evolution policy and must not retroactively mutate the locked declaration/composition structure.
 
-Batch 005 follow-up clarification:
+Launcher/SDK boundary:
 Runtime Lock currently applies to launchable Engine/Game runtime composition.
 Launcher and SDK authoring should instead remain a more static-only, read-only, hardcoded capability environment for
 now, not a dynamically Rhai-extended runtime composition.

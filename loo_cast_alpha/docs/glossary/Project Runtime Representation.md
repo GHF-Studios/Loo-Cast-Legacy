@@ -11,12 +11,14 @@ At this stage, the runtime includes:
 
 - active mod graph and resolved ownership mappings
 - [[Capability Instance]]s and channels
+- resolved [[Capability Kernel]] and [[Rust Surface Graph]] bindings where native backing is used
 - staged/runtime orchestration state
 - active simulation/runtime state under the [[Runtime Substrate]]
 
 Definition/startup graph structure is fixed at [[Runtime Lock]].
 Runtime evolution changes state and intent within that structure rather than mutating the locked structure itself.
-Post-lock dynamism must be mediated through explicit capability, registry, kernel, or runtime-substrate policy.
+Post-lock dynamism must be mediated through explicit capability, registry, [[Capability Kernel]], or runtime-substrate
+policy.
 This is the project-level runtime shape of [[Closed Runtime and Open Design]].
 
 At project scope, this representation includes [[Mod Runtime Representation]], the launched composition's resolved

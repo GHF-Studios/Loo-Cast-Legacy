@@ -18,10 +18,10 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 
 ## Source-Control Issues
 
-1. `FIX` Modified summary now mixes summary text and owner corrections; preserve it as an input artifact, not polished docs.
+1. `DONE` Combined and split summaries are review artifacts; raw owner comments were polished into summary/open-pressure wording.
 2. `FIX` The summary may be ahead of many source pages; promote corrected summary language back into source pages where valid.
 3. `AUDIT` The source glossary and summary now diverge in owner-intent level; build a systematic source-vs-summary comparison pass.
-4. `FIX` Future summary docs should not include raw owner comments inline.
+4. `DONE` Summary docs should not include raw owner comments inline; remaining uncertainty should be phrased as open pressure.
 5. `FIX` Keep the alphabetic review mode because it helps holistic review.
 6. `FIX` Add terse issue ledgers for future alignment passes rather than essay-style ledgers.
 7. `AUDIT` Add a second pass that finds issues not explicitly mentioned by owner comments.
@@ -33,14 +33,16 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 
 11. `FIX` Add stable `## Summary` sections to glossary pages so Obsidian embeds can use `![[Page#Summary]]`.
 12. `FIX` Keep `## Summary` sections concise enough to embed cleanly.
-13. `FIX` Add separate persistent summary index for `#glossary`.
-14. `FIX` Add separate persistent summary index for `#tech_glossary`.
-15. `FIX` Summary indexes should use embeds instead of duplicating summary text manually.
-16. `MOVE` Decide where generated/review summaries live so they do not pollute the canonical glossary folder.
+13. `DONE` Add separate persistent full page-by-page summary for `#glossary`.
+14. `DONE` Add separate persistent full page-by-page summary for `#tech_glossary`.
+15. `FIX` Future summary sections should use embeds instead of duplicating summary text manually.
+16. `DONE` Generated/review summaries live at docs root, not inside the glossary folder.
+16a. `DONE` Delete the legacy combined glossary/tech-glossary summary after split summaries became canonical.
 17. `FIX` README should explain embed conventions if the vault adopts summary sections.
 18. `FIX` README should explain that `.obsidian/` files are editor state, not glossary content.
 19. `AUDIT` Check whether every page has a single stable heading suitable for embedding.
 20. `AUDIT` Check whether aliases/canonical names conflict with Obsidian link targets.
+20a. `DONE` Dangling Obsidian links are allowed as future-concept pressure; do not over-prioritize cleanup.
 
 ## Glossary vs Tech Glossary Split
 
@@ -151,13 +153,21 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 110f. `DECIDE` Define precise trait-bound composition rules for Capability Extension Slots with multiple required Capability Traits.
 110g. `DECIDE` Finalize signature-family contents for Capability Type, Capability Trait, Capability Instance, and Callback signatures.
 110h. `AUDIT` Continue separating source placement, artifact placement, storage metadata, and graph identity after the module/node rewrite.
+110i. `DONE` Add Capability Framework as canonical framework name; Scripting Framework remains informal alias.
+110j. `DONE` Add Rust Host Contract, Scriptable Rust Surface, Rust Surface Graph, Capability Kernel, Kernel Artifact, and Vapor Toolchain Envelope as WIP concepts.
+110k. `DECIDE` Define exact Scriptable trait/adaptor family for owned Rust types versus external crate wrappers.
+110l. `DECIDE` Define kernel artifact registration entrypoint shape and dynamic library compatibility rules.
+110m. `DECIDE` Define how Vapor.toml names kernel imports and exported native surfaces.
+110n. `DECIDE` Define Vapor.lock fields for kernel artifacts, toolchain envelope, exported registration metadata, and compatibility proof.
+110o. `DONE` Clarify Rhai data assets vs declaration assets vs callbacks: data includes config/localization/etc.; declarations may contain data/metadata; declaration-level logic crosses only as callbacks.
+110p. `DONE` Kernel Artifact loading requires a Rust-native registration entrypoint; C ABI entrypoints are not accepted as fallback, and incompatible artifacts fail fast.
 111. `DONE` Capability Runtime should be Vapor-defined infrastructure embedded/adapted by launched compositions.
 112. `DONE` Spacetime Engine should utilize/extend capability runtime, not host or define it.
 113. `DONE` Runtime Substrate should not sound like it owns Capability semantics.
 114. `FIX` Capability Runtime and Modding Runtime are deeply coupled; docs should not overstate sibling separateness.
 115. `FIX` Modding is a major composition use of capability semantics.
 116. `FIX` Mod runtime representation should say mods resolve into capability graph contributions.
-117. `FIX` Some capabilities emit intents/requests; others directly bind Rust kernel operations.
+117. `DONE` Some capabilities emit intents/requests; others bind native Capability Kernel or Scriptable Rust Surface operations.
 118. `FIX` Reconcile/commit/apply still owns canonical state progression where state authority matters.
 119. `FIX` Capability roles beyond input/output remain unresolved.
 120. `FIX` Input/output may remain useful directional vocabulary in scale/runtime contexts.
@@ -198,15 +208,16 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 149. `FIX` Scripts must not define fundamental scheduler structure.
 150. `FIX` Rhai Asset should say Phase 3 proves end-to-end capability/Rhai stack, not only one callback path.
 151. `FIX` Focused callback proof remains useful but should not understate Rhai’s Phase 3 role.
-152. `FIX` One Rhai file maps to one authored leaf declaration by default.
+152. `DONE` One Rhai file no longer maps to one authored leaf declaration by default; it is a typed declaration or data asset.
 153. `FIX` File-internal capability definitions should default private/internal.
 154. `FIX` Folder-level Rhai aggregation plus Vapor.toml grouping is allowed.
-155. `FIX` Vapor.toml owns manifest/dependency/publication metadata; Rhai owns declarations.
+155. `DONE` Vapor.toml owns manifest/dependency/publication metadata; Rhai assets carry data, declaration, and sanctioned callback material.
 156. `FIX` Sidecar `.meta` files remain disfavored.
 157. `FIX` Generated textures/models/sounds remain outputs/caches/delivery artifacts, not canonical authored source.
 158. `FIX` Rhai Capability should include projected native hardcoded capabilities.
 159. `FIX` Rhai Capability should separate origin from projection/use.
-160. `FIX` Rhai Capability should say Rust owns heavy/most state authority, not all conceivable state authority.
+160. `DONE` Rhai Capability should say Rust-owned host/runtime systems own native execution/state authority, not all conceivable state authority.
+160a. `DONE` Rhai Capability and Script Safety now separate data/config/localization, declarations, policy data/rules, and callback-only declaration logic.
 161. `FIX` Callback Type, Callback Context Type, and Callback Signature must stay separate.
 162. `FIX` Callback Context Type needs stronger host metadata / Rust function-shape framing.
 163. `FIX` Callback metadata should help validate or reject required context graph projection early.
@@ -271,7 +282,7 @@ This ledger is intentionally terse. It is a work queue, not doctrine.
 216. `DONE` Build Artifact needs concrete examples: linked shared objects/binaries before packaging.
 217. `DONE` Build Artifact should distinguish “built output” from assembled runtime library payload set.
 218. `DONE` Distributable Artifact should remain final packaged/uploadable object.
-218a. `DECIDE` `Authoring Artifact` naming pressure: alias/rename candidate for built outputs once surrounded by runtime libraries, payloads, manifests, dependencies, and publication metadata; avoid collision with `Source Artifact`.
+218a. `DONE` Preserve `Authoring Artifact` as a strong alias on Distributable Artifact for author-facing packaged forms assembled around build outputs, runtime libraries, payloads, manifests, dependencies, and publication metadata.
 219. `DONE` Source Artifact should include Vapor.toml and Rhai declarations explicitly.
 220. `DONE` Redistributable Mod Implementation Library should remain runtime-deliverable platform library set.
 221. `DONE` Redistributable Mod Contract Source should remain development/dependency source package.

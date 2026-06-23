@@ -15,9 +15,14 @@ Current owner-answer-informed direction:
 - Lockfiles should store generated fingerprints and hashes for build/publish output.
 - Lockfiles can support packagepacks, modpacks, enginepacks, gamepacks, mods, and nested capability declaration folders
   where resolved dependency state matters.
+- Lockfiles should eventually record resolved [[Kernel Artifact]] identity, platform target, ABI/toolchain envelope,
+  native dependency fingerprints, exported registration metadata, and compatibility proof.
+- Lockfiles should record the [[Vapor Toolchain Envelope]] used for native capability-kernel builds where that affects
+  compatibility.
 
 Open pressure:
 A central manifest or aggregate lock-like file may be useful later, but it is not locked.
+Exact kernel/toolchain lock fields remain unsettled.
 
 Phase 3 lock-candidate anchor:
 The Phase 3 lockfile scope is anchored by [Phase 3 Vapor Execution Spec](../RFCS/phase_3_vapor_execution_spec.md),

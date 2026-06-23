@@ -190,6 +190,9 @@ Lower-authority but useful signals:
 Glossary authority caveat:
 
 - A glossary page may be the best current framing surface without being final doctrine.
+- Obsidian dangling links are allowed and can be useful future-concept pressure. Do not over-prioritize eliminating
+  undefined links; only resolve or remove them when doing so improves meaning, avoids real confusion, or matches owner
+  direction.
 - Empty or stale `source_of_truth` metadata means "read carefully", not "ignore".
 - If a glossary page, RFC, legacy record, and current owner answer disagree, current owner answers and current glossary
   pressure usually outrank RFC prose.
@@ -271,7 +274,7 @@ Do not flatten those open pressures into doctrine.
 Core concepts to preserve during analysis:
 
 - Runtime Lock: validated composition becomes immutable runtime structure.
-- Capability Declaration: pre-lock script-produced declaration payload.
+- Capability Declaration: raw declared Capability Node material before validation/materialization.
 - Capability: one Vapor-level concept spanning runtime graph node, contract surface, API surface, authority surface, and
   composition unit.
 - Capability Resolution: dependency/provider resolution, materialization/merge, and projection/access are distinct layers.
@@ -279,18 +282,27 @@ Core concepts to preserve during analysis:
   projections.
 - Capability Identity: anonymous capabilities are disallowed; private/internal capabilities are allowed with
   Rust-like visibility.
-- Slot: parent-owned child position accepting a capability type under cardinality/policy; filling happens at
-  composition time before runtime lock.
+- Capability Extension Slot: parent-owned extension/dependency position accepting candidates through explicit trait
+  bounds, signature validation, and slot policy; filling happens before runtime lock for the static graph core.
 - Projection API: scripts see contextual facades, not raw unrestricted engine state.
 - Execution-Reconciliation Dual Core: execution produces candidate outcomes; reconcile/commit/apply decides authoritative progression.
 - Workflow Framework: Rust-side staged orchestration across ECS, Render, Async, and iterative domains.
-- Script Safety: Rhai is declaration-owned and host-scheduled; Rust owns scheduling, heavy kernels, state authority, and safety boundaries.
-- Rhai Asset: one declaration file is one authored asset/capability node; assets and capabilities currently collapse
-  together in the authored/declaration model.
+- Script Safety: Rhai is data/declaration/callback oriented and host-scheduled; Rust-owned host/runtime systems own
+  native execution, state authority, scheduling, and safety boundaries.
+- Rhai Asset: typed Rhai source material for data assets, declaration assets, and sanctioned callbacks. Data assets
+  include config, localization, constants, tuning values, authored tables, and similar structured payloads.
+  Declarations may contain data and metadata, but declaration-level logic crosses the capability boundary only as
+  callbacks. One Rhai file no longer implies one capability node.
+- Capability Kernel: module-scoped native implementation backing, usually reached through Rust Host Contracts,
+  Scriptable Rust Surfaces, and the Rust Surface Graph.
+- Kernel Artifact loading requires a Rust-native registration entrypoint proven compatible by the Vapor Toolchain
+  Envelope and lock metadata. If that cannot be proven, loading fails fast; C ABI entrypoints are not accepted as a
+  fallback for Vapor kernel loading.
 
 Pressure point:
 
-- "Rhai is declarative" must not erase callback/closure behavior if callbacks are part of normal capability execution.
+- "Rhai is declarative" must not erase callback behavior if callbacks are part of normal capability execution, but do
+  not generalize callbacks into arbitrary script-owned logic.
 - Capabilities emit intents, relay requests, and expose structured authority; leaf capabilities may bind Rust
   functions/types.
 - Canonical mutation authority belongs outside capability objects in reconcile/commit/apply execution paths.

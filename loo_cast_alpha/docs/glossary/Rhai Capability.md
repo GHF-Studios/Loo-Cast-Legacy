@@ -20,20 +20,23 @@ than implicit carry-over from declaration-entry access, and remains bounded by t
 Canonical loop/lifecycle/multiplicity semantics are defined in [[Capability]].
 
 Current owner-answer-informed clarification:
-Rhai is declaration-only in the sense that scripts define declarations, policies, parameters, and closures/callbacks
-rather than owning scheduler structure or heavy runtime kernels.
+Rhai is declaration-only in the sense that scripts define data, declarations, policies, parameters, and callbacks rather
+than owning scheduler structure, native integration, or [[Capability Kernel]] execution.
 This is intentionally not the same as saying scripts contain no behavior.
-Declared callbacks and local policy logic are expected to be normal declaration material where the contract calls for it,
-while Rust remains responsible for lifecycle scheduling, heavy execution kernels, state authority, and safety boundaries.
+Declared callbacks are the sanctioned declaration-level logic surface where the contract calls for behavior.
+Policy material should usually be data/rules consumed by host contracts; Rust-owned host/runtime systems remain
+responsible for lifecycle scheduling, native execution, state authority, and safety boundaries.
 Callbacks are data-like declaration outputs that host runtime code calls at sanctioned times with sanctioned parameters.
 Rhai declarations are startup/load-time outputs; runtime behavior re-enters Rhai only through host-scheduled callback
 invocation paths.
 
 Authoring boundary:
 Rhai declarations may use structured procedural construction patterns such as builders.
-This does not make Rhai the owner of runtime scheduling; it makes Rhai the authored declaration surface for constructing
-typed capability payloads, capability types, capability traits, callback types, callback context types, callback
-signatures, and asset definitions.
+This does not make Rhai the owner of runtime scheduling; it makes Rhai the authored declaration/data surface for
+constructing typed capability payloads, capability types, capability traits, callback types, callback context types,
+callback signatures, config, localization, and asset definitions.
+Config, localization, tuning values, and authored tables are data assets; capability declarations may include data, but
+their logic boundary is still callbacks.
 
 Projection boundary:
 Declaration-entry `ctx` and callback `ctx` should be modeled as projections over the same global capability graph.
@@ -53,7 +56,8 @@ visibility scope.
 Open pressure:
 The exact meaning of "Rhai closures as normal declaration content" still needs a dedicated pass.
 The exact relationship between callback types, extension slots, traits, and capabilities also needs a dedicated pass.
-The Rhai-side capability usage vs Rust-side capability kernel usage split also needs a dedicated pass.
+The Rhai-side capability usage vs Rust-side [[Capability Kernel]] and [[Rust Host Contract]] usage split also needs
+continued audit.
 
 Phase 3 lock-candidate anchor:
 Rhai Capability Phase 3 behavior is anchored by

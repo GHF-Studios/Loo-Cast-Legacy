@@ -11,8 +11,9 @@ It is no longer modeled as "one Rhai file equals one capability declaration."
 The declaration may be spread across a [[Capability Module]] / Capability Node source subtree with typed files for
 [[Capability Type]]s, [[Capability Trait]]s, and [[Capability Callback]]s plus manifest metadata in [[Vapor.toml]].
 
-Declared material is data-first (POD-oriented) with behavior payload and metadata shaped by explicit type, trait,
-callback, extension-slot, and Rust host contracts.
+Declared material is data-first (POD-oriented): data, metadata, links, graph meaning, and callback declarations shaped
+by explicit type, trait, callback, extension-slot, and Rust host contracts.
+Declaration-level behavior crosses the capability boundary only as sanctioned [[Capability Callback]] material.
 When callbacks are declared, callback access policy inputs must resolve into effective callback `ctx` path masks before
 [[Runtime Lock]].
 These runtime callback masks remain bounded by the [[Capability Graph Scope Envelope]].

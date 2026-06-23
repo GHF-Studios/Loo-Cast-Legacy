@@ -8,6 +8,7 @@ aliases:
 The Capability is the core [[Vapor Ecosystem]]-level runtime/contract graph primitive for describing usable abilities,
 authority surfaces, API exposure, composition structure, and orchestration seams across ecosystem, [[Engine]], [[Game]],
 mod, and sub-mod layers.
+Capabilities are organized by the [[Capability Framework]].
 Capabilities are defined by Vapor and used by Vapor itself, engines, games, mods, and sub-mods.
 A capability intentionally spans runtime graph node, contract surface, API surface, authority surface, metadata unit,
 composition unit, and orchestration seam.
@@ -97,14 +98,18 @@ hardcoded except where explicit SDK/launcher capability surfaces are implemented
 Capability flow across Rust/Rhai is cyclic, not one-way:
 This is phase-separated runtime: declaration phase and execution phase coexist in one runtime but remain distinct.
 
-1. Rust registers host contracts, projected API graph surfaces, and known type/trait/callback signature families.
+1. Rust registers [[Rust Host Contract]]s, [[Scriptable Rust Surface]]s, projected API graph surfaces, and known
+   type/trait/callback signature families into the [[Rust Surface Graph]].
 2. [[Vapor.toml]] classifies typed source files inside [[Capability Module]] / [[Capability Node]] trees.
-3. Rhai declaration assets contribute [[Capability Type]]s, [[Capability Trait]]s, and [[Capability Callback]]s.
-4. Declaration payload includes structured data plus declared callbacks/closures shaped by explicit type, trait,
-   callback, and extension-slot contracts.
+3. [[Rhai Asset]]s contribute data assets such as config/localization or declaration material for [[Capability Type]]s,
+   [[Capability Trait]]s, [[Capability Callback]]s, [[Capability Node]]s, and [[Capability Module]]s.
+4. Declaration payload contains structured data and metadata; declaration-level logic exists only as declared callbacks
+   shaped by explicit type, trait, callback, extension-slot, and host contracts.
 5. Rust validates and materializes declared node material into staged or runtime [[Capability Instance]]s.
-6. Runtime executes Capability Instances, invoking Rhai callbacks through projected `ctx` handles.
-7. Callback outcomes feed back into Rust-side reconcile/commit/apply paths.
+6. Runtime binds Capability Instances to allowed [[Capability Kernel]] and host-runtime surfaces where native backing is
+   needed.
+7. Runtime executes Capability Instances, invoking Rhai callbacks through projected `ctx` handles.
+8. Callback outcomes feed back into Rust-side reconcile/commit/apply paths.
 
 Callback invocation paths are what restore script control flow freedom, but only through typed, scoped,
 lifetime-bounded interfaces.
@@ -115,8 +120,8 @@ profile scope.
 Any attempted access outside the resolved effective `ctx` path mask is invalid and should hard-fail.
 
 Access is asymmetric inside that cycle:
-Rhai consumes projected handles and declaration surfaces, while Rust owns orchestration, state authority, and policy
-gating.
+Rhai consumes projected handles and declaration surfaces, while Rust-owned runtime systems own host contracts,
+orchestration, native kernel binding, state authority, and policy gating.
 Dependency-layer and seam-layer separation rules are canonicalized in
 [Capability Dependency Layer Notes](Capability%20Dependency%20Layer%20Notes.md).
 
@@ -128,17 +133,24 @@ Rust/Rhai boundary:
   visibility policy expose them.
 - A capability should not exist purely as a Rhai declaration with no Rust host support beyond trivial script-local
   computation.
-- Rhai may do simple local work, but low-level data access, heavy kernels, and runtime orchestration should remain
-  Rust-backed.
-- The distinction between Rhai-side capability usage and Rust-side capability kernel usage is important enough for a
-  dedicated follow-up pass.
+- Rhai assets are primarily data/declaration carriers.
+- Rhai data assets include typed data, config, localization, constants, tuning values, authored tables, and similar
+  structured inputs.
+- Rhai declaration assets may carry data, metadata, graph structure, type/trait/callback declarations, and extension
+  declarations.
+- Rhai callbacks are first-class declaration content, but they are the sanctioned logic surface: callback behavior is
+  host-invoked and policy mediated rather than arbitrary script-owned execution.
+- Rhai may do simple local construction work, but low-level data access, native integration, simulation kernels, IO, and
+  runtime orchestration should remain Rust-backed through [[Rust Host Contract]]s and [[Capability Kernel]]s.
+- The distinction between Rhai-side capability usage and Rust-side kernel/host-contract usage is important enough for
+  continued audit.
 
 Execution boundary:
 Capabilities emit intents, relay requests, expose structured authority, and describe what is possible.
 Canonical mutation authority belongs outside capability objects in the host-side execution/reconcile/commit/apply
 pipeline.
-This boundary is what allows Rhai callbacks to orchestrate through capabilities while Rust remains the normal
-executor/kernel.
+This boundary is what allows Rhai callbacks to orchestrate through capabilities while Rust remains the normal native
+execution and authority layer.
 Leaf capabilities may directly bind Rust functions/types, including read-only or mutating operations, but canonical
 state progression still runs through host-side reconciliation.
 
@@ -180,6 +192,7 @@ Runtime Lock for launched compositions, and diagnostics before any Engine/Game f
 See also:
 
 - [[Capability Declaration]]
+- [[Capability Framework]]
 - [[Capability Node]]
 - [[Capability Module]]
 - [[Capability Type]]
@@ -190,6 +203,10 @@ See also:
 - [[Capability Trait Signature]]
 - [[Capability Instance Signature]]
 - [[Capability Callback]]
+- [[Rust Host Contract]]
+- [[Scriptable Rust Surface]]
+- [[Rust Surface Graph]]
+- [[Capability Kernel]]
 - [[Capability Slot Type]]
 - [[Callback Type]]
 - [[Callback Context Type]]

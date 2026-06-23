@@ -47,17 +47,17 @@ skinparam ArrowFontColor #f3f5f7
 
 package "Engine Host Domain" #1f2b36 {
   component "Loader / Orchestrator" as Loader <<Runtime>>
-  component "ABI Dispatch" as Dispatch <<Guard>>
+  component "Kernel Loader" as Dispatch <<Guard>>
 }
 
-package "FFI Boundary (Only C ABI Surface)" #3a2528 {
-  component "extern \"C\" fn mod_entry(ctx: *mut HostContext)" as ModEntry <<Unsafe>>
+package "Rust-Native Kernel Boundary" #3a2528 {
+  component "kernel_register(registry: &mut KernelRegistry)" as ModEntry <<Guard>>
 }
 
-package "HostContext Bridge" #24372d {
-  component "Opaque HostContext Pointer" as OpaqueCtx <<Guard>>
-  component "Unsafe Dereference +\nInvariant Checks" as UnsafeBridge <<Unsafe>>
-  component "Safe HostContext Wrapper" as SafeWrapper <<API>>
+package "Kernel Registration Bridge" #24372d {
+  component "Toolchain Envelope Check" as OpaqueCtx <<Guard>>
+  component "Registration Metadata\nValidation" as UnsafeBridge <<Guard>>
+  component "Safe Kernel Registry View" as SafeWrapper <<API>>
 }
 
 package "Rust Modding Framework API" #2c2438 {
@@ -71,10 +71,10 @@ package "core_mod Runtime Root" #24372d {
   component "ECS World" as ECSWorld <<Runtime>>
 }
 
-Loader -[#f5c57a]-> Dispatch : load mod and invoke entry
-Dispatch -[#c87878]-> ModEntry : call exported symbol
-ModEntry -[#c87878]-> OpaqueCtx : receive ctx pointer
-OpaqueCtx -[#c87878]-> UnsafeBridge : raw pointer access
+Loader -[#f5c57a]-> Dispatch : load kernel artifact
+Dispatch -[#c87878]-> ModEntry : invoke Rust-native registration
+ModEntry -[#c87878]-> OpaqueCtx : prove compatible envelope
+OpaqueCtx -[#c87878]-> UnsafeBridge : validate exported metadata
 UnsafeBridge -[#9de37e]-> SafeWrapper : checked conversion
 SafeWrapper -[#7ecbff]-> CapabilityAPI : expose safe host handles
 CapabilityAPI -[#7ecbff]-> Registration : register systems/resources
@@ -83,13 +83,13 @@ Hooks -[#9de37e]-> BevyRuntime : schedule integration
 BevyRuntime -[#9de37e]-> ECSWorld : drive world execution
 
 note right of ModEntry
-Single FFI boundary for mod entry.
-Everything below this layer stays in Rust APIs.
+Single Rust-native registration boundary for kernel artifacts.
+If compatibility cannot be proven, loading fails fast.
 end note
 
 note bottom of UnsafeBridge
-Unsafe code is confined to the HostContext bridge.
-No raw pointer operations leak into mod-facing APIs.
+Registration validation is confined to the kernel bridge.
+C ABI entrypoints are not accepted for kernel loading.
 end note
 
 @enduml

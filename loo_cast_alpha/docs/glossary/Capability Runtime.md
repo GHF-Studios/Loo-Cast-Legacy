@@ -6,9 +6,12 @@ aliases: []
 
 The Capability Runtime is the runtime orchestration layer for capabilities.
 It is a [[Vapor Ecosystem]]-level concept.
+It is part of the broader [[Capability Framework]].
 Concrete launched Engine/Game compositions embed or adapt capability-runtime machinery, and the first-party
 [[Spacetime Engine]] uses and extends that machinery rather than owning the concept.
 It handles dynamic discovery, registration, coordination, and execution routing for capability implementations.
+The central runtime manager should live in or be coordinated by `vapor_core`, with concrete engines instantiating or
+initializing it.
 The current launch-runtime direction is one resolved capability graph inside the launched Engine/Game composition, with
 [[Packagepack]], [[Enginepack]], [[Gamepack]], [[Modpack]], engine, game, mod, Rhai, and user-facing views expressed as
 projections over that graph.
@@ -17,8 +20,11 @@ registries, lockfile/fingerprint material, and player/modpack-author/developer p
 than separate runtime graph truths.
 The graph should be built/validated layer by layer so dependencies are registered and initialized before dependants are
 allowed to use them.
+It should also coordinate the [[Rust Surface Graph]] of [[Scriptable Rust Surface]] entries and loaded
+[[Kernel Artifact]] registrations.
 Declaration scripts consume [[Rhai Capability]] objects through type/trait/callback-tailored `ctx` capability-object
-subgraphs; runtime [[Capability Instance]]s execute closure logic against runtime capability implementations.
+subgraphs; runtime [[Capability Instance]]s invoke sanctioned callback logic against runtime capability
+implementations.
 `ctx` capability-object subgraphs are composed from hierarchical API graph nodes (atomic + composite) via
 include/exclude path declarations and can dynamically narrow/re-open by runtime policy inside the
 [[Capability Graph Scope Envelope]].
@@ -35,6 +41,8 @@ Canonical lifecycle, Rust/Rhai loop semantics, callback-path semantics, and mult
 Execution boundary:
 The runtime may execute through capabilities, but canonical state mutation is decided by host-side
 execution/reconcile/commit/apply paths rather than by capability objects executing themselves.
+Capability Runtime owns capability-level registration and binding policy; concrete scheduling may be delegated to
+[[Runtime Substrate]], [[Workflow Framework]], Bevy systems, or engine systems.
 
 Staging boundary:
 For Phase 3 planning, capability construction is staged as artifact discovery, user/modpack projection, shallow metadata
@@ -52,6 +60,11 @@ Launchable compositions can still expose APIs that add mutable substrate onto th
 core.
 If a Vapor product or pack does not expose those APIs, it simply does not support that class of dynamic extension.
 
+Runtime graph layering:
+The locked module/package graph and loaded kernel-registration graph are static or lock-governed inputs.
+True runtime dynamism lives in explicit mutable runtime substrate/registry/state graphs, not arbitrary post-lock
+rewriting of source/module/kernel identity.
+
 Invalid graph shapes:
 Dependency cycles indicate a bootstrap paradox and should hard-fail.
 The root node is the only special bootstrap case and should not be treated as a normal cycle.
@@ -67,5 +80,7 @@ Implementation-facing notes:
 - [Capability Dependency Layer Notes](Capability%20Dependency%20Layer%20Notes.md)
 - [USF Contract Runtime Boundary Notes](USF%20Contract%20Runtime%20Boundary%20Notes.md)
 - [Rhai Generic Dispatch Policy Notes](Rhai%20Generic%20Dispatch%20Policy%20Notes.md)
+- [[Rust Surface Graph]]
+- [[Capability Kernel]]
 
 #glossary

@@ -34,7 +34,8 @@ Current capability-slot direction notes (legacy MVP slice alignment):
 7. Rust-side host validation/materialization wiring constrains declarations for those type/trait/callback surfaces.
 8. Capabilities in scripts are [[Rhai Capability]] dynamic API objects (human-readable string IDs), with profile/policy
    grant or deny access.
-9. Executing script declaration code yields one capability declaration.
+9. Executing script declaration code yields typed declaration/data material for a Capability Module or Capability Node,
+   not necessarily one capability declaration.
 10. API graph topology is hierarchical: atomic capability nodes plus composite/category nodes.
 11. Profile selects access via include/exclude path declarations over that graph.
 12. `ctx` is object-based and dynamic, so domains/subdomains can open/close over time.
@@ -45,7 +46,7 @@ Current capability-slot direction notes (legacy MVP slice alignment):
 15. Raw unrestricted host graph access is not script-safe; scripts use projected facades (`ctx` objects) only.
 16. Runtime later materializes USF [[Capability Instance]]s (for example Scale/Phenomenon instances) from declarations
     and host definitions established during staged startup and Runtime Lock.
-17. These Capability Instances carry callback closures/logic that execute through type/trait/callback-tailored `ctx`
+17. These Capability Instances invoke sanctioned callback closures through type/trait/callback-tailored `ctx`
     capability-object subgraphs.
 18. Canonical lifecycle, cyclic Rust/Rhai loop semantics, callback-path semantics, and multiplicity classes are
     defined in [[Capability]].

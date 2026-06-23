@@ -17,9 +17,10 @@ If you arrived from repository root, use this file as the docs map and read-orde
 10. [migrations/README.md](migrations/README.md) (formal migration-guide location/rules once stable-contract mode is active)
 11. [RFCS/phase_3_vapor_execution_spec.md](RFCS/phase_3_vapor_execution_spec.md) (Phase 3 lock-candidate execution spec)
 12. [RFCS/phase_2_to_11_execution_program.md](RFCS/phase_2_to_11_execution_program.md) (consolidated roadmap drafting surface for Phases 2..11 and viewpoint infodumps)
-13. [glossary/](glossary/) (concept + technical glossary terms in one folder; split by `#glossary` and `#tech_glossary`
+13. [glossary-summary.md](glossary-summary.md) and [tech-glossary-summary.md](tech-glossary-summary.md) (canonical page-by-page review summaries for glossary and tech-glossary pages)
+14. [glossary/](glossary/) (concept + technical glossary terms in one folder; split by `#glossary` and `#tech_glossary`
     tags)
-14. [diagrams/](diagrams/) (working PlantUML architecture/governance/runtime diagram set)
+15. [diagrams/](diagrams/) (working PlantUML architecture/governance/runtime diagram set)
 
 ## Entry By Intent
 
@@ -31,6 +32,7 @@ If you arrived from repository root, use this file as the docs map and read-orde
 - I want phase/program execution strategy: [RFCS/README.md](RFCS/README.md)
 - I want the current Phase 3 execution anchor: [RFCS/phase_3_vapor_execution_spec.md](RFCS/phase_3_vapor_execution_spec.md)
 - I want consolidated Phase 2..11 roadmap drafting + viewpoint infodump capture: [RFCS/phase_2_to_11_execution_program.md](RFCS/phase_2_to_11_execution_program.md)
+- I want glossary review summaries: [glossary-summary.md](glossary-summary.md), [tech-glossary-summary.md](tech-glossary-summary.md)
 - I want concept terms and semantic relationships: [glossary/](glossary/) (`#glossary`)
 - I want implementation-heavy technical term notes: [glossary/](glossary/) (`#tech_glossary`)
 - I want the current architecture/governance/runtime diagrams: [diagrams/](diagrams/)

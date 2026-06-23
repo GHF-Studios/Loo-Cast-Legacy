@@ -10,7 +10,7 @@ These declarations target Rust-registered host validation/materialization author
 Older notes call those authorities [[Capability Slot Type]]s; active platform wording now splits that pressure across
 [[Capability Type]], [[Capability Trait]], [[Capability Extension Slot]], and signature metadata.
 Executing these declaration entrypoints with type/trait/callback-tailored `ctx` capability-object subgraphs emits full
-capability-node declaration material that includes structured data plus callback closures.
+capability-node declaration material that includes structured data plus sanctioned callback closures.
 Declaration entrypoint access and callback invocation access are distinct scopes (`decl_ctx` vs callback-scoped
 `cb_ctx`) and resolve to different effective masks through allow/deny path-gating policy.
 The `ctx` graph is hierarchical (atomic capability nodes + composite/category nodes) and filtered through
@@ -21,8 +21,8 @@ is executed by the resulting Capability Instances.
 Lifecycle, Rust/Rhai cyclic loop semantics, callback-path semantics, and capability multiplicity classes are
 canonicalized in [[Capability]].
 First-order declaration profiles are root-level and cannot depend on other capabilities.
-In practice this makes scripts object descriptors first, effectively the closest thing to game-asset authoring in this
-project’s architecture.
+In practice this makes scripts object descriptors first, with executable declaration behavior limited to callbacks.
+They are effectively the closest thing to game-asset authoring in this project's architecture.
 This surface is governed by the [[USF Definition Lifecycle]].
 
 Implementation-facing notes:

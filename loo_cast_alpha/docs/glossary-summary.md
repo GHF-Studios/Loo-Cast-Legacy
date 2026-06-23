@@ -1,8 +1,10 @@
-# Glossary and Tech Glossary Summary
+# Glossary Summary
+
+Status: canonical split page-by-page review artifact for `#glossary` pages.
+Individual glossary pages remain the detailed doctrine/framing surfaces; this summary is the canonical navigation and review layer for detecting mismatches to reconcile.
+Dangling Obsidian links are allowed and can be useful future-concept pressure.
 
 Source scope: current Markdown pages in `loo_cast_alpha/docs/glossary/`. Obsidian workspace metadata under `.obsidian/` is editor state and is not summarized here.
-
-The glossary divides terms by tag: `#glossary` pages are concept vocabulary, while `#tech_glossary` pages are implementation-facing notes. `README.md` is the index for this split and carries both concerns.
 
 ## Mission-Level Synthesis
 
@@ -12,13 +14,16 @@ Vapor is currently Steam-exclusive. Phase 3 is a proof of SDK, launcher, Steam/W
 
 The Spacetime Engine and Loo Cast are first-party instances inside Vapor. The Engine role is a coupled `core_engine` plus matching `core_mod`; the Game role is `base_mod`. USF is a public/API-facing Spacetime Engine subsystem, not a standalone Vapor product layer.
 
-Rhai is the canonical typed declaration and callback authoring surface, but not the raw runtime authority surface. Capability Modules/Nodes use Vapor.toml to classify Rhai files as type, trait, callback, or child-capability material. Rust owns host registration, materialization, scheduling, heavy kernels, mutation authority, validation, and reconcile/commit/apply.
+The Capability Framework is the canonical Vapor framework; "scripting framework" is only an informal alias. Rhai is the canonical typed authoring surface for data assets, capability declarations, and sanctioned callbacks, but not the raw runtime authority surface. Data assets include config, localization, constants, tuning values, authored tables, and similar structured payloads. Declarations may carry data and metadata, but declaration-level logic crosses the framework boundary only as callbacks. Rust Host Contracts, Scriptable Rust Surfaces, the Rust Surface Graph, Capability Kernels, and Kernel Artifacts provide native backing where needed.
 
-Runtime composition is closed after Runtime Lock. Design remains open between lock cycles, but post-lock graph mutation is forbidden by default. Runtime dynamism should be expressed through explicit capabilities, registries, or policies, not arbitrary structural mutation.
+Runtime composition is closed after Runtime Lock. Design remains open between lock cycles, but post-lock graph mutation is forbidden by default. Runtime dynamism should be expressed through explicit capabilities, registries, runtime substrate policy, or kernel-backed native surfaces, not arbitrary structural mutation.
+
+Native kernel loading is WIP doctrine: Capability Modules may import module-scoped Kernel Artifacts, likely platform-specific dynamic libraries. The required plugin boundary is a narrow Rust-native registration entrypoint into vapor_core, after which Vapor-owned Rust registry contracts take over. Vapor.lock and the Vapor Toolchain Envelope must prove compatibility; if they cannot, loading fails fast, and C ABI entrypoints are not accepted for Vapor kernel loading.
 
 The workflow notes are legacy implementation evidence for Rust-side orchestration. They document typed workflow requests, domain-specific stage buffers, Bevy-visible stage systems, composite wrappers, timeout behavior, and known refactor hazards such as placeholder stage slots and generated `transmute` handoffs.
 
-## Every Page
+
+## Every #glossary Page
 
 ### Artifact Compatibility Envelope.md
 
@@ -66,11 +71,7 @@ Defines the Capability Contract Family as the overloaded umbrella for capability
 
 ### Capability Declaration.md
 
-Defines the raw authored form of a Capability Node before validation/materialization into a Capability Instance. It can be spread across a Capability Module/Node source subtree with typed files for Capability Types, Capability Traits, and Capability Callbacks plus Vapor.toml metadata.
-
-### Capability Dependency Layer Notes.md
-
-Documents the key phase split: Rhai declaration and Rust runtime execution coexist but remain separate. It distinguishes mod/provider dependencies, declaration-time `ctx` path requirements, and post-lock runtime interactions; declaration contexts and callback contexts get separate effective access masks that hard-fail if violated.
+Defines the raw authored form of a Capability Node before validation/materialization into a Capability Instance. It can be spread across a Capability Module/Node source subtree with typed files for Capability Types, Capability Traits, and Capability Callbacks plus Vapor.toml metadata. Declared material is data-first, and declaration-level behavior crosses the capability boundary only as sanctioned callbacks.
 
 ### Capability Graph Diagnostics.md
 
@@ -92,10 +93,6 @@ Defines script-safe or callback-safe contextual facades projected from the capab
 
 Defines resolution as layered, not singular: dependency graph bootstrap, materialization/merge into the host graph, and projection/access policy are separate. Required unresolved dependencies, cycles, invalid multiplicity, or denied required callback paths hard-fail; no implicit fallback owner appears.
 
-### Capability Role and State Authority Notes.md
-
-Records that the current input/output role taxonomy is underpowered. Possible future role surfaces include authority, reconciler, realizer, bridge, and mutator, but canonical mutation authority still needs pressure-testing across capability runtime, USF runtime, authority capabilities, and reconcile/commit/apply.
-
 ### Capability Role.md
 
 Defines Capability Role as an unresolved term for how a capability participates in graph semantics. It warns that input/output wording is incomplete and that mutation authority belongs outside capability objects until the runtime authority pipeline is modeled explicitly.
@@ -108,6 +105,14 @@ Defines the runtime orchestration layer for capability discovery, registration, 
 
 Defines an explicit capability graph extension/dependency point. It accepts candidate Capability Instances when their Capability Type Signatures satisfy required Capability Trait bounds and additional slot policy such as cardinality, ordering, optionality, replacement, or conflicts.
 
+### Capability Framework.md
+
+Defines the Vapor-owned framework for capability graph declarations, data assets, sanctioned callbacks, traits, extension slots, projection, runtime binding, host contracts, scriptable Rust surfaces, kernels, and runtime behavior. `Scripting Framework` is an informal alias only.
+
+### Capability Kernel.md
+
+Defines module-scoped native implementation backing for Capability Modules. A kernel may expose many Rust functions, types, constructors, adapters, systems, callbacks, or registries, and should not be treated as one tiny executable unit per capability.
+
 ### Capability Instance.md
 
 Defines a concrete validated/materialized occurrence of a Capability in a specific graph environment. Use it for staged or runtime graph objects; use Capability for the broad model/type/contract concept and Capability Declaration for authored pre-materialization payloads.
@@ -118,7 +123,7 @@ Defines metadata/fingerprint-like description of a concrete declared, staged, or
 
 ### Capability Module.md
 
-Defines a typed source-layout unit for authoring capability graph material. A module is usually a folder with Vapor.toml, generated Vapor.lock, and reserved typed subfolders such as `types`, `traits`, `callbacks`, and recursive `capabilities`.
+Defines a typed source-layout unit for authoring capability graph material. A module is usually a folder with Vapor.toml, generated Vapor.lock, reserved typed subfolders, and optional module-scoped Capability Kernel imports through Kernel Artifacts or built-in Rust Surface Graph entries.
 
 ### Capability Node.md
 
@@ -150,7 +155,7 @@ Defines the doctrine that project meaning and authority are modeled through capa
 
 ### Capability.md
 
-Defines Capability as Vapor's intentionally broad runtime/contract graph primitive spanning ability, authority, API exposure, metadata, composition, validation, and orchestration. The active model splits source/type semantics into Capability Modules, Nodes, Types, Traits, Extension Slots, Callbacks, Signatures, and Instances while Rust/Rhai boundaries remain host-governed.
+Defines Capability as Vapor's intentionally broad runtime/contract graph primitive spanning ability, authority, API exposure, metadata, composition, validation, and orchestration. The active model splits source/type semantics into Capability Modules, Nodes, Types, Traits, Extension Slots, Callbacks, Signatures, Instances, Host Contracts, Scriptable Rust Surfaces, and Kernels.
 
 ### Chunk.md
 
@@ -163,10 +168,6 @@ Defines a bridge phrase for the combination of Runtime Lock and Managed Ambiguit
 ### Complexity Gradient.md
 
 Defines a continuous spectrum from automated low-complexity interaction to direct high-complexity system control. It supports the Player-to-Creator Path by exposing deeper mechanisms through wrappers over the same underlying systems rather than separate modes of reality.
-
-### Composite Workflow Runtime Notes.md
-
-Documents composite workflows generated by `composite_workflow!` as Rust-side wrappers coordinating workflow invocations and local orchestration inside Tokio tasks. It covers capture semantics, fallible-mode selection, context creation/cleanup, and immediate or deferred return handling.
 
 ### Contract Family.md
 
@@ -182,7 +183,7 @@ Defines the concrete capability/API projection envelope applied to declaration e
 
 ### Distributable Artifact.md
 
-Defines Distributable Artifact as the final packaged object produced by Vapor tooling for upload/distribution, with Steam Workshop as the Phase 3 public target. Such artifacts may reference dependencies instead of embedding everything, while local resolved forms may contain needed dependency contents.
+Defines Distributable Artifact as the final packaged object produced by Vapor tooling for upload/distribution, with Steam Workshop as the Phase 3 public target. `Authoring Artifact` is preserved as a strong alias for the author-facing packaged form assembled around linked executables/shared objects, runtime libraries, payloads, manifests, dependency contents, and publication metadata.
 
 ### Dynamic Authority Resolution.md
 
@@ -194,7 +195,7 @@ Defines an Engine Mod as a mod attached to an Engine fixture or Engine-facing ex
 
 ### Engine.md
 
-Defines Engine as a mandatory Vapor product/composition role represented by a coupled `core_engine` plus matching `core_mod`. Non-Spacetime engines may exist and may ignore much of the recommended capability model after bootstrap, but the first-party docs should not use that breadth to make USF look like a product-level slot. Note: The "[...] but the first-party docs...." is a weird framing, cause it feels like those two things have not much to do with each other, yk?
+Defines Engine as a mandatory Vapor product/composition role represented by a coupled `core_engine` plus matching `core_mod`. Non-Spacetime engines may exist and may ignore much of the recommended capability model after bootstrap. Open pressure: the docs should separate broad non-Spacetime engine allowance from USF product-slot framing.
 
 ### Enginepack.md
 
@@ -202,11 +203,11 @@ Defines Enginepack as the user/modpack-author-facing object selecting one Engine
 
 ### Entity Plane Split.md
 
-Defines a modeling pattern where one conceptual entity is represented across backend and frontend planes. Backend owns interaction/state authority; frontend owns visible presentation, enabling projection tricks, scale-relative visibility, portals, and wrapping without collapsing authority boundaries. This also hugely helps in being able to utilize traditional (f32/f64-based) technologies, like rapier for example.
+Defines a modeling pattern where one conceptual entity is represented across backend and frontend planes. Backend owns interaction/state authority; frontend owns visible presentation, enabling projection tricks, scale-relative visibility, portals, and wrapping without collapsing authority boundaries. It also helps keep traditional f32/f64-based libraries such as Rapier usable behind projection boundaries.
 
 ### Entity Proxy.md
 
-Defines a coupled proxy representation of another entity for behavior, visibility, or both. In other words: Proxy modes may be backend, frontend, or dual-plane and compose with observer-relative simulation and portal traversal. This also simplified world wrapping, but tbf that is more of a portal traversal kinda concern, mechanically maybe, but not semantically though to be even fairer, lol.
+Defines a coupled proxy representation of another entity for behavior, visibility, or both. Proxy modes may be backend, frontend, or dual-plane and compose with observer-relative simulation and portal traversal. It also supports world-wrapping implementations, though portal traversal may carry the stronger semantic framing.
 
 ### Execution-Reconciliation Dual Core.md
 
@@ -240,6 +241,10 @@ Defines the unrestricted host-authoritative capability/API graph produced by Rus
 
 Defines deliberately global utility capability/API surfaces such as math and logging. These are globally scoped by contract but do not grant unrestricted domain-state authority and remain bounded by scope envelopes and runtime policy.
 
+### Kernel Artifact.md
+
+Defines packaged native implementation artifacts that provide Capability Kernels, likely platform-specific dynamic libraries for Phase 3 pressure. The required boundary is a narrow Rust-native registration entrypoint into vapor_core under a locked Vapor Toolchain Envelope; incompatible artifacts fail fast, and C ABI entrypoints are not accepted.
+
 ### Loo Cast.md
 
 Defines Loo Cast primarily as the first-party Game built on Spacetime Engine with USF as flagship simulation framework. Informally it may also name the product/project bundle granting access to the game, engine, and Vapor SDK/modding rails, but precise writing should distinguish those layers.
@@ -270,7 +275,7 @@ Defines the mod's implementation-crate source side. It is a required authored co
 
 ### Mod Runtime Representation.md
 
-Defines the in-memory integrated form of a loaded mod after registration. It resolves locked capabilities such as Scale Definitions, Metrics, Phenomena, and Scale Realizers into active behavior through Modding Runtime, Capability Runtime, and USF Runtime. Note: This is *one* place that once more shows that while Modding and Capability are not 100% the same thing/concern/topic, they are much more closer to being that than a lot of stuff here would lead one to believe, yk? Talking about the whole glossary here.
+Defines the in-memory integrated form of a loaded mod after registration. It resolves locked capabilities such as Scale Definitions, Metrics, Phenomena, and Scale Realizers into active behavior through Modding Runtime, Capability Runtime, and USF Runtime. Open pressure: Modding and Capability are distinct but closely related, and glossary pages that imply a hard separation should be audited.
 
 ### Mod Structure.md
 
@@ -278,7 +283,7 @@ Defines the three-stage shape of a mod: authoring structure, artifact structure,
 
 ### Modding Contract.md
 
-Defines rules for mod declaration, lifecycle, dependencies, compatibility, replacement, composition, and integration. It scopes additive-only behavior carefully: core reserved layers are additive-only by default, but composition-time policies may support exclusive replacement, registries, "optional providers", and ""integration apertures"" before lock. Those last two terms really are like 0% explored and thus still make me feel really fucking uncomfortable.
+Defines rules for mod declaration, lifecycle, dependencies, compatibility, replacement, composition, and integration. It scopes additive-only behavior carefully: core reserved layers are additive-only by default, but composition-time policies may support exclusive replacement, registries, optional providers, and integration apertures before lock. Optional-provider and integration-aperture wording remains underexplored and should not be treated as stable doctrine yet.
 
 ### Modding Runtime.md
 
@@ -288,13 +293,9 @@ Defines the runtime layer for mod loading, dependency resolution, registration, 
 
 Defines a user/modpack-author-facing composition object for selecting compatible mods and nested modpacks. Modpacks are typed by attachment target, preserve nested boundaries for organization/diagnostics/fingerprints, publish through Workshop, and participate in Packagepack resolution.
 
-### Normal Workflow Runtime Notes.md
-
-Defines a normal workflow as a typed `run_workflow_*` request handled by the workflow runtime, not a composite wrapper. It covers request relay, WorkflowInstance insertion, stage-buffer routing, stage polling, typed responses, and the current single-active-instance gate per module/workflow key.
-
 ### Observer-Relative Simulation.md
 
-Defines view-conditioned detail resolution over the scale system. The active scale is the first-class change-authority scale, higher scales continue through summarized/scaled-time semantics, and lower detail is normally elided except through scoped sampling/simulation/inspection with upward significance overflow. I think it shall be noted that this is underexplored in terms of internal implications and internal consistency/coherence, yk? Like, for example higher scales also use the significance flow stuff, and this doesn't discuss how larger-scale changes affect lower scales, but mayb all of this is out of scope for the actual "Observer-Relative Simulation" concept tbf, lol. Hm, my bad.
+Defines view-conditioned detail resolution over the scale system. The active scale is the first-class change-authority scale, higher scales continue through summarized/scaled-time semantics, and lower detail is normally elided except through scoped sampling/simulation/inspection with upward significance overflow. Open pressure: internal implications remain underexplored, including higher-scale significance flow and how larger-scale changes affect lower scales.
 
 ### Packagepack.md
 
@@ -322,21 +323,19 @@ Defines the architecture as intentionally multi-pillar rather than centered on o
 
 ### Portal Traversal Semantics.md
 
-Defines continuity rules for observers/entities moving across non-trivial spatial mappings such as portals or wrapping worlds. It coordinates Scale View, Observer-Relative Simulation, and Entity Proxy behavior to preserve perception and interaction coherence. Well, and presumably it'll use the Entity Plane Split as well, just saying. Seems relevant as well, yk?
+Defines continuity rules for observers/entities moving across non-trivial spatial mappings such as portals or wrapping worlds. It coordinates Scale View, Observer-Relative Simulation, and Entity Proxy behavior to preserve perception and interaction coherence. Entity Plane Split is likely relevant and should be cross-linked or audited with this page.
 
 ### Project Artifact Structure.md
 
-Defines project-scope build and distribution artifact classes, separating runtime-deliverable artifacts from development/dependency-channel artifacts. It mirrors mod artifact distinctions without defining runtime composition. Unsure about this, it's still a bit wibbly-wobbly, yk?
+Defines project-scope build and distribution artifact classes, separating runtime-deliverable artifacts from development/dependency-channel artifacts. It mirrors mod artifact distinctions without defining runtime composition. This entry remains unstable and needs audit.
 
 ### Project Authoring Structure.md
 
-Defines the source-side repository/workspace organization across runtime code, contracts, declarations, tooling, and documentation. It treats `docs/glossary` as a canonical authoring surface and warns that current filesystem layout may be transitional. More specifically, we want to soon move to a proper Vapor-based multi-repo/mutli-project layout with loo cast and the spacetime engine and vapor all being separate things, yk? The great spliting of the Loo Cast Repo, yk? This is ofc in itself a huge step and mandates some github setup/config stuff that I'll have to do. I hope I'll remember lol. Oh and ofc this has huge implications on tons of glossary concepts/pages/files and like, yk? Big realization here I think; that's what I'm saying.
+Defines the source-side repository/workspace organization across runtime code, contracts, declarations, tooling, and documentation. It treats `docs/glossary` as a canonical authoring surface and warns that current filesystem layout may be transitional. Open pressure: the expected future split into separate Vapor, Spacetime Engine, and Loo Cast repositories/projects has broad implications for glossary topology and repository setup.
 
 ### Project Ethos.md
 
-Defines the project's high-level commitment to science, openness, empathy, curiosity, and empowerment. The Player-to-Creator Path is named as the main product manifestation.
-
-Inspiration is also such a big part, yk? Inspiring people to look at the real systemic complexity of reality instead of simplified lies, yk? Show that everything is extremely deeply and tightly interconnected, yk?
+Defines the project's high-level commitment to science, openness, empathy, curiosity, and empowerment. The Player-to-Creator Path is named as the main product manifestation. The ethos also emphasizes inspiring people to engage with real systemic complexity and deep interconnection instead of simplified false models.
 
 ### Project Runtime Representation.md
 
@@ -364,31 +363,11 @@ Defines `core_engine`, `core_mod`, and `base_mod` as reserved structural role na
 
 ### Rhai Asset.md
 
-Defines Rhai Asset as the umbrella for typed Rhai source files contributing capability material. Vapor.toml classifies files as Capability Type, Capability Trait, Capability Callback, or node/module-facing assets; one Rhai file no longer implies one Capability Declaration.
-
-### Rhai Bridge Domains and Access Provider Notes.md
-
-Documents bridge-domain and access-provider findings from legacy/quarantine code. Bridge modules mirror domains, reflection metadata and dispatch catalogs define surfacing, and `AccessCellProvider` patterns create scoped access windows that align with projection-based script safety but remain partly provisional. This is a good complex thing to keep, but we wanna explicitly label/tag this as legacy/quarantine code, yk?
+Defines Rhai Asset as the umbrella for typed Rhai source files contributing capability-framework material. Rhai data assets include config, localization, constants, tuning values, authored tables, and similar structured payloads. Rhai declaration assets may carry data, metadata, graph meaning, type/trait/callback declarations, and sanctioned callbacks; one Rhai file no longer implies one Capability Declaration.
 
 ### Rhai Capability.md
 
-Defines Rhai Capability as a declaration-level, dynamic, human-readable API object exposed through projected `ctx` subgraphs. Scripts define typed declaration material, parameters, policy logic, and callbacks, while Rust owns scheduling, heavy kernels, state authority, host-side execution, and projection of native capabilities into Rhai contexts.
-
-### Rhai Generic Dispatch Policy Notes.md
-
-Documents how Rhai should handle generic-like behavior without runtime Rust monomorphization. It now maps legacy profile/type-template/slot-type wording to Capability Type, Capability Trait, Capability Extension Slot, Callback Type, and explicit signature metadata over typed Rhai assets.
-
-### Rhai Reflection Macro Surface Notes.md
-
-Documents the macro/reflection registration surface as a strong but non-exclusive architecture signal. `reflect_extern_*`, `#[reflect_*]`, and marker attributes generate inventory metadata, build a deterministic RuntimeBindingGraph, hard-fail duplicate/missing critical pairs, register modules, and support strict script alias preprocessing. Very important and strong legacy signal, but it's just that: Legacy, kinda, or at least quarantined/legacy'd code that was actually working before I did the whole loo_cast_legacy vs. loo_cast_alpha split some months back. So, in short: This signal is very useable!
-
-### Rhai Value Semantics and AccessCell Notes.md
-
-Documents provisional but high-signal value/access semantics: Clone, Owned, Ref, Mut, Scoped* modes, AccessCell state transitions, explicit read/write lifecycle, bounded contention, and panic-fast stale/invalid access. It leaves open whether final Rhai bridging should stay thin or preserve a richer value-semantics model.
-
-### Runtime Intent Reconcile Commit Apply Mapping Notes.md
-
-Documents target runtime lifecycle semantics: after definition/freeze, ticks follow emit -> route -> batch -> reconcile -> evaluate -> commit/apply. It treats legacy runtime code and reflection macros as evidence, not final authority, and keeps *some* capabilities as intent emitters/request relays rather than canonical state owners, while other capabilities may still directly call into the rust kernel layer.
+Defines Rhai Capability as a declaration-level, dynamic, human-readable API object exposed through projected `ctx` subgraphs. Scripts define data, declarations, parameters, policy data/rules, and callbacks; callbacks are the sanctioned declaration-level logic surface, while Rust-owned host/runtime systems own native execution, state authority, scheduling, and projection of native capabilities into Rhai contexts.
 
 ### Runtime Lock.md
 
@@ -396,15 +375,19 @@ Defines the boundary where validated launch composition becomes an immutable sta
 
 ### Runtime Substrate.md
 
-Defines the Spacetime Engine execution substrate for scale-layered simulation and capability-driven runtime behavior. ECS is the execution/data medium, contracts/capabilities define semantic authority, Runtime Lock enforces deterministic-by-default activation, and explicit substrate policy owns post-lock state evolution, registries, external IO, and nondeterministic effects.
+Defines the Spacetime Engine execution substrate for scale-layered simulation and capability-driven runtime behavior. ECS is the execution/data medium, contracts/capabilities define semantic authority, and the substrate owns the mutable inner-inner runtime graph: state, registries, queues, resources, IO handles, and nondeterministic effects allowed after Runtime Lock.
+
+### Rust Host Contract.md
+
+Defines the Rust-defined contract surface that validates, projects, materializes, schedules, binds, or executes capability-side type, trait, callback, extension-slot, data, or native surfaces.
+
+### Rust Surface Graph.md
+
+Defines the Rust-native registry/graph of scriptable host functionality known to Vapor. It is expected to be coordinated by vapor_core and projected into the capability/Rhai side through Rust Host Contracts.
 
 ### SDK.md
 
-Defines the SDK as the full creator-facing Vapor toolchain, not just a library. It must support scaffolding, validation, linting, LSP support if/where applicable, packaging, fingerprinting, publishing, updating, migration, docs, launcher/CLI/Rust tooling surfaces, and Phase 3 public command families over shared `vapor_core`.
-
-### Scale Contract Runtime Notes.md
-
-Summarizes runtime assumptions for the Scale Contract: canonical -35..35 scale spine, one definition and realizer type per coordinate, explicit support per capability-scale pair, one effective realizer per active slice, and explicit cross-scale math conversion/policy boundaries. I am no sure whether the explicit support per capability-scale pair still makes sense, yk? Like, I suppose we want explicit support declarations, but NOT explicit non-support black-list-esque declarations, cause we will have thousands and thousands of capability nodes before we can say "Capability" 3 times in a row, lol.
+Defines the SDK as the full creator-facing Vapor toolchain, not just a library. It must support scaffolding, validation, linting, packaging, publishing, migration, docs, launcher/CLI/Rust tooling surfaces, and eventually the Vapor Toolchain Envelope for native Kernel Artifact builds, including vendored canonical toolchains or Rust meta-toolchain launcher behavior if needed.
 
 ### Scale Contract.md
 
@@ -424,11 +407,11 @@ Defines the semantic realization capability bound to one Scale Slice, formerly c
 
 ### Scale Slice.md
 
-Defines the runtime realization of one Scale coordinate inside the USF Instance Graph. Slices may be simulated in parallel and composed through capability outputs, and each carries one effective Scale Realizer binding. This is also a good candidate for arguing *for* the simple input/output split for capabilities, yk? Not saying we should do that, just saying this is evidence of one opinion certainly, yk?
+Defines the runtime realization of one Scale coordinate inside the USF Instance Graph. Slices may be simulated in parallel and composed through capability outputs, and each carries one effective Scale Realizer binding. It is evidence for considering simple capability input/output roles, but not enough to settle that split.
 
 ### Scale Support.md
 
-Defines the support state of a capability at a specific Scale coordinate. Each capability-scale pair has exactly one explicit state: supported or unsupported. Well, we could argue that this could be a more general support statement, not just for capabilities, cause yk, capabilities in some sense are more synatx than semantics, yk?
+Defines the support state of a capability at a specific Scale coordinate. Each capability-scale pair has exactly one explicit state: supported or unsupported. Open pressure: support declarations may need a more general framing than capability-scale pairs, because capabilities can be syntax around deeper semantics.
 
 ### Scale View.md
 
@@ -440,15 +423,19 @@ Defines Scale as the canonical semantic coordinate type in USF. It identifies wh
 
 ### Scaled Capability Channel.md
 
-Defines a scale-scoped execution face of a capability implementation. Channel availability follows Scale Support, execution binds to active Scale Slice context, and scripts reach relevant capability objects only through projected `ctx` subgraphs. This is kiiiiind of a REALLY outdated idea or based on an outdated idea, that being the assumption that the Capability stuff depends on and/or is an integral part of the spacetime engine and/or USF stuff, when in reality capabilities spersede everything and help implement the USF, so scale-scoped capabilities overall should be framed as what it is: A specific way to implement capabilities that make them USF-compatible by them being explicitly scaled-scoped (or not, see logging and other global utils), yk?
+Defines a USF-compatible, scale-scoped execution face of a capability implementation. It is not part of the general definition of Capability; it is one way for a capability to participate in USF scale semantics through Scale Support and active Scale Slice context.
 
 ### Script Safety.md
 
-Defines the invariant that scripts cannot access the unrestricted global capability/API graph. Scripts use projected facades, whitelist-oriented policy, sanctioned declarations/callbacks/hooks/messages, and host-backed capabilities rather than owning scheduling or heavy runtime kernels. That being said, this goes to a point only, cause ofc if you implement an engine yourself, it's hard to make it impossible to write malicious software as part of that engine, yk? I dunno where that boundary like should realistically lie, but yeah... yk?
+Defines the invariant that scripts cannot access the unrestricted global capability/API graph. Scripts use projected facades, whitelist-oriented policy, data/declaration assets, sanctioned callbacks/hooks/messages, and host-backed capabilities rather than owning scheduling, native integration, IO, simulation kernels, or authoritative mutation.
 
 ### Scripting Projection Meta-Layer.md
 
 Legacy bridge name now merged into Capability Projection API. The preserved signal is that declaration `ctx` and callback `ctx` are distinct projected contexts, and reflection metadata plus host orchestration remain useful implementation mechanisms.
+
+### Scriptable Rust Surface.md
+
+Defines selected Rust-native functionality made visible to the Capability Framework through explicit registration metadata and host contracts. Owned types may implement Scriptable directly; external crates normally need wrappers, adapters, or descriptors.
 
 ### Slot Graph Composition.md
 
@@ -460,15 +447,7 @@ Defines Source Artifact as raw authoring-side source: files, folders, Rhai decla
 
 ### Spacetime Engine.md
 
-Defines the first-party Engine product providing Runtime Substrate and Capability Runtime for default and modified experiences. It owns USF as a public/API-facing subsystem and is represented by the `core_engine` plus matching `core_mod` reserved-role pair. Again, the Spacetime Engine should not host the capability runtime, it should just extend/utilize it, yk?
-
-### Stage Buffer Runtime Notes.md
-
-Documents per-domain workflow stage queues: ECS, Render, Async, EcsWhile, and RenderWhile buffers. Entries hold module/workflow/stage identity plus stage object and optional data; poll systems currently process one entry per run, creating deterministic but potentially backlogged progression. Indeed, backlog was a huge problem when I was testing this, and it did not handle it well and just caused visual holes but indeed lagged the whole system which is ofc bad.
-
-### Stage Sender Cache Runtime Notes.md
-
-Documents runtime maps from workflow stage metadata to concrete buffer-message sender objects. The caches are built from `register_workflow_mods!` metadata and decouple orchestration systems from direct stage type/module paths.
+Defines the first-party Engine product providing Runtime Substrate and Capability Runtime for default and modified experiences. It owns USF as a public/API-facing subsystem and is represented by the `core_engine` plus matching `core_mod` reserved-role pair. Open pressure: Spacetime Engine should extend/use Capability Runtime, not own the concept.
 
 ### Steam Workshop.md
 
@@ -478,45 +457,25 @@ Defines Steam Workshop as the mandatory public Phase 3 distribution surface for 
 
 Defines Steam as the exclusive external identity, ownership, authorization, and distribution substrate for Phase 3 Vapor. Public usage requires Steam identity/ownership rails, while local/offline authoring and already-installed offline play/test can remain possible when Steam is unavailable.
 
-### USF Contract Runtime Boundary Notes.md
-
-Clarifies USF's runtime boundary: `core_engine` is the composition/runtime host, USF is a public Spacetime module/framework part, not a standalone product layer, and replacing USF effectively means creating another Engine. It also phase-tags declaration seams separately from post-lock execution seams.
-
 ### USF Contract.md
 
 Defines the USF Contract Family as public/API-facing simulation contract structure inside Spacetime Engine. It covers Scale, Scale Definition, Scale Support, Scale Realizer, and Scale Contract while staying separate from Vapor-level product contracts.
 
 ### USF Definition Lifecycle.md
 
-Defines pre-runtime establishment and validation of singleton-like Capability Declarations through iterative fixed-point bootstrap. After validation and Runtime Lock, declarations become Capabilities, active USF runtime capabilities materialize, and definition mutation is no longer part of active runtime, at least not for that immutable startup-constructed core, yk?
+Defines pre-runtime establishment and validation of singleton-like Capability Declarations through iterative fixed-point bootstrap. After validation and Runtime Lock, declarations become Capabilities, active USF runtime capabilities materialize, and definition mutation is no longer part of active runtime, at least for the immutable startup-constructed core.
 
 ### USF Instance Graph.md
 
 Defines the active structured set of runtime-materialized USF capabilities, organized as a 71-scale stack of Scale Slices. It enforces singleton Scale/Scale Realizer per occupied scale slot and many-per-scale Phenomenon/Metric collections with at least one required per scale.
 
-### USF Instantiation Capability Slot Notes.md
-
-Documents the legacy USF instantiation-script model and maps it forward: old profiles now become type/trait/callback source classifications or projection policies, Rhai files are typed assets contributing to Capability Module/Node material, and runtime later materializes Capability Instances.
-
 ### USF Instantiation Scripts.md
 
-Defines declaration-centric Rhai authoring for USF-specific Capability Declaration / Capability Node material. Scripts run with type/trait/callback-tailored `ctx`, emit structured data plus callback closures, separate declaration and callback scopes, and feed runtime materialization into the USF Instance Graph.
-
-### USF Math Raw Model Foundation Notes.md
-
-Treats the temporary USF math raw model as the highest-authority alpha-era math foundation. It emphasizes facade-first contracts, explicit OpMode/OpPolicy, mixed-representation unions, Core/Field/Bridge operations, explicit field mutability/lock states, shape/domain constraints, cross-scale math taxonomy, and panic-contract validation. Actually, the USF Math Raw Model Foundation Notes are really outdated in a lot of sense, cause I switched away from a custom math implementation to mostly using existing crates and the power of num_traits to get the math to work without a custom "DIY-professional" math lib, yk? Ofc a lot of mathematical semantics and vibes remain, yk? Idk, it's hard to explain.
-
-### USF Position Stack and Overflow Policy Notes.md
-
-Summarizes reusable position-stack semantics: recursive GridVec scale chain plus optional SubgridXyz and UnitVec offsets, balanced local digits, normalized unit offsets with carry, explicit wrap/checked/strict overflow policies, and zoom transforms with root-boundary guards.
-
-### USF Runtime Evolution Lifecycle Notes.md
-
-Documents target runtime execution after Runtime Lock: active Capability Instances execute through hierarchical `ctx` subgraphs, callbacks enforce resolved masks, and runtime progression follows intent/reconcile/commit/apply. It notes current alpha is spec-first and uses legacy code as evidence.
+Defines declaration-centric Rhai authoring for USF-specific Capability Declaration / Capability Node material. Scripts run with type/trait/callback-tailored `ctx`, emit structured data plus sanctioned callback closures, separate declaration and callback scopes, and feed runtime materialization into the USF Instance Graph.
 
 ### USF Runtime Evolution Lifecycle.md
 
-Defines post-lock runtime progression for USF. Materialized capabilities execute callback/closure logic through projected contexts, dynamic policy can narrow/re-open callback paths within the envelope, intents are reconciled/committed/applied, and ECS remains substrate rather than capability authority.
+Defines post-lock runtime progression for USF. Materialized capabilities execute sanctioned callback logic through projected contexts, dynamic policy can narrow/re-open callback paths within the envelope, intents are reconciled/committed/applied, and ECS remains substrate rather than capability authority.
 
 ### USF Runtime.md
 
@@ -548,51 +507,19 @@ Defines the high-level product/composition relationship: Vapor Ecosystem provide
 
 ### Vapor.lock.md
 
-Defines Vapor.lock as the resolved dependency, fingerprint, and hash-state counterpart to Vapor.toml. It should be plain TOML/lock-style, may exist per artifact root, and Phase 3 must read/write lock state for composition, fingerprints, hashes, and generated build/publish output.
+Defines Vapor.lock as the resolved dependency, fingerprint, hash-state, and future kernel/toolchain compatibility counterpart to Vapor.toml. It should eventually record Kernel Artifact identity, platform target, toolchain envelope, exported registration metadata, native dependency fingerprints, and compatibility proof.
 
 ### Vapor.toml.md
 
-Defines Vapor.toml as the required manifest surface for every Vapor artifact root and Capability Module/Node source folder. It classifies typed Rhai files as types, traits, callbacks, or child capability material while also carrying dependencies, conflicts, visibility, target roles, placement/storage metadata, pack composition, and Steam/Workshop publication metadata.
+Defines Vapor.toml as the required manifest surface for every Vapor artifact root and Capability Module/Node source folder. It classifies typed Rhai files, declares kernel imports/native surface requirements, and carries dependencies, conflicts, visibility, target roles, placement/storage metadata, pack composition, and Steam/Workshop publication metadata.
 
-### Workflow Framework Premise Notes.md
+### Vapor Toolchain Envelope.md
 
-Documents the core premise that workflow is Rust-side orchestration for materialized runtime values, with stage execution remaining Bevy-system-visible. It treats ECS, Render, Async, EcsWhile, and RenderWhile as first-class domains, separates control-plane lifecycle from execution-plane logic, and drafts run identity/concurrency via `run_id` and `concurrency_key`.
+Defines the locked Rust/cargo/platform/toolchain compatibility envelope needed for native Kernel Artifact builds and runtime loading. It must make Rust-native registration entrypoints compatible enough to use; if not, loading fails fast rather than proving only a trivial C ABI import boundary.
 
 ### Workflow Framework.md
 
 Defines the Workflow Framework as the Rust-side orchestration layer for staged runtime work in the Runtime Substrate. It coordinates requests, progression, completion/failure, domain stages, and Capability Instance/runtime values rather than raw Rhai engine internals.
-
-### Workflow Instance Runtime Notes.md
-
-Documents `WorkflowInstance` as the runtime-owned active request container. Variants match signature families, store identity, request ID, state, callbacks, stage counts, timeout frames, and data buffers, with placeholder replacement patterns while callbacks/data are in flight.
-
-### Workflow Invariant Ledger Notes.md
-
-Lists refactor-sensitive workflow invariants: placeholder stage-slot lifecycle, author-maintained output/input `transmute` compatibility, one active run per module/workflow key, single-item poll progress, RenderWhile sharding intent, and signature-family routing.
-
-### Workflow Runtime Structure Notes.md
-
-Documents current legacy workflow layering and request flow: macro declaration, registration, WorkflowPlugin resources/systems, call-site helpers, request relay, WorkflowMap insertion, stage initialization, domain buffers, pollers, completion/failure handling, and render-world extraction for render stages.
-
-### Workflow Stage Runtime Notes.md
-
-Documents stage-family behavior and stage lifecycle mechanics. It covers Ecs/Render/Async/EcsWhile/RenderWhile, setup/run wait/done semantics, placeholder swaps, unsafe output-to-input transmute contracts, single-item throughput, and RenderWhile split/fuse sharding.
-
-### Workflow Stage Type Runtime Notes.md
-
-Defines `StageType` as the workflow-domain discriminator with values Ecs, Render, Async, EcsWhile, and RenderWhile. It is stored in WorkflowState and drives routing through buffers, poll systems, render extraction, and diagnostics.
-
-### Workflow State Runtime Notes.md
-
-Documents `WorkflowState` as the per-instance state machine with Requested and Processing states. Processing tracks current stage, stage type, initialized/completed flags, and final removal from WorkflowMap.
-
-### Workflow Type Request and Timeout Notes.md
-
-Documents typed workflow request/response families: None, E, O, OE, I, IE, IO, IOE. It explains request IDs, per-signature channels, response inbox matching, base timeout panic behavior, controlled IOE timeout retry/abort/panic handling, and active-run gating.
-
-### Workflow Usage Patterns Legacy Notes.md
-
-Collects concrete legacy workflow usage patterns: startup completion signal, chunk boundary EcsWhile orchestration, GPU setup across ECS/RenderWhile/ECS, and GPU generation across ECS, RenderWhile, Render, and EcsWhile. It is the canonical page for examples other workflow notes link to.
 
 ### Zone-Era Concepts.md
 
