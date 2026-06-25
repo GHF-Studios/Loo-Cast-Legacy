@@ -1,0 +1,14 @@
+@startuml
+!include _theme.puml
+title Vapor Happens
+top to bottom direction
+
+rectangle "Author Content" as Author <<zoom>> [[author_content.puml]]
+rectangle "Distribute Content" as Distribute <<zoom>> [[distribute_content.puml]]
+rectangle "Packagepack Launch" as Launch <<zoom>> [[launch_packagepack.puml]]
+rectangle "Locked Runtime Execution" as Run <<zoom>> [[run_locked_runtime.puml]]
+
+Author --> Distribute : produces artifacts for
+Distribute --> Launch : installs content for
+Launch --> Run : prepares lock for
+@enduml

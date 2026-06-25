@@ -1,0 +1,20 @@
+@startuml
+!include ../../_theme.puml
+title Manifest Validation
+top to bottom direction
+
+rectangle "Vapor.toml Intake" as Read
+rectangle "File Role Check" as Roles
+rectangle "Dependency Ref Check" as Deps
+rectangle "Kernel Ref Check" as Kernels
+rectangle "Diagnostics" as Diag
+rectangle "Approved Build Input" as Approve
+
+Read --> Roles : supplies manifests for
+Roles --> Deps : admits valid roles to
+Deps --> Kernels : admits valid deps to
+Kernels --> Approve : admits valid kernels to
+Roles --> Diag : reports bad file role to
+Deps --> Diag : reports bad dependency to
+Kernels --> Diag : reports bad kernel ref to
+@enduml

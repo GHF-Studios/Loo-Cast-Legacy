@@ -214,11 +214,13 @@ Blocking question:
 PlantUML diagrams under `loo_cast_alpha/docs/diagrams/` are part of the working docs surface, not decorative exports.
 Keep them readable at the source level before relying on Obsidian embeds, canvas layout, or viewer zoom.
 
-- Folder hierarchy is diagram hierarchy. A folder is a diagram module; `_mod_.puml` is that module's entry diagram.
-- A box that expands into more detail should correspond to a child folder, be visually marked as zoomable, and carry a
-  PlantUML hyperlink to that child `_mod_.puml` when the renderer supports it.
+- A diagram node is a named `.puml` file. If that node expands into children, a same-named folder beside it contains
+  the child diagrams.
+- The diagram-set root starts at `overview.puml`; do not use `_mod_.puml` for new diagrams.
+- A box that expands into more detail should correspond to a child `.puml` diagram, be visually marked as zoomable, and
+  carry a PlantUML hyperlink to that target when the renderer supports it.
 - Keep each diagram focused on one responsibility. If it becomes a long strip or tries to explain child detail in one
-  edge label, aggregate sibling detail, change direction, or split the detail into a child folder.
+  edge label, aggregate sibling detail, change direction, or split the detail into a child diagram.
 - Every arrow must have a clear label. Prefer labels that make `source + label + target` read like a sentence.
 - Prefer node names that describe the actor, process, phase, state, or artifact rather than imperative commands.
   For example, use `Enginepack Selection` instead of `Select Enginepack`.

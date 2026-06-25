@@ -1,0 +1,16 @@
+@startuml
+!include ../_theme.puml
+title Runtime Tick
+top to bottom direction
+
+rectangle "Runtime Lock Intake" as Lock
+rectangle "Substrate State Intake" as State
+rectangle "Due Callback Selection" as Due
+rectangle "Callback Plan Build" as Plan
+rectangle "Dispatcher Handoff" as Dispatch
+
+Lock --> Due : constrains callback selection for
+State --> Due : supplies runtime triggers to
+Due --> Plan : orders work into
+Plan --> Dispatch : hands ordered work to
+@enduml

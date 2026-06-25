@@ -1,0 +1,18 @@
+@startuml
+!include ../_theme.puml
+title Workshop Item Installation
+top to bottom direction
+
+rectangle "Workshop Item Selection" as Select
+rectangle "Dependency Resolution" as Deps
+rectangle "Byte Download" as Download
+rectangle "Vapor Fingerprint Verification" as Verify
+rectangle "Packagepack Enablement" as Enable
+rectangle "Broken Install Rejection" as Reject
+
+Select --> Deps : provides item metadata for
+Deps --> Download : selects required items for
+Download --> Verify : supplies local bytes to
+Verify --> Enable : admits fingerprint match to
+Verify --> Reject : routes fingerprint failure to
+@enduml

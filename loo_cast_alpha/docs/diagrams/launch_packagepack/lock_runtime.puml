@@ -1,0 +1,14 @@
+@startuml
+!include ../_theme.puml
+title Runtime Locking
+top to bottom direction
+
+rectangle "Graph/Ownership/Mask Freeze" as Freeze
+rectangle "Kernel Binding" as Bindings
+rectangle "Runtime Lock Creation" as Lock
+rectangle "Engine/Game Handoff" as Handoff
+
+Freeze --> Bindings : constrains native access for
+Bindings --> Lock : writes locked state into
+Lock --> Handoff : enables
+@enduml

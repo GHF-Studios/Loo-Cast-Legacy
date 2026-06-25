@@ -1,0 +1,22 @@
+@startuml
+!include ../_theme.puml
+title Kernel Artifact Loading
+top to bottom direction
+
+rectangle "Kernel Ref Intake" as Refs
+rectangle "Vapor.lock Check" as Lock
+rectangle "Toolchain Envelope Check" as Toolchain
+rectangle "Platform Library Loading" as Library
+rectangle "Rust-Native Registration" as Register
+rectangle "Rust Surface Registration" as Surfaces
+rectangle "Fail-Fast Exit" as Fail
+
+Refs --> Lock : supplies expected kernels to
+Lock --> Toolchain : supplies compatibility proof to
+Toolchain --> Library : admits envelope match to
+Library --> Register : calls Rust-native entrypoint for
+Register --> Surfaces : installs surfaces through
+Lock --> Fail : routes fingerprint mismatch to
+Toolchain --> Fail : routes incompatible envelope to
+Register --> Fail : routes missing Rust-native entrypoint to
+@enduml

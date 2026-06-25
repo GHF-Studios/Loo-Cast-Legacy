@@ -83,6 +83,6 @@ declaration/data payloads into capability/fingerprint paths, and prove one focus
 full callback taxonomy.
 
 Diagram:
-[Declare Rhai Assets](../diagrams/author_content/define_capability_module/declare_rhai_assets/_mod_.puml)
+[Declare Rhai Assets](../diagrams/author_content/define_capability_module/declare_rhai_assets.puml)
 
 #glossary

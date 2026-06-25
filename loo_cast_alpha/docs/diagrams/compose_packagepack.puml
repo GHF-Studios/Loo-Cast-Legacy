@@ -1,0 +1,19 @@
+@startuml
+!include _theme.puml
+title Packagepack Composition
+top to bottom direction
+
+package "Selected Stack" {
+  rectangle "Enginepack Selection" as Enginepack
+  rectangle "Gamepack Selection" as Gamepack
+  rectangle "Modpack Selection" as Modpacks
+}
+
+rectangle "Visible Choice Resolution" as Choices
+rectangle "Packagepack Record" as Save
+
+Enginepack --> Choices : contributes engine option to
+Gamepack --> Choices : contributes game option to
+Modpacks --> Choices : contributes mod options to
+Choices --> Save : writes selected stack into
+@enduml

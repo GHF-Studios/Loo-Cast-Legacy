@@ -39,6 +39,6 @@ See also:
 - [[Vapor.lock]]
 - [[Rust Surface Graph]]
 - [[Rust Host Contract]]
-- [Load Kernel Artifacts](../diagrams/launch_packagepack/load_kernel_artifacts/_mod_.puml)
+- [Load Kernel Artifacts](../diagrams/launch_packagepack/load_kernel_artifacts.puml)
 
 #glossary

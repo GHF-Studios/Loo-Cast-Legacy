@@ -1,0 +1,16 @@
+@startuml
+!include ../../_theme.puml
+title Callback Result Commit/Apply
+top to bottom direction
+
+rectangle "Intent Intake" as Receive
+rectangle "Mutation Validation" as Validate
+rectangle "Accepted Change Commit" as Commit
+rectangle "Substrate Update Application" as Apply
+rectangle "Bad Write Rejection" as Reject
+
+Receive --> Validate : checks intents against
+Validate --> Commit : admits valid write to
+Commit --> Apply : writes substrate update through
+Validate --> Reject : routes bad write to
+@enduml
