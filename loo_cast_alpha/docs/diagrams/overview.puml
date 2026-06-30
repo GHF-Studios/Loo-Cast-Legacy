@@ -1,14 +1,48 @@
 @startuml
 !include _theme.puml
-title Vapor Happens
+title Vapor Product-Stack Proof Overview
+caption Phase 3 proves Vapor platform seams; USF, worldmodel, rendering, save/load, and gameplay stay outside this proof.
 top to bottom direction
 
-rectangle "Author Content" as Author <<zoom>> [[author_content.puml]]
-rectangle "Distribute Content" as Distribute <<zoom>> [[distribute_content.puml]]
-rectangle "Packagepack Launch" as Launch <<zoom>> [[launch_packagepack.puml]]
-rectangle "Locked Runtime Execution" as Run <<zoom>> [[run_locked_runtime.puml]]
+package "Authoring and Distribution Plane" as Authoring <<plane>> {
+  rectangle "SDK Authoring Surface" as SDK <<surface>>
+  rectangle "Capability Declaration Material\nVapor.toml + Rhai Assets" as Declarations <<capability>>
+  rectangle "Kernel Artifacts" as Kernels <<native>>
+  rectangle "Distributable Artifacts" as Artifacts <<artifact>>
+  rectangle "Steam Workshop / Installed Index" as Workshop <<external>>
+}
 
-Author --> Distribute : produces artifacts for
-Distribute --> Launch : installs content for
-Launch --> Run : prepares lock for
+package "Composition and Lock Plane" as Composition <<plane>> {
+  rectangle "Launcher / SDK Validation" as Validation <<surface>>
+  rectangle "Packagepack Selection\nEnginepack + Gamepack + Modpacks" as Selection <<pack>>
+  rectangle "Capability Graph Staging" as Graph <<capability>>
+  rectangle "Vapor.lock + Fingerprints" as Lockfile <<artifact>>
+  rectangle "Runtime Lock" as RuntimeLock <<lock>>
+}
+
+package "Launch Runtime Plane" as Runtime <<plane>> {
+  rectangle "Engine/Game Fixtures\ncore_engine + core_mod + base_mod" as Fixtures <<runtime>>
+  rectangle "Capability Runtime + Runtime Substrate" as RuntimeCore <<runtime>>
+  rectangle "Diagnostics + Logs" as Diagnostics <<diagnostic>>
+}
+
+rectangle "Phase 3 Scope Boundary\nVapor proof only" as Boundary <<boundary>>
+
+SDK --> Declarations : classifies authored material in
+SDK --> Kernels : builds native backing into
+Declarations --> Artifacts : contributes graph source to
+Kernels --> Artifacts : package native backing as
+Artifacts --> Workshop : move through
+Workshop --> Validation : supplies installed candidates to
+
+Validation --> Selection : resolves user choices into
+Selection --> Graph : contributes selected pack material to
+Graph --> Lockfile : emits resolved identity into
+Lockfile --> RuntimeLock : prove compatibility for
+Graph --> RuntimeLock : passes deep validation into
+Boundary --> Validation : constrains acceptance for
+
+RuntimeLock --> Fixtures : admits launch of
+Fixtures --> RuntimeCore : run locked graph through
+RuntimeCore --> Diagnostics : reports outcomes to
 @enduml

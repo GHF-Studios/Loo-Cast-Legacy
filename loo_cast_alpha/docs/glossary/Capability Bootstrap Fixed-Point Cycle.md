@@ -18,6 +18,6 @@ See also:
 - [[Runtime Lock]]
 
 Implementation-facing anchor:
-[Build Capability Graph](../diagrams/launch_packagepack/build_capability_graph.puml)
+[Vapor Product-Stack Proof Overview](../diagrams/overview.puml)
 
 #glossary

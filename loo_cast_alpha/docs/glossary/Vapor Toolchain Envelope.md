@@ -39,6 +39,6 @@ See also:
 - [[Capability Kernel]]
 - [[Vapor.lock]]
 - [[Rust Surface Graph]]
-- [Load Kernel Artifacts](../diagrams/launch_packagepack/load_kernel_artifacts.puml)
+- [Vapor Product-Stack Proof Overview](../diagrams/overview.puml)
 
 #glossary

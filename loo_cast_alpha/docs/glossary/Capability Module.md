@@ -51,6 +51,6 @@ See also:
 - [[Capability Kernel]]
 - [[Kernel Artifact]]
 - [[Rust Surface Graph]]
-- [Define Capability Module](../diagrams/author_content/define_capability_module.puml)
+- [Vapor Product-Stack Proof Overview](../diagrams/overview.puml)
 
 #glossary
