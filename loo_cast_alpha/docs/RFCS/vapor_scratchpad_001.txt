@@ -1,0 +1,342 @@
+Global Options:
+--verbose
+show operation planning, diagnostics, logs, historical context, and live progress detail
+
+--force
+allow authoring/composition mutations that may temporarily violate composition invariants
+never means "ignore linker/build/runtime impossibility"
+never means "blindly pick newest dependency version and hope"
+mainly applies to add/remove/uninstall-like graph mutation while authoring or rearranging content
+
+
+Content Sources:
+discovered
+local
+git
+workshop
+all
+
+
+All Content Types:
+packagepack
+enginepack
+gamepack
+modpack
+engine
+game
+engine_mod
+game_mod
+extension_mod
+
+
+Packagepack Content Types:
+packagepack
+enginepack
+gamepack
+modpack
+engine
+game
+engine_mod
+game_mod
+extension_mod
+
+
+Enginepack Content Types:
+engine
+engine_mod
+enginepack
+
+
+Gamepack Content Types:
+game
+game_mod
+gamepack
+
+
+Modpack Content Types:
+engine_mod
+game_mod
+extension_mod
+modpack
+
+
+Pack Resolution Targets:
+packagepack
+enginepack
+gamepack
+modpack
+
+
+Built-In Resolved Invariants:
+exactly one effective engine
+exactly one effective game
+selected/resolved game must target the selected/resolved engine
+resolved graph must satisfy declared parent/target requirements
+resolved graph must satisfy declared version requirements
+resolved graph must not contain invalid cycles
+resolved graph must not contain hard conflicts
+
+
+Important Update Rule:
+packagepack is the normal user-updated experience boundary
+
+Updating packagepack:
+valid launcher workflow
+
+Updating engine/game/mod content outside packagepack:
+not a normal user workflow
+implies authoring/local fork semantics
+may invalidate or fork packagepack state
+belongs primarily to SDK or modpack-author/developer flows
+
+
+Commands:
+
+sdk
+version
+status
+repair
+
+toolchain
+status
+install
+repair
+
+template
+list
+info
+
+packagepack
+list <CONTENT_SOURCE>
+status <PACKAGEPACK_ID>
+fingerprint <PACKAGEPACK_ID>
+inspect <PACKAGEPACK_ID>
+validate <PACKAGEPACK_ID>
+resolve <PACKAGEPACK_ID>
+new <PACKAGEPACK_ID>
+init <PACKAGEPACK_ID>
+add <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
+remove <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
+build <PACKAGEPACK_ID>
+package <PACKAGEPACK_ID>
+publish <PACKAGEPACK_ID>
+
+enginepack
+list <CONTENT_SOURCE>
+status <ENGINEPACK_ID>
+fingerprint <ENGINEPACK_ID>
+inspect <ENGINEPACK_ID>
+validate <ENGINEPACK_ID>
+resolve <ENGINEPACK_ID>
+new <ENGINEPACK_ID>
+init <ENGINEPACK_ID>
+add <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
+remove <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
+build <ENGINEPACK_ID>
+package <ENGINEPACK_ID>
+publish <ENGINEPACK_ID>
+
+gamepack
+list <CONTENT_SOURCE>
+status <GAMEPACK_ID>
+fingerprint <GAMEPACK_ID>
+inspect <GAMEPACK_ID>
+validate <GAMEPACK_ID>
+resolve <GAMEPACK_ID>
+new <GAMEPACK_ID>
+init <GAMEPACK_ID>
+add <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
+remove <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
+build <GAMEPACK_ID>
+package <GAMEPACK_ID>
+publish <GAMEPACK_ID>
+
+modpack
+list <CONTENT_SOURCE>
+status <MODPACK_ID>
+fingerprint <MODPACK_ID>
+inspect <MODPACK_ID>
+validate <MODPACK_ID>
+resolve <MODPACK_ID>
+new <MODPACK_ID>
+init <MODPACK_ID>
+add <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
+remove <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
+build <MODPACK_ID>
+package <MODPACK_ID>
+publish <MODPACK_ID>
+
+engine
+list <CONTENT_SOURCE>
+status <ENGINE_ID>
+fingerprint <ENGINE_ID>
+inspect <ENGINE_ID>
+validate <ENGINE_ID>
+new <ENGINE_ID>
+init <ENGINE_ID>
+build <ENGINE_ID>
+package <ENGINE_ID>
+publish <ENGINE_ID>
+
+game
+list <CONTENT_SOURCE>
+status <GAME_ID>
+fingerprint <GAME_ID>
+inspect <GAME_ID>
+validate <GAME_ID>
+new <GAME_ID>
+init <GAME_ID>
+build <GAME_ID>
+package <GAME_ID>
+publish <GAME_ID>
+
+engine_mod
+list <CONTENT_SOURCE>
+status <ENGINE_MOD_ID>
+fingerprint <ENGINE_MOD_ID>
+inspect <ENGINE_MOD_ID>
+validate <ENGINE_MOD_ID>
+new <ENGINE_MOD_ID>
+init <ENGINE_MOD_ID>
+build <ENGINE_MOD_ID>
+package <ENGINE_MOD_ID>
+publish <ENGINE_MOD_ID>
+
+game_mod
+list <CONTENT_SOURCE>
+status <GAME_MOD_ID>
+fingerprint <GAME_MOD_ID>
+inspect <GAME_MOD_ID>
+validate <GAME_MOD_ID>
+new <GAME_MOD_ID>
+init <GAME_MOD_ID>
+build <GAME_MOD_ID>
+package <GAME_MOD_ID>
+publish <GAME_MOD_ID>
+
+extension_mod
+list <CONTENT_SOURCE>
+status <EXTENSION_MOD_ID>
+fingerprint <EXTENSION_MOD_ID>
+inspect <EXTENSION_MOD_ID>
+validate <EXTENSION_MOD_ID>
+new <EXTENSION_MOD_ID>
+init <EXTENSION_MOD_ID>
+build <EXTENSION_MOD_ID>
+package <EXTENSION_MOD_ID>
+publish <EXTENSION_MOD_ID>
+
+
+launcher
+version
+status
+repair
+
+packagepack
+list <CONTENT_SOURCE>
+status <PACKAGEPACK_ID>
+fingerprint <PACKAGEPACK_ID>
+inspect <PACKAGEPACK_ID>
+validate <PACKAGEPACK_ID>
+resolve <PACKAGEPACK_ID>
+install <PACKAGEPACK_ID>
+uninstall <PACKAGEPACK_ID>
+update <PACKAGEPACK_ID>
+new <PACKAGEPACK_ID>
+select <PACKAGEPACK_ID>
+add <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
+remove <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
+enable <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
+disable <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
+
+enginepack
+list <CONTENT_SOURCE>
+status <ENGINEPACK_ID>
+fingerprint <ENGINEPACK_ID>
+inspect <ENGINEPACK_ID>
+validate <ENGINEPACK_ID>
+resolve <ENGINEPACK_ID>
+install <ENGINEPACK_ID>
+uninstall <ENGINEPACK_ID>
+new <ENGINEPACK_ID>
+add <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
+remove <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
+enable <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
+disable <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
+
+gamepack
+list <CONTENT_SOURCE>
+status <GAMEPACK_ID>
+fingerprint <GAMEPACK_ID>
+inspect <GAMEPACK_ID>
+validate <GAMEPACK_ID>
+resolve <GAMEPACK_ID>
+install <GAMEPACK_ID>
+uninstall <GAMEPACK_ID>
+new <GAMEPACK_ID>
+add <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
+remove <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
+enable <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
+disable <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
+
+modpack
+list <CONTENT_SOURCE>
+status <MODPACK_ID>
+fingerprint <MODPACK_ID>
+inspect <MODPACK_ID>
+validate <MODPACK_ID>
+resolve <MODPACK_ID>
+install <MODPACK_ID>
+uninstall <MODPACK_ID>
+new <MODPACK_ID>
+add <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
+remove <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
+enable <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
+disable <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
+
+engine
+list <CONTENT_SOURCE>
+status <ENGINE_ID>
+fingerprint <ENGINE_ID>
+inspect <ENGINE_ID>
+validate <ENGINE_ID>
+install <ENGINE_ID>
+uninstall <ENGINE_ID>
+
+game
+list <CONTENT_SOURCE>
+status <GAME_ID>
+fingerprint <GAME_ID>
+inspect <GAME_ID>
+validate <GAME_ID>
+install <GAME_ID>
+uninstall <GAME_ID>
+
+engine_mod
+list <CONTENT_SOURCE>
+status <ENGINE_MOD_ID>
+fingerprint <ENGINE_MOD_ID>
+inspect <ENGINE_MOD_ID>
+validate <ENGINE_MOD_ID>
+install <ENGINE_MOD_ID>
+uninstall <ENGINE_MOD_ID>
+
+game_mod
+list <CONTENT_SOURCE>
+status <GAME_MOD_ID>
+fingerprint <GAME_MOD_ID>
+inspect <GAME_MOD_ID>
+validate <GAME_MOD_ID>
+install <GAME_MOD_ID>
+uninstall <GAME_MOD_ID>
+
+extension_mod
+list <CONTENT_SOURCE>
+status <EXTENSION_MOD_ID>
+fingerprint <EXTENSION_MOD_ID>
+inspect <EXTENSION_MOD_ID>
+validate <EXTENSION_MOD_ID>
+install <EXTENSION_MOD_ID>
+uninstall <EXTENSION_MOD_ID>
+
+launch <PACKAGEPACK_ID>
