@@ -13,7 +13,7 @@ Global Options:
 		never means "bypass release-mode dependency rules"
 
 	--strict
-		reject add/remove/select/unselect mutations that would leave an authored composition invalid
+		reject add/remove/select/unselect mutations that would leave an authored or local mutable composition invalid
 
 	--keep-unused-versions
 		keep old unused installed dependency/content versions after install/update/lock/repair cleanup
@@ -27,47 +27,91 @@ Content Sources:
 	all
 
 
-All Content Types:
+Content Type Sets:
+	all_content
+		packagepack
+		enginepack
+		gamepack
+		modpack
+		engine
+		game
+		engine_mod
+		game_mod
+		extension_mod
+
+	pack_content
+		packagepack
+		enginepack
+		gamepack
+		modpack
+
+	leaf_content
+		engine
+		game
+		engine_mod
+		game_mod
+		extension_mod
+
+	lockable_content
+		packagepack
+
+
+Allowed Pack Children:
 	packagepack
+		packagepack
+		enginepack
+		gamepack
+		modpack
+		engine
+		game
+		engine_mod
+		game_mod
+		extension_mod
+
 	enginepack
+		engine
+		engine_mod
+		enginepack
+
 	gamepack
+		game
+		game_mod
+		gamepack
+
 	modpack
-	engine
-	game
-	engine_mod
-	game_mod
-	extension_mod
+		engine_mod
+		game_mod
+		extension_mod
+		modpack
 
 
-Packagepack Content Types:
-	packagepack
-	enginepack
-	gamepack
-	modpack
-	engine
-	game
-	engine_mod
-	game_mod
-	extension_mod
+Command Placeholders:
+	<CONTENT_TYPE>
+		one all_content type
 
+	<PACK_CONTENT_TYPE>
+		one pack_content type
 
-Enginepack Content Types:
-	engine
-	engine_mod
-	enginepack
+	<LEAF_CONTENT_TYPE>
+		one leaf_content type
 
+	<CONTENT_ID>
+		id matching the selected <CONTENT_TYPE>
 
-Gamepack Content Types:
-	game
-	game_mod
-	gamepack
+	<PACK_ID>
+		id matching the selected <PACK_CONTENT_TYPE>
 
+	<SOURCE_PACK_ID>
+		id of an existing pack used as the fork source
 
-Modpack Content Types:
-	engine_mod
-	game_mod
-	extension_mod
-	modpack
+	<NEW_PACK_ID>
+		id of the new local mutable pack created by fork
+
+	<CHILD_CONTENT_TYPE>
+		content type allowed by the parent pack's Allowed Pack Children entry
+
+	<CHILD_CONTENT_ID>
+		id matching the selected <CHILD_CONTENT_TYPE>
 
 
 Repair Targets:
@@ -87,23 +131,39 @@ Shared Repair Commands:
 		apply <REPAIR_TARGET>
 
 
-Composition State Terms:
-	installed content exists locally
-	added content is a member of a composition
-	selected content is active inside that composition
-	unselected content may remain present as an inactive alternative
-	resolved content is the effective graph after selections, nesting, versions, and invariants are applied
-	validated content is content whose current graph satisfies built-in and author-defined invariants
+Content State Terms:
+	installed
+		content exists locally
+
+	added
+		content is a member of a composition
+
+	selected
+		content is active inside a composition
+
+	unselected
+		content remains present as an inactive alternative
+
+	resolved
+		effective graph after selections, nesting, versions, and invariants are applied in memory
+
+	locked
+		persistent packagepack graph artifact written from a resolved graph
+
+	validated
+		content whose current graph satisfies built-in and author-defined invariants
+
+	forked
+		new local mutable pack created from an existing source pack
 
 
-Lock Targets:
-	packagepack
-
-
-Runtime Resolution:
+Runtime Resolution And Locking:
 	resolve constructs the effective graph in memory
 	resolve does not write a lockfile
 	lock writes the selected/effective packagepack graph as a persistent artifact
+	only packagepacks are lockable
+	launcher lock locks the selected packagepack
+	launcher packagepack lock <PACKAGEPACK_ID> locks an explicit packagepack
 
 
 Built-In Resolved Invariants:
@@ -116,7 +176,23 @@ Built-In Resolved Invariants:
 	resolved graph must not contain hard conflicts
 
 
-Important Update Rule:
+Creation Rules:
+	new <CONTENT_ID>
+		creates a new directory/project
+
+	init <CONTENT_ID>
+		initializes the current directory
+		requires the current directory to be effectively empty
+		may tolerate auto-generated ignored files
+
+
+Install And Update Rules:
+	install <CONTENT_ID>
+		installs the full required dependency closure
+		asks before installing additional required content
+		--yes accepts the closure install
+		--force accepts risk-bearing install cases when the command explicitly supports them
+
 	packagepack is the normal user-updated experience boundary
 
 	Updating packagepack:
@@ -134,6 +210,50 @@ Important Update Rule:
 		require migration when they carry config/data/state
 		abort by default when required migration is missing
 		may be discarded only through explicit user choice or a supported forced operation
+
+
+Pack Mutability Rules:
+	sdk mutates authored source content
+	launcher mutates installed/local user state and local mutable packs
+	published/installed packs are immutable through launcher
+	launcher pack mutation requires a local mutable pack
+	launcher <PACK_CONTENT_TYPE> new creates a blank local mutable pack
+	launcher <PACK_CONTENT_TYPE> fork creates a new local mutable pack from an existing source pack
+	local mutable packagepacks do not need to be selected to be edited
+	launcher packagepack select chooses the active root packagepack for launcher lock and launch
+	forked packs do not receive upstream updates from the source pack
+	using upstream updates requires forking again from the updated source pack
+
+
+Command Families:
+	content_read_commands
+		list <CONTENT_SOURCE>
+		status <CONTENT_ID>
+		fingerprint <CONTENT_ID>
+		inspect <CONTENT_ID>
+		validate <CONTENT_ID>
+
+	source_authoring_commands
+		new <CONTENT_ID>
+		init <CONTENT_ID>
+		build <CONTENT_ID>
+		package <CONTENT_ID>
+		publish <CONTENT_ID>
+
+	pack_composition_commands
+		add <PACK_ID> <CHILD_CONTENT_TYPE> <CHILD_CONTENT_ID>
+		remove <PACK_ID> <CHILD_CONTENT_TYPE> <CHILD_CONTENT_ID>
+		select <PACK_ID> <CHILD_CONTENT_TYPE> <CHILD_CONTENT_ID>
+		unselect <PACK_ID> <CHILD_CONTENT_TYPE> <CHILD_CONTENT_ID>
+
+	launcher_install_commands
+		install <CONTENT_ID>
+		uninstall <CONTENT_ID>
+		update <CONTENT_ID>
+
+	launcher_local_pack_commands
+		new <PACK_ID>
+		fork <SOURCE_PACK_ID> <NEW_PACK_ID>
 
 
 Commands:
@@ -155,130 +275,15 @@ Commands:
 			list
 			info
 
+		<CONTENT_TYPE>
+			content_read_commands
+			source_authoring_commands
+
+		<PACK_CONTENT_TYPE>
+			pack_composition_commands
+
 		packagepack
-			list <CONTENT_SOURCE>
-			status <PACKAGEPACK_ID>
-			fingerprint <PACKAGEPACK_ID>
-			inspect <PACKAGEPACK_ID>
-			validate <PACKAGEPACK_ID>
 			lock <PACKAGEPACK_ID>
-			new <PACKAGEPACK_ID>
-			init <PACKAGEPACK_ID>
-			add <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
-			remove <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
-			select <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
-			unselect <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
-			build <PACKAGEPACK_ID>
-			package <PACKAGEPACK_ID>
-			publish <PACKAGEPACK_ID>
-
-		enginepack
-			list <CONTENT_SOURCE>
-			status <ENGINEPACK_ID>
-			fingerprint <ENGINEPACK_ID>
-			inspect <ENGINEPACK_ID>
-			validate <ENGINEPACK_ID>
-			new <ENGINEPACK_ID>
-			init <ENGINEPACK_ID>
-			add <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
-			remove <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
-			select <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
-			unselect <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
-			build <ENGINEPACK_ID>
-			package <ENGINEPACK_ID>
-			publish <ENGINEPACK_ID>
-
-		gamepack
-			list <CONTENT_SOURCE>
-			status <GAMEPACK_ID>
-			fingerprint <GAMEPACK_ID>
-			inspect <GAMEPACK_ID>
-			validate <GAMEPACK_ID>
-			new <GAMEPACK_ID>
-			init <GAMEPACK_ID>
-			add <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
-			remove <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
-			select <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
-			unselect <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
-			build <GAMEPACK_ID>
-			package <GAMEPACK_ID>
-			publish <GAMEPACK_ID>
-
-		modpack
-			list <CONTENT_SOURCE>
-			status <MODPACK_ID>
-			fingerprint <MODPACK_ID>
-			inspect <MODPACK_ID>
-			validate <MODPACK_ID>
-			new <MODPACK_ID>
-			init <MODPACK_ID>
-			add <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
-			remove <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
-			select <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
-			unselect <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
-			build <MODPACK_ID>
-			package <MODPACK_ID>
-			publish <MODPACK_ID>
-
-		engine
-			list <CONTENT_SOURCE>
-			status <ENGINE_ID>
-			fingerprint <ENGINE_ID>
-			inspect <ENGINE_ID>
-			validate <ENGINE_ID>
-			new <ENGINE_ID>
-			init <ENGINE_ID>
-			build <ENGINE_ID>
-			package <ENGINE_ID>
-			publish <ENGINE_ID>
-
-		game
-			list <CONTENT_SOURCE>
-			status <GAME_ID>
-			fingerprint <GAME_ID>
-			inspect <GAME_ID>
-			validate <GAME_ID>
-			new <GAME_ID>
-			init <GAME_ID>
-			build <GAME_ID>
-			package <GAME_ID>
-			publish <GAME_ID>
-
-		engine_mod
-			list <CONTENT_SOURCE>
-			status <ENGINE_MOD_ID>
-			fingerprint <ENGINE_MOD_ID>
-			inspect <ENGINE_MOD_ID>
-			validate <ENGINE_MOD_ID>
-			new <ENGINE_MOD_ID>
-			init <ENGINE_MOD_ID>
-			build <ENGINE_MOD_ID>
-			package <ENGINE_MOD_ID>
-			publish <ENGINE_MOD_ID>
-
-		game_mod
-			list <CONTENT_SOURCE>
-			status <GAME_MOD_ID>
-			fingerprint <GAME_MOD_ID>
-			inspect <GAME_MOD_ID>
-			validate <GAME_MOD_ID>
-			new <GAME_MOD_ID>
-			init <GAME_MOD_ID>
-			build <GAME_MOD_ID>
-			package <GAME_MOD_ID>
-			publish <GAME_MOD_ID>
-
-		extension_mod
-			list <CONTENT_SOURCE>
-			status <EXTENSION_MOD_ID>
-			fingerprint <EXTENSION_MOD_ID>
-			inspect <EXTENSION_MOD_ID>
-			validate <EXTENSION_MOD_ID>
-			new <EXTENSION_MOD_ID>
-			init <EXTENSION_MOD_ID>
-			build <EXTENSION_MOD_ID>
-			package <EXTENSION_MOD_ID>
-			publish <EXTENSION_MOD_ID>
 
 	launcher
 		version
@@ -289,118 +294,18 @@ Commands:
 			plan <REPAIR_TARGET>
 			apply <REPAIR_TARGET>
 
-		lock
+		<CONTENT_TYPE>
+			content_read_commands
+			launcher_install_commands
+
+		<PACK_CONTENT_TYPE>
+			launcher_local_pack_commands
+			pack_composition_commands
 
 		packagepack
-			list <CONTENT_SOURCE>
-			status <PACKAGEPACK_ID>
-			fingerprint <PACKAGEPACK_ID>
-			inspect <PACKAGEPACK_ID>
-			validate <PACKAGEPACK_ID>
-			lock <PACKAGEPACK_ID>
-			install <PACKAGEPACK_ID>
-			uninstall <PACKAGEPACK_ID>
-			update <PACKAGEPACK_ID>
-			new <PACKAGEPACK_ID>
 			select <PACKAGEPACK_ID>
-			add <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
-			remove <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
-			select <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
-			unselect <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
+			lock <PACKAGEPACK_ID>
 
-		enginepack
-			list <CONTENT_SOURCE>
-			status <ENGINEPACK_ID>
-			fingerprint <ENGINEPACK_ID>
-			inspect <ENGINEPACK_ID>
-			validate <ENGINEPACK_ID>
-			install <ENGINEPACK_ID>
-			uninstall <ENGINEPACK_ID>
-			update <ENGINEPACK_ID>
-			new <ENGINEPACK_ID>
-			add <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
-			remove <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
-			select <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
-			unselect <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
-
-		gamepack
-			list <CONTENT_SOURCE>
-			status <GAMEPACK_ID>
-			fingerprint <GAMEPACK_ID>
-			inspect <GAMEPACK_ID>
-			validate <GAMEPACK_ID>
-			install <GAMEPACK_ID>
-			uninstall <GAMEPACK_ID>
-			update <GAMEPACK_ID>
-			new <GAMEPACK_ID>
-			add <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
-			remove <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
-			select <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
-			unselect <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
-
-		modpack
-			list <CONTENT_SOURCE>
-			status <MODPACK_ID>
-			fingerprint <MODPACK_ID>
-			inspect <MODPACK_ID>
-			validate <MODPACK_ID>
-			install <MODPACK_ID>
-			uninstall <MODPACK_ID>
-			update <MODPACK_ID>
-			new <MODPACK_ID>
-			add <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
-			remove <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
-			select <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
-			unselect <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
-
-		engine
-			list <CONTENT_SOURCE>
-			status <ENGINE_ID>
-			fingerprint <ENGINE_ID>
-			inspect <ENGINE_ID>
-			validate <ENGINE_ID>
-			install <ENGINE_ID>
-			uninstall <ENGINE_ID>
-			update <ENGINE_ID>
-
-		game
-			list <CONTENT_SOURCE>
-			status <GAME_ID>
-			fingerprint <GAME_ID>
-			inspect <GAME_ID>
-			validate <GAME_ID>
-			install <GAME_ID>
-			uninstall <GAME_ID>
-			update <GAME_ID>
-
-		engine_mod
-			list <CONTENT_SOURCE>
-			status <ENGINE_MOD_ID>
-			fingerprint <ENGINE_MOD_ID>
-			inspect <ENGINE_MOD_ID>
-			validate <ENGINE_MOD_ID>
-			install <ENGINE_MOD_ID>
-			uninstall <ENGINE_MOD_ID>
-			update <ENGINE_MOD_ID>
-
-		game_mod
-			list <CONTENT_SOURCE>
-			status <GAME_MOD_ID>
-			fingerprint <GAME_MOD_ID>
-			inspect <GAME_MOD_ID>
-			validate <GAME_MOD_ID>
-			install <GAME_MOD_ID>
-			uninstall <GAME_MOD_ID>
-			update <GAME_MOD_ID>
-
-		extension_mod
-			list <CONTENT_SOURCE>
-			status <EXTENSION_MOD_ID>
-			fingerprint <EXTENSION_MOD_ID>
-			inspect <EXTENSION_MOD_ID>
-			validate <EXTENSION_MOD_ID>
-			install <EXTENSION_MOD_ID>
-			uninstall <EXTENSION_MOD_ID>
-			update <EXTENSION_MOD_ID>
+		lock
 
 		launch
