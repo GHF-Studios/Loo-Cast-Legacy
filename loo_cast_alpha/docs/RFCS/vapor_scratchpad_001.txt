@@ -4,8 +4,10 @@ show operation planning, diagnostics, logs, historical context, and live progres
 
 --force
 allow authoring/composition mutations that may temporarily violate composition invariants
+allow destructive mutation when destructive mutation is explicit, acceptable, and domain-valid
 never means "ignore linker/build/runtime impossibility"
 never means "blindly pick newest dependency version and hope"
+never means "bypass release-mode dependency rules"
 mainly applies to add/remove/uninstall-like graph mutation while authoring or rearranging content
 
 
@@ -60,6 +62,31 @@ extension_mod
 modpack
 
 
+Repair Targets:
+core_state
+toolchain
+steam
+content_catalog
+content_library
+active_composition
+all
+
+
+Shared Repair Commands:
+repair status
+repair plan <REPAIR_TARGET>
+repair apply <REPAIR_TARGET>
+
+
+Composition State Terms:
+installed content exists locally
+added content is a member of a composition
+selected content is active inside that composition
+unselected content may remain present as an inactive alternative
+resolved content is the effective graph after selections, nesting, versions, and invariants are applied
+validated content is content whose current graph satisfies built-in and author-defined invariants
+
+
 Pack Resolution Targets:
 packagepack
 enginepack
@@ -95,7 +122,9 @@ Commands:
 sdk
 version
 status
-repair
+repair status
+repair plan <REPAIR_TARGET>
+repair apply <REPAIR_TARGET>
 
 toolchain
 status
@@ -117,6 +146,8 @@ new <PACKAGEPACK_ID>
 init <PACKAGEPACK_ID>
 add <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
 remove <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
+select <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
+unselect <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
 build <PACKAGEPACK_ID>
 package <PACKAGEPACK_ID>
 publish <PACKAGEPACK_ID>
@@ -132,6 +163,8 @@ new <ENGINEPACK_ID>
 init <ENGINEPACK_ID>
 add <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
 remove <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
+select <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
+unselect <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
 build <ENGINEPACK_ID>
 package <ENGINEPACK_ID>
 publish <ENGINEPACK_ID>
@@ -147,6 +180,8 @@ new <GAMEPACK_ID>
 init <GAMEPACK_ID>
 add <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
 remove <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
+select <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
+unselect <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
 build <GAMEPACK_ID>
 package <GAMEPACK_ID>
 publish <GAMEPACK_ID>
@@ -162,6 +197,8 @@ new <MODPACK_ID>
 init <MODPACK_ID>
 add <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
 remove <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
+select <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
+unselect <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
 build <MODPACK_ID>
 package <MODPACK_ID>
 publish <MODPACK_ID>
@@ -230,7 +267,9 @@ publish <EXTENSION_MOD_ID>
 launcher
 version
 status
-repair
+repair status
+repair plan <REPAIR_TARGET>
+repair apply <REPAIR_TARGET>
 
 packagepack
 list <CONTENT_SOURCE>
@@ -246,8 +285,8 @@ new <PACKAGEPACK_ID>
 select <PACKAGEPACK_ID>
 add <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
 remove <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
-enable <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
-disable <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
+select <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
+unselect <PACKAGEPACK_ID> <PACKAGEPACK_CONTENT_TYPE> <CONTENT_ID>
 
 enginepack
 list <CONTENT_SOURCE>
@@ -258,11 +297,12 @@ validate <ENGINEPACK_ID>
 resolve <ENGINEPACK_ID>
 install <ENGINEPACK_ID>
 uninstall <ENGINEPACK_ID>
+update <ENGINEPACK_ID>
 new <ENGINEPACK_ID>
 add <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
 remove <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
-enable <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
-disable <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
+select <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
+unselect <ENGINEPACK_ID> <ENGINEPACK_CONTENT_TYPE> <CONTENT_ID>
 
 gamepack
 list <CONTENT_SOURCE>
@@ -273,11 +313,12 @@ validate <GAMEPACK_ID>
 resolve <GAMEPACK_ID>
 install <GAMEPACK_ID>
 uninstall <GAMEPACK_ID>
+update <GAMEPACK_ID>
 new <GAMEPACK_ID>
 add <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
 remove <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
-enable <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
-disable <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
+select <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
+unselect <GAMEPACK_ID> <GAMEPACK_CONTENT_TYPE> <CONTENT_ID>
 
 modpack
 list <CONTENT_SOURCE>
@@ -288,11 +329,12 @@ validate <MODPACK_ID>
 resolve <MODPACK_ID>
 install <MODPACK_ID>
 uninstall <MODPACK_ID>
+update <MODPACK_ID>
 new <MODPACK_ID>
 add <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
 remove <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
-enable <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
-disable <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
+select <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
+unselect <MODPACK_ID> <MODPACK_CONTENT_TYPE> <CONTENT_ID>
 
 engine
 list <CONTENT_SOURCE>
@@ -302,6 +344,7 @@ inspect <ENGINE_ID>
 validate <ENGINE_ID>
 install <ENGINE_ID>
 uninstall <ENGINE_ID>
+update <ENGINE_ID>
 
 game
 list <CONTENT_SOURCE>
@@ -311,6 +354,7 @@ inspect <GAME_ID>
 validate <GAME_ID>
 install <GAME_ID>
 uninstall <GAME_ID>
+update <GAME_ID>
 
 engine_mod
 list <CONTENT_SOURCE>
@@ -320,6 +364,7 @@ inspect <ENGINE_MOD_ID>
 validate <ENGINE_MOD_ID>
 install <ENGINE_MOD_ID>
 uninstall <ENGINE_MOD_ID>
+update <ENGINE_MOD_ID>
 
 game_mod
 list <CONTENT_SOURCE>
@@ -329,6 +374,7 @@ inspect <GAME_MOD_ID>
 validate <GAME_MOD_ID>
 install <GAME_MOD_ID>
 uninstall <GAME_MOD_ID>
+update <GAME_MOD_ID>
 
 extension_mod
 list <CONTENT_SOURCE>
@@ -338,5 +384,6 @@ inspect <EXTENSION_MOD_ID>
 validate <EXTENSION_MOD_ID>
 install <EXTENSION_MOD_ID>
 uninstall <EXTENSION_MOD_ID>
+update <EXTENSION_MOD_ID>
 
 launch <PACKAGEPACK_ID>
