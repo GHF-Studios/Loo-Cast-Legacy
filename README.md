@@ -1,3 +1,8 @@
+DO NOT TRUST ANYTHING BEYOND THIS POINT. Legcay stuff.
+
+
+
+
 # Loo-Cast
 
 Loo-Cast is currently developed in the `loo_cast_alpha/` subtree. That subtree contains the active Rust workspace,
