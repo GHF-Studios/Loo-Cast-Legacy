@@ -1,3 +1,8 @@
+Superseded planning note (2026-06-17):
+This milestone draft is stale as active Phase 4 scope.
+Use `question_batch_004a.txt` and the current glossary direction instead.
+New framing: `Phase 4: Product-Stack + USF Prototype/MVP`.
+
 Title =>
 
 Phase 4: Vertical-Slice Restoration
@@ -9,8 +14,8 @@ Gate-based (unlocked only after Phase 3 gate issue decision note).
 Description =>
 
 Authority note:
-This milestone is a lightweight phase container. The Phase 4 tracking issue is the living authority while the phase is
-open. The gate issue is the final exit decision record.
+This milestone is a lightweight phase container. The Phase 4 tracking issue is the living coordination anchor while the
+phase is open. The gate issue is the final exit decision record.
 
 Purpose:
 Restore prioritized legacy functionality through small vertical slices that must satisfy predefined acceptance gates

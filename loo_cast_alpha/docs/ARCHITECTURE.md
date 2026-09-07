@@ -1,39 +1,38 @@
 # Architecture
 
-Layers:
+Status:
+Working orientation only. The latest glossary and owner-answer question logs outrank this file where terminology
+conflicts.
 
-1. Engine layer: runtime, rendering, ECS, IO, loader.
-2. First-party mod layer: `core_mod`, `base_mod`.
-3. Third-party mod layer: optional mod crates.
-4. Packaging layer: produce runnable game bundle.
+Current product/platform stack:
 
-Boundary rules:
+1. [[Vapor Ecosystem]]: Steam-exclusive SDK, launcher, distribution, identity, composition, validation, [[Capability]],
+   and [[Rhai Asset]] substrate.
+2. Generic [[Engine]] role: selected through an [[Enginepack]] as a coupled `core_engine` plus matching `core_mod`
+   fixture.
+3. Generic [[Game]] role: selected through a [[Gamepack]] / `base_mod` fixture compatible with the selected Engine.
+4. [[Packagepack]]: complete launchable composition containing the selected Enginepack, Gamepack, compatible modpacks,
+   mods, fingerprints, and lock/resolution data.
 
-- Engine internals are private.
-- Mod API is public and versioned.
-- First-party mods use the same mod API shape as third-party mods.
-- Mods may expose APIs for other mods.
-- Integration mods are first-class.
+Current boundary rules:
+
+- Phase 3 architecture work targets Vapor platform seams: SDK, launcher, Steam/Workshop integration, capability graph
+  staging, Rhai declarations, [[Vapor.toml]], [[Vapor.lock]], diagnostics, fingerprints, and launch handoff.
+- The active execution anchor for those seams is `RFCS/phase_3_vapor_execution_spec.md`.
+- Concrete first-party engine/game internals and USF/worldmodel concepts are outside the current Vapor-focused pass.
+- `core_engine`, matching `core_mod`, and `base_mod` are reserved built-in role names in a valid Vapor product instance
+  stack.
+- `core_engine` plus matching `core_mod` are bundled as the selected Engine fixture, not independently mixed and matched
+  by ordinary mod selection.
+- `base_mod` is the selected Game fixture.
+- [[Capability]] is the foundational Vapor-visible orchestration/composition abstraction, not an engine-specific
+  subsystem.
+- [[Vapor.toml]] owns Cargo.toml-like package/build/composition metadata; [[Rhai Asset]] files declare capabilities.
+- [[Runtime Lock]] applies to launchable Engine/Game runtime composition after successful validation, not to launcher or
+  SDK authoring as a fully dynamic runtime.
 
 Change governance:
 
-- All compatibility/version/migration policy lives in `CONTRACTS.md`.
-- Architecture may change freely unless it violates `CONTRACTS.md`.
-
-Ownership + cadence:
-
-- Engine internals
-  - Owner: engine maintainers
-  - Cadence: high
-
-- Platform contracts
-  - Owner: platform maintainers
-  - Cadence: low
-
-- First-party mods (`core_mod`, `base_mod`)
-  - Owner: game/content maintainers
-  - Cadence: medium
-
-- Third-party mods
-  - Owner: mod authors
-  - Cadence: independent
+- Compatibility/version/migration policy lives in `CONTRACTS.md`.
+- Glossary pages are the active concept crystallization surface during Phase 2.
+- RFCs and phase drafts are historical if they conflict with current glossary wording or owner-answer logs.

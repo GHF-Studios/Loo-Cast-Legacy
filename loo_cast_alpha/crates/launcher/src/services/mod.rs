@@ -1,0 +1,1 @@
+//! Launcher external behavior seams.

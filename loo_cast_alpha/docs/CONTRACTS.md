@@ -6,6 +6,24 @@ Purpose:
 - Define when a change is breaking.
 - Define required migration behavior.
 
+Current pre-alpha boundary caveat:
+
+- The active product-stack framing is [[Vapor Product Stack]].
+- Vapor is Steam-exclusive and includes SDK/tooling plus runtime protocol/contracts/traits for engines, games, mods,
+  packagepacks, enginepacks, gamepacks, and modpacks.
+- USF is a public/API-facing Spacetime Engine subsystem, not a standalone product contract pillar.
+- `core_engine`, matching `core_mod`, and `base_mod` are reserved built-in mod roles and mandatory pillars of a Vapor
+  product instance stack.
+- `core_engine` plus matching `core_mod` define a coupled mandatory Engine pillar.
+- `core_mod` is mandatory but replaceable by selecting another valid coupled Engine pair.
+- `base_mod` is mandatory but replaceable as the Game layer for Loo Cast.
+- [[Packagepack]] is the complete user/modpack-author-facing launch composition.
+- The unqualified word `package` is too overloaded for current architecture planning; qualify it as Steam package,
+  [[Source Artifact]], [[Build Artifact]], [[Distributable Artifact]], [[Packagepack]], [[Enginepack]], [[Gamepack]], or
+  [[Modpack]].
+- This file is a contract planning surface; the latest glossary and owner-confirmed answers outrank stale wording here.
+- Phase 3 execution scope is anchored in `RFCS/phase_3_vapor_execution_spec.md`.
+
 Glossary:
 
 - Published game version
@@ -31,9 +49,10 @@ Glossary:
 Frozen contract set (per published game version):
 
 - Public `mod_api` surface.
-- Mod manifest schema.
-- Mod package/load-order rules.
-- Save-data schema + compatibility semantics.
+- [[Vapor.toml]] declaration/composition metadata schema.
+- Mod artifact/composition rules, including [[Fingerprint]] and [[Vapor.lock]] pressure where active planning requires
+  deterministic resolution.
+- Save-data schema + compatibility semantics, once save/load enters scope. Save/load is explicitly outside Phase 3.
 
 Publish policy:
 

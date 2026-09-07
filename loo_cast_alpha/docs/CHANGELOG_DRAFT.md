@@ -18,7 +18,8 @@ Current phase note:
 
 - Alpha workspace execution rails.
 - `xtask` build, package, run, setup, and audit entrypoints.
-- Phase milestone, issue, gate, and pull request templates.
+- Milestone-first phase workflow model.
+- Single `phase_task.yml` issue form and single PR template.
 
 ## [0.5.0] - TBD
 

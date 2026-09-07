@@ -1,0 +1,117 @@
+' Diagram type: overview map.
+' These marks are local visual language for overview.puml, not a global taxonomy.
+
+skinparam backgroundColor #101214
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam defaultFontName JetBrains Mono
+skinparam defaultFontColor #f4f7fa
+skinparam linetype polyline
+skinparam nodesep 34
+skinparam ranksep 42
+skinparam ArrowMessageAlignment center
+hide stereotype
+
+skinparam rectangle {
+  BackgroundColor #232a31
+  BorderColor #8a96a3
+  FontColor #ffffff
+  RoundCorner 6
+}
+
+skinparam rectangle<<surface>> {
+  BackgroundColor #183b4d
+  BorderColor #7ac7e8
+  FontColor #ffffff
+}
+
+skinparam rectangle<<artifact>> {
+  BackgroundColor #33412c
+  BorderColor #a8cf86
+  FontColor #ffffff
+}
+
+skinparam rectangle<<pack>> {
+  BackgroundColor #4a3a21
+  BorderColor #f0c66e
+  FontColor #ffffff
+}
+
+skinparam rectangle<<capability>> {
+  BackgroundColor #3b2d57
+  BorderColor #c2a8ff
+  FontColor #ffffff
+}
+
+skinparam rectangle<<native>> {
+  BackgroundColor #51313b
+  BorderColor #f09aae
+  FontColor #ffffff
+}
+
+skinparam rectangle<<lock>> {
+  BackgroundColor #5b251f
+  BorderColor #ff8a78
+  FontColor #ffffff
+}
+
+skinparam rectangle<<runtime>> {
+  BackgroundColor #26384e
+  BorderColor #92beff
+  FontColor #ffffff
+}
+
+skinparam rectangle<<diagnostic>> {
+  BackgroundColor #3d3d46
+  BorderColor #d1d5db
+  FontColor #ffffff
+}
+
+skinparam rectangle<<external>> {
+  BackgroundColor #1f3f3c
+  BorderColor #6dd6c6
+  FontColor #ffffff
+}
+
+skinparam rectangle<<boundary>> {
+  BackgroundColor #111418
+  BorderColor #d1d5db
+  FontColor #d1d5db
+}
+
+skinparam package {
+  BackgroundColor #171c22
+  BorderColor #5f6b78
+  FontColor #ffffff
+}
+
+skinparam package<<plane>> {
+  BackgroundColor #151a20
+  BorderColor #6d7886
+  FontColor #ffffff
+}
+
+skinparam ArrowColor #80bfff
+skinparam ArrowFontColor #f4f7fa
+skinparam ArrowThickness 1
+
+skinparam legend {
+  BackgroundColor #181c22
+  BorderColor #80bfff
+  FontColor #f4f7fa
+}
+
+legend bottom
+|= Overview mark |= Meaning |
+|<#183b4d><color:#ffffff> Surface </color>| SDK, launcher, or other user/tool-facing surface |
+|<#33412c><color:#ffffff> Artifact </color>| file, manifest, index, lockfile, or packaged output |
+|<#4a3a21><color:#ffffff> Pack </color>| Packagepack, Enginepack, Gamepack, Modpack, or mod role |
+|<#3b2d57><color:#ffffff> Capability </color>| graph material, projection, validation, or runtime capability surface |
+|<#51313b><color:#ffffff> Native </color>| Rust/kernel-backed implementation material |
+|<#5b251f><color:#ffffff> Lock </color>| fail-fast launch authority boundary |
+|<#26384e><color:#ffffff> Runtime </color>| launched Engine/Game/runtime substrate surface |
+|<#3d3d46><color:#ffffff> Diagnostic </color>| structured feedback, logs, and failure explanation |
+|<#1f3f3c><color:#ffffff> External </color>| Steam or Workshop rail outside Vapor internals |
+|<#111418><color:#d1d5db> Boundary </color>| explicit scope constraint |
+|<#80bfff><color:#101214> Arrow label </color>| read as: source + label + target |
+endlegend

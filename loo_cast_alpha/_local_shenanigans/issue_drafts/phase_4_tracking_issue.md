@@ -1,3 +1,11 @@
+Superseded planning note (2026-06-17):
+This draft is stale as an active Phase 4 scope source.
+Owner answers in `loo_cast_alpha/docs/ai_conversation_logs/question_batch_004a.txt` reframe Phase 4 as
+`Phase 4: Product-Stack + USF Prototype/MVP`.
+Phase 4 is currently understood as Phase 3 plus a full working USF stack/prototype/MVP, not generic vertical-slice
+restoration.
+Do not use this draft as active issue text without rewriting it.
+
 Title: Phase 4: Vertical-Slice Restoration
 Labels: type:phase-tracking, phase:4
 
@@ -14,8 +22,8 @@ Owner / Final Decider:
 @leslieghf
 
 Authority:
-This tracking issue is the living authority for Phase 4 while the phase is open. The milestone is only a lightweight
-summary. The gate issue is the canonical final exit decision.
+This tracking issue is the living coordination anchor for Phase 4 while the phase is open. The milestone is only a
+lightweight summary. The gate issue is the final exit decision record.
 
 Purpose:
 Restore prioritized legacy functionality through small vertical slices that must satisfy predefined acceptance gates

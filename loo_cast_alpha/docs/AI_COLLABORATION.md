@@ -31,6 +31,7 @@ Rules:
 - Keep the work scoped to the named issue or PR.
 - Use existing repo conventions.
 - Prefer GitHub issue numbers and labels over title prefixes or planning IDs.
+- For multi-line GitHub CLI content (issue/PR bodies, comments, code/text blocks), write content to a temporary file and use `--body-file`/`-F`; do not rely on escaped `\n` strings.
 
 Task:
 

@@ -26,6 +26,8 @@ body:
         - Phase 7
         - Phase 8
         - Phase 9
+        - Phase 10
+        - Phase 11
     validations:
       required: true
   - type: textarea

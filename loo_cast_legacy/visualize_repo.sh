@@ -31,5 +31,5 @@ seconds_per_day="$(awk -v y="$year_seconds" 'BEGIN { printf "%.6f", y/365.2425 }
   --follow-user "${FOLLOW_USER:-$(git config user.name || true)}" \
   --camera-mode overview \
   --multi-sampling \
-  --stop-at-end \
+  --dont-stop \
   "${@}"

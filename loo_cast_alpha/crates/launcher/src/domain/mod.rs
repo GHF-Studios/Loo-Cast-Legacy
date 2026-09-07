@@ -1,0 +1,1 @@
+//! Shared launcher domain models.

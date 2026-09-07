@@ -39,7 +39,7 @@ pub fn run_gource(root: &Path) -> Result<()> {
         .arg("--camera-mode")
         .arg("overview")
         .arg("--multi-sampling")
-        .arg("--stop-at-end");
+        .arg("--dont-stop");
     if let Some(follow_user) = follow_user {
         command.arg("--follow-user").arg(follow_user);
     }
