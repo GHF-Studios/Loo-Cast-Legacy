@@ -1,0 +1,136 @@
+Authority And Locking
+1. When an old doc says locked, should I treat that as historical unless reconfirmed by you now?
+A: Yes.
+2. Should glossary entries have an explicit authority state like owner-confirmed, derived-synthesis, legacy-signal, superseded, questionable?
+A: Yes, but I am HIGHLY afraid of enforcing a structure that is rigid and not extensible, yk? So yes, but avoid ANY sorta hardcoding, just, use or add authority state however and whenever we need to, not in advance, yk? We cannot fully predict use cases, as a general rule of thumb, yk?
+3. Is “source of truth” too strong for most glossary pages right now?
+A: Well, kinda, yeah? I really wanna say no, and to an exteeeeent that is true, but yeah I think we must at least assume that for a lot of glossary pages right now, yeah.
+4. Should the glossary preserve contradictions intentionally, or should contradictions live in separate “pressure notes”?
+A: Either the one or the otehr, depending on the situation, but also maybe both in some situations?
+5. Do you want old owner-direction records to be assumed valid until contradicted, or invalid until reconfirmed?
+A: In short: What I say is the primary authority, but the primary authority can still be wrong. I think that sums it up veeery concisely.
+6. What is the smallest unit you are comfortable confirming: a sentence, a paragraph, a term, a whole doc?
+A: 1. Good question, holy fucking shit! 2. A sentence is comfortable to fully prove with like 100% (preliminary though, as in the primary authority can still be wrong at times) lock-in certainty, and from there it just get's worse lol.
+7. Is “canon” even the right word right now, or should we use “current working doctrine”?
+A: "current working doctrine" seems like a good pivot, but I would like to add some framing: "current working doctrine" as in "what works" not "how it works", yk?
+
+Product Stack
+8. Is the real top-level stack closer to Distribution/Ecosystem -> Engine Framework -> USF -> Loo Cast?
+A: Yes.
+9. Is Steam/Workshop/identity an external substrate that your ecosystem wraps, or part of the product constellation?
+A:  I don't feel these are mutually exclusive options, but more the former than the latter, so more an external substrate that my ecosystem wraps, yes.
+10. If someone replaces Spacetime Engine entirely but still uses your distribution/mod ecosystem, are they still inside the Loo Cast ecosystem?
+A: Yes, they are still inside the "Vapor"(coined that term right now, cause refering to it as just "The Ecosystem" is stupid and ambiguous) Ecosystem. Essentially the "Vapor" Modding Ecosystem/SDK is used to develop and maintain and use an Engine (such a the Spacetime Engine), and an Engine is used to develop, maintain, and play Games such as Loo Cast, yk? The moddability of the Spacetime Engine and the Loo Cast Game themselves however is just a deliberate usage/exposure of modding capabilities of the larger "Vapo" Ecosystem, which does allow all kinds of stuff, but each individual Engine and Game and Mod can ofc implement stuff however they want to, and yk? But yeah, this is drifting into far-future/roadmap stuff, so I'll stop now and move on to the next question lol.
+11. Is Spacetime Engine replaceable only philosophically, or should the architecture actively model engine replacement?
+A: I think I just answered that question, but yes, we want full architecture-level replacability. The Engine, the Game, and the Mods of the Game are all just first-party "official" instances of concepts developable and distributable by everyone, or at least that's the idea.
+12. Is “Product Constellation” too vague because it does not name the Steam-like distribution/identity layer?
+A: Yes? I mean the Steam stuff is basically 100% vibes lol. Not fully, but yeah, we got some .puml graphs and docs and legacy code with questionable authority and and quality and... yeah, idk, the Steam-integration stuff and all is very underdiscussed/underaddressed for sure.
+13. Should “Loo Cast” mean only the game, or also the flagship product bundle of game + USF + engine + modding rails?
+A: That's where it get's confusing: Loo Cast is a bit ambiguous, but I don't see a way around it (which I also like): "Loo Cast" primarily is the first-party game made inside the first-party engine "Spacetime Engine", but acquisition of that game also implicitly grants you full access to the entire Spacetime Engine, and you also gain full access to the Vapor Modding Ecosystem/SDK. Kinda like buying Half-Life 2 (or any firest-party source game for that matter) on Steam grants you access to both the Source Engine/Modding SDK, and the broader Steam ecosystem, yk?
+
+core_engine / core_mod / base_mod
+14. Should core_engine be described as “the type of thing Spacetime Engine is,” not necessarily always “the Spacetime Engine itself”?
+15. Should core_mod be described as “the type of thing USF is,” not merely a normal first-party mod?
+16. Should base_mod be described as “the type of thing Loo Cast is,” not merely an example gameplay mod?
+A to 14, 15, and 16: These are all concepts of the Vapor Modding Ecosystem/SDK, yk? These are all more like slots that our Spacetime Engine fills, yk? Aka even the engine itself has a fixed required project layout/structure, same as individual mods, or entire games, and yes, even the whole damn engine is following a strict sorta engine-protocol, yk? I am really trying to think beyond my game Loo Cast and my Spacetime Engine, yk?
+17. Does core_mod contain content, or is it better framed as foundational capability/content scaffolding?
+A: core_mod defined capabilities, base_mod uses them to/while define/defining assets (as rhai scripts, ALWAYS, aka no traditional assets in the colloquial sense), yk?
+18. Is base_mod currently allowed to expose variadic slots for gameplay/content mods?
+A: No. In the future yes, but right now it seems more like feature creep tbh..
+19. Should base_mod eventually become a singleton slot, or is that premature structure?
+A: Nah that is really good structure, and core_mod should be kinda basically the same (maybe statically instead of dynamically linked? idk)
+20. If USF is replaceable, what must replacement provide: scale contract, capability runtime counterpart, modding hooks, or just equivalent gameplay-facing foundations?
+A: Well, nothing really. If you replace the USF (which yes, is very synonymous with the entire Spacetime Engine, even though it is teeeechnically jsut one (extremely pivotal) module inside it) aka the Engine, you're really just left with the broad modding functionality of having the ecosystem, engines, games, and mods, as the only similarities to the first-party product-stack I intend to ship as "Loo Cast", even if that is a bit confusing as the first-party game "Loo Cast" is also a thing, but I don't care, as long as we make sure to be vigilant when it comes to pointing out inconsitencies and flaws disambiguities and writing disambiguations and shit, yk?
+
+Replacement Vs Additive Composition
+21. Is “additive-only” valid only after choosing a concrete modpack/composition root?
+A: More like that different mod ...*something* graphs and mod *something* subgraphs can each decide for themsevles, each node basically, whether we want additive-only or ""full-mutate""-kinda, yk?
+22. Should replacement happen by selecting a different slot owner, not by mutating/removing an already-registered definition?
+A: Basically: 1. Slots go beyond mods, aka a mod itself has a capability graph of slots kinda. Slot is a really abstract conceptual helper concept kinda, yk? Anyway... 2. Either we say "no, I don't want the official core_mod/base_mod/core_engine" and replace whatever we want with another thing (note the authority stack, aka a different custom engine might not even allow modding AT ALL in any capacity beside needing the core_mod and base_mod and core_engine for basic separation and encapsulation, yk?), oooooooor we make the thing that is registered into the slot dynamic in the first place, aka we plug in something like a multi-outlet with different connectors or variable amount of connectors or whatever, yk? Aka, either the Capability Node inherently implements Modding, allowing additive-only modification of it's "contents", but if the Capability Nodes does not ""implement Modding "" then we simply make it a thing that is intended to be replaceable, as in that these dynamic slots I mentioned a moment ago are like the Forge/Fabric Mod Loaders for minecraft: Rarely do you replace this with another thing, and if you do, it incurs a great compatability cost. These are not true slots, or rather, they are merely a different type of slot, while the latter actual slots are simply more  replacable exactly BECAUSE they are not moddable and are just either there, or someone else is, or noone is(if this slot is optional), yk?  "Slot" mechanics are complex and multi-faceted and multi-domain and just fuckling complex and unexplored and ambiguous, but helpful. Lol.
+23. Should “replace” be modeled as composition-time selection, while runtime remains additive/frozen?
+A: Yes, but both replace and additive are all just things inside the *runtime* composition-time which runs during ULTRA early runtime, yk? Basically, the entire modding ecosystem is just a way to structure code into a hierarchy from the smallest API modules as atomic blobs up to entire Games with entire modpacks or entire engines, yk? I am drifting a agin, sorry... Next question...
+24. Do you want explicit replacement policies like exclusive slot, variadic slot, ordered registry, optional provider, integration aperture?
+A: I think that's one of the more sexier things you've said so far. Yes, this does sound good, and I kinda don't wanna really elaborate on this cause of all the related stuff I already said, but suffice to say that further elaboration is required.
+25. Is “mod conflict” the wrong primitive, with “invalid capability/slot graph” being the real primitive?
+A: More like the capability graph, but yeah.
+
+Chunks
+26. Are chunks fundamentally USF ontology, USF runtime substrate, or both?
+A: Kinda both, but this also needs further elaboration before I can give a better, proper answer.
+27. Is a chunk a spatial address, a cache boundary, a generation unit, a simulation unit, or a realization unit?
+A: A chunk is a spatial address, a cache boundary, a generation unit, and a simulation unit and a relaization unit, but the relationships here are much more complex than that, with Phenomena being the true worldgen/state carriers and chunks only carrying sorta residual state that doesn't meet the threshold to be persistable into the actual phenomena, so chunks are kinda less important, which is confusing because they still represent the "First-Level" (Intra-Chunk Partitioning is "Second-Level") Spatial Partitioning system and thus are kinda more important than Phenomena living inside them as Entities, yk?
+28. Does every scale have chunks of 1000^3 scale-local units as a hard USF law?
+A: Yes.
+29. Are chunks nested exactly by scale, or can internal substructures violate that clean hierarchy for optimization?
+A: Chunks are nested exactly by scale. The scales are hard boundaries that ofc we wanna make appear smooth and continuous, but internally/mechanically chunks exist somewhere along a scale-integer-range, yk? But, yes, inside a Chunk, we can ofc implement for example a BSP, or a Octtree, or a SparseWhatever, yk? And those could ofc partition space howvere the fuck they want, as long as the chunks remain the "First-Level" Partitions, yk?
+30. Can chunks own temporary local truth before it becomes an entity-level event/message?
+A: Basically, yes? That's the idea. For highly insignificant and/or highly distributed state, yes. Concrete significant state (changes) should ofc be persisted inside Phenomena, NOT inside chunks.
+31. What threshold makes a chunk-local change “significant enough” to become canonical/entity-level?
+A: That's one of the functions each Phenomenon "Type/Impl" has to implement for itself, yk? But ofc, each Metric and known metric Combination/symbiosis should also implement some sort of Metric API so we can easily check stuff like "given this metric data for these metrics, has the state (change) significance threshold for phenomena-involvement been reached?" or whatever, yk?
+32. Are chunk internals allowed to use octrees, BVHs, grids, sparse fields, cellular automata, or arbitrary per-realizer structures?
+A: Basically, yeah. One chunk may be a BSP, the other a cellular automata. That is a big strength. Each chunk can dynamically cater to it's contents, adapting it's internals live, yk? Really powerful concept.
+33. Should chunk internal optimization be hidden behind Scale Realizer, Phenomenon, or a separate Chunk Realizer concept?
+A: This stuff should be what CHUNK is, directly, yk? No Chunk Realizer or Chunk Map or whatever, the internal spatial partioning structure IS the structure of a chunk, yk? Chunks should be dead simple generic containers, like a rust-std Vec on space-alien-steroids, yk?
+34. Is “chunk authority” a bad phrase because it suggests persistence authority, when you maybe mean “local operational authority”?
+A: I have no idea lol.
+
+Active Scale Policy
+35. Is active+above a hard USF invariant?
+A: Yes.
+36. Are below-active scales never simulated, or can they be analytically sampled/generated without becoming “active simulation”?
+A: Basically, yeah, the idea is that NEVER SIMULATED is a default, not an unbreakable rule, yk? So you CAN simulate detail, but it must be scoped, aka we must zoom into a specific region to inspect, we cannot just do a broad-level detail increase, cause each scale is still supposed to be wide enough in the exponential/loagrithmic scale-range to allow for a large range of local scale difference, yk? But ofc, we still need some sort of like layer below, like, at leeeeeast one detail scale below us must be simulated lazily at least. Like higher-scale scales above us too: Loaded into memory, but acts in a reactive way and work on a need-to-know basis, yk? Only the active scale actively ""emits first-class change authority"", yk?
+37. Are higher scales “simulated,” “paused,” “reactively updated,” or “contextually summarized”?
+A: Simulated, but time is scaled down exponentially (though maybe for practicality-reasons not a 1:1 match to the "native" base_10 exponential scale range, yk?), but otherwise this is as valid as the active scale, just more summarized/abstracted and covers a much larger region, and ofc the higher-scale stuff can still both act as an authority on the lower scales (current scale, or other higher scales between the high scale and the current scale), and lower scales (again, up until the current scale) can overflow with significance and need to wrap into the next scale, kinda like arithmetic with wrapping and all, yk?  Math really did inspire me here; I hope you can see what I mean by that.
+38. Does active scale mean one global player scale, or can different observers/entities have different active scale views?
+A: For now, for simplicity and sanity, let's assume a single chunk loader and player and USF primary observer an whatever; singleplayer. No chunk loaders. Makes sense, right?
+39. If multiple players exist at different scales, does USF support multiple active scale views?
+A: Out of scope.
+40. Is multi-observer scale divergence pre-alpha out of scope, or core enough to influence design now?
+A: Out of scope.
+
+Zones / DPT / ZLM
+41. Are zones dead as runtime ontology but maybe alive as authoring/classification convenience?
+42. Is DPT still useful as “metric container/sample field” if renamed?
+43. Is ZLM still useful as “metric-space classifier” if it no longer outputs ZoneType?
+44. Should ZoneType be replaced by PhenomenonRealizer selection, realization profile, behavior region, or something else?
+45. Was the real mistake “zones as authority,” not “classification regions exist”?
+46. Should the glossary mark zone-era docs as superseded-but-signal-bearing?
+A to 41, 42, 43, 44, 45, and 46: This is a really complex and underexplored topic and I strongly feel the need to answer this all in one big blob:  The problem with Zones in the traditional sense is that Phenomena are themselves zones and point-like zones, yk? A Phenomenon can either be spatially Localized or spatially Distributed, and ofc, a Phenomena that has is more of a region than a single point-like entity sounds an awful lot like a zone, doesn't it? See where I am going with this and have pretty much already arrived at? Do you see now why I find the entire concept of Zones kinda outdated and misaligned and just plain wrong? I think the framing is not horrible, but like, yk? The important part to realize also is that chunks (which naturally support Zones in the classic sense easily and flawlessly) are NOT world state or world authority in ANY capacity, they merely are the first step in spatially partitioning the world into.... chunks, yk? But the core ideas can still be applied, like as we've described Zone before and all, it's a good mechanism for a Phenomenon to describe how/when/what to generate details for itself and re-aggregate them on zoomöout. Ofc Zones help with that and the whole framing is probably reusable in a loooooot of ways, but crucially it's just different, with the chunks not really being something you're even supposed to think about as a programmer like 99% of the time, yk? Idk man, CLEARLY this topic/these topics also need further elaboration.
+
+Rhai And Capabilities
+47. Is Rhai declaration-first, but not declaration-only?
+A: Declaration-only, strictly, but it's a bit of a lie cause ofc we can declare a closure and then do logic inside that, yk? But in that sense, yeah, declaration-only.
+48. Are Rhai callbacks part of normal capability behavior, or rare advanced escape hatches?
+A: I don't wanna say "rare" like without any proof of that, but tbh your observations seems to check out with me and my intuition. I do think callbacks should be the most normal shit on the planet here, but ofc we still don't wanna throw em around willy-nilly if we can hardcode the actual logic and just parameterize/configure it, yk?
+49. Should scripts be allowed to express local policy logic if Rust owns heavy kernels?
+A: Absolutely, that's the core idea for how to make THE ALL-ASSETS-ARE-DECLARATIVE-RHAI-SCRIPTS idea even viable, yk?
+50. Is the phrase “scripts do not orchestrate lifecycle” correct, or should it be “scripts do not own lifecycle scheduling”?
+A: The latter does sound a bit better, cause yes, ofc scripts can change stuff and influence stuff and whatnot, even lifecycle-level stuff like cancelling/consuming a hook aka message aka event? But like yeah we do NOT want scripts to have any say in what schedules fundamentally exist and how they are fundamentally scheduled (but ofc that scheduling anbd whatnot CAN allow extensability and configurability and parameterization, yk?).
+51. Should capability roles include authority, reconciler, realizer, bridge, or mutator, beyond input/output?
+A: I have nooooooo idea lmao.
+52. Where exactly does canonical mutation authority live: capability runtime, USF runtime, specific authority capabilities, or reconcile/commit/apply layer?
+A: I.... also don't have a clue lol.
+
+Failure Doctrine
+53. Should startup invalidity hard-fail the game process, but not crash the launcher?
+A: Yes, exactly.
+54. Should runtime invariant violation panic immediately even in user builds?
+A: Yes.
+55. Should save/load paths have special corruption-avoidance behavior even while fail-fast remains doctrine?
+A: Yeah. The basic idea is to just do a save/backup every few minutes, and thus we can by design never lose any progress beyond a few minutes, plus we still disallow bugs from causing mayhem. If something goes wrong in a way that is truly not fixable, then just panic. Even saving/loading at that point COULD become or already BE corrupted, so yeah, hard-fail and frequent auto-saving seems like the best solution rn.
+56. Do you want “panic-fast” or “fail-fast” as the doctrine term? They imply different UX and implementation details.
+A: I have no idea.
+57. Should authoring diagnostics be friendly while runtime integrity failures stay brutal?
+A: Basically? A rust philosophy, right?
+
+Roadmap
+58. Is Phase 2 really “crystallize the doctrine enough to stop poisoning implementation,” not merely “plan mod/framework contracts”?
+A: I suppose so? Sounds like a good framing for Phase 2.
+59. Should Phase 3 prove launcher -> modpack -> core_mod/USF -> base_mod/Loo Cast minimal loop?
+A: Yes, exactly. So we basically got Phase 2: Unify Docs/Planning/Graphs/Glossary/Legacy-Code and all kinds of signals into a coherent framework/contracts/yk? And Phase 3 is then the actual lik MVP excluding the USF-specific MVP and just using a placeholder, and then I suppose Phases 4 and onward could tackle actually implementing the USF and Loo Cast, and yeah.
+60. Should USF chunk/scale proof happen before broad capability platform, or does capability platform need to exist first?
+A: I think chunk stuff is complex enough and capability stuff is also complex enough and chunks depend heavily enough on the capability stuff to make it kinda viable to implement capability stuff now, buuuuuuut I wanna emphasize that the capability stuff is kinda defined by implementing/satisfying ecosystem contracts, and an engine or a game or a mod "merely" extends the entire capability structure with capability-sorta-primitives, aka like we want to have a heterogeneous graph of capabilities which's structure and like the types of Nodes are defined BY capabilities, like, yk? Capabilities form a graph, a hierarchy of sorts,  and chunks and other USF shenanigans and other stuff play a pivotal role in how we define and structure and use capabilities specifically in regards to more specific stuff like the USF, but like, we want the ecosystem to define traits and wahtnot to make it easy and standardized to create a capability graph totally tailored to aour specific setup, yk? The ecosystem-level introduction of the concept of "Capabilities" should allow total freedom in how we use it only requiring core functionality/types/data/whatever like the Hash, Debug, Display, etc. traits which are all nicely reduced into even a single function just, yk? Crazy shit man. But like, after having rambled for so long now, once more lol.... would you say this makes sense to you? Cause god almight ywas this one a big ass brain vomit again lol.
+61. Which is the first vertical slice that would make you believe the architecture is real?
+A: What you described in Phase 3, the "prove launcher -> modpack -> core_mod/USF -> base_mod/Loo Cast minimal loop" even if the capabilities and gameplay consist of essentially just a hello-world on steroids, but yeah, yk?
+62. What concept, if wrong, would invalidate the most downstream work: chunks, capabilities, mod slots, Rhai, or active-scale policy?
+A: Capabilities for sure, cause they kinda ARE the overarching contract-substrate between actual stuff like Engines, Games, Mods, althoooough it must be said that the Modpack->Mod->Module->Members kinda stuff is NOT how we do this, cause that stuff describes artifacts and shit and how the launcher configures stuff, but an Engine, a Game, and a Mod in the capability sense are the actual in-memory working running program being able to do certain things, yk? Does hat make sense?

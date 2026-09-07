@@ -1,0 +1,184 @@
+Capability / Slot Semantics Pass
+
+NOTE: This batch is for pressure-testing and correction, not doctrine production.
+Answer in order, in chunks, or in topic blobs. If a question is malformed, say so directly and explain the better
+framing.
+
+Capability Bedrock
+1. Is a Capability primarily a runtime graph node, a contract surface, an API surface, an authority surface, or a single concept intentionally spanning all of these?
+A: A single concept intentionally spanning all of these.
+2. Should "Capability" be allowed to mean both a type/category of ability and one materialized runtime instance of that ability?
+3. If we need two terms, should they be "Capability Type" and "Capability Instance", or is that old framing misleading?
+A: Wellllllll, yesn't? Like, yes, a capability is supposed to be able to itself BE a type/category of (cap-)ability, BUT crucially, one capability cannot be it's own type, that's a circular dependency. But, non.circular "dependencies" are what actualla kinda form (part of) the capability graph, yk? I hope that framing helps.
+4. Is a Capability always addressable by a stable identity/path, or can some capabilities be anonymous/internal implementation nodes?
+A: Ah, good question. Hm. I suppose anonymous/internal implementation and usage may be permitted, but idk, this should be an exception only for internally orchestrating exceedingly large and complex modules/capabilities, yk? But even then, I don't think anonymity is a good idea.... no, don't allow anonymous capabilities, but private/internal as opposed to public is okay. We can even fully adher to rust's visibility modifier semantics with `in super` and `in crate` variants, yk?
+5. Is every meaningful orchestration seam supposed to be represented as a Capability, or only seams that cross package/language/product boundaries?
+A: I think my previous answer answers this as well and leans towards *a lot* of meaningful orchestration seams bing represented as a Capability, yk? Not EVERY little thing, but the larger structure and architecture or whatever, ofc, yk? It's kinda just not as blck-or-white as your question made this out to be, yk?
+6. Can a Capability exist entirely inside Rust with no Rhai declaration surface?
+A: Yes! Rhai ITSELF is a capability! Yk? Extremely pivotal question (and answer!), but yeah, there ain't much to say. I said what I said. But this SURELY needs further exploration.
+7. Can a Capability exist entirely as a Rhai declaration with no custom Rust implementation beyond generic host support?
+A: No, not really. For that rhai would need access to very fundamental and low-level functionality and data and all, and I am simply not willing to make rust expose every little bit as a capability, yk? Rhai can add and subtract integers or do other simple stuff on it's own, and it really shouldn't be doing anything else beside that stuff on it's own anyway. So, I suppose I coulda foregone all this babblign and just told you plain and simple that the answer is: No.
+8. Is "Capability == ABI-ish protocol surface" a useful phrase, or does it overstate the ABI analogy?
+A: Sounds about right.
+9. Should capabilities be considered part of Vapor even when implemented by Spacetime, Loo Cast, or a third-party mod?
+A: Well, yeah, in the sense that Vapor is one gigantic thing that defined what it even means for a Capability to be just that: A capability. Yk? I mean yeah we can totally rework an experience in roblox for example, while we still fundamentally have to use roblox primitives (generic primitives in our case, cause rust has superpowers over roblox with it's lua, pfffft, lol), yk? In that sense, cpabilities always need to like define metadata I suppose, metadata which is always in the same established format, the Vapor Specification for Content Creation, yk?
+10. What is the smallest example of a real Capability that is not USF-specific?
+A: Printing to the console, or maybe a biiiiit more generalized like printing output, or logging, idk like what abstraction level is useful, but yk what I mean? Or getting config values from a specific format of config values, like... a config system god damn it , lol. Or like "core" stuff, aka the whole app startup could be a capability in itself, yk? Capabilities as basically metadata-wrapped plain functions and data mostly, yk? Like, in rust we can easily represent an entire bevy App for example with ONE type, one single type, without any side effects needed to make use of that type. My vision is just to extend that flexibility by adding metadata so we can have a sort of abstract semantics tree so we can reason about who does what and why and with what authority or like..... idk I am drifting again, sorry!
+
+Capability Graph Shape
+11. Is there one global capability graph for a running process, or many related graphs projected from package, engine, game, mod, and runtime scopes?
+A: The projection part is not wrong, but yes its one big global graph in the running core_engine process.
+12. If there are many graphs, is "the capability graph" the resolved runtime graph after composition?
+A: Nah. Well, I see what you *may* be hinting at: The actual runtime capability graph, and the raw capability metdata, might not be the same graph. In fact the metadata may (likely) not even be a graph but probably more like a simple linear registry, yk? Idk, that is ofc a split I can imagine, b ut the actual capability runtime graph is one gigantic thing, which should ofc allow heavy multi-threaded access and all, cause like EVERYTHING should go through it, yk?
+13. Is the graph allowed to be cyclic after resolution, or are cycles always invalid?
+A: Oh noooo, graph cycles indicate a bootstrap paradox, which only the root node can resolve by being the root node, yk? And even then it's not reeeeeally a cycle but a 0-length path. Whatever, I hope that made sense.
+14. Are dependency edges, slot edges, API exposure edges, and authority edges all the same edge type with policy metadata, or distinct edge kinds?
+A: I honestly don't have a clue right now.
+15. Should graph nodes be allowed to contain private subgraphs that are invisible outside the node's exposed surface?
+A: Yeah, but ofc this should be kinda discouraged as a default/rule, cause this only feels justified for complex capabilities and umbrella-capabilities and stuff for organization and all yk, but like """leaf-y""" nodes shouldn't reeeeeally contain private subgraphs, which now that I think about it kiiiinda is what defines a leaf, lol. So I suppose the answer is: Yes.
+16. Can a node expose multiple capability surfaces at once, or should one node map to one exposed capability identity?
+A: One node an LINK a virtually unlimited amount of other nodes, buuuuuuth yes, one node should equal one capability, and larger sets of capabilities or single capabilities with high parametrization should be categorized together, yk? Like how I don't just write 50 functions and 25 types, but cretae a module and maybe submodules and then I put those functions and types in there, for example, yk? So, I suppose the idea is more that one node be of whatever TYPE it wants to be, thus effectively allowing us to just create custom types with custom dependencies/dependants configuration  (aka what dependencies and types of dependencies we have, and what dependants and types of dependents we can have), yk?
+17. Are composite capabilities first-class nodes, or just named views over several primitive nodes?
+A: first-class nodes. That's the idea also like: the capability graph is not only very distributed as a graph and like meant to be a highly multi-threadable data structure, but also it should allow for a fairly large heterogeneity, as in we do want to allow nodes to define different types of nodes or "capabilities" and then also have dependants slots (singleton, variadic, fixed >1 count, whatever) be able to actually use those as types of slots/capabilities/nodes (all three are different views of the same data really, yk?), but ofc a capability can only use types of dependants defined by it's dependencies, not by itself. Kinda like how in rust for kiiiiiiinda the same reason I think, you cannot have your proc macros in the same crate that you use em in, yk? Emphasis on "kinda", lol.
+18. Can a composite capability own policy that its child capabilities do not know about?
+A: I mean, yes? Like, a composite capability really is like ANY capability that does not directly map to a native rust function or whatever, yk? composite capabilities should be some mechanism or like set of mechanism or rather a trait contract maybe? Idk, but composite capabilities should be absolutely first-class capabilities able to do whatever the fuck they want, yk? But, ofc, we want *types* of "capabilities"/"nodes"/"slots" so we can enforce constraints, like yk, the slots are typed, yk? It's like..... the capability graph is a macro-generated-metadata-powered unified graph over a rust crate graph and a rust module/member graph/AST/kinda-something-like-that, one that we can reeeeeelatively easily then bind into rhai (or any other supported scripting language in the future) and use that to do stuff in a simpler more dispatch-y script-y fashion, yk?
+19. Should a module tree and a capability graph be literally the same graph, or just two projections of the same underlying composition data?
+A: I mean, we do wanna like decide what is public and private and all, but a ton of this seems extractable from code or supplyable into a macro without much annoying boilerplate or any hassle, yk? So I kinda think the answer is yes, but I think my caution is justified cause this is a complex question/issue.
+20. Is the artifact hierarchy (`package -> modpack -> mod -> module -> file/member`) ever allowed to define runtime authority directly?
+A: What do you mean exactly? Like, if I understand you right: Yes, ofc, it just cannot remove or alter this core structure and with core_engine and core_mod and base_mod and all, but ofc we can add onto that howeeever we want, yk? We just cannot remove or interfere (to some degree, inteferrence/side-effects cannot be 100% guaranteed or avoided ofc) with the core spine of a Vapor product stack, namely/mostly the three core reserved crates/crate-names, yk?
+
+Slots As Graph Edges
+21. Is "slot == capability graph edge with policy" good enough as the working definition?
+A: Meh. I think my previous answers make this question unneccessary.
+22. If not, what is the minimum missing part: ownership, cardinality, type constraint, lifecycle phase, compatibility policy, or authority transfer?
+A: Not quite sure what you mean here.
+23. Is a slot owned by the provider node, the consumer node, the parent composition root, or the Vapor runtime?
+A: A slot is ofc owned by a node, and represents a child node in a way, yk? And the node itself sits in some other node in some kind of slot of it, and that node is your parent then! Yk? So yeah there is a clear parent-child relationship here. Does that answer help?
+24. Is slot filling always composition-time, or can a slot be intentionally runtime-dynamic after the Runtime Lock?
+A: Well, that in itself is then more a capability that is just a registry for example, yk? Like, runtime-dynamism is achieved by the fact that capabilities can be comprised of any sort of rust-based kernel, and these rust kernels can ofc do virtually anything given the right context data/functions, yk? But the like slot mechanics as in capability graph nodes are slots and all, yeah that stuff absolutely 100% unequivocally happens at composition-time at super-early runtime, yk?
+25. Is a filled slot itself a capability, or just an edge between capabilities?
+A: Nono it IS a capability. A slot generally just accepts one concrete node/capability type and is just a sort of policy really like "and expect exactly one instance of it" or "expect one or more instances of it" or "expect zero or more instances of it" or "expect exactly seventeen instances of it" or like, yk? Just, one type per slot, and a node cannot have itself as a slot type, neither as a dependency nor as a dependant.
+26. Can slots nest recursively without any special-case limit?
+A: No. I mean yes, but not of the same type ofc. And also, not only not the same type, cycles in general are disallowed, but deep recursion is, well allowed, but ofc we shoiuldn't really go beyond like a dozen or a few dozen at the veeeeeeeery least, cause like that has to be enough recursion to map out any rust codebase in terms of a capability graph for suuuuure, right?
+27. Can a capability node define its own internal slot semantics that differ from Vapor defaults?
+A: I feel like due to my previous answers to previous questions this is now a non-sensical question. But I might also be misunderstanding the question to be completely honest with you.
+28. If a node defines internal slot semantics, must it still expose those semantics as Vapor-readable metadata?
+A: Yes, absolutely. If not, why even use the damn mechanism and not just have it be one or more util functions/types/whatever, yk?
+29. Are exclusive slot, variadic slot, ordered registry, optional provider, and integration aperture distinct slot policy classes?
+A: Well, yeah, but idk if all of them make sense and whether the list is complete and yk?
+30. Should those policy classes be formal names in the glossary now, or remain pressure vocabulary?
+A: Unsure.
+
+Slot Policy Semantics
+31. Does an exclusive slot mean exactly one provider must fill it, or at most one provider may fill it?
+A: The problem is that "exclusive" and "variadic" and "ordered registry" and so on are all mumbo-jumbo concepts that are not clear enough, yk? So I understand the confusion, but idk quite how to answer right now cause of all the stuff I already said, yk?
+32. Does an optional provider mean zero-or-one provider, or zero-or-more providers where absence is valid?
+A: Same as 31.
+33. Does a variadic slot imply unordered multi-provider composition unless paired with an ordering policy?
+A: Same as 31.
+34. Is an ordered registry just a variadic slot with deterministic order, or does registry imply lookup/query semantics beyond ordering?
+A: Same as 31.
+35. Is an integration aperture a deliberately exposed place where third-party content can attach without replacing the owning node?
+A: Same as 31.
+36. Does replacement mean selecting a different provider for an exclusive slot before lock, not mutating the chosen provider after lock?
+A: Replacement means that somewhere, something is there, whether it has to be or not, and we replace with with a different thing of the same type. Easy as pie, yk?
+37. Are additive modding and replacement both just slot policies under the same graph model?
+A: Basically?
+38. Can a slot policy allow destructive/full-mutate behavior inside a subgraph while the outer graph remains locked?
+A: Yes. The additive-only stuff is only for the core architecture doing mods, aka like modding of an existing core_engine, core_mod, and/or base_mod must be additive-only, but ofc those third-party mods cna then do whatever the fuck they want, yk? It's just that I, at this highest-of-all abstraction levels would not like to have this removability/mutability, yk?
+39. If yes, is that still "runtime locked" because the mutation is sanctioned by a locked policy?
+A: Oh yeaaaaaah absolutely, if mutation does happen, it still happens at composition time, exactly.
+40. Should runtime graph mutation be forbidden by default and allowed only through explicit dynamic-slot policies?
+A: Yes, exactly what I was kinda getting at in my answer to question 38, I think.
+
+Engine / Game / Mod Fixed Points
+41. Is `core_engine + matching core_mod` best modeled as one Engine fixture with two artifact parts?
+A: Yes.
+42. Should `core_mod` be called a slot occupant at all if it is hard-required for its matching `core_engine`?
+A: Yes, barring that the whole slot/capability/node terminology is weird and undecided and unclear still.
+43. Is `base_mod` a slot occupant because Game is a replaceable Vapor-level concept?
+A: Yes!
+44. Is "Game slot" the right term for the required singleton `base_mod` position?
+A: More or less, preliminarily, yes.
+45. Can `core_engine`, `core_mod`, and `base_mod` all expose modding/extension slots without themselves becoming replaceable in the same way?
+A: Yes, but not "without themselves becoming replacable in the same way" cause... they kinda are replacable in the same way, it's just... yeah idk, you're kinda right I guess, but I hope you can see why this is a bit ambiguous (still?), yk?
+46. Should first-party `core_mod` extension slots be strongly discouraged but structurally possible?
+A: Well, definitely not strongly discouraged, just a last-resort in some sort of range/space/level that you can work in, yk what I mean?
+47. If a non-Spacetime Engine ignores most of the capability model, what minimum Vapor bootstrap capability must it still provide?
+A: That is hard to say right now, cause the whole runtime structure and how bevy/ecs is integrated and all of that stuff is still (somewhat intentionally) very fluid still, yk?
+48. Can a non-Spacetime Engine have no Game slot, or is Game a required Vapor concept for anything launched as a playable product?
+A: Game is indeed required, same as the basic modding scheme and all.... I think I got the answer to question 48 inside this answer actually: Capabilities ARE the coherent cross-product-stack structure that is shared across projects, yk? Kinda like how a rust crate ALWAYS uses some conventions and shit that are the same, but ofc that does not magically make bevy and tokio compatible and work together like one crate designed to make these two work together or sum, yk? Bevy is not a dependency or dependant of tokio, and neither is tokio of bevy, but still they follow some underling rules that allow some interoperability, yk? It's just that my stuff is more extensive and overarching that rust's """module/member tree"""(not really sure what I mean by that tbh, lol).
+49. Is a modpack a Vapor composition artifact that selects an Engine and Game, or only a Game-level composition artifact under an already-selected Engine?
+A: Nono it selects an engine, a game, and then mods for both the engine and the game, and ofc with dependency semantics to catch any conflicts or cycles or other weird shit early on, yk?
+50. Should Phase 3 prove Engine/Game fixture semantics before proving arbitrary third-party mod composition?
+A: Nah, I do think we wanna have Phase 3 be like a hello world, but with superfluous "enhancements" and "improvements" to test whether modding and all works properly, yk? Like I just want it to print text and like do that in a complex-enough way that we cna clearly see whether the full thing works as intended and is configurable and all, or not, yk? We don't wanna leave "arbitrary" third-party mod composition on the table and let it get stale, it has to be proven in Phse 3 as well; the full stack! Phase 4 then should focus on working on the USF actually, yk? And so on, whatever.
+
+Authority And Execution
+51. Is canonical mutation authority definitely outside capabilities, or can a capability own an authority token that the host executor honors?
+A: That's the whole idea behind capabilities in the first place lol. To be something that emits intents, and the host executor `reconcile/commit/apply`'s those intents, yk?
+52. Is "capabilities relay requests" correct, or do some capabilities directly perform pure/read-only computation?
+A: Yes, cause else, it's just a "direct"(as direct as rhai->rust can be) function call, yk? But like, ofc capabilities can do anything that rhai permits, and I do intend to provide a sort of standard library, one, and/or others for localized/contextual/scoped API, but yeah, I do want some sort of global api stuff to allow rhai to do some stuff ofc, implement some simple algorithms and shit. Yes, ofc I want to allow that. I just simply don't want rhai crunching the big numbers or orchestrating loops and shit, yk?
+53. Should the reconcile/commit/apply layer be a named capability, a runtime service, or outside the capability graph?
+A: Outside the capability graph, hinting at what a capability type might need to implement to be a fully functiong and informed working "Capability", yk?
+54. Is "authority capability" a bad term if capabilities do not mutate canonical state directly?
+A: Eh, I mean, yes, but also no, cause leaf capabilities should theoretically only ever be exactly that: A direct binding to rust function(s) and/or type(s), yk? And then all other "branch" capabilities just branch/compose, depending on whether you look top-down or bottom-up, but yk?
+55. Should authority be modeled as a role, a slot policy, a graph edge property, a runtime token, or a separate concept?
+A: I really don't know, cause for me, here, right now, authority is still a very vague term.
+56. Do input/output capability roles still help, or are they now actively misleading?
+A: I thiiiink they are misleading and make it seam like there are only two types of nodes/roles. What I think I was hinting at was that each node only has two slot "roles": "input" and "output", aka "dependencies" and "dependants", lol. Certainly *a* way to look at it, lol.
+57. Should roles like authority, reconciler, realizer, bridge, and mutator remain open pressure terms?
+A: Yeah, those are all very wibbly-wobbly still.
+58. Is a mutator capability possible if mutation is actually executed by host reconcile/commit/apply?
+A: That's what leaf capabilities ARE(or can be tbf, could also jus be a truly immutable/readonly sorta capability I suppose), yk?
+59. Are event/message/hook systems capabilities, slot policies, runtime services, or all depending on layer?
+A: Capabilities. The whole ECS-capability-integration is just capabilities. Core ethos: EVERYTHING IS CAPABILITIES! Yk? Not literally everything, but yk? But, to be honest, the most honest answer to this question is: All depending on layer.
+60. Should hook consumption/cancellation be modeled as authority granted by a capability path mask?
+A: Not really. More like, a hooks/events/messages/whatever should be a capability in itself, and that should be defined such that it simply allows cancellation via callback return value(s), yk? Easy as pie really.
+
+Rhai / Declaration / Projection
+61. Is one Rhai declaration file still exactly one Capability Declaration, now that Rhai declaration files are also Assets?
+A: Yeah, exactly. An asset is kinda also a capability, yeah. All Assets are Capabilities, and all Capabilities are Assets, yk?
+62. Can one Rhai Asset declare several capabilities, or should it declare one top-level asset/capability that may contain sub-declarations?
+A: One top-level asset/capability that may contain sub-declaration in the form of intra-file-structure is totally fine by me. As long as one file represents one node, even if not a leaf node,m although files being leaf nodes is highly encouraged, although I also expect mod.rs-like files for folder-modules or in our case folder-capabilities/folder-assets, but yeah. Did that brain vomit make sense to you?
+63. Is a Rhai callback part of the declaring capability, or a separate callback capability linked by policy?
+A: I am not quite sure what you mean and whether it (still) makes sense, yk?
+64. Should callback profiles be slot-like attachment points?
+A: Yeah, exactly, yeeees. *Typed* attachment points! Yes! And that also seems to hint a tiiiny bit at least at how slot "roles" might actually work and look like and all, yk?
+65. Should declaration-entry `ctx` and callback `ctx` be modeled as two projections of the same capability graph?
+A: Yeah, and actually, I suspect thgat we may want to have a generalized way to generate these selective projections of specific sets of subgraphs(everything apart from the root is a subgraph, just to be clear here), yk?
+66. Is path-mask allow/deny policy a capability feature, a script-profile feature, or a projection-runtime feature?
+A: Assuming I understand what you mean, especially regarding "path-mask": A capability feature, as in a capability knows whether the rust code it contains can even be public(aka is declared `pub(whatever)`) and is also intended to be public and to what degree and such and encodes all of that in the capability metadata, yk?
+67. Can Rhai declarations request capabilities that are not yet materialized, or only capabilities already exposed by the bootstrap graph?
+A: We want to kinda scan-construct the graph layer by layer, so we can guarantee that any needed dependencies are fully registered and initialized and ready to mingle, yk?
+68. Is fixed-point capability bootstrap required for Phase 3, or can Phase 3 use a simpler single-pass bootstrap?
+A: What?
+
+Conflict / Validation / Diagnostics
+69. Is "mod conflict" still a user-facing diagnosis even if the primitive is invalid capability/slot graph?
+A: it seems like the user-facing diagnosis needs to be a separate sorta report consturcted from the raw problem and what type of problem it is, cause yes, the user doesn't wanna knoiw about the capability graph and shit, they wanna know if for some reason sex_mod and better_trees_mod conflict, yk? Sorry for being so blunt, lol.
+70. Should explicit mod-wide conflicts exist only as author-friendly metadata layered over graph validation?
+A: Holy shit did you just predict my answer to question 69 lmao. Nice. So, it goes without saying: Yes!
+71. Should invalid graph errors report in graph terms, product terms, or both?
+A: Depends, does it happen in production in user-facing land, or in debug/dev mode? Yk? Devs want the details, the players want the general idea and what they can do about it without learning to program lol.
+72. What are the first hard-fail graph errors Phase 3 must detect?
+A: Not quite sure? Like, what do you mean? Like, I think that's obvious? Cycles, and that's basically it. We can also declare explicit `std::hint´-esque hints that nodes could conflict, so I guess we also want to check that no conflicts are present, and yeah, isn't that basically it? Like, yk? or were you getting at something larger than simple DAG invariants?
+73. Should missing required provider and duplicate singleton provider be the first two validation proofs?
+A: Aaaaah now I see what you mean..... hm, yeah I see, we wanna have these things like "singleton" or "ordered registry" or whatever the fuck be proper fully fleshed out built-in *types of types* of capabilities, yk? """Capability Type Templates""" if you will. So yeah, those things sound like things we'd wanna check but mind the organization (or lack thereof) cause yk? It's a small little topic in itself, these capability type templates and from what basic primitives they are consturcted (some of which are themselves incompatible and conflcit with each other), yk? It's funny how this sorta meta-layers mirrors the structure of the actual stuff so naturally.... hm... anyway.
+74. Is deterministic provider order required for every multi-provider slot before Phase 3 can count as real?
+A: Noooo ofc not. It should mirror the ability of native rust types somewhat: Be just an array, or a single thing, or a Vec, or a Vec with a minimum/maximum/whatever count of elements, or a tuple, or a struct with named fields, or an enum, yk? Like pattern matching and all kinda, I am kinda imitating rust in a lot of ways here, yk?
+75. Can user-selected load order exist, or should all ordering be graph/topology/policy-derived?
+A: Everything automatic. Either it works and is compatible, or it is not and the user can't do shit about it. The value lies in the effort to prevent conflicts in the first place and call them out early and make them explicit and clear and semantically anm expected mode and not like a monke wrench thrown into a running engine, yk?
+76. Should the launcher expose slot/provider selection directly, or hide it behind package/game/modpack choices for Phase 3?
+A: Well, as I said before, we want a kind of projected/abstracted/simplified sorta graph/thing we can use to assemble modpacks/experiences/whatever, and that stuff could for example not choose individual files or folders within a mod, you, as the user/modpack-author could only assemble and drag--and-drop basically existing packaged mods, yk? You cannot inspect mods and rearrange their guts, but ofc the mods can expose ways to support addons and mods for themselves and all, and that should be what the modpack-author interacts with, decidiong what mods work together and then figuring out how the mod author implemented moding, and yk? Like, does that make sense?
+
+Roadmap Pressure
+77. Is the Phase 3 MVP better described as "Vapor package launches an Engine fixture and Game slot"?
+A: Mooooooooore or less, yes, but please refer to my hello-world-on-steroids proposal, I think that pretty neatly answers this question.
+78. What is the smallest hello-world-on-steroids capability proof that would make the architecture feel real?
+A: Hard to say, but maybe we could try and generate a content fingerprint which somehow concatenates the entire user/modpackAuthor-facing capability graph paths into one big string/plaintext-file which describes the whole setup, and that should get then printed, by the launcher, or core_engine, idk tbh.
+79. Which false assumption would poison the most downstream work: slot ownership, capability identity, authority location, graph layering, or Rhai declaration cardinality?
+A: The biggest problem is I think that we focused a biiiiiiiiiit too hard on one topic and as a result I kind of ended up skipping a lot of questions or kinda half-assing an answer cause I didn't know what to say cuse previous answers had made those questions obsolete or useless or senseless or whatever, yk?
+80. After this batch, should the next pass produce glossary changes first, or a Phase 3 vertical-slice spec first?
+A: First the glossary changes, then the plan for phase 3, which, to be honest, might even require one OR MORE question batch iterations before we can truly lock in Phase 3, and don't forget Phase 2 lol, but ofc we're in the middle of Phase 2 right now tbf.
+
+PS: I LOVE this format with like a big fat question batch, and I want this incorporated into AGENT.md so we can properly standardize this format, cause this format of "AI does deep reivew/context-acquisition, then it poses a ton of questions, then I answer them, then give them to the AI, integrate it in cooperation with the AI, and then rinse and repeat" REALLY resonates with me as a DEFAULT framework for how the AI should work, yk? Also....... the AGENT.md kiiinda needs a general trim, yk? It's a bit complex and misdirecting/misguided in some specific places, yk? Not everywhere, but still somewhere.

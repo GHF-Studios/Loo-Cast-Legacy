@@ -1,3 +1,8 @@
+DO NOT TRUST ANYTHING BEYOND THIS POINT. Legcay stuff.
+
+
+
+
 # Loo-Cast
 
 Loo-Cast is currently developed in the `loo_cast_alpha/` subtree. That subtree contains the active Rust workspace,
@@ -18,12 +23,13 @@ for current implementation decisions.
 ## Quick Start (Active Alpha Workspace)
 
 ```bash
-cd loo_cast_alpha
 cargo xtask setup_sdk
 cargo xtask build
 cargo xtask run
 cargo xtask audit
 ```
+
+`cargo xtask ...` works from repository root via root-level alias shim and also works from inside `loo_cast_alpha/`.
 
 ## Docs Entrypoints
 

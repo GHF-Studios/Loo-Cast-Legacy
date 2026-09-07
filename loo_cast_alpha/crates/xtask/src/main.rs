@@ -24,8 +24,8 @@ use crate::commands::run::run;
 use crate::commands::setup_sdk::setup_sdk;
 use crate::utils::build_target::BuildTarget;
 use crate::utils::profile::Profile;
+use crate::utils::runtime_binary::RuntimeBinary;
 
-const CORE_ENGINE_CRATE: &str = "core_engine";
 const XTASK_CRATE: &str = "xtask";
 const LINUX_RELEASE_TARGET: &str = "x86_64-unknown-linux-gnu";
 const WINDOWS_RELEASE_TARGET: &str = "x86_64-pc-windows-msvc";
@@ -39,38 +39,63 @@ fn workspace_root() -> Result<PathBuf> {
         .with_context(|| format!("failed to resolve workspace root from CARGO_MANIFEST_DIR='{}'", manifest_dir.display()))
 }
 
+fn parse_task_and_flags() -> Result<Option<(String, bool)>> {
+    let mut task: Option<String> = None;
+    let mut launcher = false;
+
+    for arg in env::args().skip(1) {
+        match arg.as_str() {
+            "--launcher" => launcher = true,
+            _ if arg.starts_with("--") => bail!("unknown xtask argument '{arg}'. Use `cargo xtask help`."),
+            _ => {
+                if task.replace(arg).is_some() {
+                    bail!("xtask takes exactly one task argument");
+                }
+            }
+        }
+    }
+
+    Ok(task.map(|task| (task, launcher)))
+}
+
 fn main() -> Result<()> {
     let sh = Shell::new().context("failed to create shell")?;
     let root = workspace_root()?;
     sh.change_dir(&root);
 
-    let mut args = env::args().skip(1);
-    let Some(task) = args.next() else {
+    let Some((task, launcher_mode)) = parse_task_and_flags()? else {
         print_help();
         return Ok(());
     };
-    if args.next().is_some() {
-        bail!("task '{task}' does not take extra arguments");
+
+    if launcher_mode {
+        match task.as_str() {
+            "build" => build(&sh, Profile::Fastdev, BuildTarget::Host, RuntimeBinary::Launcher)?,
+            "package" => package(&sh, &root, Profile::Fastdev, BuildTarget::Host, RuntimeBinary::Launcher)?,
+            "run" => run(&sh, &root, Profile::Fastdev, RuntimeBinary::Launcher)?,
+            _ => bail!("'--launcher' is only supported for 'build', 'package', and 'run' default tasks"),
+        }
+        return Ok(());
     }
 
     match task.as_str() {
         "help" => print_help(),
-        "build" => build(&sh, Profile::Fastdev, BuildTarget::Host)?,
-        "build_dev" => build(&sh, Profile::Dev, BuildTarget::Host)?,
-        "build_fastdev" => build(&sh, Profile::Fastdev, BuildTarget::Host)?,
-        "build_release" => build(&sh, Profile::Release, BuildTarget::Host)?,
-        "build_linux_release" => build(&sh, Profile::Release, BuildTarget::LinuxRelease)?,
-        "build_windows_release" => build(&sh, Profile::Release, BuildTarget::WindowsRelease)?,
-        "package" => package(&sh, &root, Profile::Fastdev, BuildTarget::Host)?,
-        "package_dev" => package(&sh, &root, Profile::Dev, BuildTarget::Host)?,
-        "package_fastdev" => package(&sh, &root, Profile::Fastdev, BuildTarget::Host)?,
-        "package_release" => package(&sh, &root, Profile::Release, BuildTarget::Host)?,
-        "package_linux_release" => package(&sh, &root, Profile::Release, BuildTarget::LinuxRelease)?,
-        "package_windows_release" => package(&sh, &root, Profile::Release, BuildTarget::WindowsRelease)?,
-        "run" => run(&sh, &root, Profile::Fastdev)?,
-        "run_dev" => run(&sh, &root, Profile::Dev)?,
-        "run_fastdev" => run(&sh, &root, Profile::Fastdev)?,
-        "run_release" => run(&sh, &root, Profile::Release)?,
+        "build" => build(&sh, Profile::Fastdev, BuildTarget::Host, RuntimeBinary::CoreEngine)?,
+        "build_dev" => build(&sh, Profile::Dev, BuildTarget::Host, RuntimeBinary::CoreEngine)?,
+        "build_fastdev" => build(&sh, Profile::Fastdev, BuildTarget::Host, RuntimeBinary::CoreEngine)?,
+        "build_release" => build(&sh, Profile::Release, BuildTarget::Host, RuntimeBinary::CoreEngine)?,
+        "build_linux_release" => build(&sh, Profile::Release, BuildTarget::LinuxRelease, RuntimeBinary::CoreEngine)?,
+        "build_windows_release" => build(&sh, Profile::Release, BuildTarget::WindowsRelease, RuntimeBinary::CoreEngine)?,
+        "package" => package(&sh, &root, Profile::Fastdev, BuildTarget::Host, RuntimeBinary::CoreEngine)?,
+        "package_dev" => package(&sh, &root, Profile::Dev, BuildTarget::Host, RuntimeBinary::CoreEngine)?,
+        "package_fastdev" => package(&sh, &root, Profile::Fastdev, BuildTarget::Host, RuntimeBinary::CoreEngine)?,
+        "package_release" => package(&sh, &root, Profile::Release, BuildTarget::Host, RuntimeBinary::CoreEngine)?,
+        "package_linux_release" => package(&sh, &root, Profile::Release, BuildTarget::LinuxRelease, RuntimeBinary::CoreEngine)?,
+        "package_windows_release" => package(&sh, &root, Profile::Release, BuildTarget::WindowsRelease, RuntimeBinary::CoreEngine)?,
+        "run" => run(&sh, &root, Profile::Fastdev, RuntimeBinary::CoreEngine)?,
+        "run_dev" => run(&sh, &root, Profile::Dev, RuntimeBinary::CoreEngine)?,
+        "run_fastdev" => run(&sh, &root, Profile::Fastdev, RuntimeBinary::CoreEngine)?,
+        "run_release" => run(&sh, &root, Profile::Release, RuntimeBinary::CoreEngine)?,
         "audit" => audit(&root)?,
         "build_docs" => build_docs(&sh, false)?,
         "open_docs" => build_docs(&sh, true)?,

@@ -4,6 +4,7 @@ use std::path::{Path, PathBuf};
 
 use crate::utils::build_target::BuildTarget;
 use crate::utils::profile::Profile;
+use crate::utils::runtime_binary::RuntimeBinary;
 
 pub fn staged_build_dir(root: &Path, profile: Profile, target: BuildTarget) -> PathBuf {
     let mut path = root.join("build").join(profile.as_str());
@@ -21,8 +22,9 @@ pub fn cargo_artifact_dir(root: &Path, profile: Profile, target: BuildTarget) ->
     path.join(profile.artifact_dir_name())
 }
 
-pub fn executable_name(target: BuildTarget) -> &'static str {
-    if target.is_windows() { "core_engine.exe" } else { "core_engine" }
+pub fn executable_name(binary: RuntimeBinary, target: BuildTarget) -> String {
+    let stem = binary.executable_stem();
+    if target.is_windows() { format!("{stem}.exe") } else { stem.to_string() }
 }
 
 pub fn clean_dir(path: &Path) -> Result<()> {

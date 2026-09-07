@@ -2,6 +2,8 @@
 
 Daily developer loop:
 
+Run `cargo xtask ...` from repository root (via root alias shim) or from `loo_cast_alpha/` workspace root.
+
 1. `cargo xtask setup_sdk` once per clone.
 2. `cargo xtask build`
 3. `cargo xtask package`
@@ -13,6 +15,13 @@ Support tools:
 - `cargo xtask clean_sdk`
 - `cargo xtask cloc`
 - `cargo xtask gource`
+
+xtask command-surface policy:
+
+1. Default developer tasks should be parameterless (`cargo xtask <named-task>`).
+2. Prefer explicit task names for variants (`build_release`, `package_windows_release`) over flag matrices.
+3. Avoid introducing argument combinations that create implicit invalid states.
+4. Use arguments only for exceptional internal tooling cases, and document those cases explicitly.
 
 Third-party utility binaries:
 
@@ -39,7 +48,7 @@ GitHub Actions audit rail:
    can still trigger recompilation.
 5. For zero-cost mode, keep the repository public or attach a self-hosted runner before relying on private-repository
    workflow runs.
-6. Local hooks remain required even when GitHub Actions is enabled.
+6. Local hooks are the first guardrail; GitHub Actions is secondary parity validation.
 
 Mod author loop (current):
 
@@ -98,10 +107,12 @@ Repository branch roles:
 Work modes:
 
 1. Phase-managed work is the default for planned development.
-2. Unmanaged work is allowed for small, self-contained maintenance that does not need milestone planning.
-3. Every commit needs clear intent. For unmanaged work, the commit title/body is the primary record.
-4. Do not lock commit intent into a fixed prefix taxonomy until the repo has enough examples to justify one.
-5. When unsure whether work is phase-managed or unmanaged, prefer the path with clearer review evidence.
+2. Keep a single active execution stream: one active phase branch + one active phase PR.
+3. Do not run parallel topic/feature PRs while a phase stream is active.
+4. Simple incidental fixes can be applied immediately inside the active stream.
+5. Complex unrelated fixes run as standalone fix-pass work.
+6. Every commit needs clear intent.
+7. Do not lock commit intent into a fixed prefix taxonomy until the repo has enough examples to justify one.
 
 Phase-managed work:
 
@@ -115,37 +126,28 @@ Phase-managed work:
    adjustment, architecture settlement, or another bounded slice of the evolving framework.
 3. Milestone descriptions are the active phase authority (intent, scope, out-of-scope, and exit criteria).
 4. Phase issues carry concrete task execution context and should stay concise.
-5. Later phases use the current baseline unless a new decision changes it.
+5. Active phase execution is intentionally monolithic at this stage: use one composite phase PR as the integration
+   container for phase issues and evidence.
+6. Later phases use the current baseline unless a new decision changes it.
 
-Unmanaged work:
+Fix handling:
 
-1. Unmanaged maintenance is small, self-contained work that does not need phase planning, a milestone decision, or a
-   dedicated issue before starting.
-2. Direct commits are acceptable only when all of these are true:
-   - the change is local, obvious, and low-risk
-   - the commit title/body fully records the intent
-   - no review, isolation, or evidence trail would materially help
-   - the change does not alter contracts, workflow policy, release posture, branch/ruleset policy, or phase scope
-3. Use both a short-lived branch and a pull request when unmanaged work needs review, evidence, or isolation.
-4. Unmanaged PRs do not require a pre-existing issue, but the PR body must explain the change and validation clearly.
-5. Convert work to phase-managed when it affects phase scope, phase evidence, milestone decisions, GitHub workflow
-   policy, or public project documentation posture.
-6. Incidental work found during phase-managed work stays in that phase branch only when it directly supports the phase
-   task. Otherwise, split it into unmanaged work or create a new phase task issue if it has tracking weight.
-7. Examples:
-   - docs typo or stale wording: direct commit if obvious; unmanaged branch+PR if wording changes policy or needs review
-   - broken wrapper scripts that diverge from the canonical xtask surface: phase-managed when tied to Phase 1 execution
-     rails, otherwise unmanaged branch+PR because validation evidence matters
-   - small tooling fix: unmanaged branch+PR when it changes commands, hooks, or validation behavior
-   - incidental finding during phase work: keep it only if it directly supports the current phase task issue; split it
-     otherwise
+1. Simple incidental fixes discovered during active phase work should be applied immediately in the active phase stream.
+2. For simple incidental fixes:
+   - keep the fix trace in the commit title/body
+   - mention it once in the active phase PR notes/progress update
+3. Complex fixes that are unrelated to the active phase scope should use a standalone fix issue and dedicated fix-pass PR.
+4. Fix-pass branches should use `fixpass/<slug>` naming and target `develop`.
+5. While a fix-pass PR is active, pause new phase implementation changes.
+6. After fix-pass merge, sync the active phase branch with `develop` before continuing phase work.
 
 GitHub phase workflow (built-in/free features):
 
 1. Milestones are the phase authority surface. Use `.github/MILESTONE_TEMPLATE/phase_milestone.md` as copy/paste source
    when creating or editing a milestone.
-2. Phase issue creation uses one issue form in `.github/ISSUE_TEMPLATE/`:
+2. Issue creation uses focused issue forms in `.github/ISSUE_TEMPLATE/`:
    - `phase_task.yml` for all phase task issues
+   - `maintenance_fix.yml` for standalone complex fix-pass issues
    - blank issues are disabled for non-maintainers via `.github/ISSUE_TEMPLATE/config.yml`
 3. The issue form auto-applies `type:phase-task`.
 4. Apply matching `phase:N` labels manually until metadata automation exists.
@@ -176,16 +178,30 @@ Branch protection and rulesets:
 
 Pull request template workflow:
 
-1. All PRs use `.github/PULL_REQUEST_TEMPLATE.md`.
-2. Link related issues in the PR sidebar (`Development`).
-3. Keep PR body content concise: summary, validation, and optional notes.
-4. Close linked issues before merging.
+1. Phase and general PRs use `.github/PULL_REQUEST_TEMPLATE.md`.
+2. Dedicated complex fix-pass PRs use `.github/PULL_REQUEST_TEMPLATE/fixing_phase.md`.
+3. Keep one active phase PR as the composite phase execution container.
+4. Keep at most one active fix-pass PR while phase execution is paused for the fix-pass.
+5. Link related issues in the PR sidebar (`Development`).
+6. Keep PR body content concise: summary, validation, and optional notes.
+7. Close linked issues before merging.
+8. If a PR is intentionally closed without merge (for example, superseded, abandoned, or replaced during branch rename),
+   leave a closing comment that states what happened and links to the replacement PR/issue/branch when one exists.
+9. PR supersession/migration protocol (when replacing an open PR):
+   - open the replacement PR first
+   - carry forward summary/evidence/checklist context
+   - apply equivalent metadata (milestone/labels/linked issues)
+   - comment on the old PR with reason + replacement link
+   - close old PR without merge
+   - update milestone/RFC/docs references to the replacement PR
+   - verify only one active phase PR remains
 
 AI collaboration workflow:
 
 1. Use `AI_COLLABORATION.md` as the conversation starter for supervised AI work.
 2. AI-assisted changes should start from a named GitHub issue or PR.
 3. Approval gates are required before local inspection, editing, validation, and PR creation/update.
+4. For multi-line GitHub CLI content (issue/PR bodies, comments, code/text blocks), use temporary files with `--body-file`/`-F` instead of escaped newline strings.
 
 RFC trigger rule (minimum):
 

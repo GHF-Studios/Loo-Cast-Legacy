@@ -1,0 +1,11 @@
+[package]
+name = "base_mod_facades"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+base_mod_internals = { path = "../base_mod_internals" }
+base_mod_shared = { path = "../base_mod_shared" }

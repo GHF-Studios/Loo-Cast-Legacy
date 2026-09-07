@@ -1,0 +1,54 @@
+name: Maintenance Fix
+description: Track a standalone complex fix-pass item outside active phase execution
+title: "Fix: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for complex standalone fixes that should run in a dedicated fix-pass PR.
+        For simple incidental fixes discovered during active phase work, patch directly and mention once in the active phase PR.
+  - type: textarea
+    id: intent
+    attributes:
+      label: Intent
+      description: What is broken or risky, and why it needs a fix-pass.
+      placeholder: 1-3 short lines.
+    validations:
+      required: true
+  - type: textarea
+    id: in_scope
+    attributes:
+      label: In Scope
+      description: Concrete outcomes for this fix pass.
+      placeholder: |
+        - [ ] Outcome 1
+        - [ ] Outcome 2
+    validations:
+      required: true
+  - type: textarea
+    id: risk_if_deferred
+    attributes:
+      label: Risk If Deferred
+      description: Why this should not wait for normal phase completion.
+      placeholder: Short risk statement.
+    validations:
+      required: true
+  - type: textarea
+    id: linked_context
+    attributes:
+      label: Linked Context (Optional)
+      description: Related issue(s), PR(s), docs, or module paths.
+      placeholder: |
+        - Issue:
+        - PR:
+        - Doc:
+    validations:
+      required: false
+  - type: textarea
+    id: exit_criteria
+    attributes:
+      label: Exit Criteria (Optional)
+      value: |
+        - [ ] Fix validated with evidence
+    validations:
+      required: false

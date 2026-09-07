@@ -25,5 +25,8 @@ Format: `Date | Status | Decision | Reason`
 - 2026-05-03 | Active | Keep issue/PR metadata handling manual and do not add dedicated metadata automation jobs for now. |
   Current manual flow is low-cost and clear enough for the active solo workflow; extra automation would add maintenance
   surface without enough return.
+- 2026-05-17 | Active | Treat capability/API lifecycle as projection-driven fixed-point bootstrap over a host-global
+  graph. | Keep script contexts safe and contextual while allowing dynamic topological composition across Rust host
+  authority and Rhai-facing projected facades.
 - 2026-05-01 | Active | Keep `develop` process-enforced without a ruleset for now. | Preserve solo workflow
   flexibility while topic branches, PRs, evidence, and GitHub Actions already provide enough discipline.

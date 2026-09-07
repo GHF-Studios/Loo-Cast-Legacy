@@ -1,0 +1,311 @@
+Global Options:
+	--verbose
+		show operation planning, diagnostics, logs, historical context, and live progress detail
+
+	--yes
+		accept non-destructive interactive prompts
+
+	--force
+		allow destructive mutation when destructive mutation is explicit, acceptable, and domain-valid
+		allow risk-bearing operations when the command explicitly supports forcing that risk
+		never means "ignore linker/build/runtime impossibility"
+		never means "blindly pick newest dependency version and hope"
+		never means "bypass release-mode dependency rules"
+
+	--strict
+		reject add/remove/select/unselect mutations that would leave an authored or local mutable composition invalid
+
+	--keep-unused-versions
+		keep old unused installed dependency/content versions after install/update/lock/repair cleanup
+
+
+Content Sources:
+	discovered
+	local
+	git
+	workshop
+	all
+
+
+Content Type Sets:
+	all_content
+		packagepack
+		enginepack
+		gamepack
+		modpack
+		engine
+		game
+		engine_mod
+		game_mod
+		extension_mod
+
+	pack_content
+		packagepack
+		enginepack
+		gamepack
+		modpack
+
+	leaf_content
+		engine
+		game
+		engine_mod
+		game_mod
+		extension_mod
+
+	lockable_content
+		packagepack
+
+
+Allowed Pack Children:
+	packagepack
+		packagepack
+		enginepack
+		gamepack
+		modpack
+		engine
+		game
+		engine_mod
+		game_mod
+		extension_mod
+
+	enginepack
+		engine
+		engine_mod
+		enginepack
+
+	gamepack
+		game
+		game_mod
+		gamepack
+
+	modpack
+		engine_mod
+		game_mod
+		extension_mod
+		modpack
+
+
+Command Placeholders:
+	<CONTENT_TYPE>
+		one all_content type
+
+	<PACK_CONTENT_TYPE>
+		one pack_content type
+
+	<LEAF_CONTENT_TYPE>
+		one leaf_content type
+
+	<CONTENT_ID>
+		id matching the selected <CONTENT_TYPE>
+
+	<PACK_ID>
+		id matching the selected <PACK_CONTENT_TYPE>
+
+	<SOURCE_PACK_ID>
+		id of an existing pack used as the fork source
+
+	<NEW_PACK_ID>
+		id of the new local mutable pack created by fork
+
+	<CHILD_CONTENT_TYPE>
+		content type allowed by the parent pack's Allowed Pack Children entry
+
+	<CHILD_CONTENT_ID>
+		id matching the selected <CHILD_CONTENT_TYPE>
+
+
+Repair Targets:
+	core_state
+	toolchain
+	steam
+	content_catalog
+	content_library
+	active_composition
+	all
+
+
+Shared Repair Commands:
+	repair
+		status
+		plan <REPAIR_TARGET>
+		apply <REPAIR_TARGET>
+
+
+Content State Terms:
+	installed
+		content exists locally
+
+	added
+		content is a member of a composition
+
+	selected
+		content is active inside a composition
+
+	unselected
+		content remains present as an inactive alternative
+
+	resolved
+		effective graph after selections, nesting, versions, and invariants are applied in memory
+
+	locked
+		persistent packagepack graph artifact written from a resolved graph
+
+	validated
+		content whose current graph satisfies built-in and author-defined invariants
+
+	forked
+		new local mutable pack created from an existing source pack
+
+
+Runtime Resolution And Locking:
+	resolve constructs the effective graph in memory
+	resolve does not write a lockfile
+	lock writes the selected/effective packagepack graph as a persistent artifact
+	only packagepacks are lockable
+	launcher lock locks the selected packagepack
+	launcher packagepack lock <PACKAGEPACK_ID> locks an explicit packagepack
+
+
+Built-In Resolved Invariants:
+	exactly one effective engine
+	exactly one effective game
+	selected/resolved game must target the selected/resolved engine
+	resolved graph must satisfy declared parent/target requirements
+	resolved graph must satisfy declared version requirements
+	resolved graph must not contain invalid cycles
+	resolved graph must not contain hard conflicts
+
+
+Creation Rules:
+	new <CONTENT_ID>
+		creates a new directory/project
+
+	init <CONTENT_ID>
+		initializes the current directory
+		requires the current directory to be effectively empty
+		may tolerate auto-generated ignored files
+
+
+Install And Update Rules:
+	install <CONTENT_ID>
+		installs the full required dependency closure
+		asks before installing additional required content
+		--yes accepts the closure install
+		--force accepts risk-bearing install cases when the command explicitly supports them
+
+	packagepack is the normal user-updated experience boundary
+
+	Updating packagepack:
+		valid launcher workflow
+
+	Updating engine/game/mod content outside packagepack:
+		not a normal user workflow
+		implies authoring/local fork semantics
+		may invalidate or fork packagepack state
+		belongs primarily to SDK or modpack-author/developer flows
+
+	Old unused dependency/content versions:
+		pruned by default after successful update, lock, repair, or cleanup
+		kept when --keep-unused-versions is passed
+		require migration when they carry config/data/state
+		abort by default when required migration is missing
+		may be discarded only through explicit user choice or a supported forced operation
+
+
+Pack Mutability Rules:
+	sdk mutates authored source content
+	launcher mutates installed/local user state and local mutable packs
+	published/installed packs are immutable through launcher
+	launcher pack mutation requires a local mutable pack
+	launcher <PACK_CONTENT_TYPE> new creates a blank local mutable pack
+	launcher <PACK_CONTENT_TYPE> fork creates a new local mutable pack from an existing source pack
+	local mutable packagepacks do not need to be selected to be edited
+	launcher packagepack select chooses the active root packagepack for launcher lock and launch
+	forked packs do not receive upstream updates from the source pack
+	using upstream updates requires forking again from the updated source pack
+
+
+Command Families:
+	content_read_commands
+		list <CONTENT_SOURCE>
+		status <CONTENT_ID>
+		fingerprint <CONTENT_ID>
+		inspect <CONTENT_ID>
+		validate <CONTENT_ID>
+
+	source_authoring_commands
+		new <CONTENT_ID>
+		init <CONTENT_ID>
+		build <CONTENT_ID>
+		package <CONTENT_ID>
+		publish <CONTENT_ID>
+
+	pack_composition_commands
+		add <PACK_ID> <CHILD_CONTENT_TYPE> <CHILD_CONTENT_ID>
+		remove <PACK_ID> <CHILD_CONTENT_TYPE> <CHILD_CONTENT_ID>
+		select <PACK_ID> <CHILD_CONTENT_TYPE> <CHILD_CONTENT_ID>
+		unselect <PACK_ID> <CHILD_CONTENT_TYPE> <CHILD_CONTENT_ID>
+
+	launcher_install_commands
+		install <CONTENT_ID>
+		uninstall <CONTENT_ID>
+		update <CONTENT_ID>
+
+	launcher_local_pack_commands
+		new <PACK_ID>
+		fork <SOURCE_PACK_ID> <NEW_PACK_ID>
+
+
+Commands:
+	sdk
+		version
+		status
+
+		repair
+			status
+			plan <REPAIR_TARGET>
+			apply <REPAIR_TARGET>
+
+		toolchain
+			status
+			install
+			repair
+
+		template
+			list
+			info
+
+		<CONTENT_TYPE>
+			content_read_commands
+			source_authoring_commands
+
+		<PACK_CONTENT_TYPE>
+			pack_composition_commands
+
+		packagepack
+			lock <PACKAGEPACK_ID>
+
+	launcher
+		version
+		status
+
+		repair
+			status
+			plan <REPAIR_TARGET>
+			apply <REPAIR_TARGET>
+
+		<CONTENT_TYPE>
+			content_read_commands
+			launcher_install_commands
+
+		<PACK_CONTENT_TYPE>
+			launcher_local_pack_commands
+			pack_composition_commands
+
+		packagepack
+			select <PACKAGEPACK_ID>
+			lock <PACKAGEPACK_ID>
+
+		lock
+
+		launch

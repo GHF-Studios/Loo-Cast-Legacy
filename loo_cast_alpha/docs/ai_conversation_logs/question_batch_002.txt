@@ -1,0 +1,238 @@
+Alriiiiiiiiight, I got another batch of answers ready for you:
+
+Product / Vapor
+1. Is Vapor Ecosystem -> Spacetime Engine -> Loo Cast now the correct product-stack skeleton?
+A: Yes.
+2. Should USF be removed entirely from product-stack diagrams and only appear inside Spacetime Engine diagrams?
+A: Yes, although diagrams are very secondary right now and just generally somewhat outdated.
+3. Is Vapor always Steam-exclusive, or should docs say “Steam-exclusive for the foreseeable future”?
+A: Steam-exclusive, periodt.
+4. Does Vapor include only SDK/modding/distribution tooling, or also runtime protocol constraints for engines/games?
+A: runtime protocol constraints, contracts/traits, that kinda stuff, yeah, that's included. The whole like engine/game and modpack/mod kinda stuff is all a sort of architecture/structure defined as a feature or features of the Vapor Ecosystem, yk?
+5. Is Vapor a product in its own right, or only the ecosystem layer shipped through Loo Cast/Spacetime?
+A: It is a product, but also not reeeeeeally in the sense that it is indeed only available by buying and owning Loo Cast, which also grants access to the Spacetime Engine ofc.
+6. Can a non-Spacetime engine exist inside Vapor if it exposes no modding to end users?
+A: Yes.
+7. Can a non-Spacetime engine exist inside Vapor if it ignores your capability model entirely?
+A: Yes, but ofc we need to use the capabilities in a bootstrappy/entrypoint-like manner, but more or less: Yeah, although this is not recommended and more a workaround/hack than an intended path.
+8. Is “Vapor Modding Ecosystem” too narrow if Vapor also governs engines and games?
+A: Kinda? Cause it's an Ecosystem, but also an SDK, and a Launcher, and a sort of runtime capability structure contract API/interface/whatever, and yk?
+9. Should “Vapor SDK” mean creator tooling only, or also engine/game development tooling?
+A: Vapor SDK is used to develop everything, but each engine can ofc ass onto that development experience, and the loo cast game as well, but fundamentally, all development should happen either by working directly in the root of the source code repo, or via the Vapor SDK.
+10. Should Vapor be documented now, or kept mostly as future/Steam integration pressure?
+A: Documented now, but keep in mind the name "Vapor" is new, but the concept itself is not thaaat new, but yeah, this stuff should be documented lol. The glossary is our friend for documenting stuff (for now).
+
+Spacetime / USF Boundary
+11. Is USF an implementation detail of Spacetime Engine, or a public Spacetime Engine subsystem?
+A: Ah yes, good question. It is rather a subsystem that just an implementation detail, yeah.
+12. Is USF allowed to have public docs/contracts even if it is not a product?
+A: Absolutely, it has to allow this!
+13. Is USF Contract still a valid term, or should it become USF Internal Contract?
+A: No idea, but I tend towards it still being a valid term.
+14. Is USF Runtime still valid, or should it become USF Runtime Module?
+A: No idea, but I tend towards it still being a valid term as well.
+15. Should USF Contract Family stop being listed next to Capability Contract and Modding Contract?
+A: Kinda? Yeah?
+16. Is USF allowed to expose APIs to Loo Cast/base_mod, or should Loo Cast only see Spacetime-level APIs?
+A: The ke realization here is that the USF *IS* most of the entire Spacetime-level API, yk?
+17. Is USF replaceability truly “no,” or is it “only by forking/modifying Spacetime Engine itself”?
+A: Yeah ofc we can replace it by forking/modifying the Spacetime Engine itself, but then it must be another Engine, yk? I see no reason for the Engine to not be tighly coupled to the fundamental world model it establishes, yk? Fair enough I think.
+18. If Spacetime Engine supports modules, is USF one fixed built-in module or one first-party module in an engine-module graph?
+A: Rather the latter -- the wording is better --, so "the USF is one first-party module in an engine-module graph", but the important part to realize is that I intend for the capability graph and the module graph and that stuff like to be the same thing, the same graph, yk? Capabilities may model stuff smaller than a module, but also modules and entrie module trees, yk?
+19. Is core_mod still the right crate/mod concept for USF, or is that older wording misleading?
+A: Yeah, the core_mod is what must entail the actual engine-level capabilities, while base_mod is the actual content of the game. These are fixed. We always need a core_engine and appropriate core_mod to define the engine we are using, but we also need a base_mod for defining the game we are using, yk?
+20. Should core_mod be engine-internal again, despite NOW.md saying core_mod and base_mod are first-party mods?
+A: Hm... I think it'd be best if you refered to the previous answer I gave to question 19.
+21. Does core_mod define capabilities, or does Spacetime Engine define capabilities and core_mod only registers USF-specific ones?
+A: The Ecosystem as a whole defines capabilities that are hardcoded into the SDK/Ecosystem/Whatever, and these capabilities can be used to discover and validate and mount other capabilities, kinda, yk? vapor_sdk defines capabilities as a concept overall, and defines/exposes(kinda like exposing something to rhai via a reflection macro) actual capabilities, core_engine and core_mod are just more dependenats layers of the vapor_sdk/vapor ecosystem, and base_mod ALSO defines capabilities, such as exposing modding stuff from the ecosystem to allow the base_mod being modded, yk? Same with core_mod maybe allowing other mods apart from the mandatory base_mod, and yk? And also, each layers, even the vapor_sdk itself, can use capabilities defined directly by vapor_sdk, and core_engine can use stuff from itself and vapor_sdk, and core_mod can use stuff from itself, core_engine, and vapor_sdk, and base_mod can use stuff from itself, core_mod, core_engine, and vapor_sdk, yk? Ah but I am getting ahead of myself, sorry!
+22. Is core_mod dynamically loadable in the long run, or probably statically linked/engine-bundled?
+A: I think core_mod is a good exception to the rule cause it is a mod, but it is hard-required for core_engine to work according to the structure defined by Vapor. base_mod is NOT an exception and is in fact dynamically linked, even if it is definitely required, cause it is not a hard-coded part that ships with the engine, whereas core_engine and core_mod must always correspond to each other and may not just be mixed and matched wildly but must be provided by one Vapor-powered Engine, yk?
+23. Does removing/replacing core_mod make sense at all after this correction?
+A: Naaaaaaaaaah. Leave ma boi core_mod alone.
+24. Should base_mod depend on USF directly, or on Spacetime Engine surfaces that happen to be USF-backed?
+A: Well, to be precise the base_mod should simply depend on the core_mod and whatever it exposes/re-exports of the core_engine and thus also of Vapor, so yeah, we want the base_mod to depend on the core_engine/core_mod Spacetime Engine which just happens to be like 95% USF-backed.
+
+Loo Cast / base_mod
+25. Is base_mod == Loo Cast still the right current framing?
+A: Yes.
+26. Should base_mod be a required singleton game slot?
+A: Yes. This is a bit confusing, but yes, the capability stuff is INCREDIBLY flexible, but we still do kinda want those special-case-sorta fix-points of "core_engine"/core_mod" and "base_mod", yk? I don't care what other extensability surfaces these three expose, but we do want these as the sortt of fixed structure to work off of, even if we completely replace the engine, yk?
+27. Is base_mod replaceable as a Game-level Vapor concept?
+A: Yes, absolutely. And yes, "Game" is a Vapor concept.
+28. Is base_mod allowed to expose mod slots later, but not now?
+A: Yeeeeeeeees exactly, and core_mod and core_engine too! But only in special circumstances, highly discouraged, buuuuut we do want to leave those sorta last-resort escape hatches open, yk?
+29. Is Loo Cast’s acquisition supposed to grant access to Spacetime Engine tooling because that is product policy, Steam package policy, or Vapor policy?
+A: What? Lemme try and answer, even though I am a bit confused by the question: Once you acquire Loo Cast, you get access to the Loo Cast Game, the Spacetime Engine, and the encompassing all-powering Vapor Ecosystem/SDK, yk?
+30. Should “Loo Cast” docs distinguish Loo Cast Game, Loo Cast Product Bundle, and Loo Cast Project?
+A: Well, ah, hm. Well, the Loo Cast Game is a thing, but the Loo Cast *Project* and *Product Bundle* are really the same thing, jus at different stages, yk? So I mean yeah, we should disatinguish Loo Cast Game and Loo Cast Product-Bundle/Project, but those are two things, not three!
+
+Capabilities
+31. Are capabilities Vapor-level, Spacetime-level, or both?
+A: Defined by Vapor, used by Vapor and Engines and Games and Mods for Engines and Games and Mods (yes, SubMods can exist).
+32. Is Capability a universal Vapor concept that engines/games may choose to implement differently?
+A: Yeah, baaaaaasically, but ofc we do want that sorta ""Capability Contract"" to make some kinds of useful trade-offs and impose meaningful constraints, but yeah, that is in fact, more or less, the/a basic idea.
+33. Is Spacetime Engine’s capability graph one implementation of a more abstract Vapor capability idea?
+A: Yes, exactly. It is one node (albeit one with only a single parent and a single child as of now, as I wanna do it for my first-party instances of both an Engine and a Game) in the capability graph of which the vapor stuff is sorta the root, yk? Basically, the capability graph is what's used for ANY kind of orchestration anywhere in the code, yk? Capabilities are sort of kinda of like the ABI for the Vapor Ecosystem/SDK, yk?
+34. Is the word Capability too overloaded between ecosystem contracts, runtime APIs, and USF simulation pieces?
+A: Kiiiiiind of, but tbh.... not really, assuming we get our shit together, yk?
+35. Should USF concepts like Scale, Metric, Phenomenon, and Scale Realizer be called capabilities at all?
+A: Oh yeah absolutely, 1000000% those are capabilities, and wonderful examples at that because the all kinda are related to each other and have complex relationships to each other.
+36. If USF is not part of capability contract stuff, should Capability.md remove USF multiplicity examples?
+A: The USF is indeed not a central/foundational part of capability contract stuff but more a user of that stuff, so yeah, remove that USF multiplicity stuff I guess?
+37. Is Scale a capability, a USF internal type, a content declaration, or all depending on layer?
+A: All depending on layer, and maybe even more.
+38. Is Metric a capability, or a scale-bound public data/function surface?
+A: A capability, but we must be careful with framing a single concept as a capability, cause even simple concepts may manifest in a fairly complex capability graph, same as even the simplest concepts may require a few handful of functions, data types, maybe even a few traits/interfaces? Yk? Also, the two things you mentioned are actually not really mutually exclusive, but you chose to represent it that way; also noteworthy weirdness yk?
+39. Is Phenomenon a capability, entity type, declaration type, or runtime world-state carrier?
+A: A phenomenon is likely a sort of complex/"higher-order?" capability, and sooooooooooooooooort of an entity type but not really, but definitely a declaration type and an *interactive* runtime world-state carrier.
+40. Should Capability Type Template still list Scale, Metric, Phenomenon, Scale Realizer?
+A: Uh, idk, this Capability stuff as it is crystallizing seems to be a hot topic for change, so maybe we wanna wait before we address this question?
+41. Does the capability graph model runtime authority, API exposure, artifact composition, or all three?
+A: All three.
+42. Should capability graph nodes be allowed to define their own internal slot/modding behavior?
+A: Oh yeah sure, if they want to define and use entire types of capabilities internally, sure, go ahead, yk? That's kiiiiinda also what I hinted at with core_engine and core_mod and base_mod all kinda being *able* to do moding, even if not actually allowed/integrated, yk?
+43. Is a “slot” just a capability graph edge with policy?
+A: Yes? Kinda? Basically? More or less?
+44. Are exclusive slots, variadic slots, ordered registries, optional providers, and integration apertures still good pressure terms?
+A: Yes, I think so.
+45. Is mod conflict mostly obsolete in favor of invalid capability/slot graph?
+A: Not really, but kinda. Mod-conflict and Modpack-conflict stuff is all just native capability/vapor shenanigans, yk? Modpack and Mod and Engine and Game and all are concepts OF the Capability/slot graph Vapor-stuff-kinda, yk?
+46. Is canonical mutation authority inside capabilities, or outside them in reconcile/commit/apply?
+A: Oh yeah, outside, capabilities just relay requests basically, they do NOT run themselves. This way capabilities can be used across language borders so rhai can mainly orchestrate using capabilities inside callbacks/anonymous-functions and then rust is more the executor/kernel, although ofc we do also want escape hatches here so in a pinch rhai can do some processing and rust some capability usage, and rust using capabilities is also not as big an overhead as doing it inside rhai. Kinda starting to babble again, sorry!
+
+Metrics / Phenomena / Zones
+47. Is Metric the right name for global-per-scale public data/function surfaces?
+A: Yeah, basically. Stuff like Temperature, Pressure, Humidity, whatever. Some of which may be stored directly in the scale somehow (probably via the chunks), and others of which may be computed on the fly whenever needed, so we got atomic and composite/computed metrics, hence data *and* functions, yk?
+48. Are metrics variables/constants/functions, or should those be separate terms under a metric namespace?
+A: I thiiiiink my previous answer to question 47 answered this?
+49. Should a metric be scale-bound by definition?
+A: Absolutely, 100%.
+50. Can a metric be exposed across scales through explicit bridge/conversion APIs?
+A: Well, we do want some (maybe even most?) metrics to be compatible with a whole range of scales, but I am not sure, cause cross-scale shenanigans are reeeeeeeally unclear and ambiguous and underdefined underaddressed and underdiscussed.-
+51. Are metric producers distinct from metrics?
+A: wdym metric producers?
+52. Are metric combinations/symbioses first-class, or just functions over multiple metrics?
+A: Both. Functions over multiple metrics producing a new composite/computed metric are first-class metrics, yk? Metrics can simply be either "Primitive", or "Composite".
+53. Should phenomena consume metrics to decide significance thresholds?
+A: Absolutely, but consume is a strong word lol. More like "use".
+54. Should phenomena produce metrics?
+A: No, metrics are an integral part of each scale and kinda define the parameter space that all phenomena that support this scale must exist within, yk? A phenomenon MUST for example somehow take temperature into account, even if with a noop to just satisfy the constraints, but yk, we must incorporate temperature if that is a metric at the given scale that we as a phenomenon operate at, like, does that make any sense?
+55. Can a phenomenon itself be a metric producer?
+A: What? No? What is that question even supposed to mean? Seeems non-sensical.
+56. Is a distributed phenomenon essentially the replacement for “zone”?
+A: 1000000%, yes.
+57. Are zones dead as nouns but alive as patterns?
+A: Basically? More or less?
+58. Should Zone-Era Concepts be split into Zone, DPT, ZLM, ZTM, or stay grouped for now?
+A: I mean, ofc they should stay split, but also be treated as kinda belonging together, yk? S like... both?
+59. Is DPT better renamed to metric field, metric sample field, metric container, or something else?
+A: No, cause fundamentally it IS a DPT. A Data Point n-Tensor, yk?
+60. Is ZLM better renamed to metric classifier, realization selector, phenomenon detail selector, or something else?
+A: Hm, good question, but I think ZLM is still a good name, cause it naturally says what it is, yk? A Zone Lookup Map, where we can check (per scale) what metrics we go, construct an n-dimensional parameter space from that and then (assuming we have a filled map) we can map any (valid) metric data combinations into an actual zone type each, yk? We can even do fallback zones and shit for like invalid/undefined regions in the parameter space and all these complex shenanigans we'll need to make sure that a *n-dimensional* parameter space is fully mapped out, yk? With like ergonomic ways of constructing and handling these high-dimensional objects, yk?
+61. Is the old zone mistake specifically “zones as world authority”?
+A: Yeah, I think so? The mistake was not treating zones and adjacent stuff as what it is: Intermediate-layer stuff, the glue between the cracks kinda, yk?
+62. Should classification regions exist only inside phenomena?
+A: A phenomenon IS a classification region, yk? distributed phenomena just have an unclear boundary, whereas localized phenomena have a (more or less) clear physical boundary, but BOTH are classification regions, yk? Basically: In minecraft a forest is a biome, and a tree is an entity(or multiple block entities rather, but eh, just go with it for now), and I want the forest to also be an entity, and I want the entities to also be zones, so we can reason about individsual "objects" as "biomes", yk? This is kiiiiiiinda one of the core pillars of making all of this entire vision viable, yk?
+63. Can chunks expose zone-like internal regions without those regions becoming ontology?
+A: What? I'm sorry, but what do you mean?
+64. Does a phenomenon own its own detail generation and re-aggregation logic?
+A: YES. Yes, absolutely, metrics just inform this logic, and other phenomena at the same scale and even at other scales inform this logic, but fundamentally the Phenomena own this stuff, yes. So, basically if we go back to the minecraft terms: A forest knows how to materialize it's detail (the trees), but the tree should also allow materialization of *their* deails another scale down, yk?
+65. Is zoom-out re-aggregation primarily phenomenon-owned, metric-owned, or USF-owned?
+A: Phenomenon-owned for sure, but ofc the USF defines all of these processes and logical frameworks and shit, but USF-owned is a bit of a misleading term here I think. And metric-owned is plain wrong, more like metric-informed. Speaking off: Metrics also are useful for state that is not necessarily insignificant but inherently distributed, like most metrics, like for example gravity, yk? It would benefit I think from not doing object-to-object checks but rather committing their current influence to the metrics in a commit phase, and then just like apply those changes in an apply phase, and we could even do pre-processing and post-processing and mid-processing passes for each individual metric; powerful stuff!
+
+Chunks / Scale
+66. Are chunks first-level partitions inside USF, period?
+A: Yes. The USF is in fact the spatil partitioning model and world model all in one basically. USF is our worldmodel, chunks are just how that world is primarily, well, chunked.
+67. Should chunks be invisible to normal content authors 99% of the time?
+A: Basically? Yeah. That sums it up pretty nicely, but yeah ofc there will be edge cases and special cases and all, but yeah we want that to be the exception, not the norm.
+68. Is 1000^3 scale-local units fully locked?
+A: Yes.
+69. Can chunk size ever vary per scale, or no?
+A: No.
+70. Is “chunk local operational authority” a useful term?
+A: Meh. Kinda. Hard to say.
+71. Should chunks store residual state, cache state, temporary simulation state, or all three?
+A: All three and more? Chunks are our background garbage layers for data like residual state, cache state, temporary state, and even more like true state for stuff like Gravity which benefits immensely from running natively on the chunk/metric-based approach, yk?
+72. Are chunks allowed to be save-persisted for cache/performance while not being canonical world authority?
+A: Basically, yeah? I suppose so?
+73. Is deleting chunk caches and regenerating from phenomena/metrics a required invariant?
+A: What?
+74. Can a chunk’s internal spatial structure change live during runtime?
+A: Oh yeah absolutely, but ofc with acknowledgement and respect for the fact that that is an incredibly expensive live operational and structural transformation which's cost must be justified, yk?
+75. Does a chunk choose its own internal structure, or does a phenomenon/metric/realizer choose it?
+A: I suppose a global kinda pass would be useful for this kinda stuff, so the chunk merely exposes the ability to switch the representation, and maybe even some util stuff for check whether we should switch repr, but ultimately, we want a sorta global orchestrator that does these switches as cross-chunk-informed global coherent decisions, yk?
+76. Is “Scale Realizer” still the right term if chunk internals are directly “what chunk is”?
+A: Not really? I mean,  Phenomena are what realize a Scale, by knowing how to materialize and re-aggregate their details, yk?
+77. Does each scale need exactly one scale realizer if chunks themselves own adaptive internals?
+A: Yeah, still.
+78. Is active+above still the right short name after you clarified below-active scoped detail exceptions?
+A: Maybe not actually, good call, but idk how to fix this lol. Maybe active+above+scoped_below?
+79. Should active scale be “first-class change authority scale” instead of “only simulated scale”?
+A: Yeah, basically.
+80. Are higher scales simulated with slower/scaled time, not merely paused/context?
+A: Yes, exactly. Although this is less done with a slower update rate and more a mix of a slightly lower update rate and a time-scale provided to scale calculations by or reinterpret results with, yk?
+81. Should lower-scale lazy detail be modeled as sampling, scoped simulation, or temporary inspection?
+A: Honestly? Not all at once all the time, but depending on the context: All three tbh, yk?
+82. Is upward significance overflow literally analogous to arithmetic carry?
+A: Basically, yeah. It's been a big inspiration for sure.
+83. Does downward detail expansion have an inverse operation, or is it generative/non-invertible?
+A: By definition we need to be able to not only materialize details (aka traditional world gen), but also re-aggregate details, so yeah, we absolutely need each Phenomenon to not only implement world gen "locally" basically, but also a reverse world gen algorithm, yes.
+
+Rhai / Assets / Authoring
+NOTE: This is a particularly complex and pivotal and underexplored topic/set-of-topics. Point is: This is extremely underexplored, underdiscussed, and so on. Do not take this topic of Rhai/Assets/Authoring lightly or assume it's not underdiscussed and underexplored and underaddressed af!
+84. Does “all assets are Rhai scripts” still mean no traditional media assets at all?
+A: Oh boy, this is where it get's really interesting: Yes! The idea is that we basically do "physically" based rendering, audio, and like have any sort of peripheral output capabilities like rendering as a whole or audio as a whole, and those work off of the world state inside the Phenomena and Chunks, yk? Because, with any traditional texture at least, you quickly run into this problem: When we wanna zoom into a thing with that texture. how do we zoom in and have the visuals stay smooth and continuous, without just cheaply fading one texture to anothert? The problem also is that this heavy morpahbility of textures and 3d models and maybe by extension also sound, that stuff needs some sort of LOD approach, something like an .svg, but ofc much more complex. But yeah, to cut a long story short: At least textures and 3D Models and Sounds must be fully procedural, buuuut this is also a hugely underexplore topic.
+85. Are generated textures/audio/models caches, not authored assets?
+A: Diving into more details, I like it.... Yeah, basically, I did think that at the most we could expect to see textures/models/sounds as caches, cause ofc even if we never have a set of fixed known pre-packaged textures and sounds and all, we can still somewhat forsee that the GPU will still just want a final image or something like that, not some custom vodoo Physically-based representation or an SVG or whatever, yk? Althoooooough, we do have rasterized shaders, but also another type of shader? Ah but it all get's rasterized in the end anyway..... let's just say: It's a complex topic. Did that make some amount of sense to you?
+86. Should Rhai declarations be the canonical authored asset format?
+A: Yes. Rhai-Declaration == Asset, basically. A Rhai declaration *file* is ALWAYS an asset, and an asset is ALWAYS a rhai declaration.
+87. Are Rhai closures normal declaration content?
+A: Wdym? Like, closures are treated like data, just ofc not really the same, but like.... no, please enlighten me on what you mean, I cannot answer this question with good conscience, cause I don't really understand the question.
+88. Should Rhai callbacks be treated as policy/config behavior, not engine logic?
+A: Wat? Rhai Callbacks are polain simple data, easy as pie. Lil scripts basically. Ah but, ofc, we will somehow need something or some set of things which call these callbacks at the right time and place and with the right parameters and all, yeah, that's ofc a valid concern and stil-underexplored design-hole, assuming that's what your question was kinda oriented towards.
+89. Can Rhai consume hooks/events/messages?
+A: Yes and no. Rhai only declares stuff, and only on startup, ONCE! Still, rhai can do basically anything, including(and probably primarily) consuming hooks/events/messages if the  stuff itself and the larger orcheestration and all allow for that, but all that happens via callbacks. Callbacks are our escape hatch our of the fact that any rhai declaration are just that, declarations which are all made at startup immediately after the rust runtime spun up, yk?
+90. Can Rhai cancel/consume hooks/events/messages?
+A: Hm, I think the answer is the same, even if it's kinda defer-y: Only if the like thing itself and/or the like larger orchestration/framework/whatever all allow it and intend for it and all, yk? But no, neither consumption nor cancelling should be the default. The default should be unconsumable uncancellable hooks/events/messages.
+91. Can Rhai declare lifecycle participation without owning lifecycle scheduling?
+A: Yes. Via callbacks. That being said, I think this is a good time to mention that it's even more fucked up, cause I thought we'd like do it like this: rhai declarations are not strictly just object construction, but rather structured procedural object construction via builder patterns and that kinda jazz, yk? This way sorta "typed callbacks" or like "types of callbacks" should be relatively trivial to implement, yk? And from there it's just a matter or relaying to some sort of actual capability registry or sum, yeah, whatever, but I think you get what I was "hinting" at here.
+92. Should schedule structure be entirely Rust-owned?
+A: 100% yes, 10000%, absolutely, yes!
+93. Can Rust-owned schedules expose configurable extension points?
+A: What should that exactly entail? Cause I'm not sure what exactly you mean by "expose configurable extension points", specifically "extension points", yk?
+94. Is declaration-only still the best phrase, or should it be declaration-owned, host-scheduled?
+A: Maybe? Not sure yet tbh.
+
+Roadmap / Cleanup
+95. Should Phase 2 explicitly include “remove USF-as-product confusion”?
+A: Yes I suppose so? But that ofc implies that we want to heavily jam Phase 2 full of work to accomplish in little units, casuse this is not a huuuuuge thing to fix, even if it's impactful and pivotal, yk? Just saying, mind the implications of what you ask/say.
+96. Should Phase 2 rewrite draft_phase_buckets.md because core_mod replaceable is now wrong?
+A: Yes? But same concern as I just stated for question 95.
+97. Should Phase 2 rewrite phase_2_to_11_execution_program.md before any issue/milestone generation?
+A: I mean, idk, maybe let's just focus on phases 2 and 3 for now, yk? This file is more where we place our finalized revamped phase plan for phases 2 and 3, but idk about beyond that point, yk?
+98. Should WIP_QUESTION_LEDGER.txt be deleted, replaced, or converted?
+A: Nuke that thing. Take a look at `loo_cast_alpha/docs/ai_conversation_logs/question_batch_001.txt` and `loo_cast_alpha/docs/ai_conversation_logs/question_batch_002.txt`. Those are the replacement.
+99. Should the glossary get authority state only where needed, rather than adding rigid frontmatter everywhere?
+A: Yeeeeeeees, I like the sound of that. I hataaate overly-eager and overly-early "rigid frontmatter" in that regard; so yes, just like """lock in""" stuff that is really like SET IN STONE and CONFIRMED BY ME, yk? And even then, EVERYTHING is subject to change and WIP in a broad sense, and nothing can override that fundamental instability we still have, okay?  That is just a fact for the whole pre-alpha stage.
+100. Should old source_of_truth: [] fields remain, or are they misleading?
+A: I suppose it's misleading in like 98% of cases, yk?
+101. Should we add a convention like Current owner-answer-informed pressure: instead of formal authority fields?
+A: What?
+102. Should AGENT.md instruct future agents to treat RFCs as stale if they conflict with the latest glossary?
+A: Absolutely, 100%, the RFCs are not really something I use, idk, the glossary in the form of linked markdown files (obsidian teached me hehe) works REALLY FUCKING WELL for me personally, yk? Idk, the RFCs, yeah, they are, as a rule, outdated/inaccurate, yeah.
+103. Should NOW.md be updated to stop saying core_mod is a first-party mod?
+A: NOW.md seems like a massively underappreciate file, and AGENT.md proooobably maybe also doesn't really instruct to use and update this file, right? Hm, idk. I mean NOW.md would be useful as a concept, if it were really short and concise, like a list of adhoc checkpoints/tasks, and if it were updated frequently and integrated tightly into the/a loop, yk?
+104. Should ARCHITECTURE.md be updated now, or wait until the glossary settles?
+A: Wait until the glossary settles.
+105. Should CONTRACTS.md mention Vapor/Steam, or is that too early?
+A: Absoooooolutely we should mention that stuff, but idk if it's too early tbf..... so yeah, idk lol.
+106. Should Phase 3 still be launcher -> modpack -> core_mod/USF placeholder -> base_mod loop, or now launcher -> Vapor package -> Spacetime Engine -> Loo Cast?
+A: I do like the "launcher -> Vapor package -> Spacetime Engine -> Loo Cast" framing, yeah. Let's go with that.
+107. Is the Phase 3 MVP primarily a product-stack proof, not a USF proof?
+A: Yeeeeeeeeeeeeeees, exactly.
+108. Should USF-specific implementation begin only after capability/slot/product-stack semantics are less confused?
+A: Yeeeeees, absolutely, 10000%.
+109. Is capability semantics still the highest-risk downstream poison point?
+A: Yeeeeeeeeees.
+110. What is the single worst remaining false assumption in the docs right now?
+A: That the docs are to be trusted in any capacity at any time beyond a simple hint of some glossary page being "authoritative" or "locked". But the core false assumption truly is that the docs are to be trusted and are not a constantly evolving and fluid medium for crystallizing my ideas and thoughts ino a coherent web of actual readable navigable explorable plaintext, yk?
